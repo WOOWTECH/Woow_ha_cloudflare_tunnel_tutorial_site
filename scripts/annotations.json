@@ -8,15 +8,17 @@
     {
       "chapter":"ch3","filename":"01_webgui_dashboard.png","haPanel":"Cloudflared","url":"/1b7b4ce7_cloudflared","waitFor":"home-assistant","waitMs":9000,"viewport":{"width":1440,"height":900},
       "annotations":[
-        {"type":"callout","at":{"x":720,"y":88},"number":1,"text":"上方四個分頁是 Web GUI 的主要導覽"},
-        {"type":"callout","at":{"x":1030,"y":320},"number":2,"text":"唯讀檢查時不要按 Restart Add-on"}
+        {"type":"callout","at":{"x":743,"y":70},"number":1,"text":"四個分頁：Dashboard／Setup／Config／Logs"},
+        {"type":"callout","at":{"x":352,"y":320},"number":2,"text":"唯讀檢查不按 Restart Add-on"}
       ]
     },
     {
       "chapter":"ch6","filename":"01_dashboard_status.png","haPanel":"Cloudflared","url":"/1b7b4ce7_cloudflared","waitFor":"home-assistant","waitMs":9000,"viewport":{"width":1440,"height":900},
       "annotations":[
-        {"type":"callout","at":{"x":720,"y":88},"number":1,"text":"上方四個分頁是 Web GUI 的主要導覽"},
-        {"type":"callout","at":{"x":1030,"y":320},"number":2,"text":"唯讀檢查時不要按 Restart Add-on"}
+        {"type":"callout","at":{"x":373,"y":180},"number":1,"text":"Tunnel：running"},
+        {"type":"callout","at":{"x":709,"y":180},"number":2,"text":"Mode：token"},
+        {"type":"callout","at":{"x":1045,"y":180},"number":3,"text":"Add-on：started"},
+        {"type":"callout","at":{"x":352,"y":325},"number":4,"text":"不按 Restart Add-on"}
       ]
     }
   ]
