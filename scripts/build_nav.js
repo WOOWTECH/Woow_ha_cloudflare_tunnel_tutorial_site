@@ -159,11 +159,11 @@ ${chapterItems}
       <h2>本章</h2>
 ${inChapter}
     </div>
-    <div class="toc-in-chapter">
+${appendices.length ? `    <div class="toc-in-chapter">
       <h2>附錄</h2>
 ${appendixItems}
     </div>
-  </aside>`;
+` : ''}  </aside>`;
 }
 
 /* --------------------------------------------------------------- pager --- */
@@ -278,10 +278,10 @@ function buildIndex() {
     if (g) g.items.push(c);
     else groups.push({ title, items: [c] });
   }
-  groups.push({ title: '附錄', items: appendices });
+  if (appendices.length) groups.push({ title: '附錄', items: appendices });
 
   const hero = `    <div class="hero">
-      <span class="kicker-script">Human</span>
+      <span class="kicker-script">Secure</span>
       <div class="kicker">${esc(site.title)}</div>
       <h1>${esc(site.subtitle)}</h1>
       <p>${esc(site.description)}</p>

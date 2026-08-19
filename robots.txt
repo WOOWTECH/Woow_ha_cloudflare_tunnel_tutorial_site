@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ha-tailscale-guide.woowtech.io/sitemap.xml
+Sitemap: https://ha-cloudflare-tunnel-guide.woowtech.io/sitemap.xml

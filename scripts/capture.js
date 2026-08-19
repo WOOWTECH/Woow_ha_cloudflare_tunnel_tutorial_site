@@ -17,7 +17,6 @@ const { chromium } = require('playwright');
 // 專案根目錄 = 這個檔案的上一層，clone 到哪都能跑
 const ROOT = path.resolve(__dirname, '..');
 const ENV_PATH = path.join(ROOT, '.env');
-const STATE_PATH = path.join(ROOT, 'storage_state.json');
 const SHOTS_JSON = path.join(ROOT, 'scripts', 'annotations.json');
 const SHOTS_DIR = path.join(ROOT, 'assets', 'screenshots');
 const BROWSERLESS_TOKEN_PATH = process.env.BROWSERLESS_TOKEN_FILE || '/data/pi-agent/.browserless-token';
@@ -49,42 +48,11 @@ async function gotoWithRetry(page, url, tries = 3) {
       return;
     } catch (e) {
       lastErr = e;
-      console.log(`  retry ${i + 1}/${tries}: ${e.message.split('\n')[0]}`);
+      console.log(`  navigation retry ${i + 1}/${tries}`);
       await page.waitForTimeout(2000);
     }
   }
   throw lastErr;
-}
-
-async function ensureLogin(browser, env) {
-  if (fs.existsSync(STATE_PATH)) {
-    console.log('· using cached storage_state.json');
-    return await browser.newContext({
-      storageState: STATE_PATH,
-      viewport: { width: 1440, height: 900 },
-    });
-  }
-  console.log('· no cache, doing UI login');
-  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
-  const page = await ctx.newPage();
-  await gotoWithRetry(page, env.HA_URL);
-  await page.waitForLoadState('networkidle', { timeout: 20000 }).catch(() => {});
-  await page.waitForTimeout(2500);
-  await page.waitForSelector('input[name="username"]', { timeout: 20000 });
-  await page.fill('input[name="username"]', env.HA_USER);
-  await page.fill('input[name="password"]', env.HA_PASS);
-  // Keep me logged in → long-lived refresh token persisted in storageState
-  await page.locator('input[type="checkbox"]').first().check().catch(() => {});
-  await page.locator('input[name="password"]').press('Enter');
-  // A URL-only check can pass before HA has consumed the authorization callback.
-  // Wait until the login form itself disappears, then visit Home once to settle cookies.
-  await page.locator('input[name="username"]').waitFor({ state: 'hidden', timeout: 30000 }).catch(() => {});
-  await page.goto(env.HA_URL + '/home/overview', { waitUntil: 'domcontentloaded', timeout: 30000 });
-  await page.waitForTimeout(4000);
-  await ctx.storageState({ path: STATE_PATH });
-  console.log('· saved storage_state.json (post-login URL: ' + page.url() + ')');
-  await page.close();
-  return ctx;
 }
 
 // Inject annotation overlay into current page and return so screenshot picks it up.
@@ -123,6 +91,8 @@ async function injectAnnotations(page, annotations) {
     // The HA sidebar displays the signed-in account at the lower-left. Always
     // cover it before processing the shot-specific overlays.
     const safeDefs = [
+      { type: 'redact', at: { x: 0, y: 55 }, w: 252, h: 270, text: '其他側欄項目已遮罩' },
+      { type: 'redact', at: { x: 0, y: 370 }, w: 252, h: 470, text: '其他側欄項目已遮罩' },
       { type: 'redact', at: { x: 0, y: 840 }, w: 252, h: 60, text: '帳號已遮罩' },
       ...defs,
     ];
@@ -241,34 +211,18 @@ async function injectAnnotations(page, annotations) {
 //   { waitFor: "selector" }              → wait for selector visible
 //   { url: "/path" }                     → navigate within HA
 async function runActions(page, env, actions) {
+  const safeTabs = new Set(['text=Dashboard', 'text=Setup', 'text=Config', 'text=Logs']);
   for (const act of actions) {
-    if (act.click) {
-      await page.locator(act.click).first().click({ timeout: 8000 }).catch((e) => {
-        console.log(`    · click failed (${act.click}): ${e.message.split('\n')[0]}`);
-      });
-    } else if (act.hover) {
-      await page.locator(act.hover).first().hover({ timeout: 8000 }).catch(() => {});
-    } else if (act.press) {
-      await page.keyboard.press(act.press);
-    } else if (act.type) {
-      await page.locator(act.type.selector).first().fill(act.type.text).catch(() => {});
-    } else if (act.frameClick) {
-      const { frameUrlIncludes, selector } = act.frameClick;
-      const frame = page.frames().find((f) => f.url().includes(frameUrlIncludes));
-      if (!frame) {
-        console.log(`    · frame not found (${frameUrlIncludes})`);
-      } else {
-        await frame.locator(selector).first().click({ timeout: 8000 }).catch((e) => {
-          console.log(`    · frame click failed (${selector}): ${e.message.split('\n')[0]}`);
-        });
-      }
-    } else if (act.wait) {
+    if (act.wait) {
       await page.waitForTimeout(act.wait);
     } else if (act.waitFor) {
       await page.waitForSelector(act.waitFor, { timeout: 8000 }).catch(() => {});
-    } else if (act.url) {
-      await gotoWithRetry(page, env.HA_URL + act.url);
-      await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});
+    } else if (act.press === 'Escape') {
+      await page.keyboard.press('Escape');
+    } else if (act.click && safeTabs.has(act.click)) {
+      await page.locator(act.click).first().click({ timeout: 8000 });
+    } else {
+      throw new Error('Unsafe capture action blocked by read-only policy');
     }
   }
 }
@@ -277,7 +231,7 @@ async function captureOne(ctx, env, shot) {
   const page = await ctx.newPage();
   await page.setViewportSize(shot.viewport || { width: 1440, height: 900 });
   const url = /^https?:\/\//.test(shot.url || '') ? shot.url : env.HA_URL + (shot.url || '/');
-  console.log(`  → ${shot.chapter}/${shot.filename}  ${url}`);
+  console.log(`  → ${shot.chapter}/${shot.filename}`);
   // HA sidebar panels use a page-scoped OAuth callback. Navigate through the
   // sidebar for these shots instead of deep-linking before the callback settles.
   if (shot.haPanel) {
@@ -374,7 +328,7 @@ async function connectBrowser() {
     try {
       await captureOne(ctx, env, shot);
     } catch (e) {
-      console.error(`  ✗ ${shot.chapter}/${shot.filename}: ${e.message}`);
+      console.error(`  ✗ ${shot.chapter}/${shot.filename}: capture failed`);
     }
   }
   await loggedInCtx.close();

@@ -12,11 +12,11 @@
   <meta property="og:title" content="第 6 章 · Dashboard 狀態 · Home Assistant Cloudflared Web GUI 指南" />
   <meta property="og:description" content="Cloudflared Web GUI Dashboard：Tunnel 狀態、edge connections 與安全檢查。" />
   <meta property="og:url" content="https://ha-cloudflare-tunnel-guide.woowtech.io/ch6_dashboard.html" />
-  <meta property="og:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/screenshots/ch3/01_webgui_dashboard.png" />
+  <meta property="og:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/screenshots/ch6/01_dashboard_status.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="第 6 章 · Dashboard 狀態 · Home Assistant Cloudflared Web GUI 指南" />
   <meta name="twitter:description" content="Cloudflared Web GUI Dashboard：Tunnel 狀態、edge connections 與安全檢查。" />
-  <meta name="twitter:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/screenshots/ch3/01_webgui_dashboard.png" />
+  <meta name="twitter:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/screenshots/ch6/01_dashboard_status.png" />
   <meta name="theme-color" content="#6183FC" />
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh-hant" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -49,18 +49,14 @@
     <div class="toc-in-chapter">
       <h2>本章</h2>
       <a href="#why">為什麼要學</a>
-      <a href="#concept">先懂觀念</a>
-      <a href="#steps">動手做</a>
-      <a href="#choices">選項判斷</a>
+      <a href="#concept">狀態觀念</a>
+      <a href="#steps">唯讀檢查</a>
+      <a href="#choices">狀態判斷</a>
       <a href="#security">安全檢查</a>
       <a href="#test">驗收測試</a>
       <a href="#troubleshoot">常見排錯</a>
       <a href="#faq">FAQ</a>
       <a href="#sources">官方來源</a>
-    </div>
-    <div class="toc-in-chapter">
-      <h2>附錄</h2>
-
     </div>
   </aside><main class="content">
 <div class="chapter-header"><div class="kicker">第 6 章</div><h1>Dashboard：讀懂 Tunnel 健康狀態</h1><p class="lead">用 Tunnel、Mode、Add-on 三張狀態卡分層判讀，理解 edge connections 是連到 Cloudflare edge 的就緒連線，不是訪客人數。這章只觀察、交叉測試與記錄，完全不按 Restart Add-on。</p></div>
@@ -96,6 +92,7 @@
 <li><h3>到 Logs 找同一時間窗</h3><p>先讀錯誤前後最小範圍，找第一個明確的 validation、authorization、DNS、network 或 origin 訊息。Logs 可能有 hostname、IP、UUID 與敏感 URL，記錄前必須遮罩。</p></li>
 <li><h3>用行動網路做外部測試</h3><p>若服務原本已正式上線，手機關閉 Wi-Fi，開啟既有 HTTPS hostname，確認到正確登入頁且能持續更新。完成後回 Dashboard 再記一次狀態；整個流程不按 Restart Add-on。</p></li>
 </ol>
+<figure class="shot"><img src="assets/screenshots/ch6/01_dashboard_status.png" alt="Cloudflared Web GUI Dashboard 的 Tunnel、模式與 Add-on 狀態卡" /><figcaption><strong>圖 6-1</strong>先讀三張狀態卡與 edge connections，再用 Setup、Logs 和外部測試交叉驗證；唯讀檢查不按 Restart。</figcaption></figure>
 <div class="callout"><strong>觀察順序：</strong>本機 HA → Dashboard 三卡 → Setup → Logs → 外部 URL。這個順序能把「HA 本身」「App 管理」「connector」「DNS／origin」分層，不靠重啟碰運氣。</div>
 </section>
 <section id="choices" data-nav="狀態判斷"><h2 data-icon="compare">常見狀態組合與下一步</h2>
@@ -117,7 +114,7 @@
 <li><h3>不按 Restart Add-on</h3><p>唯讀巡檢沒有重啟理由。Restart 會用已儲存設定重跑 setup，讓 Tunnel 與 Web GUI 短暫中斷；若授權、DNS 或設定有問題，也可能再次觸碰那些流程。</p></li>
 <li><h3>不把 Dashboard 當公開監控頁</h3><p>它是 Home Assistant Ingress 管理介面，應留在 HA 登入後。不要替內部 8099 建立 public hostname、port forwarding 或未驗證反向代理。</p></li>
 <li><h3>分享前移除識別資料</h3><p>畫面或旁邊的 Setup／Logs 可能帶出版本、hostname、Tunnel UUID、帳號、IP 與授權 URL。求助時改寫成時間軸與狀態文字，避免整頁截圖。</p></li>
-<li><h3>不因 running 放寬存取</h3><p>Tunnel readiness 不等於身份驗證。Home Assistant 仍應使用個人帳號、強密碼與多因素驗證；不必要的 additional hosts、catch-all 與高權限管理頁應移除。</p></li>
+<li><h3>不因 running 放寬存取</h3><p>Tunnel readiness 不等於身分驗證。Home Assistant 仍應使用個人帳號、強密碼與多因素驗證；不必要的 additional hosts、catch-all 與高權限管理頁應移除。</p></li>
 <li><h3>保留本機退路</h3><p>遠端健康不代表永遠可用。持續維護家中區網入口、備份與現場協助方式，避免將 Tunnel 變成唯一管理通道。</p></li>
 <li><h3>分清 Save 與 Restart</h3><p>Dashboard Restart 使用目前已存 options；Config 的 <strong>Save &amp; Restart</strong> 先修改 options 再重啟。後者會變更設定，兩者都不是診斷用的「重新整理」。</p></li>
 </ol>
@@ -145,7 +142,7 @@
 <li><h3>running，但公開 hostname 顯示 502</h3><p>running 只證明 connector 到 edge 有 ready connection。先從家中測 origin，再核對 route 的 service 協定、IP、port 與 Home Assistant proxy；不要重做授權。</p></li>
 <li><h3>running，但開到錯的服務或 404</h3><p>核對瀏覽器 hostname、local options 或 Cloudflare public hostname 是否屬於目前模式，並檢查 additional hosts 與 catch-all 順序。先修 route 證據，不把問題誤判為 edge。</p></li>
 <li><h3>Add-on 顯示 Supervisor unreachable</h3><p>重新整理一次，對照 Home Assistant App 詳細頁與系統狀態。若 App 仍運作，擷取已遮罩的 API／Ingress 錯誤摘要；不要公開整頁或為了測試額外開 port。</p></li>
-<li><h3>Mode 顯示 token，但原本預期 local</h3><p>立即停止任何變更，確認是否已有管理者設定 remote Tunnel。不要在 Config 按移除 token或 Save &amp; Restart；那會改變 options、重啟並可能讓既有入口中斷。</p></li>
+<li><h3>Mode 顯示 token，但原本預期 local</h3><p>立即停止任何變更，確認是否已有管理者設定 remote Tunnel。不要在 Config 按移除 token 或 Save &amp; Restart；那會改變 options、重啟並可能讓既有入口中斷。</p></li>
 <li><h3>狀態顯示 unknown 或頁面載入失敗</h3><p>先判斷是 Ingress、Web GUI health API 還是整個 App 不可用。回 Home Assistant App 頁讀狀態與 Logs；unknown 不是 stopped，也不能靠按 Restart 當第一步。</p></li>
 </ol>
 </section>

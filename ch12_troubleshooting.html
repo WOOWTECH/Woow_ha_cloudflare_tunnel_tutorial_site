@@ -58,10 +58,6 @@
       <a href="#faq">FAQ</a>
       <a href="#sources">官方來源</a>
     </div>
-    <div class="toc-in-chapter">
-      <h2>附錄</h2>
-
-    </div>
   </aside><main class="content">
 <div class="chapter-header"><div class="kicker">第 12 章</div><h1>排錯、更新與交接</h1><p class="lead">從手機看到的結果一路往內查到 DNS、Cloudflare edge、Tunnel connector、cloudflared 與 Home Assistant origin。你也會學會在更新前留退路、失敗時安全回復，並交出不含祕密但足以接手的紀錄。</p></div>
 <section id="why" data-nav="為什麼要學"><h2 data-icon="why">為什麼要學這個</h2><p>遠端網址打不開時，最常見的錯誤不是「整套都壞了」，而是其中一層沒有接上。若一開始就重裝 add-on、改 DNS、重設 token，等於家裡跳電時先拆配電箱：不但證據消失，還可能新增第二個問題。</p><p>本章採用由外往內（outside-in）的順序：先保存使用者實際看到的錯誤，再確認 hostname 與 Cloudflare edge，接著看 Tunnel connector、add-on 日誌，最後驗證 Home Assistant 本地 origin。每一步只有一個判斷，找到第一個失敗層就停在那層處理。</p><div class="callout tip"><strong>排錯三件套：</strong>記下發生時間、完整錯誤碼或畫面文字、當時使用 Wi-Fi 還是行動網路。不要只寫「不能用」，也不要把授權網址、token 或整份未遮密日誌附上。</div></section>

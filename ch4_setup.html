@@ -49,18 +49,14 @@
     <div class="toc-in-chapter">
       <h2>本章</h2>
       <a href="#why">為什麼要學</a>
-      <a href="#concept">先懂觀念</a>
-      <a href="#steps">動手做</a>
+      <a href="#concept">模式觀念</a>
+      <a href="#steps">設定步驟</a>
       <a href="#choices">選項判斷</a>
       <a href="#security">安全檢查</a>
       <a href="#test">驗收測試</a>
       <a href="#troubleshoot">常見排錯</a>
       <a href="#faq">FAQ</a>
       <a href="#sources">官方來源</a>
-    </div>
-    <div class="toc-in-chapter">
-      <h2>附錄</h2>
-
     </div>
   </aside><main class="content">
 <div class="chapter-header"><div class="kicker">第 4 章</div><h1>Setup 精靈：先選管理模式</h1><p class="lead">先分清楚本機管理與遠端管理，再看 Setup 精靈每一步代表什麼。你會完成設定計畫、知道何時會寫入與重啟，但不會把兩種模式混在一起。</p></div>
@@ -87,10 +83,13 @@
 <li><h3>先確認本機退路與維護時段</h3><p>用家中 Wi-Fi 開啟 Home Assistant 本機網址並登入，確認不是只靠目前 Tunnel。若人在外面、家中沒有人可協助，或目前連線正被家人使用，就停在規劃，不做任何重啟。</p></li>
 <li><h3>確認 Cloudflare 帳號與 DNS zone</h3><p>登入你自己的 Cloudflare 帳號，確認預定網域確實使用 Cloudflare DNS，且你有管理正確 zone 的權限。預定 hostname 若已有網站、郵件或其他用途，另選新名稱，因本機流程可能覆寫相符 DNS 記錄。</p></li>
 <li><h3>只選一種模式</h3><p>沒有既有 remote-managed Tunnel 時，依專案 DOCS 選本機管理型。若已在 Cloudflare 建立 Tunnel、知道 public hostname 在哪裡維護，而且持有該 Tunnel token，才選遠端管理型；把選擇寫在非敏感維護筆記。</p></li>
-<li><h3>準備 Home Assistant 反向代理設定</h3><p>若要把 Home Assistant 放在 Tunnel 後方，先依專案 DOCS 與 Home Assistant HTTP integration 文件確認 <code>use_x_forwarded_for</code> 與 <code>trusted_proxies</code>。不要猜任意廣泛網段；專案標準 App 情境使用文件指定的 Docker 網段，非標準安裝則依實際日誌判斷。</p></li>
-<li><h3>本機模式只規劃最小路由</h3><p>先規劃一個 Home Assistant 的 <code>external_hostname</code>；若只要公開其他服務，文件允許 external hostname 留空並使用 additional hosts。新手不要先開 catch-all、萬用 DNS、路由器或 NAS 管理頁。</p></li>
+<li><h3>完成 Home Assistant 反向代理設定</h3><p>若要把 Home Assistant 放在 Tunnel 後方，先在本機備份 <code>configuration.yaml</code>，再依專案 DOCS 將下列最小設定合併到既有 <code>http:</code> 區塊。標準 Supervisor App 情境使用文件指定的 Docker 網段；非標準安裝不要照抄，應依實際 HA 日誌判斷。</p><pre class="code-block"><code>http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.0/24</code></pre><p>用 Home Assistant 的設定檢查確認 YAML 正常，安排一次 HA 重新啟動，並重新驗證本機網址可登入。這一步是正式變更；若沒有本機退路就停下來。</p></li>
+<li><h3>在 Config 填入最小本機路由</h3><p>本機模式第一次只填一個真正屬於你的 <code>external_hostname</code>，例如 <code>ha.example.com</code>；確認它位於正確 Cloudflare zone，且沒有承載網站、郵件或其他既有服務。保持 <code>additional_hosts</code> 為空，不啟用 catch-all、萬用 DNS、路由器或 NAS 管理頁。</p></li>
 <li><h3>遠端模式只準備 token 與 Cloudflare 路由</h3><p>在 Cloudflare 儀表板建立的 Tunnel 取得 token，使用密碼管理器保管；public hostname 與 origin service 也在 Cloudflare 端設定。不要同時期待 App 的 local options 管理相同路由。</p></li>
-<li><h3>進入 Setup 只核對預期路線</h3><p>本機模式應看到 Configure、Authorize、Tunnel created、Tunnel connected 四步；遠端模式應看到 token 模式提示。此時仍可離開而不改系統。真正填值要到 Config；按 <strong>Save &amp; Restart</strong> 前再次確認，因它會寫入 options 並重啟 App。</p></li>
+<li><h3>回 Setup 核對預期路線</h3><p>本機模式在 Config 填完最小值後，先不要按按鈕，回頭確認 Setup 預期顯示 Configure、Authorize、Tunnel created、Tunnel connected 四步；遠端模式應顯示 token 提示。接著回 Config 做最後核對。只有你在自己的環境、已完成 HA proxy 設定、有本機退路與維護時段時，才可按 <strong>Save &amp; Restart</strong>；它會真實寫入 options 並重啟 App，然後本機模式才進入第 5 章授權。</p></li>
 </ol>
 <div class="callout tip"><strong>最小變更原則：</strong>第一次只讓一個必要 hostname 通過。完成授權與端到端測試後，再依<a href="ch9_additional_hosts.html">第 9 章</a>評估 additional hosts。</div>
 </section>

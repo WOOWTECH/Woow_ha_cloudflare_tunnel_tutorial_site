@@ -58,10 +58,6 @@
       <a href="#faq">FAQ</a>
       <a href="#sources">官方來源</a>
     </div>
-    <div class="toc-in-chapter">
-      <h2>附錄</h2>
-
-    </div>
   </aside><main class="content">
 <div class="chapter-header"><div class="kicker">第 3 章</div><h1>第一次開啟 Web GUI</h1><p class="lead">從 Home Assistant Ingress 進入管理介面，先看懂 Dashboard、Setup、Config 與 Logs 各自負責什麼。這次只瀏覽與辨識狀態，不按 Restart、Save、Save &amp; Restart、授權或任何會改變系統的控制項。</p></div>
 <section id="why" data-nav="為什麼要學"><h2 data-icon="why">先認路，再碰會改設定的按鈕</h2>
@@ -89,6 +85,7 @@
 <li><h3>切到 Logs，只看即時狀態</h3><p>Logs 的內容與 Home Assistant App Log 分頁相同，會顯示 Connected／Disconnected、篩選欄與日誌區。不要下載或公開完整日誌；若只想辨識頁面，看到串流已連線或 Waiting for logs 即可。</p></li>
 <li><h3>回到 Dashboard 並離開</h3><p>再次確認沒有重啟中的提示、沒有新增 hostname，也沒有進入 Cloudflare 授權頁。關閉 Web GUI 分頁或回 Home Assistant 首頁；不需要登出 Home Assistant，也不需要停止 App。</p></li>
 </ol>
+<figure class="shot"><img src="assets/screenshots/ch3/01_webgui_dashboard.png" alt="既有 remote-managed Tunnel 的 Cloudflared Web GUI Dashboard，顯示四個主要分頁" /><figcaption><strong>圖 3-1</strong>這是既有 remote-managed Tunnel 的唯讀範例，不是全新安裝的預期空白狀態；本章只用它辨識四個分頁，且不按 Restart Add-on。</figcaption></figure>
 <div class="callout tip"><strong>判讀原則：</strong>狀態字樣比顏色可靠。不同版本的徽章顏色與排列可能調整，請讀 Tunnel、Mode、Add-on 的文字，不要只用綠色或紅色猜測。</div>
 </section>
 <section id="choices" data-nav="選項判斷"><h2 data-icon="compare">四個頁面各自回答什麼問題</h2>

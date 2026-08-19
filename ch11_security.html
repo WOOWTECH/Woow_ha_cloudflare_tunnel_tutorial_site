@@ -58,10 +58,6 @@
       <a href="#faq">FAQ</a>
       <a href="#sources">官方來源</a>
     </div>
-    <div class="toc-in-chapter">
-      <h2>附錄</h2>
-
-    </div>
   </aside><main class="content">
 <div class="chapter-header"><div class="kicker">第 11 章</div><h1>安全檢查與最小暴露</h1><p class="lead">Tunnel 省掉路由器開埠，不代表每個 hostname 都該公開。你會逐層檢查 Cloudflare 帳號、DNS、Tunnel 路由、Zero Trust Access、Home Assistant 登入與 trusted proxy，讓每一層只擁有完成任務所需的權限。</p></div>
 <section id="why" data-nav="為什麼要學"><h2 data-icon="why">為什麼要學這個</h2><p>Cloudflare Tunnel 是由家中的 cloudflared 主動連向 Cloudflare，因此不用替 Home Assistant 在路由器開放入站連接埠。但「沒有開埠」只解決網路入口的一部分：DNS 仍決定外界能找到哪個名稱，Tunnel 路由決定名稱送去哪個內網服務，登入與 Access 政策則決定誰能進去。</p><p>把 NAS、路由器、監視器管理頁都放進 <code>additional_hosts</code>，就像為每個房間各做一扇外門。即使每扇門都有登入，也增加了要更新、監看與保護的入口。最安全的起點是只公開真的需要遠端使用的 Home Assistant hostname，其餘服務維持內網限定。</p><div class="callout"><strong>最小暴露：</strong>每新增一個 hostname 前，先回答「誰需要、何時需要、能否用 HA 功能取代、停止使用後由誰刪除 DNS 與路由」。答不出來就先不要新增。</div></section>

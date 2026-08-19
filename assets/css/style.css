@@ -135,7 +135,7 @@ h1, h2, h3, h4 { margin-top: 0; color: var(--text-primary); font-family: var(--f
 .sidebar .toc-in-chapter a.active { font-weight: 600; }
 .nav-toggle { display: none; }
 
-.content { width: min(100%, calc(var(--max-content) + 160px)); padding: 72px 80px 112px; }
+.content { width: min(100%, calc(var(--max-content) + 160px)); padding: 72px 80px 112px; overflow-x: hidden; }
 .chapter-header { max-width: var(--max-content); margin-bottom: 64px; }
 .chapter-header .kicker, .home .hero .kicker { margin-bottom: var(--space-3); color: var(--ww-blue); font: 600 11px/1.4 var(--font-title); letter-spacing: .14em; text-transform: uppercase; }
 .chapter-header h1 { margin-bottom: var(--space-4); font-size: clamp(36px, 4.2vw, 52px); font-weight: 700; line-height: 1.08; }
@@ -221,6 +221,7 @@ figure.shot figcaption strong { color: var(--ww-blue-700); }
 .data-table th, .data-table td { min-width: 120px; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--hairline); color: var(--text-secondary); text-align: left; vertical-align: top; }
 .data-table th { position: sticky; top: 0; background: var(--surface-muted); color: var(--text-primary); font: 600 16px/1.4 var(--font-title); white-space: nowrap; }
 .data-table tr:last-child td { border-bottom: 0; }
+.data-table code { white-space: normal; overflow-wrap: anywhere; }
 .data-table tbody tr:hover td { background: #FAFBFF; }
 pre.code-block { max-width: 100%; margin: var(--space-5) 0; padding: var(--space-5); overflow-x: auto; border: 1px solid var(--hairline); border-radius: var(--radius); background: #F7F8FC; color: var(--text-primary); font: 16px/1.7 var(--font-mono); box-shadow: var(--shadow-sm); }
 code { padding: 2px 6px; border-radius: var(--radius-sm); background: var(--ww-blue-050); color: var(--ww-blue-700); font: 1em/1.45 var(--font-mono); }
@@ -323,6 +324,10 @@ details.faq .body { padding: var(--space-5); color: var(--text-secondary); font-
   .course-path-list i { width: 40px; height: 40px; }
   .chapter-grid { grid-template-columns: 1fr; }
   .chapter-card { min-height: 0; padding: var(--space-5); }
+}
+@media (max-width: 360px) {
+  .sidebar .brand { font-size: 17px; }
+  .sidebar .brand::before { width: 28px; height: 28px; font-size: 18px; vertical-align: -4px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
