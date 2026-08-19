@@ -63,16 +63,96 @@
 
     </div>
   </aside><main class="content">
-<div class="chapter-header"><div class="kicker">第 3 章</div><h1>第一次開啟</h1><p class="lead">從 Home Assistant Ingress 開啟介面，認識 Dashboard、Setup、Config 與 Logs。</p></div>
-<section id="why" data-nav="為什麼要學"><h2 data-icon="why">為什麼要學這個</h2><p>內容撰寫中。</p></section>
-<section id="concept" data-nav="先懂觀念"><h2 data-icon="concept">先懂核心觀念</h2><p>內容撰寫中。</p></section>
-<section id="steps" data-nav="動手做"><h2 data-icon="steps">動手做</h2><ol class="steps"><li><h3>步驟一</h3><p>內容撰寫中。</p></li><li><h3>步驟二</h3><p>內容撰寫中。</p></li><li><h3>步驟三</h3><p>內容撰寫中。</p></li><li><h3>步驟四</h3><p>內容撰寫中。</p></li></ol></section>
-<section id="choices" data-nav="選項判斷"><h2 data-icon="compare">選項怎麼判斷</h2><p>內容撰寫中。</p></section>
-<section id="security" data-nav="安全檢查"><h2 data-icon="security">安全檢查</h2><p>內容撰寫中。</p></section>
-<section id="test" data-nav="驗收測試"><h2 data-icon="test">驗收測試</h2><p>內容撰寫中。</p></section>
-<section id="troubleshoot" data-nav="常見排錯"><h2 data-icon="troubleshoot">常見排錯</h2><p>內容撰寫中。</p></section>
-<section id="faq" data-nav="FAQ"><h2 data-icon="faq">FAQ</h2><details class="faq"><summary>問題一</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題二</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題三</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題四</summary><div class="body">內容撰寫中。</div></details></section>
-<section id="sources" data-nav="官方來源"><h2 data-icon="book">官方來源與版本提示</h2><p>內容撰寫中。</p></section>
+<div class="chapter-header"><div class="kicker">第 3 章</div><h1>第一次開啟 Web GUI</h1><p class="lead">從 Home Assistant Ingress 進入管理介面，先看懂 Dashboard、Setup、Config 與 Logs 各自負責什麼。這次只瀏覽與辨識狀態，不按 Restart、Save、Save &amp; Restart、授權或任何會改變系統的控制項。</p></div>
+<section id="why" data-nav="為什麼要學"><h2 data-icon="why">先認路，再碰會改設定的按鈕</h2>
+<p>Cloudflared Web GUI 把原本分散在 App options 與日誌裡的資訊整理成四頁。好處是更容易看懂，風險則是「儲存」與「重新啟動」也變得很近：如果還沒弄清楚頁面責任就一路按下去，可能寫入 Supervisor options、重啟 App，接著建立或改動 Tunnel 與 DNS。</p>
+<div class="callout"><strong>這章只做唯讀導覽：</strong>你會確認 Ingress 可用、四個頁面能載入、空白設定顯示合理，並知道哪些按鈕是安全停止線。真正的 Setup、Cloudflare 授權與 hostname 設定留到後續章節。</div>
+<div class="callout warn"><strong>環境聲明：</strong>本教學擷取環境沒有被儲存、重新啟動、授權或修改 Tunnel；只讀畫面不代表曾在該環境執行本章描述的正式操作。你在自己的 Home Assistant 按按鈕時，仍要依警告承擔實際變更。</div>
+</section>
+<section id="concept" data-nav="先懂觀念"><h2 data-icon="concept">Ingress 是管理入口，不是遠端公開網址</h2>
+<p>從 App 詳細頁選 <strong>Open Web UI</strong> 時，Home Assistant 透過 Ingress 把 Web GUI 顯示在已登入的介面裡。專案的內部 Web GUI 服務使用 8099，但 App 設定不要求把這個 port 對外映射；你的 Home Assistant 登入就是進入這個管理頁的第一道門。</p>
+<table class="data-table"><thead><tr><th>你看到的網址／入口</th><th>用途</th><th>是否應另外公開</th></tr></thead><tbody>
+<tr><td>App 詳細頁的 Open Web UI</td><td>經 Ingress 開啟管理介面</td><td>不用；保持在 Home Assistant 登入後使用</td></tr>
+<tr><td>側邊欄 Cloudflared</td><td>同一個 Ingress 管理介面的捷徑</td><td>不用</td></tr>
+<tr><td><code>ha.example.com</code></td><td>日後規劃給 Home Assistant 的遠端 hostname</td><td>只有完成安全設定後才建立</td></tr>
+<tr><td>Cloudflare 授權網址</td><td>本地管理模式首次授權的短期操作入口</td><td>不可公開、轉貼或放進教學截圖</td></tr>
+</tbody></table>
+<div class="callout danger"><strong>不要繞過 Ingress：</strong>不要因為頁面載入慢就新增 8099 的 port forwarding、反向代理或 Cloudflare public hostname。若 Open Web UI 失敗，應查 App 狀態與 Ingress，而不是把管理服務暴露到網際網路。</div>
+</section>
+<section id="steps" data-nav="動手做"><h2 data-icon="steps">七步完成第一次唯讀導覽</h2>
+<ol class="steps">
+<li><h3>從 App 詳細頁進入</h3><p>到「設定」中的 Apps，開啟 <strong>Cloudflared Web GUI</strong> 詳細頁。確認 App 狀態是已啟動，再選 <strong>Open Web UI</strong>。若你在<a href="ch2_install.html">第 2 章</a>開了側邊欄顯示，也可選 Cloudflared 捷徑。</p></li>
+<li><h3>確認你仍在 Home Assistant 裡</h3><p>頁面應在 Home Assistant 登入保護下開啟，而不是要求你直接連內部 port。先核對左側仍有 Home Assistant 導覽與目前主機身分，避免把另一台主機的介面認成這台。</p></li>
+<li><h3>先看 Dashboard，不按 Restart</h3><p>辨識 Tunnel、Mode、Add-on 三類狀態卡，以及 <strong>Restart Add-on</strong>。空白 options 時，畫面可能提示尚未設定且 Tunnel stopped；這是首次導覽的預期狀態，不是催你立刻重啟。</p></li>
+<li><h3>切到 Setup，只讀步驟狀態</h3><p>Setup 會追蹤設定、Cloudflare 授權、Tunnel 建立與連線。空白設定通常停在第一步並引導前往 Config。若畫面意外出現授權網址，不要點、複製或分享，先確認這台主機是否已有設定。</p></li>
+<li><h3>切到 Config，不碰表單</h3><p>確認頁面載入 Supervisor options，並找出 <strong>Save</strong>、<strong>Save &amp; Restart</strong>、<strong>Reset</strong> 的位置。不要在欄位輸入文字、切換按鈕或移除 token；這一章連暫存表單都不改，直接看完離開。</p></li>
+<li><h3>切到 Logs，只看即時狀態</h3><p>Logs 的內容與 Home Assistant App Log 分頁相同，會顯示 Connected／Disconnected、篩選欄與日誌區。不要下載或公開完整日誌；若只想辨識頁面，看到串流已連線或 Waiting for logs 即可。</p></li>
+<li><h3>回到 Dashboard 並離開</h3><p>再次確認沒有重啟中的提示、沒有新增 hostname，也沒有進入 Cloudflare 授權頁。關閉 Web GUI 分頁或回 Home Assistant 首頁；不需要登出 Home Assistant，也不需要停止 App。</p></li>
+</ol>
+<div class="callout tip"><strong>判讀原則：</strong>狀態字樣比顏色可靠。不同版本的徽章顏色與排列可能調整，請讀 Tunnel、Mode、Add-on 的文字，不要只用綠色或紅色猜測。</div>
+</section>
+<section id="choices" data-nav="選項判斷"><h2 data-icon="compare">四個頁面各自回答什麼問題</h2>
+<table class="data-table"><thead><tr><th>頁面</th><th>主要回答</th><th>可見內容</th><th>這章的停止線</th></tr></thead><tbody>
+<tr><td>Dashboard</td><td>App 與 Tunnel 現在怎麼了？</td><td>Tunnel 狀態、edge connections、模式、App／Supervisor 連線、版本</td><td>不按 Restart Add-on</td></tr>
+<tr><td>Setup</td><td>首次設定走到哪一步？</td><td>設定、授權、Tunnel 建立、連線進度；需要時顯示授權網址</td><td>不開授權網址、不複製連結</td></tr>
+<tr><td>Config</td><td>Supervisor options 目前是什麼？</td><td>token、hostname、additional hosts、catch-all 與進階 options</td><td>不改欄位、不按 Save 或 Save &amp; Restart</td></tr>
+<tr><td>Logs</td><td>App 與 <code>cloudflared</code> 回報了什麼？</td><td>與 HA Log 分頁相同的即時串流、篩選、清除畫面、下載</td><td>不公開或任意下載完整內容</td></tr>
+</tbody></table>
+<div class="callout"><strong>單一事實來源：</strong>專案 README 說明 Supervisor options 是設定的唯一事實來源。Config 不是另外一份設定：在 Web GUI 儲存會反映到 Home Assistant App 設定頁，反向修改也會同步。</div>
+<div class="callout warn"><strong>Reset 也不是還原備份：</strong>目前前端的 Reset 是把尚未儲存的表單恢復為已載入的 options，不會把系統回到出廠狀態。這章既然不輸入，就不需要按它。</div>
+</section>
+<section id="security" data-nav="安全檢查"><h2 data-icon="security">辨識所有會動到系統或洩漏資料的位置</h2>
+<table class="data-table"><thead><tr><th>控制項／資料</th><th>實際影響</th><th>安全做法</th></tr></thead><tbody>
+<tr><td>Dashboard：Restart Add-on</td><td>重新執行 Tunnel setup，Tunnel 與 GUI 會短暫斷線；使用既有已儲存設定</td><td>本章不按；正式重啟前先確認維護時段</td></tr>
+<tr><td>Config：Save</td><td>把表單寫入 Supervisor options，但仍需重啟才套用</td><td>不是草稿功能；確認所有欄位後才可用</td></tr>
+<tr><td>Config：Save &amp; Restart</td><td>寫入 Supervisor options，接著重新啟動 App</td><td>視為正式變更；先備份與核對影響</td></tr>
+<tr><td>Setup：授權網址</td><td>讓瀏覽器進入 Cloudflare zone 授權流程</td><td>只在可信裝置自行開啟，不分享、不截圖</td></tr>
+<tr><td>Config：<code>tunnel_token</code></td><td>遠端管理 Tunnel 的敏感憑證</td><td>即使畫面遮罩也不可複製到聊天或問題回報</td></tr>
+<tr><td>Logs：顯示／下載</td><td>可能含 hostname、Tunnel ID、IP、授權網址、錯誤上下文</td><td>先最小化摘錄並遮罩，再向可信對象求助</td></tr>
+</tbody></table>
+<div class="callout danger"><strong>最重要的停止線：</strong><strong>Save &amp; Restart</strong> 會修改 Supervisor options 並重新啟動 App。這可能觸發 Cloudflare 授權、Tunnel 建立、DNS 路由或既有連線中斷；唯讀導覽絕對不要按。</div>
+<div class="callout danger"><strong>祕密不可分享：</strong>授權網址、Tunnel token、憑證、登入 cookie 與未遮罩 Logs 都不能放在公開 issue、社群貼文、錄影或截圖中。只說「看到授權按鈕」就夠了，不要抄出網址。</div>
+</section>
+<section id="test" data-nav="驗收測試"><h2 data-icon="test">第一次開啟的驗收測試</h2>
+<ol class="steps">
+<li><h3>Ingress 可正常開啟</h3><p>從 App 詳細頁或側邊欄能進 Web GUI，過程由 Home Assistant 登入保護，沒有對內部 8099 建立直接公開連線。</p></li>
+<li><h3>四個頁面都能辨識</h3><p>你能指出 Dashboard 看狀態、Setup 看首次進度、Config 看 Supervisor options、Logs 看即時日誌，而且切換時沒有離開 App 的 Ingress。</p></li>
+<li><h3>空白狀態合理</h3><p>若第 2 章保持 options 空白，Dashboard／Setup 顯示未設定或 Tunnel stopped 可接受；Web GUI 可開才是這次重點，不把「尚未連線」誤判成安裝失敗。</p></li>
+<li><h3>Config 沒有被寫入</h3><p><code>external_hostname</code> 仍空白、<code>additional_hosts</code> 仍沒有項目，也沒有設定或移除 <code>tunnel_token</code>；你未按 Save、Save &amp; Restart 或 Reset。</p></li>
+<li><h3>App 沒有被重啟</h3><p>你未按 Dashboard 的 Restart Add-on，畫面沒有因本章操作而短暫失聯或重新執行 setup。</p></li>
+<li><h3>敏感內容沒有離開可信環境</h3><p>你未下載、轉貼或截取完整 Logs，未分享授權網址、token、hostname、Tunnel ID、帳號或 IP。</p></li>
+</ol>
+<div class="callout tip"><strong>合格狀態：</strong>就算 Tunnel 顯示 stopped，只要空白設定符合預期、四頁可讀且零變更，這章就是通過。下一章才開始規劃 Setup 欄位。</div>
+</section>
+<section id="troubleshoot" data-nav="常見排錯"><h2 data-icon="troubleshoot">第一次開啟常見卡關</h2>
+<ol class="steps">
+<li><h3>Open Web UI 是灰色或不存在</h3><p>回 App 詳細頁確認安裝完成且 App 已啟動，再重新整理 Home Assistant。若狀態反覆停止，查看 App Log 最新錯誤；不要改用公開 8099 當替代方案。</p></li>
+<li><h3>開啟後是空白頁或一直載入</h3><p>先等待短時間，再用 App 詳細頁重新開啟；確認 Home Assistant 工作階段仍有效。可嘗試重新整理瀏覽器，但不要在排錯過程按 Restart Add-on 或 Save &amp; Restart。</p></li>
+<li><h3>Dashboard 顯示 Tunnel stopped</h3><p>若 options 完全空白，這是專案刻意保留 Web GUI 的首次設定狀態。到 Setup 確認顯示未設定即可，不要用假 hostname 填滿欄位。</p></li>
+<li><h3>Dashboard 顯示 Supervisor unreachable</h3><p>先重新整理並確認 App 本身仍在執行。若持續顯示，讀 Home Assistant App Log 與系統狀態，記下 App 版本和已遮罩錯誤；不要為排除此訊息去修改 Tunnel options。</p></li>
+<li><h3>Logs 顯示 Disconnected 或 Waiting for logs</h3><p>短暫斷線不一定代表 Tunnel 故障；確認 App 沒有正在啟動或停止，稍候看串流是否恢復。需要時可用頁面的 Connect 重新連接日誌串流，這不等於重啟 App。</p></li>
+<li><h3>畫面已出現陌生 hostname、token configured 或授權網址</h3><p>立即停止，不要點連結、複製、清除 token 或儲存。這表示系統可能不是你預期的空白狀態；先和管理者確認既有用途，並把敏感畫面留在可信環境。</p></li>
+<li><h3>切到 Config 時誤改了欄位</h3><p>只要尚未按 Save 或 Save &amp; Restart，先離開頁面再重新進入，讓已儲存 options 重新載入。不要按 Save「改回去」；那仍是一次 Supervisor options 寫入。</p></li>
+</ol>
+</section>
+<section id="faq" data-nav="FAQ"><h2 data-icon="faq">第一次開啟常見問題</h2>
+<details class="faq"><summary>Dashboard 顯示 stopped，代表 App 壞掉嗎？</summary><div class="body">不一定。WOOWTECH 版本在設定完全空白時會刻意讓 Web GUI 保持可用、Tunnel 停止，方便首次設定。先確認 App 與 Ingress 能運作，不要急著輸入假資料。</div></details>
+<details class="faq"><summary>Open Web UI 和側邊欄 Cloudflared 是不同介面嗎？</summary><div class="body">不是，兩者都是透過 Home Assistant Ingress 進入同一個 Web GUI；側邊欄只是捷徑。都不需要另外公開 8099。</div></details>
+<details class="faq"><summary>只按 Save、不按 Restart 就不算變更嗎？</summary><div class="body">仍然算。Save 會把表單寫回 Supervisor options，只是尚未重啟套用。Save &amp; Restart 則同時寫入並重新啟動 App；兩個按鈕都不是預覽。</div></details>
+<details class="faq"><summary>Dashboard 的 Restart Add-on 和 Save &amp; Restart 有什麼差別？</summary><div class="body">Dashboard Restart 會以目前已儲存的 options 重新啟動並重跑 setup；Config 的 Save &amp; Restart 先寫入表單，再重新啟動。兩者都會讓 GUI 與 Tunnel 短暫斷線。</div></details>
+<details class="faq"><summary>Logs 的 Filter 會刪除不符合的日誌嗎？</summary><div class="body">不會，它只篩選目前顯示的訊息。Clear 也只是清除目前前端訊息，不應當成清除敏感資料的保證；真正安全做法是不下載、不公開完整日誌。</div></details>
+<details class="faq"><summary>可以把授權網址傳到手機再開嗎？</summary><div class="body">不建議透過聊天、電子郵件或公開剪貼簿傳送。授權網址應視為敏感資料，只在你控制且可信的裝置上直接開啟；本章不進行授權。</div></details>
+</section>
+<section id="sources" data-nav="官方來源"><h2 data-icon="book">官方來源與版本提示</h2>
+<table class="data-table"><thead><tr><th>來源</th><th>這章查證的內容</th></tr></thead><tbody>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui#what-you-get" rel="noopener">WOOWTECH README：What you get</a></td><td>Dashboard、Setup、Config、Logs 的用途與 Supervisor options 同步</td></tr>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/DOCS.md#web-gui" rel="noopener">Cloudflared Web GUI App 文件</a></td><td>Open Web UI／側邊欄 Ingress、空白設定行為、Save &amp; Restart 與四頁功能</td></tr>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/tree/main/cloudflared/webgui" rel="noopener">Web GUI 原始碼</a></td><td>現行導覽名稱、Dashboard 重啟提示、Config 儲存行為與 Logs 控制項</td></tr>
+<tr><td><a href="https://developers.home-assistant.io/docs/apps/presentation#ingress" rel="noopener">Home Assistant Developer：App Ingress</a></td><td>Apps 經 Home Assistant 前端提供 Web 介面的官方機制</td></tr>
+<tr><td><a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/" rel="noopener">Cloudflare Tunnel 官方文件</a></td><td>connector 與 Tunnel 的運作邊界，避免把 Ingress 管理頁誤當 public hostname</td></tr>
+</tbody></table>
+<div class="callout"><strong>版本提示：</strong>這章以目前專案的 Dashboard、Setup、Config、Logs 命名說明；卡片排列、色彩、按鈕文字或 Home Assistant 的 Apps／Add-ons 翻譯可能隨版本改變。以頁面功能、repository 最新文件與原始碼為準。</div>
+</section>
 <div class="pager">
       <a class="prev" href="ch2_install.html">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> 上一章</span>

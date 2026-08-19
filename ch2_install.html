@@ -63,16 +63,95 @@
 
     </div>
   </aside><main class="content">
-<div class="chapter-header"><div class="kicker">第 2 章</div><h1>安裝 Web GUI</h1><p class="lead">將 WoowTech repository 加入 Apps 商店，安裝套件並保留安全的初始狀態。</p></div>
-<section id="why" data-nav="為什麼要學"><h2 data-icon="why">為什麼要學這個</h2><p>內容撰寫中。</p></section>
-<section id="concept" data-nav="先懂觀念"><h2 data-icon="concept">先懂核心觀念</h2><p>內容撰寫中。</p></section>
-<section id="steps" data-nav="動手做"><h2 data-icon="steps">動手做</h2><ol class="steps"><li><h3>步驟一</h3><p>內容撰寫中。</p></li><li><h3>步驟二</h3><p>內容撰寫中。</p></li><li><h3>步驟三</h3><p>內容撰寫中。</p></li><li><h3>步驟四</h3><p>內容撰寫中。</p></li></ol></section>
-<section id="choices" data-nav="選項判斷"><h2 data-icon="compare">選項怎麼判斷</h2><p>內容撰寫中。</p></section>
-<section id="security" data-nav="安全檢查"><h2 data-icon="security">安全檢查</h2><p>內容撰寫中。</p></section>
-<section id="test" data-nav="驗收測試"><h2 data-icon="test">驗收測試</h2><p>內容撰寫中。</p></section>
-<section id="troubleshoot" data-nav="常見排錯"><h2 data-icon="troubleshoot">常見排錯</h2><p>內容撰寫中。</p></section>
-<section id="faq" data-nav="FAQ"><h2 data-icon="faq">FAQ</h2><details class="faq"><summary>問題一</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題二</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題三</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題四</summary><div class="body">內容撰寫中。</div></details></section>
-<section id="sources" data-nav="官方來源"><h2 data-icon="book">官方來源與版本提示</h2><p>內容撰寫中。</p></section>
+<div class="chapter-header"><div class="kicker">第 2 章</div><h1>安裝 Cloudflared Web GUI</h1><p class="lead">把 WOOWTECH repository 加入 Home Assistant Apps 商店，確認來源與硬體相容後再安裝。這一章只讓 Web GUI 在空白設定下可開啟，不建立 Tunnel、不授權 Cloudflare，也不新增公開 hostname。</p></div>
+<section id="why" data-nav="為什麼要學"><h2 data-icon="why">先把正確套件裝進正確的地方</h2>
+<p>Cloudflared Web GUI 不是 Home Assistant 的一般整合（Integration），而是由 Supervisor 管理的第三方 App（舊稱 add-on／附加元件）。你要先加入它的 repository，Apps 商店才會取得套件資訊與映像檔；把 GitHub 網址貼到整合頁、HACS 或瀏覽器網址列都不會完成安裝。</p>
+<div class="callout"><strong>這章完成後：</strong>Apps 詳細頁會顯示 <strong>Cloudflared Web GUI</strong>，App 能啟動，而且你能從 Home Assistant 開啟 Web UI。設定保持空白時，WOOWTECH 文件說明 Web GUI 會繼續運作、Tunnel 則保持停止。</div>
+<div class="callout warn"><strong>第三方軟體提醒：</strong>Home Assistant 官方明確表示無法保證第三方 Apps 的品質或安全性。安裝前核對 GitHub 組織、repository 完整網址與專案文件；不要安裝搜尋結果中名稱相似的套件。</div>
+</section>
+<section id="concept" data-nav="先懂觀念"><h2 data-icon="concept">Repository、App 與 Ingress 各做一件事</h2>
+<table class="data-table"><thead><tr><th>項目</th><th>用途</th><th>這一步會不會建立 Tunnel</th></tr></thead><tbody>
+<tr><td>App repository</td><td>告訴 Home Assistant 到哪裡取得 App 清單與版本資料</td><td>不會</td></tr>
+<tr><td>安裝 App</td><td>下載符合架構的映像檔並建立受 Supervisor 管理的 App</td><td>不會</td></tr>
+<tr><td>啟動 App</td><td>啟動容器內服務；空白設定時 Web GUI 保持可用</td><td>依本 fork 的文件，空白設定下 Tunnel 停止</td></tr>
+<tr><td>Home Assistant Ingress</td><td>讓 Web GUI 經 Home Assistant 登入與內嵌路徑開啟</td><td>不會額外對外開 port</td></tr>
+<tr><td>Setup 或 Config 儲存</td><td>把值寫入 Supervisor options，並可能啟動設定流程</td><td>可能會；本章不要做</td></tr>
+</tbody></table>
+<p>這個 App 的 Web GUI 經 Ingress 使用容器內部 port <code>8099</code>，專案設定沒有要求你把它映射到外部。Dashboard、Setup、Config、Logs 都是同一個 App 裡的管理頁，不需要為管理介面設定路由器 port forwarding。</p>
+<div class="callout danger"><strong>不要自行公開管理介面：</strong>不要為 8099 新增路由器轉送、Cloudflare public hostname 或反向代理。正確入口是 Home Assistant App 詳細頁的 <strong>Open Web UI</strong>，或啟用後的側邊欄項目。</div>
+</section>
+<section id="steps" data-nav="動手做"><h2 data-icon="steps">手動加入 repository 並安裝</h2>
+<ol class="steps">
+<li><h3>確認你在正確的 Home Assistant</h3><p>先看瀏覽器網址與目前登入的 Home Assistant 名稱，避免在測試機或家人的主機安裝。到「設定」中的 Apps；不同語言或較舊版本可能顯示「附加元件／Add-ons」。如果完全沒有 Apps，先回<a href="ch1_overview.html">第 1 章</a>確認安裝類型。</p></li>
+<li><h3>進入 Apps 商店</h3><p>在 Apps 頁選擇安裝 App／App store。Home Assistant 版本不同時，入口文字可能略有差異；你的目標是看到可以搜尋 Apps、右上角有更多選單的商店頁。</p></li>
+<li><h3>開啟 Repositories 對話框</h3><p>選右上角三點選單，再選 <strong>Repositories</strong>（儲存庫）。不要在商店搜尋框直接貼網址，搜尋框只會篩選已知 Apps。</p></li>
+<li><h3>貼上唯一正確的 repository URL</h3><p>完整貼上下一段的 HTTPS clone URL，確認開頭是 <code>https://github.com/WOOWTECH/</code>、結尾是 <code>Woow_ha_cloudflare_tunnel_webgui</code>，再選新增。</p><pre class="code-block"><code>https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui</code></pre></li>
+<li><h3>重新整理並核對 App 卡片</h3><p>關閉 repository 對話框後，如果商店尚未出現新卡片，先重新整理瀏覽器。找到 <strong>Cloudflared Web GUI</strong> 後，先進詳細頁閱讀說明，核對來源連回 WOOWTECH repository，不要只看圖示判斷。</p></li>
+<li><h3>安裝 App</h3><p>在正確的詳細頁選安裝，等待 Home Assistant 完成下載與建立。過程可能需要數分鐘，依主機與網路速度而定；不要反覆按安裝或在進行中關機。</p></li>
+<li><h3>保持空白設定並啟動</h3><p>安裝完成後先不要填 <code>external_hostname</code>、<code>additional_hosts</code> 或 <code>tunnel_token</code>，選啟動。依專案文件，完全空白設定會讓 Web GUI 保持可開啟、Tunnel 停止，正適合下一章做唯讀導覽。</p></li>
+</ol>
+<div class="callout tip"><strong>側邊欄是選用捷徑：</strong>你可以開啟「顯示於側邊欄」方便日後進入；即使不開，也能從 App 詳細頁的 <strong>Open Web UI</strong> 進入。這個切換不等於把 Web GUI 公開上網。</div>
+<div class="callout warn"><strong>本章停止點：</strong>看到 App 已啟動就停。不要在 Setup 按授權連結，不要在 Config 輸入 hostname 或 token，也不要按 <strong>Save &amp; Restart</strong>。</div>
+</section>
+<section id="choices" data-nav="選項判斷"><h2 data-icon="compare">快速連結或手動加入，怎麼選</h2>
+<table class="data-table"><thead><tr><th>方法</th><th>優點</th><th>使用前檢查</th></tr></thead><tbody>
+<tr><td>My Home Assistant repository 按鈕</td><td>可帶你到自己的 Home Assistant，並預先帶入 repository URL</td><td>先核對跳轉目標是你的主機，預填 URL 與官方 README 相同</td></tr>
+<tr><td>Apps 商店手動加入</td><td>每一步可見，適合確認主機與完整 URL</td><td>只從專案 README 複製 URL，不從影片留言或短網址複製</td></tr>
+</tbody></table>
+<p>對第一次操作的人，手動加入比較容易理解 repository 在哪裡，也方便排查網址是否貼錯。若使用 README 裡的 My Home Assistant 按鈕，仍要在最後確認畫面：自動帶入只省去輸入，不代表你可以跳過來源檢查。</p>
+<div class="callout"><strong>名稱差異：</strong>Home Assistant 英文官方文件目前稱為 <strong>Apps</strong>；舊教學、專案 README 或尚未更新的翻譯可能仍寫 <strong>Add-ons</strong>。兩者在這裡指 Supervisor 管理的同一類套件，不是 HACS 自訂前端或一般整合。</div>
+</section>
+<section id="security" data-nav="安全檢查"><h2 data-icon="security">安裝前後各做一次安全核對</h2>
+<table class="data-table"><thead><tr><th>檢查點</th><th>你應看到的狀態</th><th>風險訊號</th></tr></thead><tbody>
+<tr><td>Repository 網址</td><td><code>github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui</code></td><td>拼字不同、短網址、陌生 fork 或要求下載安裝檔</td></tr>
+<tr><td>App 名稱</td><td>Cloudflared Web GUI</td><td>只寫 Cloudflare、名稱近似卻連到其他作者</td></tr>
+<tr><td>支援架構</td><td>專案目前列出 <code>aarch64</code>、<code>amd64</code></td><td>你的架構不在清單卻嘗試繞過安裝檢查</td></tr>
+<tr><td>網路曝光</td><td>Web GUI 經 Home Assistant Ingress 開啟</td><td>要求開放 8099、8123 或路由器入站 port</td></tr>
+<tr><td>初始 options</td><td><code>external_hostname</code> 空白、<code>additional_hosts</code> 空陣列、沒有 token</td><td>尚未規劃就出現陌生 hostname 或 token</td></tr>
+<tr><td>敏感資料</td><td>沒有把授權網址、token 或完整 Logs 分享出去</td><td>把畫面截圖直接貼到公開社群</td></tr>
+</tbody></table>
+<div class="callout danger"><strong>Save &amp; Restart 會真的改設定：</strong>Web GUI 的按鈕會經 Supervisor API 寫入 options 並重新啟動 App，不是「檢查格式」或「下一步」。重新啟動後可能執行登入、建立 Tunnel 與 DNS 路由。未完成後續章節的設定核對前不要按。</div>
+<div class="callout warn"><strong>擷取環境沒有被改動：</strong>教學製作只唯讀查看既有頁面，沒有安裝、啟動、儲存、重啟或授權指定的 Home Assistant。上面的步驟是你在自己系統正式操作時才會產生的變更。</div>
+</section>
+<section id="test" data-nav="驗收測試"><h2 data-icon="test">安裝完成的驗收清單</h2>
+<ol class="steps">
+<li><h3>Repository 記錄正確</h3><p>Repositories 清單中的網址和本章程式碼區塊逐字相同，沒有多餘空白、錯字或相似 repository。</p></li>
+<li><h3>App 確實已安裝</h3><p>Apps 清單能開啟 <strong>Cloudflared Web GUI</strong> 詳細頁，並顯示啟動、停止、設定或 Open Web UI 等 App 管理功能，而不是仍只有商店的安裝按鈕。</p></li>
+<li><h3>App 能在空白設定下啟動</h3><p>啟動後 App 狀態沒有持續停在「啟動中」。完全空白設定時 Tunnel 未運作是這個 fork 的預期行為，不要為了消除提示而隨便填 hostname。</p></li>
+<li><h3>Web UI 入口存在</h3><p>詳細頁可見 <strong>Open Web UI</strong>，或側邊欄已顯示 Cloudflared。現在只確認入口，不進行授權或儲存。</p></li>
+<li><h3>沒有額外網路變更</h3><p>你沒有新增路由器 port forwarding、Cloudflare DNS 記錄、public hostname 或反向代理規則。</p></li>
+<li><h3>沒有敏感資料外流</h3><p>你沒有公開 repository 以外的私人畫面；尤其未分享授權網址、Tunnel token、完整 Logs、帳號或內網 IP。</p></li>
+</ol>
+<div class="callout tip"><strong>驗收通過：</strong>下一章會從 Ingress 第一次開啟 Web GUI，只辨識 Dashboard、Setup、Config、Logs，不儲存任何內容。</div>
+</section>
+<section id="troubleshoot" data-nav="常見排錯"><h2 data-icon="troubleshoot">安裝時常見卡關</h2>
+<ol class="steps">
+<li><h3>Repositories 選項不存在</h3><p>確認你在 Apps 商店頁，不是「裝置與服務」、HACS 或某個 App 的設定頁。若整個 Apps 功能都沒有，查安裝類型；不要嘗試用 HACS 取代 Supervisor App。</p></li>
+<li><h3>新增後看不到 App</h3><p>依 Home Assistant 官方建議先重新整理瀏覽器，再回到 Apps 商店查看。仍未出現時重新核對 repository URL；第三方 repository 若設定資料無效，也可能無法顯示。</p></li>
+<li><h3>顯示不支援或沒有可安裝版本</h3><p>比較系統架構與專案目前支援的 <code>aarch64</code>、<code>amd64</code>。架構不符時停止，不要下載別的架構映像檔硬裝。</p></li>
+<li><h3>安裝長時間沒有完成</h3><p>先保持主機供電與網路穩定，稍後回 App 詳細頁確認狀態；再查看 Supervisor 相關系統日誌中的下載或儲存空間錯誤。分享錯誤前遮罩主機名稱、IP、repository 私人資訊與任何憑證。</p></li>
+<li><h3>啟動後又停止</h3><p>先確認安裝的是 WOOWTECH Web GUI 版本，再從 App 詳細頁讀最新幾行日誌。空白設定的這個 fork 應保留 Web GUI；若仍停止，記下版本、架構與已遮罩錯誤，不要先填假 hostname 或 token。</p></li>
+<li><h3>Open Web UI 按鈕無法使用</h3><p>確認 App 已完成啟動，重新整理 Home Assistant 後再試；也可暫時關閉再開啟側邊欄顯示選項。不要改用直接連線 8099，Ingress 才是受 HA 登入保護的入口。</p></li>
+</ol>
+</section>
+<section id="faq" data-nav="FAQ"><h2 data-icon="faq">安裝常見問題</h2>
+<details class="faq"><summary>Cloudflared Web GUI 是 Home Assistant 官方 App 嗎？</summary><div class="body">不是。它是 WOOWTECH 維護的第三方 repository，Tunnel 核心 fork 自上游 <code>homeassistant-apps/app-cloudflared</code>。Home Assistant 官方也提醒第三方 Apps 需自行評估品質與安全。</div></details>
+<details class="faq"><summary>可以從 HACS 安裝嗎？</summary><div class="body">不可以用 HACS 取代本章流程。這是 Supervisor 管理的 App，要從 Home Assistant Apps 商店加入 repository 後安裝。</div></details>
+<details class="faq"><summary>安裝後一定要立刻填 hostname 嗎？</summary><div class="body">不用。這個 fork 的特別行為就是完全空白設定時保留 Web GUI、停止 Tunnel，讓你先開介面完成首次規劃。不要為了讓畫面「看起來完整」而輸入假資料。</div></details>
+<details class="faq"><summary>需要在路由器開 8099 或 8123 嗎？</summary><div class="body">不需要。8099 是 Web GUI 的 Ingress 內部 port；Cloudflare Tunnel 由 connector 主動對外建立連線。本指南不要求新增 Home Assistant 的入站 port forwarding。</div></details>
+<details class="faq"><summary>現在可以按 Save &amp; Restart 試試看嗎？</summary><div class="body">不要把它當測試按鈕。它會寫入 Supervisor options 並重啟 App，可能接著開始登入、建立 Tunnel 或改 DNS。等後續章節核對正式設定後再操作。</div></details>
+<details class="faq"><summary>更新 Home Assistant 後選單名稱不同，代表流程失效嗎？</summary><div class="body">不一定。官方英文介面由 Add-ons 改稱 Apps，翻譯與按鈕位置可能隨版本調整。依「設定 → Apps → App 商店 → Repositories」的功能目的尋找，並以 Home Assistant 最新官方文件為準。</div></details>
+</section>
+<section id="sources" data-nav="官方來源"><h2 data-icon="book">官方來源與版本提示</h2>
+<table class="data-table"><thead><tr><th>來源</th><th>這章查證的內容</th></tr></thead><tbody>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui#installation" rel="noopener">WOOWTECH README：Installation</a></td><td>repository URL、手動安裝路徑、App 名稱、啟動與 Open Web UI</td></tr>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/DOCS.md#web-gui" rel="noopener">Cloudflared Web GUI App 文件</a></td><td>Ingress、四個頁面、空白設定時 Web GUI 與 Tunnel 的行為</td></tr>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/config.yaml" rel="noopener">App <code>config.yaml</code></a></td><td><code>aarch64</code>／<code>amd64</code>、Ingress 8099 與初始 options</td></tr>
+<tr><td><a href="https://www.home-assistant.io/common-tasks/os/#installing-a-third-party-app-repository" rel="noopener">Home Assistant：安裝第三方 App repository</a></td><td>官方現行 Apps 商店路徑、三點選單、Repositories、重新整理建議與第三方風險</td></tr>
+<tr><td><a href="https://developers.home-assistant.io/docs/apps" rel="noopener">Home Assistant Developer：Apps</a></td><td>Supervisor Apps 的官方開發與封裝背景</td></tr>
+</tbody></table>
+<div class="callout"><strong>版本提示：</strong>按鈕可能顯示 Apps、Add-ons、附加元件、Install app 或 Add repository。若專案的支援架構、版本或 repository 路徑日後改變，以 repository 最新 README、<code>config.yaml</code> 與 Home Assistant 官方文件為準。</div>
+</section>
 <div class="pager">
       <a class="prev" href="ch1_overview.html">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> 上一章</span>

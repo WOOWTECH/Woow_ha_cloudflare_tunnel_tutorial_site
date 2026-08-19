@@ -63,16 +63,93 @@
 
     </div>
   </aside><main class="content">
-<div class="chapter-header"><div class="kicker">第 1 章</div><h1>開始前</h1><p class="lead">先確認網域、Cloudflare DNS、Home Assistant 安裝方式與本地／遠端管理模式。</p></div>
-<section id="why" data-nav="為什麼要學"><h2 data-icon="why">為什麼要學這個</h2><p>內容撰寫中。</p></section>
-<section id="concept" data-nav="先懂觀念"><h2 data-icon="concept">先懂核心觀念</h2><p>內容撰寫中。</p></section>
-<section id="steps" data-nav="動手做"><h2 data-icon="steps">動手做</h2><ol class="steps"><li><h3>步驟一</h3><p>內容撰寫中。</p></li><li><h3>步驟二</h3><p>內容撰寫中。</p></li><li><h3>步驟三</h3><p>內容撰寫中。</p></li><li><h3>步驟四</h3><p>內容撰寫中。</p></li></ol></section>
-<section id="choices" data-nav="選項判斷"><h2 data-icon="compare">選項怎麼判斷</h2><p>內容撰寫中。</p></section>
-<section id="security" data-nav="安全檢查"><h2 data-icon="security">安全檢查</h2><p>內容撰寫中。</p></section>
-<section id="test" data-nav="驗收測試"><h2 data-icon="test">驗收測試</h2><p>內容撰寫中。</p></section>
-<section id="troubleshoot" data-nav="常見排錯"><h2 data-icon="troubleshoot">常見排錯</h2><p>內容撰寫中。</p></section>
-<section id="faq" data-nav="FAQ"><h2 data-icon="faq">FAQ</h2><details class="faq"><summary>問題一</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題二</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題三</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題四</summary><div class="body">內容撰寫中。</div></details></section>
-<section id="sources" data-nav="官方來源"><h2 data-icon="book">官方來源與版本提示</h2><p>內容撰寫中。</p></section>
+<div class="chapter-header"><div class="kicker">第 1 章</div><h1>開始前：先畫好安全邊界</h1><p class="lead">先確認你的 Home Assistant 能使用 Apps、網域由 Cloudflare 管理，也先決定誰可以從外面連進來。這一章只做盤點與規劃，不會改動 Cloudflared options、Cloudflare 或家中路由器。</p></div>
+<section id="why" data-nav="為什麼要學"><h2 data-icon="why">先規劃，才不會把家門開錯位置</h2>
+<p>Cloudflare Tunnel 讓家中的 <code>cloudflared</code> 主動連到 Cloudflare，不必在路由器設定入站連接埠轉送。這能少掉一個常見風險，但不代表網址本身自動變成私人空間：只要你發佈公開 hostname，網際網路上的人仍可能碰到 Cloudflare 端的入口，後面還要靠 Home Assistant 登入與你選擇的 Cloudflare 存取政策保護。</p>
+<div class="callout"><strong>這章的成果：</strong>你會得到一張準備清單、一個 Tunnel 管理模式決定，以及清楚的「現在不做什麼」安全界線。等資料齊全，再進入安裝與設定，比邊按邊猜安全得多。</div>
+<div class="callout warn"><strong>唯讀聲明：</strong>本教學的擷取與驗證環境只用來唯讀查看介面，沒有按下儲存、重新啟動、授權或變更 Tunnel。教學文字會說明真正操作時的影響，但不表示該環境已被修改。</div>
+</section>
+<section id="concept" data-nav="先懂觀念"><h2 data-icon="concept">把 Tunnel 想成從家裡撥出去的專線</h2>
+<p>傳統連線常要讓路由器在固定連接埠等待外部請求；Cloudflare Tunnel 則由家中的 connector 主動建立僅向外發起的連線。外部請求先到 Cloudflare，再沿已建立的 Tunnel 前往你明確指定的來源服務（origin）。因此你不必為 Home Assistant 在路由器開放入站連接埠，也不需要可公開路由的家用 IP。</p>
+<table class="data-table"><thead><tr><th>名詞</th><th>白話意思</th><th>本指南中的位置</th></tr></thead><tbody>
+<tr><td>Cloudflare Tunnel</td><td>Cloudflare 與你家中 connector 之間的連線與路由</td><td>承載遠端流量</td></tr>
+<tr><td><code>cloudflared</code></td><td>在 Home Assistant App 容器內執行的 connector</td><td>主動向 Cloudflare 建立連線</td></tr>
+<tr><td>hostname</td><td>你打算使用的完整網址名稱，例如 <code>ha.example.com</code></td><td>對應 Home Assistant 或其他服務</td></tr>
+<tr><td>origin</td><td>Tunnel 在家中要連到的實際服務</td><td>Home Assistant 或你明確加入的服務</td></tr>
+<tr><td>Ingress</td><td>由 Home Assistant 登入保護的 App 內嵌入口</td><td>用來開啟 Web GUI，不是公開 hostname</td></tr>
+</tbody></table>
+<div class="callout tip"><strong>先分清兩個入口：</strong>Home Assistant 內的 Web GUI 是管理 App 的 Ingress；你日後建立的 <code>https://ha.example.com</code> 才是遠端存取 Home Assistant 的入口。不要把 Web GUI 管理頁當成要公開的服務。</div>
+</section>
+<section id="steps" data-nav="動手做"><h2 data-icon="steps">用六步完成開工前盤點</h2>
+<ol class="steps">
+<li><h3>確認 Home Assistant 安裝類型</h3><p>在 Home Assistant 的系統資訊頁確認你的安裝能使用 Supervisor 管理的 Apps。Home Assistant 官方目前把 Apps 說明放在 Home Assistant OS 的工作流程中；如果「設定」裡沒有 Apps 商店，不要硬套這份安裝步驟，先查你的安裝類型。</p></li>
+<li><h3>確認硬體架構</h3><p>這個 repository 目前的 App 設定列出 <code>aarch64</code> 與 <code>amd64</code>。若你的系統架構不是其中之一，即使能加入 repository，也可能不會出現可安裝版本；先停下來查專案發行資訊。</p></li>
+<li><h3>準備 Cloudflare 帳號與網域</h3><p>確認你能登入正確的 Cloudflare 帳號，而且預計使用的網域已由 Cloudflare 提供 DNS。只記錄網域的公開名稱，不要把帳號密碼、API token 或 Tunnel token 寫進共用筆記。</p></li>
+<li><h3>先選一個不重複的 hostname</h3><p>規劃一個完整子網域，例如 <code>ha.example.com</code>。到 Cloudflare DNS 檢查它是否已有提供網站、郵件或其他用途；本地管理模式啟動時，文件明確警告相符的 <code>external_hostname</code> 或 <code>additional_hosts</code> DNS 記錄可能被覆寫。</p></li>
+<li><h3>決定本地管理或遠端管理</h3><p>第一次使用、希望由 App 建立 Tunnel 與 DNS 路由，多半選文件建議的本地管理模式。若你已在 Cloudflare Dashboard 管理 Tunnel 與 public hostname，才評估遠端管理模式；它使用 <code>tunnel_token</code>，而 App 內其他本地設定會被忽略。</p></li>
+<li><h3>寫下停止點與回復方法</h3><p>本章停止在「資料確認完成」，不啟動 Tunnel、不授權、不改 DNS。先確認現有 Home Assistant 備份的日期與還原方式，並確認你仍能用家中區域網路網址登入；若沒有可用備份，就把建立備份列為正式變更前必做項目。</p></li>
+</ol>
+<div class="callout danger"><strong>不要分享祕密：</strong>Cloudflare 授權網址、Tunnel token、登入 cookie，以及可能包含這些內容或帳號、hostname、Tunnel ID、IP 的日誌都不可貼到公開討論區。求助時只摘錄必要錯誤並先遮罩。</div>
+</section>
+<section id="choices" data-nav="選項判斷"><h2 data-icon="compare">本地管理與遠端管理怎麼選</h2>
+<table class="data-table"><thead><tr><th>判斷點</th><th>本地管理 Tunnel</th><th>遠端管理 Tunnel</th></tr></thead><tbody>
+<tr><td>誰建立與管理</td><td>App 依 Supervisor options 建立並管理</td><td>你在 Cloudflare Dashboard 建立與管理</td></tr>
+<tr><td>第一次設定</td><td>App 會產生 Cloudflare 授權網址</td><td>從 Cloudflare 取得 <code>tunnel_token</code></td></tr>
+<tr><td>hostname 與路由</td><td>主要在 App 的 <code>external_hostname</code>、<code>additional_hosts</code> 設定</td><td>主要在 Cloudflare 介面設定；App 其他設定會被忽略</td></tr>
+<tr><td>適合情況</td><td>第一次使用，希望依專案文件的建議流程完成</td><td>已熟悉 Zero Trust Dashboard，或需要較進階的 Cloudflare 端設定</td></tr>
+<tr><td>主要祕密</td><td>瀏覽器中出現的授權網址與建立後的憑證</td><td><code>tunnel_token</code></td></tr>
+</tbody></table>
+<div class="callout warn"><strong>不要混搭：</strong>遠端管理模式填入 <code>tunnel_token</code> 後，文件說明其他 App 設定會被忽略。看到欄位還在畫面上，不代表它們會控制 Cloudflare Dashboard 裡的路由。</div>
+<p>若你還不確定，先選本地管理並只規劃一個 Home Assistant hostname，不要一開始就加入路由器、NAS、監視器或管理介面。服務越少，驗收與排錯越清楚。</p>
+</section>
+<section id="security" data-nav="安全檢查"><h2 data-icon="security">開工前的安全檢查</h2>
+<table class="data-table"><thead><tr><th>檢查</th><th>合格狀態</th><th>不合格時怎麼做</th></tr></thead><tbody>
+<tr><td>路由器入站規則</td><td>不為本教學新增 Home Assistant 的 port forwarding</td><td>先不要開埠；Tunnel 使用向外發起的連線</td></tr>
+<tr><td>Home Assistant 帳號</td><td>每人使用自己的帳號、強密碼；管理者帳號不共用</td><td>先整理帳號與驗證方式</td></tr>
+<tr><td>管理入口</td><td>Web GUI 只經 Home Assistant Ingress 開啟</td><td>不要把內部 8099 或管理頁另行代理到網際網路</td></tr>
+<tr><td>公開範圍</td><td>起步只規劃必要的 Home Assistant hostname</td><td>刪除「順便公開」的其他內網設備規劃</td></tr>
+<tr><td>祕密保管</td><td>授權網址、token 與完整日誌只留在可信裝置</td><td>若曾外洩，停止流程並依 Cloudflare 介面撤銷或輪替相關憑證</td></tr>
+<tr><td>變更認知</td><td>知道 <strong>Save &amp; Restart</strong> 會寫入 Supervisor options 並重新啟動 App</td><td>在確認欄位與影響前不要按</td></tr>
+</tbody></table>
+<div class="callout danger"><strong>Save &amp; Restart 不是預覽：</strong>它會實際修改 Supervisor options，接著重新啟動 App；重啟可能開始授權、建立 Tunnel、更新 DNS 或中斷既有連線。唯讀查看時不要按，正式操作前要先核對設定與維護時段。</div>
+</section>
+<section id="test" data-nav="驗收測試"><h2 data-icon="test">本章驗收：六個答案都要是「是」</h2>
+<ol class="steps">
+<li><h3>看得到 Apps 管理功能</h3><p>你已確認 Home Assistant 的安裝類型與介面能管理 Apps，而不是只看到一般整合。</p></li>
+<li><h3>硬體架構受支援</h3><p>系統是目前 App 設定列出的 <code>aarch64</code> 或 <code>amd64</code>；若不是，你已停止後續安裝。</p></li>
+<li><h3>Cloudflare DNS 權限正確</h3><p>你能管理正確帳號下的正確 zone，且預定 hostname 沒有不該被覆寫的既有用途。</p></li>
+<li><h3>模式只選一種</h3><p>你已明確選擇本地管理或遠端管理，並知道各自由哪一端管理 hostname 與路由。</p></li>
+<li><h3>仍有本機退路</h3><p>你在家中網路可以登入 Home Assistant，也已確認現有備份與還原方式；若沒有可用備份，就停在本章，不進入正式變更。</p></li>
+<li><h3>目前沒有任何變更</h3><p>你只完成盤點，沒有因閱讀本章而儲存設定、啟動 App、完成 Cloudflare 授權、修改 DNS 或路由器規則。</p></li>
+</ol>
+<div class="callout tip"><strong>全部通過再前進：</strong>下一章才會加入第三方 App repository 並安裝套件；建立 Tunnel 與授權則留到後續章節。</div>
+</section>
+<section id="troubleshoot" data-nav="常見排錯"><h2 data-icon="troubleshoot">規劃階段常見卡關</h2>
+<ol class="steps">
+<li><h3>「設定」裡找不到 Apps</h3><p>先查系統資訊中的安裝類型。Apps 需要 Supervisor 管理環境；Home Assistant Container 不是照這份 App 商店流程安裝。不要因為名稱相似就改裝不明容器指令。</p></li>
+<li><h3>不知道 CPU 架構</h3><p>從 Home Assistant 系統資訊查看架構，再和專案 <code>config.yaml</code> 的 <code>aarch64</code>、<code>amd64</code> 比對。不要只用裝置商品名稱猜測。</p></li>
+<li><h3>網域不在 Cloudflare DNS</h3><p>先完成 registrar 與 Cloudflare zone 的正確 DNS 委派，再等待狀態正常。只把子網域文字填進 App，不能取代網域的 Cloudflare DNS 設定。</p></li>
+<li><h3>預定 hostname 已有 DNS 記錄</h3><p>先查清楚該記錄服務誰。若仍在使用，改選新的 hostname；不要讓本地管理流程覆寫現有網站、郵件或其他服務的記錄。</p></li>
+<li><h3>不知道該選哪個 Tunnel 模式</h3><p>沒有既有 Cloudflare Tunnel 管理經驗時，依專案文件選本地管理。已建立 remote-managed Tunnel 且清楚 token 與 Dashboard 路由責任時，才選遠端管理。</p></li>
+</ol>
+</section>
+<section id="faq" data-nav="FAQ"><h2 data-icon="faq">開始前常見問題</h2>
+<details class="faq"><summary>用了 Tunnel 就完全不需要 Home Assistant 登入嗎？</summary><div class="body">不是。Tunnel 解決的是連線路徑，不會取代 Home Assistant 身分驗證。公開 hostname 仍應保留 Home Assistant 登入保護；若你的風險情境需要，再依 Cloudflare 官方文件評估 Access 政策。</div></details>
+<details class="faq"><summary>一定要有自己的網域嗎？</summary><div class="body">依這個 App 的本地管理初始設定文件，你需要一個由 Cloudflare 提供 DNS 的網域，並選定完整 hostname。不要把臨時測試網址或別人的網域當成正式方案。</div></details>
+<details class="faq"><summary>需要固定公網 IP 或在路由器開 8123 嗎？</summary><div class="body">Cloudflare Tunnel 由 <code>cloudflared</code> 主動建立向外連線，不要求可公開路由的來源 IP，也不應為這份教學新增 Home Assistant 入站 port forwarding。</div></details>
+<details class="faq"><summary>Web GUI 和原版 Cloudflared App 的 Tunnel 行為不同嗎？</summary><div class="body">WOOWTECH README 說明 Tunnel 核心、Supervisor options schema 與日誌輸出承襲上游；新增的是 Ingress Web GUI。完全空白設定時，這個 fork 會讓 GUI 保持可連而 Tunnel 停止，方便首次設定。</div></details>
+<details class="faq"><summary>可以把授權網址或 token 傳給幫我設定的人嗎？</summary><div class="body">不要。授權網址、<code>tunnel_token</code>、登入資訊與含祕密的日誌都應視為敏感資料。若要請人協助，改用螢幕共享並由你自己完成敏感操作，或提供已遮罩的錯誤摘要。</div></details>
+</section>
+<section id="sources" data-nav="官方來源"><h2 data-icon="book">官方來源與版本提示</h2>
+<table class="data-table"><thead><tr><th>來源</th><th>這章查證的內容</th></tr></thead><tbody>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui" rel="noopener">WOOWTECH 專案 README</a></td><td>Web GUI、Ingress、兩種 Tunnel 模式、Supervisor options 與空白設定行為</td></tr>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/DOCS.md" rel="noopener">Cloudflared Web GUI App 文件</a></td><td>網域前提、模式差異、DNS 覆寫警告與 Home Assistant proxy 前提</td></tr>
+<tr><td><a href="https://www.home-assistant.io/common-tasks/os/#installing-a-third-party-app-repository" rel="noopener">Home Assistant：第三方 App repository</a></td><td>Apps 適用環境、第三方 repository 的風險與安裝流程</td></tr>
+<tr><td><a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/" rel="noopener">Cloudflare Tunnel 官方文件</a></td><td>connector 主動建立 outbound-only 連線、不需公開來源 IP 的運作方式</td></tr>
+<tr><td><a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/" rel="noopener">Cloudflare：連接網路</a></td><td>Tunnel 與 public hostname 等現行導覽入口</td></tr>
+</tbody></table>
+<div class="callout"><strong>版本提示：</strong>Home Assistant 近期英文介面使用 Apps，舊版或部分翻譯仍可能顯示「附加元件／Add-ons」。Cloudflare 也可能調整 Zero Trust 選單名稱。遇到名稱差異時，以功能與官方最新文件為準，不要因按鈕位置不同就改做額外設定。</div>
+</section>
 <div class="pager">
       <a class="prev disabled" href="index.html">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> 上一章</span>
