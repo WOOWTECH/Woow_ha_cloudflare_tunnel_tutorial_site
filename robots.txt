@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ha-tailscale-guide.woowtech.io/sitemap.xml

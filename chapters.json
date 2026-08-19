@@ -1,0 +1,30 @@
+{
+  "_readme": "導覽、SEO、首頁與 sitemap 的單一來源；變更後執行 node scripts/build_nav.js。",
+  "site": {
+    "title": "Home Assistant Cloudflared Web GUI 指南",
+    "brand": "Cloudflared Web GUI 指南",
+    "subtitle": "不開埠，安全連回家",
+    "baseUrl": "https://ha-cloudflare-tunnel-guide.woowtech.io",
+    "repoUrl": "https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site",
+    "locale": "zh_TW",
+    "description": "12 章繁體中文 Cloudflared Web GUI 教學：從安裝、Setup、Cloudflare 授權、hostname、Dashboard、Config、Logs，到安全與排錯。",
+    "ogImage": "assets/screenshots/ch3/01_webgui_dashboard.png",
+    "license": {"name":"CC BY 4.0","url":"https://creativecommons.org/licenses/by/4.0/deed.zh-hant","holder":"woowtech"}
+  },
+  "chapters": [
+    {"file":"ch1_overview.html","num":"01","navLabel":"開始前：需求與安全邊界","title":"開始前","pagerTitle":"01 · 需求與安全邊界","card":"先確認網域、Cloudflare DNS、Home Assistant 安裝方式與本地／遠端管理模式。","description":"Cloudflared Web GUI 使用前規劃：Cloudflare 網域、HA Apps、Tunnel 模式與安全邊界。","part":"基礎：準備與安裝"},
+    {"file":"ch2_install.html","num":"02","navLabel":"安裝 Cloudflared Web GUI","title":"安裝 Web GUI","pagerTitle":"02 · 安裝 Cloudflared Web GUI","card":"將 WoowTech repository 加入 Apps 商店，安裝套件並保留安全的初始狀態。","description":"Home Assistant Cloudflared Web GUI 安裝教學：加入 repository、安裝 App 與啟動前檢查。","part":"基礎：準備與安裝"},
+    {"file":"ch3_first_open.html","num":"03","navLabel":"第一次開啟 Web GUI","title":"第一次開啟","pagerTitle":"03 · 第一次開啟 Web GUI","card":"從 Home Assistant Ingress 開啟介面，認識 Dashboard、Setup、Config 與 Logs。","description":"Cloudflared Web GUI 首次開啟：Ingress、四個主要頁面與唯讀狀態檢查。","part":"基礎：準備與安裝"},
+    {"file":"ch4_setup.html","num":"04","navLabel":"Setup 首次設定精靈","title":"Setup 精靈","pagerTitle":"04 · Setup 首次設定精靈","card":"用精靈整理 hostname、Tunnel 模式與授權前置條件，不急著按下套用。","description":"Cloudflared Web GUI Setup 精靈：首次設定、local tunnel 與授權準備。","part":"建置：建立安全入口"},
+    {"file":"ch5_authorize.html","num":"05","navLabel":"完成 Cloudflare 授權","title":"Cloudflare 授權","pagerTitle":"05 · 完成 Cloudflare 授權","card":"辨識一次性授權網址、正確選擇網域，並避免洩漏憑證或授權連結。","description":"Cloudflared Tunnel Cloudflare 授權流程、安全注意事項與驗收方式。","part":"建置：建立安全入口"},
+    {"file":"ch6_dashboard.html","num":"06","navLabel":"Dashboard 與 Tunnel 狀態","title":"Dashboard 狀態","pagerTitle":"06 · Dashboard 與 Tunnel 狀態","card":"讀懂 tunnel、edge connections 與 add-on 狀態，先觀察再決定是否處理。","description":"Cloudflared Web GUI Dashboard：Tunnel 狀態、edge connections 與安全檢查。","part":"建置：建立安全入口"},
+    {"file":"ch7_config.html","num":"07","navLabel":"Config 與 Supervisor options","title":"Config 設定","pagerTitle":"07 · Config 與 Supervisor options","card":"理解 Web GUI 與 Supervisor options 的同步關係，分清每個設定的影響範圍。","description":"Cloudflared Web GUI Config：Supervisor options、tunnel_name、log_level 與設定安全。","part":"管理：主機與日誌"},
+    {"file":"ch8_hostname.html","num":"08","navLabel":"設定 external hostname","title":"External hostname","pagerTitle":"08 · 設定 external hostname","card":"規劃 Home Assistant 對外 hostname、trusted proxy 與端到端驗收。","description":"Cloudflared external_hostname 與 Home Assistant trusted_proxies 設定指南。","part":"管理：主機與日誌"},
+    {"file":"ch9_additional_hosts.html","num":"09","navLabel":"管理 additional hosts","title":"Additional hosts","pagerTitle":"09 · 管理 additional hosts","card":"只公開真正需要的內網服務，理解 hostname、service 與刪除後的 DNS 清理。","description":"Cloudflared additional_hosts 教學：服務轉送、最小暴露與 DNS 清理。","part":"管理：主機與日誌"},
+    {"file":"ch10_logs.html","num":"10","navLabel":"Logs 與日常維護","title":"Logs 與維護","pagerTitle":"10 · Logs 與日常維護","card":"用即時日誌、過濾與下載功能建立可重複的健康檢查流程。","description":"Cloudflared Web GUI Logs、日常維護、版本更新與安全記錄。","part":"維護：安全與排錯"},
+    {"file":"ch11_security.html","num":"11","navLabel":"安全檢查與最小暴露","title":"安全檢查","pagerTitle":"11 · 安全檢查與最小暴露","card":"檢查入口、帳號、hostname、DNS 與 Zero Trust 邊界，避免把方便變成過度公開。","description":"Cloudflare Tunnel 與 Home Assistant 安全檢查、最小暴露和 Zero Trust 邊界。","part":"維護：安全與排錯"},
+    {"file":"ch12_troubleshooting.html","num":"12","navLabel":"排錯、更新與交接","title":"排錯與交接","pagerTitle":"12 · 排錯、更新與交接","card":"依序檢查 HA、Web GUI、cloudflared、DNS 與 Cloudflare edge，留下可交接記錄。","description":"Cloudflared Web GUI 排錯：HA ingress、Tunnel、DNS、Logs、更新與交接。","part":"維護：安全與排錯"}
+  ],
+  "appendices": [],
+  "sectionLabels": {}
+}

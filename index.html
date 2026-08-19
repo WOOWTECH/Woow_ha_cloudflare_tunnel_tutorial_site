@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home Assistant Cloudflared Web GUI 指南 · 不開埠，安全連回家</title>
+  <meta name="description" content="12 章繁體中文 Cloudflared Web GUI 教學：從安裝、Setup、Cloudflare 授權、hostname、Dashboard、Config、Logs，到安全與排錯。" />
+  <meta name="author" content="woowtech" />
+  <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI 指南" />
+  <meta property="og:locale" content="zh_TW" />
+  <meta property="og:title" content="Home Assistant Cloudflared Web GUI 指南 · 不開埠，安全連回家" />
+  <meta property="og:description" content="12 章繁體中文 Cloudflared Web GUI 教學：從安裝、Setup、Cloudflare 授權、hostname、Dashboard、Config、Logs，到安全與排錯。" />
+  <meta property="og:url" content="https://ha-cloudflare-tunnel-guide.woowtech.io/" />
+  <meta property="og:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/screenshots/ch3/01_webgui_dashboard.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Home Assistant Cloudflared Web GUI 指南 · 不開埠，安全連回家" />
+  <meta name="twitter:description" content="12 章繁體中文 Cloudflared Web GUI 教學：從安裝、Setup、Cloudflare 授權、hostname、Dashboard、Config、Logs，到安全與排錯。" />
+  <meta name="twitter:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/screenshots/ch3/01_webgui_dashboard.png" />
+  <meta name="theme-color" content="#6183FC" />
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh-hant" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;500;600&family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Yellowtail&display=swap" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <main class="home">
+    <div class="hero">
+      <span class="kicker-script">Human</span>
+      <div class="kicker">Home Assistant Cloudflared Web GUI 指南</div>
+      <h1>不開埠，安全連回家</h1>
+      <p>12 章繁體中文 Cloudflared Web GUI 教學：從安裝、Setup、Cloudflare 授權、hostname、Dashboard、Config、Logs，到安全與排錯。</p>
+      <a class="hero-action" href="#course-path"><i class="mdi mdi-arrow-down" aria-hidden="true"></i> 從課程地圖開始</a>
+    </div>
+
+    <section class="course-path" id="course-path" aria-labelledby="course-path-title">
+      <div class="course-path-copy">
+        <p class="eyebrow">12 chapters · one secure tunnel</p>
+        <h2 id="course-path-title">用清楚的順序，建立你的安全入口</h2>
+        <p>先確認網域與 Home Assistant，再理解 Setup、授權和 hostname；完成後用 Dashboard、Config 與 Logs 建立可驗證、可回復的維護節奏。</p>
+      </div>
+      <ol class="course-path-list">
+        <li><i class="mdi mdi-cloud-lock-outline" aria-hidden="true"></i><span><strong>先建立入口</strong>安裝 Web GUI 並確認前置條件。</span></li>
+        <li><i class="mdi mdi-link-variant" aria-hidden="true"></i><span><strong>再完成建置</strong>理解授權、hostname 與 Tunnel 狀態。</span></li>
+        <li><i class="mdi mdi-shield-check" aria-hidden="true"></i><span><strong>最後守住邊界</strong>用 Logs、安全檢查與排錯維持服務。</span></li>
+      </ol>
+    </section>
+
+    <section class="chapter-index">
+      <h2 class="index-title">基礎：準備與安裝</h2>
+      <div class="chapter-grid">
+        <a class="chapter-card" href="ch1_overview.html">
+          <span class="num">01</span>
+          <h3>開始前</h3>
+          <p>先確認網域、Cloudflare DNS、Home Assistant 安裝方式與本地／遠端管理模式。</p>
+        </a>
+        <a class="chapter-card" href="ch2_install.html">
+          <span class="num">02</span>
+          <h3>安裝 Web GUI</h3>
+          <p>將 WoowTech repository 加入 Apps 商店，安裝套件並保留安全的初始狀態。</p>
+        </a>
+        <a class="chapter-card" href="ch3_first_open.html">
+          <span class="num">03</span>
+          <h3>第一次開啟</h3>
+          <p>從 Home Assistant Ingress 開啟介面，認識 Dashboard、Setup、Config 與 Logs。</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="chapter-index chapter-index-spaced">
+      <h2 class="index-title">建置：建立安全入口</h2>
+      <div class="chapter-grid">
+        <a class="chapter-card" href="ch4_setup.html">
+          <span class="num">04</span>
+          <h3>Setup 精靈</h3>
+          <p>用精靈整理 hostname、Tunnel 模式與授權前置條件，不急著按下套用。</p>
+        </a>
+        <a class="chapter-card" href="ch5_authorize.html">
+          <span class="num">05</span>
+          <h3>Cloudflare 授權</h3>
+          <p>辨識一次性授權網址、正確選擇網域，並避免洩漏憑證或授權連結。</p>
+        </a>
+        <a class="chapter-card" href="ch6_dashboard.html">
+          <span class="num">06</span>
+          <h3>Dashboard 狀態</h3>
+          <p>讀懂 tunnel、edge connections 與 add-on 狀態，先觀察再決定是否處理。</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="chapter-index chapter-index-spaced">
+      <h2 class="index-title">管理：主機與日誌</h2>
+      <div class="chapter-grid">
+        <a class="chapter-card" href="ch7_config.html">
+          <span class="num">07</span>
+          <h3>Config 設定</h3>
+          <p>理解 Web GUI 與 Supervisor options 的同步關係，分清每個設定的影響範圍。</p>
+        </a>
+        <a class="chapter-card" href="ch8_hostname.html">
+          <span class="num">08</span>
+          <h3>External hostname</h3>
+          <p>規劃 Home Assistant 對外 hostname、trusted proxy 與端到端驗收。</p>
+        </a>
+        <a class="chapter-card" href="ch9_additional_hosts.html">
+          <span class="num">09</span>
+          <h3>Additional hosts</h3>
+          <p>只公開真正需要的內網服務，理解 hostname、service 與刪除後的 DNS 清理。</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="chapter-index chapter-index-spaced">
+      <h2 class="index-title">維護：安全與排錯</h2>
+      <div class="chapter-grid">
+        <a class="chapter-card" href="ch10_logs.html">
+          <span class="num">10</span>
+          <h3>Logs 與維護</h3>
+          <p>用即時日誌、過濾與下載功能建立可重複的健康檢查流程。</p>
+        </a>
+        <a class="chapter-card" href="ch11_security.html">
+          <span class="num">11</span>
+          <h3>安全檢查</h3>
+          <p>檢查入口、帳號、hostname、DNS 與 Zero Trust 邊界，避免把方便變成過度公開。</p>
+        </a>
+        <a class="chapter-card" href="ch12_troubleshooting.html">
+          <span class="num">12</span>
+          <h3>排錯與交接</h3>
+          <p>依序檢查 HA、Web GUI、cloudflared、DNS 與 Cloudflare edge，留下可交接記錄。</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="chapter-index chapter-index-spaced">
+      <h2 class="index-title">附錄</h2>
+      <div class="chapter-grid">
+
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <p>《Home Assistant Cloudflared Web GUI 指南》由 <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">woowtech</a> 製作，以 <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.zh-hant">CC BY 4.0</a> 授權釋出 — 可自由分享與改作，請保留出處。</p>
+      <p class="footer-meta">截圖取自 Home Assistant 與 Cloudflared Web GUI。Home Assistant 與 Cloudflare 為其各自權利人的商標，本站與其無隸屬關係。 · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">原始碼與勘誤</a></p>
+    </footer>
+  </main>
+</body>
+</html>
