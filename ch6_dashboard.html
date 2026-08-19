@@ -63,16 +63,112 @@
 
     </div>
   </aside><main class="content">
-<div class="chapter-header"><div class="kicker">第 6 章</div><h1>Dashboard 狀態</h1><p class="lead">讀懂 tunnel、edge connections 與 add-on 狀態，先觀察再決定是否處理。</p></div>
-<section id="why" data-nav="為什麼要學"><h2 data-icon="why">為什麼要學這個</h2><p>內容撰寫中。</p></section>
-<section id="concept" data-nav="先懂觀念"><h2 data-icon="concept">先懂核心觀念</h2><p>內容撰寫中。</p></section>
-<section id="steps" data-nav="動手做"><h2 data-icon="steps">動手做</h2><ol class="steps"><li><h3>步驟一</h3><p>內容撰寫中。</p></li><li><h3>步驟二</h3><p>內容撰寫中。</p></li><li><h3>步驟三</h3><p>內容撰寫中。</p></li><li><h3>步驟四</h3><p>內容撰寫中。</p></li></ol></section>
-<section id="choices" data-nav="選項判斷"><h2 data-icon="compare">選項怎麼判斷</h2><p>內容撰寫中。</p></section>
-<section id="security" data-nav="安全檢查"><h2 data-icon="security">安全檢查</h2><p>內容撰寫中。</p></section>
-<section id="test" data-nav="驗收測試"><h2 data-icon="test">驗收測試</h2><p>內容撰寫中。</p></section>
-<section id="troubleshoot" data-nav="常見排錯"><h2 data-icon="troubleshoot">常見排錯</h2><p>內容撰寫中。</p></section>
-<section id="faq" data-nav="FAQ"><h2 data-icon="faq">FAQ</h2><details class="faq"><summary>問題一</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題二</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題三</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題四</summary><div class="body">內容撰寫中。</div></details></section>
-<section id="sources" data-nav="官方來源"><h2 data-icon="book">官方來源與版本提示</h2><p>內容撰寫中。</p></section>
+<div class="chapter-header"><div class="kicker">第 6 章</div><h1>Dashboard：讀懂 Tunnel 健康狀態</h1><p class="lead">用 Tunnel、Mode、Add-on 三張狀態卡分層判讀，理解 edge connections 是連到 Cloudflare edge 的就緒連線，不是訪客人數。這章只觀察、交叉測試與記錄，完全不按 Restart Add-on。</p></div>
+<section id="why" data-nav="為什麼要學"><h2 data-icon="why">一張紅卡不等於整條服務壞掉</h2>
+<p>Dashboard 把三個不同問題放在一起：<strong>Tunnel Status</strong> 看 cloudflared 是否已有可用 edge connection，<strong>Mode</strong> 看設定屬於本機或 token 模式，<strong>Add-on</strong> 看 App 與 Supervisor 回報。它們彼此相關，卻不能互相替代。</p>
+<p>例如客廳 Home Assistant 本機可用、Tunnel 顯示 stopped，問題多半在 connector 之前或之中；Tunnel running 但手機外網顯示 502，則 edge 已連上，應往 DNS、hostname、ingress 或 origin 查。只看顏色就重啟，常會把最有用的第一個錯誤洗掉。</p>
+<div class="callout"><strong>本章任務：</strong>記錄三張卡、交叉看 Setup 與 Logs，再做本機與外部唯讀測試。Dashboard 是快速摘要，不是完整診斷，也不會證明每個 public hostname 都安全。</div>
+<div class="callout danger"><strong>禁止 Restart：</strong>本章不按 <strong>Restart Add-on</strong>。它會讓 Tunnel 與 Web GUI 暫時斷線，並以已儲存 options 重跑授權檢查、Tunnel setup 與 DNS routes。先保留證據，再判斷是否真的需要維護變更。</div>
+<div class="callout warn"><strong>另一條停止線：</strong>若轉到 Config，<strong>Save &amp; Restart</strong> 會修改 Supervisor options 並重新啟動 App。它比 Dashboard Restart 多了寫入設定的影響，唯讀健康檢查兩個都不需要。</div>
+</section>
+<section id="concept" data-nav="狀態觀念"><h2 data-icon="concept">三張卡與 edge connections 的心智模型</h2>
+<table class="data-table"><thead><tr><th>卡片／欄位</th><th>資料代表什麼</th><th>不能代表什麼</th></tr></thead><tbody>
+<tr><td>Tunnel：<code>running</code></td><td>cloudflared metrics <code>/ready</code> 回報 <code>readyConnections</code> 大於 0</td><td>不保證 DNS、每個 hostname、origin 或登入頁正常</td></tr>
+<tr><td>Tunnel：<code>starting</code></td><td>metrics 可到達，但尚無 ready connection，或 readiness 尚未完成</td><td>不一定已失敗；啟動期間可能只是暫態</td></tr>
+<tr><td>Tunnel：<code>stopped</code></td><td>Web GUI 無法連到本機 cloudflared metrics；首次空白設定也會如此</td><td>不等於整個 Home Assistant 或 Web GUI 停止</td></tr>
+<tr><td>edge connections 數量</td><td>目前就緒的 connector-to-edge 連線數</td><td>不是使用者、瀏覽器分頁、hostname 或裝置數量</td></tr>
+<tr><td>Mode：<code>local</code></td><td>沒有設定 token，由 App 本機管理 Tunnel</td><td>不等於已完成授權或已 connected</td></tr>
+<tr><td>Mode：<code>token</code></td><td>設定了遠端管理 Tunnel token</td><td>不代表 Cloudflare public hostname 已正確設定</td></tr>
+<tr><td>Add-on state</td><td>Supervisor 回報的目前 App 狀態</td><td>不等於 cloudflared readiness 或外部 URL 可用</td></tr>
+<tr><td>Supervisor connected</td><td>Web GUI backend 能讀到 Supervisor API 與版本／狀態</td><td>不等於 Cloudflare 網路可達</td></tr>
+</tbody></table>
+<div class="callout tip"><strong>數量會變動：</strong>edge connections 可能因網路、Cloudflare edge 維護或重新協商而增減。健康判斷先看是否持續大於 0、外部服務是否正常與 Logs 是否反覆錯誤，不追求固定數字。</div>
+<div class="callout"><strong>和 Cloudflare 儀表板區分：</strong>Cloudflare 官方 Tunnel status 有自己的健康彙整與 connector 狀態；本頁的 running／starting／stopped 是此 Web GUI 依本機 metrics readiness 推導。名稱相近，資料來源與判斷範圍不同。</div>
+</section>
+<section id="steps" data-nav="唯讀檢查"><h2 data-icon="steps">八步完成一次唯讀健康檢查</h2>
+<ol class="steps">
+<li><h3>先從本機確認 Home Assistant</h3><p>用家中 Wi-Fi 與本機網址登入，操作一個無風險頁面並記下現在時間。若本機也失敗，先處理 Home Assistant 或區網，不要把問題全部歸給 Tunnel。</p></li>
+<li><h3>經 Ingress 開啟 Dashboard</h3><p>從 Cloudflared Web GUI 的 Home Assistant Ingress 進入，不直接公開或連接內部 8099。確認你在正確 Home Assistant 主機，避免把測試機的正常狀態當成正式主機。</p></li>
+<li><h3>逐字記錄 Tunnel Status</h3><p>記錄 <code>running</code>、<code>starting</code>、<code>stopped</code> 或 unknown，以及 edge connections 數量。只寫時間與非敏感結果，不截取 hostname、Tunnel ID、帳號或 IP。</p></li>
+<li><h3>核對 Mode 是否符合設計</h3><p>依<a href="ch4_setup.html">第 4 章</a>確認預期是 local 或 token。模式不符時先停下來和管理者核對，不進 Config 清 token，也不按 Restart 想讓它自己恢復。</p></li>
+<li><h3>讀 Add-on 與 Supervisor 狀態</h3><p>記錄 App state、版本是否載入，以及文字是 Supervisor connected 或 unreachable。Supervisor unreachable 只說明管理 API 路徑異常，需和 Home Assistant App 詳細頁交叉確認。</p></li>
+<li><h3>到 Setup 交叉比對</h3><p>本機模式看四步停在哪裡，token 模式看遠端管理提示；若有 prepare failed，記下時間。只瀏覽，不開授權 URL、不複製連結，也不因 stopped 立刻修設定。</p></li>
+<li><h3>到 Logs 找同一時間窗</h3><p>先讀錯誤前後最小範圍，找第一個明確的 validation、authorization、DNS、network 或 origin 訊息。Logs 可能有 hostname、IP、UUID 與敏感 URL，記錄前必須遮罩。</p></li>
+<li><h3>用行動網路做外部測試</h3><p>若服務原本已正式上線，手機關閉 Wi-Fi，開啟既有 HTTPS hostname，確認到正確登入頁且能持續更新。完成後回 Dashboard 再記一次狀態；整個流程不按 Restart Add-on。</p></li>
+</ol>
+<div class="callout"><strong>觀察順序：</strong>本機 HA → Dashboard 三卡 → Setup → Logs → 外部 URL。這個順序能把「HA 本身」「App 管理」「connector」「DNS／origin」分層，不靠重啟碰運氣。</div>
+</section>
+<section id="choices" data-nav="狀態判斷"><h2 data-icon="compare">常見狀態組合與下一步</h2>
+<table class="data-table"><thead><tr><th>組合</th><th>較合理的解讀</th><th>先做什麼</th></tr></thead><tbody>
+<tr><td>stopped ＋ unconfigured</td><td>options 完全空白，fork 保留 GUI 而不啟動 Tunnel</td><td>若是首次安裝屬預期；依第 4 章規劃，不 Restart</td></tr>
+<tr><td>starting ＋ Supervisor connected</td><td>GUI 與管理 API 正常，cloudflared 尚未取得 ready connection</td><td>等待短時間並看 Logs 的網路／協定訊息</td></tr>
+<tr><td>running ＋ edge connections &gt; 0</td><td>至少一條 connector-to-edge 連線就緒</td><td>再測 DNS、hostname、origin 與登入，不直接宣布全數正常</td></tr>
+<tr><td>running ＋ 外部 404</td><td>edge 可用，但 hostname／ingress rule 可能未匹配</td><td>核對請求 hostname、routes 與 catch-all</td></tr>
+<tr><td>running ＋ 外部 502</td><td>Cloudflare 可到 connector，但 origin 可能不可達或回應失敗</td><td>先在內網測 origin，再核對 service 協定、位址與 port</td></tr>
+<tr><td>stopped ＋ prepare failed</td><td>最近 setup 在 cloudflared 啟動前失敗</td><td>查 Logs 第一個明確錯誤，修正後才安排一次重啟</td></tr>
+<tr><td>任何 Tunnel 狀態 ＋ Mode 不符</td><td>目前 options 的 token 狀態和維護計畫不同</td><td>停止，核對既有 Tunnel 擁有者與 Cloudflare 設定</td></tr>
+<tr><td>Supervisor unreachable ＋ HA App 正常</td><td>Web GUI 到 Supervisor API 的狀態讀取失敗或暫態</td><td>重新整理、看 Home Assistant 系統狀態與最小 Logs</td></tr>
+<tr><td>Dashboard unknown</td><td>health API 尚未成功載入或 GUI 正在失聯</td><td>先確認 Ingress／App 狀態，不把 unknown 當 stopped</td></tr>
+</tbody></table>
+<div class="callout warn"><strong>不要用顏色決策：</strong>卡片樣式可能隨版本改變，而且 Add-on 卡的顏色主要依 Supervisor connected 判斷。務必讀 badge、說明文字、時間與 Logs。</div>
+</section>
+<section id="security" data-nav="安全檢查"><h2 data-icon="security">Dashboard 也有敏感與高影響操作</h2>
+<ol class="steps">
+<li><h3>不按 Restart Add-on</h3><p>唯讀巡檢沒有重啟理由。Restart 會用已儲存設定重跑 setup，讓 Tunnel 與 Web GUI 短暫中斷；若授權、DNS 或設定有問題，也可能再次觸碰那些流程。</p></li>
+<li><h3>不把 Dashboard 當公開監控頁</h3><p>它是 Home Assistant Ingress 管理介面，應留在 HA 登入後。不要替內部 8099 建立 public hostname、port forwarding 或未驗證反向代理。</p></li>
+<li><h3>分享前移除識別資料</h3><p>畫面或旁邊的 Setup／Logs 可能帶出版本、hostname、Tunnel UUID、帳號、IP 與授權 URL。求助時改寫成時間軸與狀態文字，避免整頁截圖。</p></li>
+<li><h3>不因 running 放寬存取</h3><p>Tunnel readiness 不等於身份驗證。Home Assistant 仍應使用個人帳號、強密碼與多因素驗證；不必要的 additional hosts、catch-all 與高權限管理頁應移除。</p></li>
+<li><h3>保留本機退路</h3><p>遠端健康不代表永遠可用。持續維護家中區網入口、備份與現場協助方式，避免將 Tunnel 變成唯一管理通道。</p></li>
+<li><h3>分清 Save 與 Restart</h3><p>Dashboard Restart 使用目前已存 options；Config 的 <strong>Save &amp; Restart</strong> 先修改 options 再重啟。後者會變更設定，兩者都不是診斷用的「重新整理」。</p></li>
+</ol>
+<div class="callout danger"><strong>本章零變更標準：</strong>沒有按 Restart Add-on、Save、Save &amp; Restart、授權、Copy link 或任何 Cloudflare 控制項。重新整理頁面與唯讀外部測試足以完成健康判讀。</div>
+</section>
+<section id="test" data-nav="驗收測試"><h2 data-icon="test">健康狀態的端到端驗收</h2>
+<table class="data-table"><thead><tr><th>層級</th><th>測試</th><th>通過條件</th></tr></thead><tbody>
+<tr><td>Home Assistant 本機</td><td>家中 Wi-Fi 由本機網址登入與切頁</td><td>HA 本身正常，保留 Tunnel 以外的入口</td></tr>
+<tr><td>Web GUI／Ingress</td><td>從 App 詳細頁開 Dashboard 並切到 Setup、Logs</td><td>管理頁可讀，沒有公開 8099</td></tr>
+<tr><td>Supervisor</td><td>讀 Add-on 卡並對照 Home Assistant App 詳細頁</td><td>狀態一致，Supervisor connected 或已解釋暫態差異</td></tr>
+<tr><td>模式</td><td>讀 Mode 並與維護文件比對</td><td>local／token 符合預期管理責任</td></tr>
+<tr><td>Connector</td><td>讀 Tunnel 卡與 edge connections</td><td>正式運作時持續 running 且 ready connections 大於 0</td></tr>
+<tr><td>DNS／HTTPS</td><td>手機行動網路開既有公開 hostname</td><td>HTTPS 到正確服務，不是另一個 origin 或錯誤 catch-all</td></tr>
+<tr><td>應用功能</td><td>登入後切換頁面並觀察即時更新</td><td>不只載入首頁，互動與長連線也正常</td></tr>
+<tr><td>Logs</td><td>比對測試時間附近訊息</td><td>沒有持續新增 fatal、重複連線失敗或意外 route</td></tr>
+<tr><td>零變更</td><td>回顧操作紀錄</td><td>未 Restart、未 Save &amp; Restart、未授權或改 DNS</td></tr>
+</tbody></table>
+<div class="callout tip"><strong>一次成功不代表長期健康：</strong>可在不同時段做同樣唯讀測試，保留「日期、三卡文字、外部結果」即可。不要建立含祕密的長期 Dashboard 截圖庫。</div>
+</section>
+<section id="troubleshoot" data-nav="常見排錯"><h2 data-icon="troubleshoot">Dashboard 常見卡關</h2>
+<ol class="steps">
+<li><h3>Tunnel 顯示 stopped，但 App 顯示 started</h3><p>兩者可以同時成立：Web GUI service 還在，cloudflared metrics 卻不可達。先看 Setup 是否 unconfigured／prepare failed，再查 Logs；不要把 App started 當 Tunnel ready。</p></li>
+<li><h3>長時間停在 starting</h3><p>代表 metrics 可到達但 ready connection 尚未建立。記下時間，檢查 Logs 的 DNS、UDP／QUIC、HTTP/2、時間同步與 Cloudflare 連線訊息；先排網路，不連續重啟。</p></li>
+<li><h3>edge connections 數量上下變動</h3><p>短暫變動可能是重新協商或 edge 變化。若仍大於 0 且外部測試正常，先觀察；若反覆歸零並伴隨外部中斷，再用同一時間窗 Logs 排查。</p></li>
+<li><h3>running，但公開 hostname 顯示 502</h3><p>running 只證明 connector 到 edge 有 ready connection。先從家中測 origin，再核對 route 的 service 協定、IP、port 與 Home Assistant proxy；不要重做授權。</p></li>
+<li><h3>running，但開到錯的服務或 404</h3><p>核對瀏覽器 hostname、local options 或 Cloudflare public hostname 是否屬於目前模式，並檢查 additional hosts 與 catch-all 順序。先修 route 證據，不把問題誤判為 edge。</p></li>
+<li><h3>Add-on 顯示 Supervisor unreachable</h3><p>重新整理一次，對照 Home Assistant App 詳細頁與系統狀態。若 App 仍運作，擷取已遮罩的 API／Ingress 錯誤摘要；不要公開整頁或為了測試額外開 port。</p></li>
+<li><h3>Mode 顯示 token，但原本預期 local</h3><p>立即停止任何變更，確認是否已有管理者設定 remote Tunnel。不要在 Config 按移除 token或 Save &amp; Restart；那會改變 options、重啟並可能讓既有入口中斷。</p></li>
+<li><h3>狀態顯示 unknown 或頁面載入失敗</h3><p>先判斷是 Ingress、Web GUI health API 還是整個 App 不可用。回 Home Assistant App 頁讀狀態與 Logs；unknown 不是 stopped，也不能靠按 Restart 當第一步。</p></li>
+</ol>
+</section>
+<section id="faq" data-nav="FAQ"><h2 data-icon="faq">Dashboard 常見問題</h2>
+<details class="faq"><summary>edge connections 是目前在線使用者數嗎？</summary><div class="body">不是。它是 cloudflared connector 到 Cloudflare edge 的 ready connections 數量，和訪客、瀏覽器分頁、hostname 或 Home Assistant 裝置數不同。</div></details>
+<details class="faq"><summary>running 就代表所有 hostname 都正常嗎？</summary><div class="body">不代表。它只表示至少有 ready edge connection；仍要逐一驗證 DNS、ingress rule、origin、HTTPS、登入與即時功能。</div></details>
+<details class="faq"><summary>edge connections 不是固定數字，需要重啟嗎？</summary><div class="body">通常不需要。短暫增減可能是網路或 edge 重新協商；先看是否持續大於 0、外部測試是否正常、Logs 是否反覆錯誤。</div></details>
+<details class="faq"><summary>Add-on started 和 Tunnel running 有什麼差別？</summary><div class="body">App container 可運作並提供 Web GUI，但 cloudflared 可能因空白設定、prepare 失敗或尚未連線而 stopped／starting。兩張卡要分開看。</div></details>
+<details class="faq"><summary>Dashboard Restart 和 Config Save &amp; Restart 一樣嗎？</summary><div class="body">不一樣。Dashboard Restart 以已儲存 options 重啟並重跑 setup；Config 的 Save &amp; Restart 會先修改 Supervisor options 再重新啟動。兩者都會造成短暫中斷，本章都不使用。</div></details>
+<details class="faq"><summary>多久該看一次 Dashboard？</summary><div class="body">網路、DNS、App 更新後或外部存取異常時做一次完整唯讀檢查；平時可依家庭需求定期查看。重點是固定流程與時間記錄，不是持續盯固定連線數。</div></details>
+</section>
+<section id="sources" data-nav="官方來源"><h2 data-icon="records">官方來源與版本提示</h2>
+<table class="data-table"><thead><tr><th>來源</th><th>查證重點</th></tr></thead><tbody>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui#what-you-get" rel="noopener">WOOWTECH README：Dashboard</a></td><td>live tunnel status、edge connections、App state、Restart 與 Supervisor options 邊界</td></tr>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/DOCS.md#web-gui" rel="noopener">Cloudflared Web GUI DOCS</a></td><td>四頁功能、Ingress、空白設定與 restarted setup 行為</td></tr>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/webgui/backend/metrics.py" rel="noopener">專案 metrics backend</a></td><td><code>/ready</code>、<code>readyConnections</code> 與 running／starting／stopped 的實際判定</td></tr>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/webgui/frontend/src/pages/Dashboard.vue" rel="noopener">專案 Dashboard 原始碼</a></td><td>三張狀態卡、Mode、Supervisor connected 與 Restart 警告文案</td></tr>
+<tr><td><a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/monitor-tunnels/" rel="noopener">Cloudflare：Monitor Cloudflare Tunnels</a></td><td>Cloudflare 端 Tunnel 與 connector 健康狀態的官方觀察方式</td></tr>
+<tr><td><a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/monitor-tunnels/metrics/" rel="noopener">Cloudflare：Tunnel metrics</a></td><td>cloudflared metrics endpoint 與 connector metrics 的官方說明</td></tr>
+<tr><td><a href="https://www.cloudflarestatus.com/" rel="noopener">Cloudflare Status</a></td><td>排除 Cloudflare 平台事件，不把區域性異常直接歸咎於家中設定</td></tr>
+</tbody></table>
+<div class="callout"><strong>版本提示：</strong>本章的 running／starting／stopped 依目前專案 metrics 程式碼；Cloudflare 儀表板的狀態名稱與彙整邏輯不同。介面改版時，以最新 README、DOCS、專案原始碼與 Cloudflare 官方監控文件為準。</div>
+</section>
 <div class="pager">
       <a class="prev" href="ch5_authorize.html">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> 上一章</span>

@@ -63,16 +63,101 @@
 
     </div>
   </aside><main class="content">
-<div class="chapter-header"><div class="kicker">第 4 章</div><h1>Setup 精靈</h1><p class="lead">用精靈整理 hostname、Tunnel 模式與授權前置條件，不急著按下套用。</p></div>
-<section id="why" data-nav="為什麼要學"><h2 data-icon="why">為什麼要學這個</h2><p>內容撰寫中。</p></section>
-<section id="concept" data-nav="先懂觀念"><h2 data-icon="concept">先懂核心觀念</h2><p>內容撰寫中。</p></section>
-<section id="steps" data-nav="動手做"><h2 data-icon="steps">動手做</h2><ol class="steps"><li><h3>步驟一</h3><p>內容撰寫中。</p></li><li><h3>步驟二</h3><p>內容撰寫中。</p></li><li><h3>步驟三</h3><p>內容撰寫中。</p></li><li><h3>步驟四</h3><p>內容撰寫中。</p></li></ol></section>
-<section id="choices" data-nav="選項判斷"><h2 data-icon="compare">選項怎麼判斷</h2><p>內容撰寫中。</p></section>
-<section id="security" data-nav="安全檢查"><h2 data-icon="security">安全檢查</h2><p>內容撰寫中。</p></section>
-<section id="test" data-nav="驗收測試"><h2 data-icon="test">驗收測試</h2><p>內容撰寫中。</p></section>
-<section id="troubleshoot" data-nav="常見排錯"><h2 data-icon="troubleshoot">常見排錯</h2><p>內容撰寫中。</p></section>
-<section id="faq" data-nav="FAQ"><h2 data-icon="faq">FAQ</h2><details class="faq"><summary>問題一</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題二</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題三</summary><div class="body">內容撰寫中。</div></details><details class="faq"><summary>問題四</summary><div class="body">內容撰寫中。</div></details></section>
-<section id="sources" data-nav="官方來源"><h2 data-icon="book">官方來源與版本提示</h2><p>內容撰寫中。</p></section>
+<div class="chapter-header"><div class="kicker">第 4 章</div><h1>Setup 精靈：先選管理模式</h1><p class="lead">先分清楚本機管理與遠端管理，再看 Setup 精靈每一步代表什麼。你會完成設定計畫、知道何時會寫入與重啟，但不會把兩種模式混在一起。</p></div>
+<section id="why" data-nav="為什麼要學"><h2 data-icon="why">Setup 是進度表，不是另一套設定</h2>
+<p>從<a href="ch3_first_open.html">第 3 章</a>認完四個頁面後，最容易誤會的就是 Setup：它看起來像會替你收集所有資料的表單，其實主要負責觀察首次啟動進度。真正的值仍放在 Supervisor options，由 Config 與 Home Assistant App 設定頁讀寫；Tunnel 的登入、建立、DNS route 與連線工作，則在 App 啟動時依那些值自動執行。</p>
+<p>開始前先選管理模式很重要。本機管理型（local-managed）由 App 建立 Tunnel、保存本機憑證並依 options 建立路由；遠端管理型（remote-managed）由 Cloudflare 儀表板管理，App 只使用 <code>tunnel_token</code> 連線。若像把兩份住址同時交給宅配員一樣混搭，畫面雖然還看得到 hostname 欄位，實際上卻可能完全不採用它。</p>
+<div class="callout warn"><strong>操作邊界：</strong>本教學的擷取環境只讀 Setup，沒有儲存、重新啟動、進行 Cloudflare 授權、建立 Tunnel 或變更 DNS。以下正式操作只適用於你自己控制、已備妥本機退路的 Home Assistant。</div>
+<div class="callout danger"><strong>先記住：</strong><strong>Save &amp; Restart</strong> 會修改 Supervisor options，接著重新啟動 App；它不是預覽或下一步按鈕。重啟會讓 Web GUI 與 Tunnel 暫時中斷，也可能觸發授權、Tunnel 建立與 DNS route。</div>
+</section>
+<section id="concept" data-nav="模式觀念"><h2 data-icon="modes">本機管理與遠端管理的責任分界</h2>
+<table class="data-table"><thead><tr><th>判斷點</th><th>本機管理型</th><th>遠端管理型</th></tr></thead><tbody>
+<tr><td>誰建立 Tunnel</td><td>App 在首次成功授權後自動建立</td><td>你先在 Cloudflare Zero Trust 建立</td></tr>
+<tr><td>App 需要的關鍵資料</td><td>至少一項本機路由設定；沒有 <code>tunnel_token</code></td><td>Cloudflare 提供的 <code>tunnel_token</code></td></tr>
+<tr><td>首次授權</td><td>Setup 顯示 <code>cloudflared tunnel login</code> 產生的授權連結</td><td>不走 Setup 的本機授權步驟</td></tr>
+<tr><td>hostname 與服務路由</td><td>由 <code>external_hostname</code>、<code>additional_hosts</code>、catch-all 等 options 決定</td><td>在 Cloudflare 儀表板設定；App 內其他 options 會被忽略</td></tr>
+<tr><td>本機檔案狀態</td><td>Setup 可看到 <code>cert.pem</code> 與 Tunnel 檔案是否存在</td><td>使用 token 連接，不靠本機管理流程的四步</td></tr>
+<tr><td>適合誰</td><td>第一次使用，依專案建議讓 App 管理</td><td>已熟悉 Cloudflare 儀表板與 public hostname 的進階使用者</td></tr>
+</tbody></table>
+<div class="callout"><strong>畫面判斷：</strong>Setup 在偵測到 token 時會顯示 remote-managed tunnel 提示，並說明下面的本機四步不適用。Dashboard 的 Mode 也會顯示 <code>token</code> 或 <code>local</code>；這是模式提示，不代表 Tunnel 已連線。</div>
+<div class="callout warn"><strong>切換不是切分頁：</strong>加入或移除 <code>tunnel_token</code> 會改變管理責任，而且必須儲存與重啟才會套用。既有 Tunnel 正常時，不要為了試畫面來回切換。</div>
+</section>
+<section id="steps" data-nav="設定步驟"><h2 data-icon="steps">七步完成 Setup 前置規劃</h2>
+<ol class="steps">
+<li><h3>先確認本機退路與維護時段</h3><p>用家中 Wi-Fi 開啟 Home Assistant 本機網址並登入，確認不是只靠目前 Tunnel。若人在外面、家中沒有人可協助，或目前連線正被家人使用，就停在規劃，不做任何重啟。</p></li>
+<li><h3>確認 Cloudflare 帳號與 DNS zone</h3><p>登入你自己的 Cloudflare 帳號，確認預定網域確實使用 Cloudflare DNS，且你有管理正確 zone 的權限。預定 hostname 若已有網站、郵件或其他用途，另選新名稱，因本機流程可能覆寫相符 DNS 記錄。</p></li>
+<li><h3>只選一種模式</h3><p>沒有既有 remote-managed Tunnel 時，依專案 DOCS 選本機管理型。若已在 Cloudflare 建立 Tunnel、知道 public hostname 在哪裡維護，而且持有該 Tunnel token，才選遠端管理型；把選擇寫在非敏感維護筆記。</p></li>
+<li><h3>準備 Home Assistant 反向代理設定</h3><p>若要把 Home Assistant 放在 Tunnel 後方，先依專案 DOCS 與 Home Assistant HTTP integration 文件確認 <code>use_x_forwarded_for</code> 與 <code>trusted_proxies</code>。不要猜任意廣泛網段；專案標準 App 情境使用文件指定的 Docker 網段，非標準安裝則依實際日誌判斷。</p></li>
+<li><h3>本機模式只規劃最小路由</h3><p>先規劃一個 Home Assistant 的 <code>external_hostname</code>；若只要公開其他服務，文件允許 external hostname 留空並使用 additional hosts。新手不要先開 catch-all、萬用 DNS、路由器或 NAS 管理頁。</p></li>
+<li><h3>遠端模式只準備 token 與 Cloudflare 路由</h3><p>在 Cloudflare 儀表板建立的 Tunnel 取得 token，使用密碼管理器保管；public hostname 與 origin service 也在 Cloudflare 端設定。不要同時期待 App 的 local options 管理相同路由。</p></li>
+<li><h3>進入 Setup 只核對預期路線</h3><p>本機模式應看到 Configure、Authorize、Tunnel created、Tunnel connected 四步；遠端模式應看到 token 模式提示。此時仍可離開而不改系統。真正填值要到 Config；按 <strong>Save &amp; Restart</strong> 前再次確認，因它會寫入 options 並重啟 App。</p></li>
+</ol>
+<div class="callout tip"><strong>最小變更原則：</strong>第一次只讓一個必要 hostname 通過。完成授權與端到端測試後，再依<a href="ch9_additional_hosts.html">第 9 章</a>評估 additional hosts。</div>
+</section>
+<section id="choices" data-nav="選項判斷"><h2 data-icon="compare">看到 Setup 畫面時怎麼判斷</h2>
+<table class="data-table"><thead><tr><th>畫面</th><th>代表什麼</th><th>下一個安全動作</th></tr></thead><tbody>
+<tr><td>Welcome／not configured，Tunnel stopped</td><td>options 完全空白；fork 刻意保留 GUI 供首次設定</td><td>先完成本章規劃，再到 Config 填必要值</td></tr>
+<tr><td>Configure your hostnames 未完成</td><td>沒有 external hostname、additional host、catch-all 或 Nginx Proxy Manager 設定</td><td>不要填假值湊完成；確認真正用途</td></tr>
+<tr><td>Authorize with Cloudflare 等待中</td><td>本機模式尚無 <code>cert.pem</code>，或啟動流程正等待登入</td><td>授權連結出現後依第 5 章處理，不公開連結</td></tr>
+<tr><td>Certificate found</td><td>App 資料目錄已有本機管理憑證</td><td>不等於 Tunnel 一定存在或已連線，繼續看後兩步</td></tr>
+<tr><td>Tunnel exists</td><td>本機 Tunnel 檔案存在；畫面可能顯示 Tunnel UUID</td><td>UUID 也要遮罩，再看 connected 狀態與 Logs</td></tr>
+<tr><td>connected／starting／not started</td><td>分別代表已有 ready edge connection、正在建立連線、或 cloudflared 尚未運作</td><td>先等候與看 Logs，不要連續重啟</td></tr>
+<tr><td>remote-managed tunnel 提示</td><td><code>tunnel_token</code> 已設定</td><td>到 Cloudflare 管理路由；本機四步不適用</td></tr>
+<tr><td>last setup attempt failed</td><td>最近一次 prepare 失敗，Tunnel 保持停止而 GUI 留存</td><td>先讀 Logs 的第一個明確錯誤，再修 Config</td></tr>
+</tbody></table>
+<div class="callout"><strong>四步不是四個按鈕：</strong>Setup 被動觀察檔案與連線狀態。授權後，Tunnel 建立、DNS route 與 cloudflared 連線由啟動流程接續，不要在畫面更新期間重複送出操作。</div>
+</section>
+<section id="security" data-nav="安全檢查"><h2 data-icon="security">進入正式變更前的安全停止線</h2>
+<ol class="steps">
+<li><h3>祕密只留在可信裝置</h3><p>授權網址、<code>tunnel_token</code>、<code>cert.pem</code>、Tunnel UUID、登入 cookie 與完整 Logs 都不可貼到社群、issue、共用筆記或未遮罩截圖。一般設定筆記只記模式與非敏感 hostname。</p></li>
+<li><h3>不要公開 Web GUI</h3><p>Web GUI 經 Home Assistant Ingress 與登入保護使用，不必對外映射內部 8099。Tunnel 的 public hostname 應指向預定服務，不是 Cloudflared 管理頁。</p></li>
+<li><h3>確認 DNS 不會誤傷現有服務</h3><p>本機模式啟動可能覆寫與 external hostname 或 additional hosts 相符的 Cloudflare DNS 記錄。逐筆確認名稱空閒，不要拿公司網站、郵件或家人正在使用的名稱測試。</p></li>
+<li><h3>限制公開範圍</h3><p>只建立有明確擁有者與用途的 hostname，不開 catch-all 或萬用 DNS 當捷徑。Tunnel 不會自動替 origin 修補漏洞，也不取代 Home Assistant 強密碼與多因素驗證。</p></li>
+<li><h3>理解兩個重啟入口</h3><p>Config 的 <strong>Save &amp; Restart</strong> 會先修改 Supervisor options 再重啟；Dashboard 的 <strong>Restart Add-on</strong> 會用已儲存值重跑 setup。兩者都會中斷，規劃與唯讀檢查都不需要按。</p></li>
+</ol>
+<div class="callout danger"><strong>擷取環境禁止事項：</strong>不要為了取得完成畫面，在指定擷取環境按 Save、Save &amp; Restart、Restart Add-on、授權連結或 Copy link。需要示範的狀態以文字與表格說明，不製造真實憑證或 DNS 變更。</div>
+</section>
+<section id="test" data-nav="驗收測試"><h2 data-icon="test">模式與前置設定驗收</h2>
+<table class="data-table"><thead><tr><th>檢查</th><th>本機管理通過條件</th><th>遠端管理通過條件</th></tr></thead><tbody>
+<tr><td>責任歸屬</td><td>知道 App 管理 Tunnel 與 routes</td><td>知道 Cloudflare 儀表板管理 Tunnel 與 public hostname</td></tr>
+<tr><td>模式訊號</td><td>沒有設定 token，Dashboard 預期顯示 local</td><td>token 已安全設定，Setup 顯示 remote-managed 提示</td></tr>
+<tr><td>最小設定</td><td>至少規劃一項必要路由，不使用假 hostname</td><td>已在 Cloudflare 規劃 origin；不依賴被忽略的 local options</td></tr>
+<tr><td>HA 前置</td><td>本機入口正常，HTTP proxy 設定依官方文件檢查</td><td>同左；Tunnel 模式不會免除 Home Assistant proxy 設定</td></tr>
+<tr><td>DNS 安全</td><td>預定名稱沒有承載其他服務</td><td>Cloudflare public hostname 與 DNS 目標由正確帳號管理</td></tr>
+<tr><td>祕密保護</td><td>授權 URL、憑證與 UUID 不外流</td><td>token 不外流，若外洩有撤銷／輪替計畫</td></tr>
+<tr><td>回復能力</td><td colspan="2">本機網址可登入、維護時段已安排，而且知道 Save &amp; Restart 會修改並重啟</td></tr>
+</tbody></table>
+<div class="callout tip"><strong>本章通過不等於 Tunnel 已完成：</strong>你只要能清楚說出模式、管理位置、最小路由、祕密與停止線，就可進入<a href="ch5_authorize.html">第 5 章</a>。本機模式才需要 Cloudflare 授權；遠端模式跳過該本機流程。</div>
+</section>
+<section id="troubleshoot" data-nav="常見排錯"><h2 data-icon="troubleshoot">Setup 常見卡關</h2>
+<ol class="steps">
+<li><h3>空白設定卻顯示 Tunnel stopped</h3><p>這是此 fork 的預期首次狀態，不是 App 安裝壞掉。只要 Ingress 與四頁可開，就先規劃真正設定；不要用假 hostname 或 token 消除紅色狀態。</p></li>
+<li><h3>填了 hostname，Configure 仍未完成</h3><p>先重新讀取 Config，確認值真的已寫入 Supervisor options。只在表單輸入但未儲存不算；若按 Save &amp; Restart，則它已造成修改與重啟，應等待 App 回來而不是再次按。</p></li>
+<li><h3>本機四步突然被 token 提示取代</h3><p>表示目前 options 有 <code>tunnel_token</code>。不要直接清除或貼上另一個 token；先確認這是不是既有 remote-managed Tunnel，並和管理者核對 Cloudflare 端路由。</p></li>
+<li><h3>一直 Waiting for authorization</h3><p>確認本機模式已有完整必要設定且 App 完成重啟，再看 Logs 是否出現登入要求。授權網址沒出現時不要自己拼網址；依第 5 章檢查網路、時間與第一個 prepare 錯誤。</p></li>
+<li><h3>Certificate found，但 Tunnel 沒建立</h3><p>憑證存在只完成第二步。查看 Logs 中授權後第一個明確錯誤，確認 Tunnel 名稱在帳號內唯一、Cloudflare 權限與網路可用；不要刪憑證或反覆授權當第一招。</p></li>
+<li><h3>Setup 顯示 prepare failed</h3><p>先記下發生時間，到 Logs 擷取最小且已遮罩的錯誤上下文。修正明確設定問題後才安排一次重啟；連續重啟只會增加雜訊，也可能重複碰 DNS。</p></li>
+</ol>
+</section>
+<section id="faq" data-nav="FAQ"><h2 data-icon="faq">Setup 常見問題</h2>
+<details class="faq"><summary>Setup 會把資料存在另一份設定嗎？</summary><div class="body">不會。Supervisor options 是單一事實來源；Setup 主要觀察模式、憑證、Tunnel 檔案與連線進度，Config 才是 Web GUI 內的 options 編輯入口。</div></details>
+<details class="faq"><summary>第一次使用該選本機還是遠端管理？</summary><div class="body">專案 DOCS 將本機管理列為建議流程。已熟悉 Cloudflare Zero Trust、已有 remote-managed Tunnel 並清楚 token 與 public hostname 責任時，才選遠端管理。</div></details>
+<details class="faq"><summary>遠端管理模式還要完成 Setup 四步嗎？</summary><div class="body">不用。設定 <code>tunnel_token</code> 後，Setup 會說明本機四步不適用；Tunnel 與 routes 在 Cloudflare 儀表板管理，App 內其他 local options 會被忽略。</div></details>
+<details class="faq"><summary>可以先填 hostname，之後再決定模式嗎？</summary><div class="body">可以先離線規劃，但不要急著儲存。模式會決定那些欄位由誰採用；先選定責任邊界，再做一次小而完整的變更，比事後混搭安全。</div></details>
+<details class="faq"><summary>Save &amp; Restart 只是讓 Setup 重新整理嗎？</summary><div class="body">不是。它會修改 Supervisor options 並重新啟動 App，Web GUI 與 Tunnel 會暫時中斷；本機模式還可能接著要求授權、建立 Tunnel 與 DNS route。</div></details>
+<details class="faq"><summary>為什麼擷取環境沒有完成畫面？</summary><div class="body">因為完成畫面需要真實儲存、重啟、Cloudflare 授權或 Tunnel 狀態。本站依安全邊界不在擷取環境做這些變更，改以目前專案文件與原始碼說明。</div></details>
+</section>
+<section id="sources" data-nav="官方來源"><h2 data-icon="records">官方來源與版本提示</h2>
+<table class="data-table"><thead><tr><th>來源</th><th>查證重點</th></tr></thead><tbody>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui#what-you-get" rel="noopener">WOOWTECH README</a></td><td>四頁用途、local／remote 模式、Supervisor options 單一來源與空白設定行為</td></tr>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/DOCS.md#initial-setup" rel="noopener">Cloudflared Web GUI DOCS：Initial setup</a></td><td>兩種模式步驟、local 模式建議、DNS 覆寫警告與 remote token 行為</td></tr>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/webgui/frontend/src/pages/SetupWizard.vue" rel="noopener">專案 SetupWizard 原始碼</a></td><td>現行四步、token 提示與 Save &amp; Restart 文案</td></tr>
+<tr><td><a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/get-started/create-remote-tunnel/" rel="noopener">Cloudflare：Create a remotely-managed tunnel</a></td><td>Cloudflare 儀表板建立與管理 Tunnel 的官方流程</td></tr>
+<tr><td><a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/" rel="noopener">Cloudflare：Locally-managed tunnels</a></td><td>本機憑證、設定檔與 locally-managed Tunnel 的責任模型</td></tr>
+<tr><td><a href="https://www.home-assistant.io/integrations/http/#reverse-proxies" rel="noopener">Home Assistant HTTP：Reverse proxies</a></td><td><code>use_x_forwarded_for</code> 與 <code>trusted_proxies</code> 的官方安全要求</td></tr>
+</tbody></table>
+<div class="callout"><strong>版本提示：</strong>本章依目前 Web GUI 的 Setup、Config、Mode 與按鈕名稱撰寫。Cloudflare 導覽或 Home Assistant 的「Apps／Add-ons」翻譯可能改版；責任分界、敏感資料與「Save &amp; Restart 會修改並重啟」才是判斷核心。</div>
+</section>
 <div class="pager">
       <a class="prev" href="ch3_first_open.html">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> 上一章</span>
