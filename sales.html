@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home Assistant 遠端連線代管方案 · 銷售手冊 · WoowTech 渥屋科技</title>
+  <meta name="description" content="不開埠、不轉發、不用固定 IP：WoowTech 幫你的 Home Assistant 建立 Cloudflare Tunnel 遠端入口——兩種方案，從內建 add-on 代設定，到雲端 PaaS 完整代管，含 Zero Trust、SSO、DDoS 防護與 Analytics。" />
+  <meta name="author" content="WoowTech" />
+  <meta name="theme-color" content="#6183FC" />
+  <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/sales.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Yellowtail&display=swap" />
+  <style>
+/* Cloudflare Tunnel 銷售手冊 — Woow_ha_tutorial_site 版型 × woowtech Brand Prompt Library v2 */
+:root {
+  --ww-blue: #6183FC;
+  --ww-blue-600: #4A6DE8;
+  --ww-blue-700: #3A57C4;
+  --ww-blue-050: #EEF2FF;
+  --ww-blue-100: #DCE4FF;
+
+  --ink-900: #1B2033;
+  --ink-700: #3A4054;
+  --ink-500: #6B7186;
+  --ink-300: #A5AAB9;
+  --ink-100: #E7E9F0;
+
+  --paper: #F7F8FC;
+  --surface: #FFFFFF;
+  --surface-alt: #F1F3FA;
+  --hairline: #E2E5EF;
+
+  --info: var(--ww-blue);
+  --tip:  #8CD37F;
+  --warn: #E66D3E;
+  --danger: #F45D6D;
+
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-xs: 8px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 2px 6px rgba(27, 32, 51, 0.05), 0 1px 2px rgba(27, 32, 51, 0.04);
+  --shadow-md: 0 8px 24px rgba(27, 32, 51, 0.08), 0 2px 6px rgba(27, 32, 51, 0.04);
+  --shadow-lg: 0 20px 48px rgba(27, 32, 51, 0.12), 0 4px 12px rgba(27, 32, 51, 0.06);
+  --shadow-float: 0 26px 60px -18px rgba(97, 131, 252, 0.28);
+
+  --font-display: "Outfit", "Poppins", -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-body: "Poppins", -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-script: "Yellowtail", cursive;
+  --font-mono: "SF Mono", Menlo, Consolas, "Fira Code", monospace;
+
+  --sidebar-w: 268px;
+  --max-content: 780px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  font-family: var(--font-body);
+  color: var(--ink-900);
+  background: var(--paper);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+html { scroll-behavior: smooth; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.005em; }
+
+a { color: var(--ww-blue-600); text-decoration: none; transition: color 0.15s; }
+a:hover { color: var(--ww-blue-700); text-decoration: underline; }
+
+.layout { display: grid; grid-template-columns: var(--sidebar-w) 1fr; min-height: 100vh; }
+
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--hairline);
+  padding: 28px 22px;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.sidebar h2 {
+  font-family: var(--font-body); font-size: 12px; color: var(--ink-500);
+  text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin: 0 0 12px;
+}
+.sidebar .brand {
+  display: block; font-family: var(--font-display); font-size: 20px; font-weight: 700;
+  color: var(--ink-900); margin-bottom: 4px; letter-spacing: -0.01em;
+}
+.sidebar .brand-sub { font-size: 13px; color: var(--ink-500); margin-bottom: 6px; }
+.sidebar .hub-link { display: inline-block; font-size: 12.5px; color: var(--ink-500); margin-bottom: 22px; }
+.sidebar .hub-link:hover { color: var(--ww-blue-700); text-decoration: none; }
+.sidebar .toc-in-chapter { border-top: 1px solid var(--hairline); padding-top: 16px; margin-top: 8px; }
+.sidebar .toc-in-chapter:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+.sidebar .toc-in-chapter a {
+  display: block; padding: 7px 12px; border-radius: var(--radius-xs);
+  color: var(--ink-700); font-size: 13.5px;
+}
+.sidebar .toc-in-chapter a:hover { background: var(--surface-alt); text-decoration: none; }
+.sidebar .toc-in-chapter a.active { background: var(--ww-blue-050); color: var(--ww-blue-700); font-weight: 600; }
+
+.content { padding: 56px 64px 96px; max-width: calc(var(--max-content) + 128px); }
+
+.chapter-header { margin-bottom: 40px; }
+.chapter-header .kicker-script {
+  font-family: var(--font-script); font-size: 30px; color: var(--ww-blue);
+  line-height: 1; margin-bottom: 10px; display: block;
+}
+.chapter-header .kicker {
+  color: var(--ww-blue); font-family: var(--font-display); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px;
+}
+.chapter-header h1 {
+  font-family: "Noto Sans TC", var(--font-display); font-size: 38px; font-weight: 700;
+  margin: 0 0 14px; letter-spacing: -0.02em; line-height: 1.25;
+}
+.chapter-header .lead { font-size: 17px; color: var(--ink-700); margin: 0; max-width: var(--max-content); }
+
+.kpi-frame {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: var(--radius); box-shadow: var(--shadow-float);
+  margin: 28px 0 8px; overflow: hidden;
+}
+.kpi { padding: 22px 20px; text-align: center; }
+.kpi + .kpi { border-left: 1px solid var(--hairline); }
+.kpi .num {
+  font-family: var(--font-display); font-size: 26px; font-weight: 700;
+  color: var(--ww-blue); line-height: 1.2;
+}
+.kpi .cap { font-size: 13px; color: var(--ink-500); margin-top: 4px; }
+
+section { margin-bottom: 56px; scroll-margin-top: 24px; }
+section h2 {
+  font-family: var(--font-display); font-size: 24px; font-weight: 700;
+  margin: 0 0 20px; padding: 0; border: 0;
+  display: flex; align-items: center; gap: 14px; color: var(--ink-900);
+}
+section h2[data-icon]::before {
+  content: ""; display: inline-flex; flex-shrink: 0;
+  width: 40px; height: 40px; border-radius: var(--radius-sm);
+  background-color: var(--ww-blue-050);
+  background-repeat: no-repeat; background-position: center; background-size: 22px 22px;
+}
+section h2[data-icon="why"]::before         { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M12,2A7,7 0 0,1 19,9C19,11.38 17.81,13.47 16,14.74V17A1,1 0 0,1 15,18H9A1,1 0 0,1 8,17V14.74C6.19,13.47 5,11.38 5,9A7,7 0 0,1 12,2M9,21V20H15V21A1,1 0 0,1 14,22H10A1,1 0 0,1 9,21M12,4A5,5 0 0,0 7,9C7,11.05 8.23,12.81 10,13.58V16H14V13.58C15.77,12.81 17,11.05 17,9A5,5 0 0,0 12,4Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="what"]::before        { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M6,2A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6M6,4H13V9H18V20H6V4M8,12V14H16V12H8M8,16V18H13V16H8Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="tunnel"]::before      { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M18.36,6.64C16.79,5.06 14.73,4.28 12.68,4.28C10.63,4.28 8.57,5.06 7,6.64C3.87,9.77 3.87,14.84 7,17.97L12,23L17,17.97C20.13,14.84 20.13,9.77 18.36,6.64M12.68,15.4C10.75,15.4 9.18,13.83 9.18,11.9C9.18,9.97 10.75,8.4 12.68,8.4C14.61,8.4 16.18,9.97 16.18,11.9C16.18,13.83 14.61,15.4 12.68,15.4Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="security"]::before    { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M11,13H13V16H16V11H18L12,6L6,11H8V16H11V13M12,1L21,5V11C21,16.55 17.16,21.74 12,23C6.84,21.74 3,16.55 3,11V5L12,1Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="cloud"]::before       { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M19.35,10.03C18.67,6.59 15.64,4 12,4C9.11,4 6.6,5.64 5.35,8.03C2.34,8.36 0,10.9 0,14A6,6 0 0,0 6,20H19A5,5 0 0,0 24,15C24,12.36 21.95,10.22 19.35,10.03Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="access"]::before      { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="compare"]::before     { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M12,3C10.73,3 9.6,3.8 9.18,5H3V7H4.95L2,14C1.53,16 3,17 5.5,17C8,17 9.56,16 9,14L6.05,7H9.17C9.5,7.85 10.15,8.5 11,8.83V20H2V22H22V20H13V8.82C13.85,8.5 14.5,7.85 14.82,7H17.95L15,14C14.53,16 16,17 18.5,17C21,17 22.56,16 22,14L19.05,7H21V5H14.83C14.4,3.8 13.27,3 12,3M12,5A1,1 0 0,1 13,6A1,1 0 0,1 12,7A1,1 0 0,1 11,6A1,1 0 0,1 12,5M5.5,10.25L7,14H4L5.5,10.25M18.5,10.25L20,14H17L18.5,10.25Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="faq"]::before         { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M4,2A2,2 0 0,0 2,4V16A2,2 0 0,0 4,18H8V21A1,1 0 0,0 9,22H9.5V22C9.75,22 10,21.9 10.2,21.71L13.9,18H20A2,2 0 0,0 22,16V4C22,2.89 21.1,2 20,2H4M4,4H20V16H13.08L10,19.08V16H4V4M12.19,5.5C11.3,5.5 10.59,5.68 10.05,6.04C9.5,6.4 9.22,7 9.27,7.69C0.21,7.69 6.57,7.69 11.24,7.69C11.24,7.41 11.34,7.2 11.5,7.06C11.7,6.92 11.92,6.85 12.19,6.85C12.5,6.85 12.77,6.93 12.95,7.11C13.13,7.28 13.22,7.5 13.22,7.8C13.22,8.08 13.14,8.33 13,8.54C12.83,8.76 12.62,8.94 12.36,9.08C11.84,9.4 11.5,9.68 11.29,9.92C11.1,10.16 11,10.5 11,11H13C13,10.72 13.05,10.5 13.14,10.32C13.23,10.15 13.4,10 13.66,9.85C14.12,9.64 14.5,9.36 14.79,9C15.08,8.63 15.23,8.24 15.23,7.8C15.23,7.1 14.96,6.54 14.42,6.12C13.88,5.71 13.13,5.5 12.19,5.5M11,12V14H13V12H11Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="handshake"]::before   { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M11 6H14L17.29 2.7A1 1 0 0 1 18.71 2.7L21.29 5.29A1 1 0 0 1 21.29 6.7L19 9H11V11A1 1 0 0 1 10 12A1 1 0 0 1 9 11V8A2 2 0 0 1 11 6M5 11V15L2.71 17.29A1 1 0 0 0 2.71 18.7L5.29 21.29A1 1 0 0 0 6.71 21.29L11 17H15A1 1 0 0 0 16 16V15H17A1 1 0 0 0 18 14V13H19A1 1 0 0 0 20 12V11H13V12A2 2 0 0 1 11 14H9A2 2 0 0 1 7 12V9Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="target"]::before      { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M11,2V4.07C7.38,4.53 4.53,7.38 4.07,11H2V13H4.07C4.53,16.62 7.38,19.47 11,19.93V22H13V19.93C16.62,19.47 19.47,16.62 19.93,13H22V11H19.93C19.47,7.38 16.62,4.53 13,4.07V2M11,6.08V8H13V6.09C15.5,6.5 17.5,8.5 17.92,11H16V13H17.91C17.5,15.5 15.5,17.5 13,17.92V16H11V17.91C8.5,17.5 6.5,15.5 6.08,13H8V11H6.09C6.5,8.5 8.5,6.5 11,6.08M12,11A1,1 0 0,0 11,12A1,1 0 0,0 12,13A1,1 0 0,0 13,12A1,1 0 0,0 12,11Z'/%3E%3C/svg%3E"); }
+
+section h3 {
+  font-family: var(--font-display); font-size: 17px; font-weight: 600;
+  margin: 28px 0 12px; color: var(--ink-900);
+}
+section p, section li { color: var(--ink-700); max-width: var(--max-content); }
+
+.feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.feature-card {
+  padding: 26px 24px; border: 1px solid var(--hairline); border-radius: var(--radius);
+  background: var(--surface); box-shadow: var(--shadow-sm);
+}
+.feature-card .tile {
+  display: inline-flex; width: 48px; height: 48px; border-radius: 16px;
+  background: var(--ww-blue-050); align-items: center; justify-content: center;
+  margin-bottom: 14px;
+}
+.feature-card .tile svg { display: block; }
+.feature-card h3 { margin: 0 0 8px; font-size: 18px; }
+.feature-card > p { margin: 0 0 14px; color: var(--ink-700); font-size: 14.5px; }
+.feature-card ul { margin: 6px 0 0; padding-left: 18px; }
+.feature-card li { font-size: 14px; margin-bottom: 4px; }
+
+/* 方案卡（兩種模式的並排卡） */
+.plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 20px; }
+.plan-card {
+  padding: 28px 26px; border: 1.5px solid var(--hairline); border-radius: var(--radius);
+  background: var(--surface); box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column;
+}
+.plan-card.featured { border-color: var(--ww-blue); box-shadow: var(--shadow-float); }
+.plan-card .plan-tag {
+  display: inline-block; padding: 4px 12px; border-radius: 999px;
+  background: var(--ww-blue-050); color: var(--ww-blue-700);
+  font-family: var(--font-display); font-size: 11.5px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;
+}
+.plan-card h3 { margin: 0 0 6px; font-size: 20px; }
+.plan-card .plan-sub { font-size: 13.5px; color: var(--ink-500); margin: 0 0 16px; }
+.plan-card ul { margin: 4px 0 16px; padding-left: 20px; }
+.plan-card li { font-size: 14.5px; margin-bottom: 6px; color: var(--ink-700); }
+.plan-card .price {
+  margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--hairline);
+  font-size: 13px; color: var(--ink-500);
+}
+.plan-card .price strong { color: var(--ww-blue-700); font-family: var(--font-display); }
+
+.chips { display: flex; flex-direction: column; gap: 8px; margin: 12px 0 0; max-width: var(--max-content); }
+.chip {
+  background: var(--surface-alt); border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm); padding: 10px 14px;
+  font-size: 14px; line-height: 1.6; color: var(--ink-700);
+}
+.chip.say { background: var(--ww-blue-050); border-color: rgba(97, 131, 252, 0.22); }
+.chip .who {
+  font-family: var(--font-display); font-weight: 600; font-size: 12.5px;
+  color: var(--ww-blue-700); margin-right: 6px;
+}
+.chip .who.ai { color: #4E9C42; }
+
+.steps { list-style: none; padding: 0; margin: 0; counter-reset: step; }
+.steps > li {
+  counter-increment: step; position: relative;
+  padding: 22px 22px 22px 72px; margin-bottom: 14px;
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: var(--radius); box-shadow: var(--shadow-sm);
+}
+.steps > li::before {
+  content: counter(step);
+  position: absolute; left: 20px; top: 20px; width: 36px; height: 36px; border-radius: 50%;
+  background: var(--ww-blue); color: #fff;
+  font-family: var(--font-display); font-weight: 700; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(97, 131, 252, 0.35);
+}
+.steps > li h3 { margin: 0 0 8px; font-size: 16px; }
+.steps > li p:last-child { margin-bottom: 0; }
+
+.callout {
+  padding: 14px 18px 14px 44px; border-radius: var(--radius-sm);
+  background: var(--ww-blue-050); margin: 16px 0; font-size: 14px; color: var(--ink-700);
+  position: relative; border: 1px solid rgba(97, 131, 252, 0.18);
+  max-width: var(--max-content);
+}
+.callout::before {
+  content: ""; position: absolute; left: 14px; top: 15px; width: 18px; height: 18px;
+  background-repeat: no-repeat; background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%236183FC' d='M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z'/%3E%3C/svg%3E");
+}
+.callout.tip { background: rgba(140, 211, 127, 0.14); border-color: rgba(140, 211, 127, 0.32); }
+.callout.tip::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234E9C42' d='M12,2A7,7 0 0,0 5,9C5,11.38 6.19,13.47 8,14.74V17A1,1 0 0,0 9,18H15A1,1 0 0,0 16,17V14.74C17.81,13.47 19,11.38 19,9A7,7 0 0,0 12,2M9,21A1,1 0 0,0 10,22H14A1,1 0 0,0 15,21V20H9V21Z'/%3E%3C/svg%3E"); }
+.callout.warn { background: rgba(230, 109, 62, 0.10); border-color: rgba(230, 109, 62, 0.28); }
+.callout.warn::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23B94D22' d='M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z'/%3E%3C/svg%3E"); }
+.callout strong { color: var(--ink-900); }
+
+.data-table {
+  width: 100%; border-collapse: separate; border-spacing: 0; margin: 20px 0;
+  font-size: 14px; background: var(--surface);
+  border: 1px solid var(--hairline); border-radius: var(--radius-sm);
+  overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.data-table thead th {
+  text-align: left; padding: 12px 14px; background: var(--surface-alt); color: var(--ink-900);
+  font-family: var(--font-display); font-weight: 600; font-size: 13px;
+  border-bottom: 1px solid var(--hairline); white-space: nowrap;
+}
+.data-table thead th.hi-col { color: var(--ww-blue-700); }
+.data-table tbody td, .data-table tbody th {
+  padding: 11px 14px; border-bottom: 1px solid var(--hairline);
+  color: var(--ink-700); vertical-align: top; text-align: left;
+}
+.data-table tbody th { font-weight: 600; color: var(--ink-900); white-space: nowrap; }
+.data-table tbody td.hi-col { background: var(--ww-blue-050); color: var(--ink-900); font-weight: 500; }
+.data-table tbody tr:last-child td, .data-table tbody tr:last-child th { border-bottom: 0; }
+
+details.faq {
+  margin-bottom: 10px; border: 1px solid var(--hairline); border-radius: var(--radius-sm);
+  background: var(--surface); overflow: hidden; box-shadow: var(--shadow-sm);
+  max-width: var(--max-content);
+}
+details.faq summary {
+  cursor: pointer; padding: 16px 48px 16px 20px;
+  font-family: var(--font-display); font-weight: 600; color: var(--ink-900);
+  list-style: none; position: relative;
+}
+details.faq summary::-webkit-details-marker { display: none; }
+details.faq summary::after {
+  content: ""; position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+  width: 20px; height: 20px; background-repeat: no-repeat; background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%236183FC' d='M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z'/%3E%3C/svg%3E");
+}
+details.faq[open] summary::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%236183FC' d='M19,13H5V11H19V13Z'/%3E%3C/svg%3E"); }
+details.faq[open] summary { border-bottom: 1px solid var(--hairline); }
+details.faq .body { padding: 16px 20px; color: var(--ink-700); font-size: 14px; }
+details.faq .body code {
+  font-family: var(--font-mono); font-size: 13px;
+  background: var(--surface-alt); padding: 1px 6px; border-radius: var(--radius-xs);
+  color: var(--ww-blue-700);
+}
+
+.cta-band {
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: var(--radius); box-shadow: var(--shadow-float);
+  padding: 40px 36px; text-align: center; max-width: var(--max-content);
+}
+.cta-band .script { font-family: var(--font-script); font-size: 26px; color: var(--ww-blue); display: block; margin-bottom: 6px; }
+.cta-band h3 { margin: 0 0 10px; font-size: 22px; }
+.cta-band p { color: var(--ink-700); margin: 0 auto 22px; max-width: 520px; font-size: 15px; }
+.btn-pill {
+  display: inline-block; font-family: var(--font-display); font-weight: 600; font-size: 15px;
+  background: var(--ww-blue); color: #fff; padding: 13px 32px;
+  border-radius: var(--radius-pill); transition: background 0.15s, transform 0.15s;
+}
+.btn-pill:hover { background: var(--ww-blue-600); color: #fff; text-decoration: none; transform: translateY(-1px); }
+
+.site-footer {
+  margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--hairline);
+  color: var(--ink-700); font-size: 13.5px; line-height: 1.75;
+}
+.site-footer p { margin: 0 0 6px; }
+.site-footer .footer-meta { color: var(--ink-500); font-size: 12.5px; }
+
+.nav-toggle {
+  display: none; width: 100%; align-items: center; justify-content: space-between; gap: 8px;
+  margin: 4px 0 0; padding: 12px 16px;
+  font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--ink-900);
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-sm); cursor: pointer;
+}
+.nav-toggle-caret {
+  width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent;
+  border-top: 6px solid var(--ink-500); transition: transform 0.15s ease;
+}
+.sidebar.is-collapsed .nav-toggle-caret { transform: rotate(-90deg); }
+
+.layout > * { min-width: 0; }
+.content .data-table { max-width: 100%; }
+
+@media (max-width: 960px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: relative; height: auto; border-right: none; border-bottom: 1px solid var(--hairline); }
+  .content { padding: 32px 20px 64px; }
+  .chapter-header h1 { font-size: 30px; }
+  .chapter-header .kicker-script { font-size: 26px; }
+  section h2 { font-size: 20px; }
+  section h2[data-icon]::before { width: 36px; height: 36px; background-size: 20px 20px; }
+  .feature-grid, .plan-grid { grid-template-columns: 1fr; }
+  .kpi-frame { grid-template-columns: 1fr; }
+  .kpi + .kpi { border-left: 0; border-top: 1px solid var(--hairline); }
+  .data-table { display: block; overflow-x: auto; }
+  .data-table tbody td, .data-table thead th { min-width: 120px; }
+  .sidebar .nav-toggle { display: flex; }
+  .sidebar.is-collapsed .toc-in-chapter { display: none; }
+  .sidebar.is-collapsed > h2 { display: none; }
+}
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#top">Cloudflare Tunnel 代管方案</a>
+    <div class="brand-sub">WoowTech · Home Assistant 遠端連線</div>
+    <a class="hub-link" href="index.html">◂ Cloudflare Tunnel 資源總覽</a>
+    <button class="nav-toggle" id="navToggle" type="button">本冊內容<span class="nav-toggle-caret"></span></button>
+    <div class="toc-in-chapter">
+      <h2>本冊內容</h2>
+      <a href="#why">為什麼要 Tunnel</a>
+      <a href="#what">Cloudflare Tunnel 是什麼</a>
+      <a href="#benefits">四大核心價值</a>
+      <a href="#tunnel">Tunnel 幫你做什麼</a>
+      <a href="#security">Zero Trust 邊界</a>
+      <a href="#plans">兩種方案</a>
+      <a href="#compare">跟其他方案比一比</a>
+      <a href="#audience">誰最適合</a>
+      <a href="#faq">常見問題</a>
+      <a href="#cta">聯絡我們</a>
+    </div>
+  </aside>
+
+  <main class="content" id="top">
+    <div class="chapter-header">
+      <span class="kicker-script">bring it home safely</span>
+      <div class="kicker">WoowTech 銷售手冊</div>
+      <h1>不開埠、不轉發、不用固定 IP，把 Home Assistant 安全帶回家</h1>
+      <p class="lead">Cloudflare Tunnel 讓家裡的 Home Assistant 用一條加密通道連上 Cloudflare 全球邊緣網路，外面看不見你家 IP、不用打洞、不必花錢租固定 IP，還順便得到 SSL 憑證、DDoS 防護和 Zero Trust 存取控制。WoowTech 提供兩種代管方案，你只要決定要不要把它接進來。</p>
+      <div class="kpi-frame">
+        <div class="kpi"><div class="num">0 開埠</div><div class="cap">路由器一個孔都不用開</div></div>
+        <div class="kpi"><div class="num">330+ 城市</div><div class="cap">Cloudflare 邊緣就近接入</div></div>
+        <div class="kpi"><div class="num">$0 起</div><div class="cap">Cloudflare 免費層即可上線</div></div>
+      </div>
+    </div>
+
+    <section id="why" data-nav="為什麼要 Tunnel">
+      <h2 data-icon="why">為什麼你的 Home Assistant 需要 Tunnel</h2>
+      <p>Home Assistant 放在家裡才安心，但只要想在外面看家、控制家電，就會遇到三個老問題：</p>
+      <ul>
+        <li><strong>要開路由器的 port</strong>：把家裡的一個 port 暴露到全世界，等於在你家門口貼公告「這裡有服務」，DDoS、暴力破解、掃描日夜不停。</li>
+        <li><strong>要固定 IP 或 DDNS</strong>：跟 ISP 加租、或半夜 IP 變了就斷線；DDNS 有生效延遲，App 進不去很痛。</li>
+        <li><strong>要 SSL 憑證</strong>：不加密的 HTTP 是把密碼寫在明信片上寄出去，自己申請 Let's Encrypt 又要維護續簽。</li>
+      </ul>
+      <p>Cloudflare Tunnel 一次解掉這三件事：由 <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">cloudflared</code> 從你家「主動撥出」到 Cloudflare 邊緣建立長連線，外部要進來就走 Cloudflare 這一層——你家的 IP 和 port 對外完全隱形。</p>
+      <div class="callout"><strong>觀念：</strong>傳統 port forward 是把家門開一個縫，希望壞人找不到；Tunnel 是根本沒有門，只有一條你自己拉出去、加密到底的私人通道。安全模型完全不同。</div>
+    </section>
+
+    <section id="what" data-nav="Cloudflare Tunnel 是什麼">
+      <h2 data-icon="what">Cloudflare Tunnel 是什麼</h2>
+      <p>它是 Cloudflare 提供的免費 tunnel 服務，用一支叫 <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">cloudflared</code> 的程式，在你家 Home Assistant 上跑起來，主動連到 Cloudflare 邊緣機房。之後任何人打你的域名，都會先進 Cloudflare，再由 Cloudflare 走這條通道回到你家。</p>
+      <p>WoowTech 提供的 <strong>Home Assistant Cloudflared Web GUI add-on</strong> 把整個流程包成一個圖形化介面：加倉庫、按安裝、跑 Setup 精靈、完成 Cloudflare 授權，5 分鐘就能拿到 <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">https://ha.你的域名</code> 的對外入口，不用讀 YAML。</p>
+      <div class="callout tip"><strong>提示：</strong>Cloudflare 帳號免費、DNS 免費、Tunnel 免費、SSL 憑證免費。你只需要有一個自己的域名（一年約 300–500 元），其他全部零元起跳。</div>
+    </section>
+
+    <section id="benefits" data-nav="四大核心價值">
+      <h2 data-icon="tunnel">四大核心價值</h2>
+      <p>以下每一項，都是傳統 port forward 或雲端方案給不了的：</p>
+      <div class="feature-grid">
+
+        <div class="feature-card">
+          <span class="tile"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="#6183FC" d="M12,17A2,2 0 0,1 10,15C10,13.89 10.9,13 12,13A2,2 0 0,1 14,15A2,2 0 0,1 12,17M18,20V10H6V20H18M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V10C4,8.89 4.89,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/></svg></span>
+          <h3>0 開埠 · 0 打洞</h3>
+          <p>路由器上不用改任何設定，也不用進行 NAT 打洞。IPv4 CGNAT、光世代封閉環境一樣通——只要能上網就能對外服務。</p>
+          <ul>
+            <li>路由器 firewall 一律 deny 也不影響</li>
+            <li>不用花錢升級光世代固定 IP</li>
+            <li>換 ISP、換路由器 tunnel 照跑</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <span class="tile"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="#6183FC" d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.1 14.8,9.5V11C15.4,11 16,11.6 16,12.3V15.8C16,16.4 15.4,17 14.7,17H9.2C8.6,17 8,16.4 8,15.7V12.2C8,11.6 8.6,11 9.2,11V9.5C9.2,8.1 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,9.5V11H13.5V9.5C13.5,8.7 12.8,8.2 12,8.2Z"/></svg></span>
+          <h3>自動 SSL + DDoS 防護</h3>
+          <p>Cloudflare 幫你自動簽發、續約 SSL 憑證。網頁 HTTPS 綠鎖頭自動出現，還順便有全球最大的 DDoS 防護與 WAF 過濾。</p>
+          <ul>
+            <li>Universal SSL 免申請、自動續</li>
+            <li>DDoS 攻擊在邊緣就擋掉</li>
+            <li>Bot Fight Mode 自動過濾垃圾流量</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <span class="tile"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="#6183FC" d="M12,12C14.21,12 16,10.21 16,8C16,5.79 14.21,4 12,4C9.79,4 8,5.79 8,8C8,10.21 9.79,12 12,12M12,14C9.33,14 4,15.34 4,18V20H20V18C20,15.34 14.67,14 12,14Z"/></svg></span>
+          <h3>Zero Trust 存取控制</h3>
+          <p>不只 HTTPS，還可以加一層 Cloudflare Access：只有你指定 email、Google Workspace 或 GitHub 帳號才進得來。連 HA 登入頁都不會看到。</p>
+          <ul>
+            <li>Email OTP、SSO（Google/GitHub/OIDC）</li>
+            <li>依國家、IP、裝置憑證細分政策</li>
+            <li>免費層 50 seats，家用綽綽有餘</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <span class="tile"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="#6183FC" d="M19.35,10.03C18.67,6.59 15.64,4 12,4C9.11,4 6.6,5.64 5.35,8.03C2.34,8.36 0,10.9 0,14A6,6 0 0,0 6,20H19A5,5 0 0,0 24,15C24,12.36 21.95,10.22 19.35,10.03M19,18H6A4,4 0 0,1 2,14A4,4 0 0,1 6,10H6.71C7.37,7.69 9.5,6 12,6A6,6 0 0,1 18,12H19A3,3 0 0,1 22,15A3,3 0 0,1 19,18Z"/></svg></span>
+          <h3>一條通道多個主機</h3>
+          <p>同一條 tunnel 除了 HA 本身，還能接 Zigbee2MQTT UI、NAS、內網 NAS、印表機管理頁。每個服務走各自的 hostname，都在同一個安全邊界內。</p>
+          <ul>
+            <li>ha.example.com → HA</li>
+            <li>z2m.example.com → Zigbee 面板</li>
+            <li>nas.example.com → Synology / QNAP</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="tunnel" data-nav="Tunnel 幫你做什麼">
+      <h2 data-icon="cloud">實際使用情境</h2>
+      <p>下面這些一天內會發生的事，都不需要你在家或連 VPN：</p>
+      <div class="chips">
+        <div class="chip"><span class="who ai">情境</span>公司午休想看家裡攝影機——手機瀏覽器打開 <code style="font-family:var(--font-mono);color:var(--ww-blue-700)">https://ha.家.tw</code>，Cloudflare Access 送一封 OTP 到公司信箱，輸入驗證，畫面出來。</div>
+        <div class="chip"><span class="who ai">情境</span>孩子放學按門鈴——Home Assistant 通知你 App，你在捷運上開遠端門鎖、順便廣播「爸爸 20 分鐘到家」。</div>
+        <div class="chip"><span class="who ai">情境</span>出差在飯店——用飯店 Wi-Fi 開 HA 面板調空調時程，避免家裡烤箱般的悶熱。tunnel 加密到底，飯店 Wi-Fi 看不到你在做什麼。</div>
+        <div class="chip"><span class="who ai">情境</span>阿公在鄉下想幫你看看室溫——直接用手機瀏覽器輸入你給他的網址，第一次登入時他的 Gmail 通過 Access 白名單就進去了，不用裝任何 App。</div>
+        <div class="chip"><span class="who ai">情境</span>Node-RED、AdGuard、Portainer 面板——同一條 tunnel 多開幾個 hostname，內網管理面板全部安全外露，出差維護家裡不用再開 VPN。</div>
+      </div>
+    </section>
+
+    <section id="security" data-nav="Zero Trust 邊界">
+      <h2 data-icon="security">Zero Trust 是什麼？為什麼家用也需要</h2>
+      <p>「Zero Trust」不是行銷詞，是安全模型：<strong>預設誰都不信任，每次連線都要驗身分</strong>。傳統做法是「進了家門就是自己人」，只要 port 被找到、密碼被猜到就完蛋。Zero Trust 是「就算進了門，每個房間還要刷卡」。</p>
+      <p>Cloudflare Access 幫你在 Home Assistant 前面架一道「守門員」：任何人打你的網址，先由 Cloudflare 檢查是不是白名單上的身份，過了才會送到你家 HA。HA 本身的登入頁對外根本不可見。</p>
+
+      <h3>WoowTech 幫你設計的預設政策</h3>
+      <ul>
+        <li><strong>主帳號</strong>：你的 Gmail / Google Workspace，允許全部路徑，session 24 小時。</li>
+        <li><strong>家人帳號</strong>：家人的 Gmail 白名單，允許 <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">/lovelace/*</code>，禁用 <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">/config/*</code>。</li>
+        <li><strong>訪客臨時</strong>：Email OTP 6 小時 session，適合請水電師傅看狀態。</li>
+        <li><strong>國家限制</strong>：只允許台灣 IP，其他國家連 Access 登入頁都看不到。</li>
+      </ul>
+      <div class="callout warn"><strong>注意：</strong>Home Assistant 不建議直接把管理介面對外公開；就算有強密碼與 2FA，暴力破解、CVE、瀏覽器擴充漏洞都是活的攻擊面。Cloudflare Access 是<strong>把 HA 藏在門後</strong>，攻擊者連敲門的機會都沒有——這才是家用 Zero Trust 的意義。</div>
+    </section>
+
+    <section id="plans" data-nav="兩種方案">
+      <h2 data-icon="access">兩種方案，看你需要多少代管</h2>
+      <p>不是每個家都需要企業級 Cloudflare Access + Workers。多數家庭 A 方案就完美；有 SSO、多主機、Analytics 需求的中大型家庭或 SOHO 挑 B 方案。</p>
+
+      <div class="plan-grid">
+
+        <div class="plan-card">
+          <span class="plan-tag">方案 A · 自建入口</span>
+          <h3>HAOS 內建 Add-on + WoowTech 代設定</h3>
+          <p class="plan-sub">你出主機與網路，我們幫你把 Cloudflare 設好、跑通、教會你維護。</p>
+          <ul>
+            <li>安裝 Woow Cloudflared Web GUI add-on</li>
+            <li>代辦 Cloudflare 免費帳號 + 網域轉入或委派 DNS</li>
+            <li>設定 <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">ha.你的域名</code> 對外 hostname</li>
+            <li>額外 3 個 hostname（Zigbee/NAS/自訂）</li>
+            <li>Cloudflare Access 基本政策：Email OTP + 白名單</li>
+            <li>trusted_proxy 設定 + HA <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">configuration.yaml</code> 微調</li>
+            <li>1 小時遠端教學：怎麼加人、改政策、看 Logs</li>
+            <li>30 天上線後保固</li>
+          </ul>
+          <p class="price">代設定費用 · <strong>詳洽經銷商</strong> · Cloudflare 帳號本身零元</p>
+        </div>
+
+        <div class="plan-card featured">
+          <span class="plan-tag">方案 B · 完整代管</span>
+          <h3>WoowTech 雲端 PaaS 代管 CF Access + Workers</h3>
+          <p class="plan-sub">連 Cloudflare 帳號都由我們代管，你只要用；SSO、企業防火牆、儀表板全套。</p>
+          <ul>
+            <li>方案 A 全部服務，含 add-on 安裝與設定</li>
+            <li>WoowTech 名下 Cloudflare Enterprise 帳號託管</li>
+            <li>SSO 整合：Google Workspace / Microsoft 365 / GitHub / OIDC</li>
+            <li>Firewall / WAF Rules：地理封鎖、Bot 過濾、Rate limit</li>
+            <li>Cloudflare Workers 客製：權限中介、審計 log、Webhook</li>
+            <li>Analytics 儀表板：誰、什麼時候、從哪連進來</li>
+            <li>不限 hostname 數量，涵蓋整家內網服務</li>
+            <li>7×24 監控 tunnel 存活；斷線自動告警</li>
+            <li>季度安全複盤 + 政策優化</li>
+          </ul>
+          <p class="price">月費方案 · <strong>詳洽經銷商</strong> · 含所有 Cloudflare 進階功能授權</p>
+        </div>
+
+      </div>
+
+      <div class="callout tip"><strong>提示：</strong>兩種方案都可以隨時升降。A 用一段時間發現需要 SSO/Analytics，資料原地升 B 不用重建。B 若想拿回自主權，我們把帳號整份交還，你可以自己接手或降回 A。</div>
+    </section>
+
+    <section id="compare" data-nav="跟其他方案比一比">
+      <h2 data-icon="compare">跟其他遠端存取方案比一比</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Port Forward</th>
+            <th>Nabu Casa</th>
+            <th>自架 VPN</th>
+            <th class="hi-col">WoowTech Cloudflare Tunnel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>要開路由器 port</th>
+            <td>必開</td>
+            <td>不用</td>
+            <td>要（WireGuard/OpenVPN）</td>
+            <td class="hi-col">完全不用</td>
+          </tr>
+          <tr>
+            <th>需要固定 IP / DDNS</th>
+            <td>必需</td>
+            <td>不用</td>
+            <td>建議</td>
+            <td class="hi-col">完全不用</td>
+          </tr>
+          <tr>
+            <th>SSL 憑證管理</th>
+            <td>自己申請 & 續</td>
+            <td>Nabu Casa 代管</td>
+            <td>VPN 內走 HTTP 也可</td>
+            <td class="hi-col">Cloudflare 全自動</td>
+          </tr>
+          <tr>
+            <th>DDoS 防護</th>
+            <td>路由器等級</td>
+            <td>Nabu Casa 邊緣</td>
+            <td>看 VPN provider</td>
+            <td class="hi-col">Cloudflare 全球邊緣</td>
+          </tr>
+          <tr>
+            <th>可否多主機 / 多服務</th>
+            <td>可（要多開 port）</td>
+            <td>僅 HA</td>
+            <td>可</td>
+            <td class="hi-col">不限 hostname</td>
+          </tr>
+          <tr>
+            <th>家人不會用怎麼辦</th>
+            <td>教他用 IP+port</td>
+            <td>手機 App 掃 QR</td>
+            <td>裝 VPN App，設定 profile</td>
+            <td class="hi-col">瀏覽器輸網址即可</td>
+          </tr>
+          <tr>
+            <th>典型月費</th>
+            <td>ISP 固定 IP 加價</td>
+            <td>USD 6.5/月</td>
+            <td>VPS $5+/月</td>
+            <td class="hi-col">A：一次代設定 · B：月費（詳洽經銷商）</td>
+          </tr>
+          <tr>
+            <th>資料主權</th>
+            <td>你家</td>
+            <td>Nabu Casa</td>
+            <td>你家</td>
+            <td class="hi-col">你家（僅 metadata 過 Cloudflare）</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="audience" data-nav="誰最適合">
+      <h2 data-icon="target">誰最適合這個方案</h2>
+
+      <h3>家庭用戶</h3>
+      <p>你已經在家裡跑 Home Assistant，想在外面看攝影機、控制家電，但——不想開 port、不想付 Nabu Casa 月費、也不想教家人裝 VPN App。方案 A 一次代設定完就終身自己用，每月 0 元。</p>
+
+      <h3>SOHO / 小工作室</h3>
+      <p>家＝辦公室，除了 HA 還有 NAS、印表機、Zigbee 面板、簡易 CRM 想遠端存取。方案 A 代設定 4 個 hostname 一次到位；未來擴充或想加 SSO 升 B。</p>
+
+      <h3>對安全與隱私敏感</h3>
+      <p>做設計、律師、記者、金融工作，家裡有客戶檔案的 NAS。你要的不是「能連進來」，是「沒被查到的人根本敲不到門」——這才是 Zero Trust。方案 B 的 Firewall + Analytics 是為你設計的。</p>
+
+      <h3>經銷商 / 系統整合商</h3>
+      <p>你幫客戶裝 HA、離開後才發現遠端維護沒解決。方案 B 讓你統一在自己 CF 帳號下代管數十戶客戶，出問題不用專程開車，Workers 政策一鍵套用整批。</p>
+
+      <div class="callout"><strong>不適合的情況：</strong>沒有自己的域名、極度反對任何 metadata 過雲端邊緣、家裡完全沒對外服務需求——這三種情況省下這筆錢，關掉 tunnel 用區網就好。</div>
+    </section>
+
+    <section id="faq" data-nav="常見問題">
+      <h2 data-icon="faq">常見問題</h2>
+      <details class="faq">
+        <summary>Cloudflare 會不會看到我家 HA 的資料？</summary>
+        <div class="body">Cloudflare 是加密流量的中繼，能看到 <strong>metadata</strong>（來源 IP、時間、hostname、路徑）但看不到 HTTPS body 內容。這跟你在 Cloudflare 上放任何網站是同一件事。若對 metadata 也敏感，方案 B 可以加 Cloudflare Workers 做端到端二次加密。</div>
+      </details>
+      <details class="faq">
+        <summary>沒有自己的域名可以用嗎？</summary>
+        <div class="body">Cloudflare Tunnel 需要一個由 Cloudflare 代管 DNS 的域名。方案 A 我們可以協助你註冊（.tw / .com / .app 都行，一年約 300–1000 元），並轉入 Cloudflare 代管。方案 B 則可以使用 <code>你家名.woowtech.cloud</code> 這種子域名，不用自己買。</div>
+      </details>
+      <details class="faq">
+        <summary>Home Assistant OS / Supervised / Container 都能用嗎？</summary>
+        <div class="body">HAOS 與 Supervised 直接跑我們的 Cloudflared Web GUI add-on 即可；Container / Core 版可以另外用 docker-compose 跑 cloudflared，方案 A 都涵蓋。ARM / x86 / 樹莓派 3B 以上都相容。</div>
+      </details>
+      <details class="faq">
+        <summary>Tunnel 斷線的話怎麼辦？</summary>
+        <div class="body">Cloudflared add-on 內建 watchdog 會自動重連，短暫斷網回來就恢復。方案 B 額外提供 7×24 監控與斷線推播——手機收到通知後在家就能重啟 HA 主機解決。真的長時間斷線，區網照樣可以用內網 IP 進 HA。</div>
+      </details>
+      <details class="faq">
+        <summary>費用怎麼計算？跟 Nabu Casa 比呢？</summary>
+        <div class="body">方案 A 是<strong>一次性代設定</strong>費用，之後 Cloudflare 端零月費；方案 B 是月費含代管與監控。Nabu Casa 大約 USD 6.5/月固定，但只覆蓋 HA 本身、且無法自訂 Access 政策或多 hostname。詳細價目請洽 WoowTech 或您的經銷商——我們會按你家的規模開報價。</div>
+      </details>
+      <details class="faq">
+        <summary>可以先從方案 A 開始，之後升級到 B 嗎？</summary>
+        <div class="body">可以。DNS 記錄與 Access 政策可以直接搬遷，你家 HA 這邊的 add-on 不用重裝。反向也一樣，方案 B 想拿回自主權我們把整套 Cloudflare 帳號連同政策交還給你即可。</div>
+      </details>
+    </section>
+
+    <section id="cta" data-nav="聯絡我們">
+      <h2 data-icon="handshake">下一步</h2>
+      <div class="cta-band">
+        <span class="script">let's tunnel it home</span>
+        <h3>想看看 Cloudflare Tunnel 用在你家的樣子？</h3>
+        <p>預約一場 30 分鐘遠端展示，我們用你家的網域和 HA 環境，現場示範從安裝到 Access 政策上線的完整流程。</p>
+        <a class="btn-pill" href="index.html">聯絡 WoowTech 或您的經銷商</a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <p>《Home Assistant 遠端連線代管方案》銷售手冊由 <strong>WoowTech 渥屋科技</strong> 製作。</p>
+      <p class="footer-meta">The Smart Space Solution · 智慧空間解決方案 · © 2026 WOOW Technology Co., Ltd. · <a href="index.html">回資源總覽</a></p>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  var sidebar = document.getElementById('sidebar');
+  var toggle = document.getElementById('navToggle');
+  var mq = window.matchMedia('(max-width: 960px)');
+  function applyCollapse(e) {
+    if (e.matches) { sidebar.classList.add('is-collapsed'); }
+    else { sidebar.classList.remove('is-collapsed'); }
+  }
+  applyCollapse(mq);
+  mq.addEventListener ? mq.addEventListener('change', applyCollapse) : mq.addListener(applyCollapse);
+  toggle.addEventListener('click', function () { sidebar.classList.toggle('is-collapsed'); });
+  sidebar.querySelectorAll('.toc-in-chapter a').forEach(function (a) {
+    a.addEventListener('click', function () { if (mq.matches) sidebar.classList.add('is-collapsed'); });
+  });
+
+  var links = Array.prototype.slice.call(sidebar.querySelectorAll('.toc-in-chapter a[href^="#"]'));
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  function onScroll() {
+    var current = null;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= 120) current = sections[i].id;
+    }
+    links.forEach(function (a) { a.classList.remove('active'); });
+    if (current && map[current]) map[current].classList.add('active');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>
