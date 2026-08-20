@@ -7,11 +7,18 @@
  *
  * 產生／覆寫：
  *   - 每頁的 <head>（<title>、description、canonical、Open Graph、Twitter Card）
- *   - 每頁的 <aside class="sidebar">（品牌、12 章清單、本章錨點、附錄清單）
+ *   - 每頁的 <aside class="sidebar">（品牌、章節清單、本章錨點、附錄清單）
  *   - 每頁的 <div class="pager">（上一章／下一章）
  *   - 每頁的 <footer class="site-footer">（授權標示）
- *   - index.html 的章節與附錄卡片
+ *   - hub.catalog 指定的頁面（預設 index.html；hub 模式下為 tutorial.html）的章節卡片
  *   - sitemap.xml
+ *
+ * hub 模式（chapters.json 有 hub 區塊時啟用）：
+ *   - index.html 由人手維護（四類資源總覽），本腳本不碰
+ *   - 教學目錄頁輸出到 hub.catalog（tutorial.html）
+ *   - hub.pages 列出的獨立單檔手冊（sales.html / prompts.html / skills.html）
+ *     只納入 sitemap，不做 head/sidebar/pager 處理（它們自帶樣式與導覽）
+ *   - 內容頁側欄多一條 hub-link 連回 index.html
  *
  * 用法：
  *   node scripts/build_nav.js            # 寫入檔案
@@ -29,6 +36,11 @@ const ROOT = path.resolve(__dirname, '..');
 const CHECK = process.argv.includes('--check');
 const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, 'chapters.json'), 'utf8'));
 const { site } = cfg;
+
+// hub 模式：index.html 為人手維護的資源總覽，教學目錄頁輸出到 hub.catalog。
+const HUB = cfg.hub || null;
+const CATALOG = (HUB && HUB.catalog) || 'index.html';
+const HUB_PAGES = (HUB && HUB.pages) || [];
 
 const chapters = cfg.chapters.map((c) => ({ ...c, kind: 'chapter' }));
 const appendices = cfg.appendices.map((a) => ({ ...a, kind: 'appendix' }));
@@ -52,8 +64,8 @@ const url = (rel) => `${site.baseUrl.replace(/\/$/, '')}/${rel === 'index.html' 
 /* ---------------------------------------------------------------- head --- */
 
 function buildHead(page, html) {
-  const isIndex = page.file === 'index.html';
-  const title = isIndex
+  const isCatalog = page.file === CATALOG;
+  const title = isCatalog
     ? `${site.title} · ${site.subtitle}`
     : page.kind === 'appendix'
       ? `附錄 ${page.num} · ${page.title} · ${site.title}`
@@ -93,8 +105,6 @@ function buildHead(page, html) {
 
 /* --------------------------------------------------- data-nav 自動補寫 --- */
 
-// 章內錨點標題放在 <section data-nav="...">。舊檔案還沒有這個屬性時，
-// 依 chapters.json 的 sectionLabels 補寫；查不到就從 <h2> 內文推一個短標題。
 function shortLabel(h2) {
   let t = stripTags(h2).trim();
   t = t.split(/\s*[—–]\s*/)[0];
@@ -148,9 +158,13 @@ function buildSidebar(page, html) {
     )
     .join('\n');
 
+  const hubLink = HUB
+    ? `\n    <a class="hub-link" href="index.html">◂ ${esc(HUB.navLabel || '資源總覽')}</a>`
+    : '';
+
   return `<aside class="sidebar">
-    <a class="brand" href="index.html">${esc(site.brand)}</a>
-    <div class="brand-sub">${esc(site.subtitle)}</div>
+    <a class="brand" href="${CATALOG}">${esc(site.brand)}</a>
+    <div class="brand-sub">${esc(site.subtitle)}</div>${hubLink}
     <h2>章節</h2>
     <ol>
 ${chapterItems}
@@ -178,7 +192,7 @@ function buildPager(page) {
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> ${prev.kind === 'appendix' ? `附錄 ${prev.num}` : '上一章'}</span>
         <span class="title">${esc(prev.pagerTitle)}</span>
       </a>`
-    : `      <a class="prev disabled" href="index.html">
+    : `      <a class="prev disabled" href="${CATALOG}">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> 上一章</span>
         <span class="title">回目錄</span>
       </a>`;
@@ -196,7 +210,7 @@ function buildPager(page) {
         <span class="label">${nextLabel} <i class="mdi mdi-arrow-right" aria-hidden="true"></i></span>
         <span class="title">${esc(next.pagerTitle)}</span>
       </a>`
-    : `      <a class="next" href="index.html">
+    : `      <a class="next" href="${CATALOG}">
         <span class="label">回目錄 <i class="mdi mdi-arrow-right" aria-hidden="true"></i></span>
         <span class="title">全套完成！</span>
       </a>`;
@@ -259,8 +273,8 @@ function buildPage(page) {
   return { file: page.file, path: p, original, html };
 }
 
-function buildIndex() {
-  const p = path.join(ROOT, 'index.html');
+function buildCatalog() {
+  const p = path.join(ROOT, CATALOG);
   const original = fs.readFileSync(p, 'utf8');
   let html = original;
 
@@ -280,27 +294,6 @@ function buildIndex() {
   }
   if (appendices.length) groups.push({ title: '附錄', items: appendices });
 
-  const hero = `    <div class="hero">
-      <span class="kicker-script">Secure</span>
-      <div class="kicker">${esc(site.title)}</div>
-      <h1>${esc(site.subtitle)}</h1>
-      <p>${esc(site.description)}</p>
-      <a class="hero-action" href="#course-path"><i class="mdi mdi-arrow-down" aria-hidden="true"></i> 從課程地圖開始</a>
-    </div>`;
-
-  const coursePath = `    <section class="course-path" id="course-path" aria-labelledby="course-path-title">
-      <div class="course-path-copy">
-        <p class="eyebrow">12 chapters · one secure tunnel</p>
-        <h2 id="course-path-title">用清楚的順序，建立你的安全入口</h2>
-        <p>先確認網域與 Home Assistant，再理解 Setup、授權和 hostname；完成後用 Dashboard、Config 與 Logs 建立可驗證、可回復的維護節奏。</p>
-      </div>
-      <ol class="course-path-list">
-        <li><i class="mdi mdi-cloud-lock-outline" aria-hidden="true"></i><span><strong>先建立入口</strong>安裝 Web GUI 並確認前置條件。</span></li>
-        <li><i class="mdi mdi-link-variant" aria-hidden="true"></i><span><strong>再完成建置</strong>理解授權、hostname 與 Tunnel 狀態。</span></li>
-        <li><i class="mdi mdi-shield-check" aria-hidden="true"></i><span><strong>最後守住邊界</strong>用 Logs、安全檢查與排錯維持服務。</span></li>
-      </ol>
-    </section>`;
-
   const grids = groups
     .map(
       (g, i) => `<section class="chapter-index${i ? ' chapter-index-spaced' : ''}">
@@ -312,16 +305,9 @@ ${g.items.map(card).join('\n')}
     )
     .join('\n\n    ');
 
-  html = replaceOne('index.html', html, /<head>[\s\S]*?<\/head>/, buildHead({ file: 'index.html' }, original), '<head>');
+  html = replaceOne(CATALOG, html, /<head>[\s\S]*?<\/head>/, buildHead({ file: CATALOG }, original), '<head>');
   html = replaceOne(
-    'index.html',
-    html,
-    /[ \t]*<div class="hero">[\s\S]*?<\/div>\n\n(?:    <section class="course-path"[\s\S]*?<\/section>\n\n)+    <section class="chapter-index">/,
-    `${hero}\n\n${coursePath}\n\n    <section class="chapter-index">`, 
-    'hero'
-  );
-  html = replaceOne(
-    'index.html',
+    CATALOG,
     html,
     /<section class="chapter-index">[\s\S]*<\/section>/,
     grids,
@@ -335,12 +321,15 @@ ${g.items.map(card).join('\n')}
     html = html.replace(/(\s*)<\/main>/, `\n\n    ${footer}\n  </main>`);
   }
 
-  return { file: 'index.html', path: p, original, html };
+  return { file: CATALOG, path: p, original, html };
 }
 
 function buildSitemap(outputs) {
   const today = fs.statSync(path.join(ROOT, 'chapters.json')).mtime.toISOString().slice(0, 10);
-  const entries = ['index.html', ...pages.map((p) => p.file)].map(
+  const files = ['index.html'];
+  if (CATALOG !== 'index.html') files.push(CATALOG);
+  files.push(...pages.map((p) => p.file), ...HUB_PAGES);
+  const entries = files.map(
     (f) => `  <url>
     <loc>${url(f)}</loc>
     <lastmod>${today}</lastmod>
@@ -383,7 +372,7 @@ function validateLinks(outputs) {
 
 /* ----------------------------------------------------------------- run --- */
 
-const outputs = [...pages.map(buildPage), buildIndex()];
+const outputs = [...pages.map(buildPage), buildCatalog()];
 outputs.push(buildSitemap(outputs));
 validateLinks(outputs);
 

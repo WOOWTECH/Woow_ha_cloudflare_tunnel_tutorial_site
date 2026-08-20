@@ -1,5 +1,5 @@
 {
-  "_readme": "導覽、SEO、首頁與 sitemap 的單一來源；變更後執行 node scripts/build_nav.js。",
+  "_readme": "側欄、上下章導覽、目錄卡片、章節編號、<title>／SEO meta、sitemap.xml 全部由這個檔案產生。改完請跑 `node scripts/build_nav.js`。章內錨點標題放在各 HTML 的 <section data-nav=\"...\">。part 欄位決定目錄頁與側欄的分組標題。",
   "site": {
     "title": "Home Assistant Cloudflared Web GUI 指南",
     "brand": "Cloudflared Web GUI 指南",
@@ -10,6 +10,12 @@
     "description": "12 章繁體中文 Cloudflared Web GUI 教學：從安裝、Setup、Cloudflare 授權、hostname、Dashboard、Config、Logs，到安全與排錯。",
     "ogImage": "assets/screenshots/ch3/01_webgui_dashboard.png",
     "license": {"name":"CC BY 4.0","url":"https://creativecommons.org/licenses/by/4.0/deed.zh-hant","holder":"woowtech"}
+  },
+  "hub": {
+    "_readme": "index.html 是四類資源總覽(hub)，由人手維護、build_nav 不碰。教學目錄頁由 build_nav 產生到 catalog 指定的檔案。pages 是 hub 底下的獨立單檔手冊（自帶 head 與樣式），納入 sitemap 與 check_links 白名單。",
+    "catalog": "tutorial.html",
+    "navLabel": "資源總覽",
+    "pages": ["sales.html", "prompts.html", "skills.html"]
   },
   "chapters": [
     {"file":"ch1_overview.html","num":"01","navLabel":"開始前：需求與安全邊界","title":"開始前","pagerTitle":"01 · 需求與安全邊界","card":"先確認網域、Cloudflare DNS、Home Assistant 安裝方式與本地／遠端管理模式。","description":"Cloudflared Web GUI 使用前規劃：Cloudflare 網域、HA Apps、Tunnel 模式與安全邊界。","part":"基礎：準備與安裝"},

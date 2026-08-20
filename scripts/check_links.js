@@ -10,6 +10,11 @@
  *   3. 同一頁沒有重複的 id
  *   4. 每個 <section id> 都有 data-nav（build_nav.js 產生側欄要用）
  *   5. chapters.json 列出的檔案都存在，且 sitemap.xml 有涵蓋每一頁
+ *   6. data-icon 在 style.css 有對應字符（僅對內容頁）
+ *   7. 房規：內容頁不得夾帶 inline style 的表格，且要有 chapter-header / kicker / 至少 4 則 FAQ
+ *
+ * hub 模式：index.html、catalog（tutorial.html）、hub.pages（sales/prompts/skills）
+ * 這幾類不吃「內容頁房規」（自帶樣式與導覽），但站內連結、錨點、id 檢查照跑。
  *
  * 有任何錯誤就 exit 1。
  */
@@ -21,7 +26,13 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, 'chapters.json'), 'utf8'));
-const BASE_PREFIX = new URL(cfg.site.baseUrl).pathname.replace(/\/$/, '') + '/'; // /Woow_ha_tutorial_site/
+const BASE_PREFIX = new URL(cfg.site.baseUrl).pathname.replace(/\/$/, '') + '/'; // 自訂網域時為 "/"
+
+// hub 模式：index.html = 資源總覽、catalog = 教學目錄、hub.pages = 自帶樣式的獨立單檔手冊。
+// 這幾類不吃「內容頁房規」(kicker/FAQ/data-icon 對 style.css) — 連結/錨點/id 檢查照跑。
+const CATALOG = (cfg.hub && cfg.hub.catalog) || 'index.html';
+const HUB_PAGES = (cfg.hub && cfg.hub.pages) || [];
+const NON_CONTENT = new Set(['index.html', '404.html', CATALOG, ...HUB_PAGES]);
 
 const errors = [];
 const htmlFiles = fs.readdirSync(ROOT).filter((f) => f.endsWith('.html')).sort();
@@ -52,9 +63,11 @@ for (const file of htmlFiles) {
     if (!ids.includes(m[1])) errors.push(`${file}: 錨點 #${m[1]} 在本頁沒有對應的 id`);
   }
 
-  // 4. section 一定要有 data-nav
-  for (const m of html.matchAll(/<section id="([^"]+)"(?![^>]*data-nav)/g)) {
-    errors.push(`${file}: <section id="${m[1]}"> 缺 data-nav（側欄產不出這個項目）`);
+  // 4. section 一定要有 data-nav（僅對內容頁；hub/catalog/獨立單檔手冊自帶側欄）
+  if (!NON_CONTENT.has(file)) {
+    for (const m of html.matchAll(/<section id="([^"]+)"(?![^>]*data-nav)/g)) {
+      errors.push(`${file}: <section id="${m[1]}"> 缺 data-nav（側欄產不出這個項目）`);
+    }
   }
 }
 
@@ -66,6 +79,7 @@ if (fs.existsSync(cssPath)) {
     [...css.matchAll(/section h2\[data-icon="([^"]+)"\]::before/g)].map((m) => m[1])
   );
   for (const file of htmlFiles) {
+    if (NON_CONTENT.has(file)) continue; // 獨立頁自帶樣式，不對 style.css 驗 data-icon
     const html = fs.readFileSync(path.join(ROOT, file), 'utf8');
     const used = new Set([...html.matchAll(/<h2[^>]*\bdata-icon="([^"]+)"/g)].map((m) => m[1]));
     for (const icon of used) {
@@ -78,7 +92,7 @@ if (fs.existsSync(cssPath)) {
 
 // 7. 房規：內容頁不得夾帶 inline style 的表格，且 <head>/<aside>/<div class="pager"> 由產生器負責
 for (const file of htmlFiles) {
-  if (file === 'index.html' || file === '404.html') continue;
+  if (NON_CONTENT.has(file)) continue;
   const html = fs.readFileSync(path.join(ROOT, file), 'utf8');
   const inlineTables = (html.match(/<table[^>]*style=/g) || []).length;
   if (inlineTables) {
@@ -97,12 +111,14 @@ listed.forEach((f) => {
   if (!fs.existsSync(path.join(ROOT, f))) errors.push(`chapters.json 列了不存在的檔案 → ${f}`);
 });
 
-const orphans = htmlFiles.filter((f) => !listed.includes(f) && !['index.html', '404.html'].includes(f));
+const orphans = htmlFiles.filter((f) => !listed.includes(f) && !NON_CONTENT.has(f));
 orphans.forEach((f) => errors.push(`${f}: 存在於 repo 但 chapters.json 沒列，不會出現在任何導覽`));
 
 if (fs.existsSync(path.join(ROOT, 'sitemap.xml'))) {
   const sitemap = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
-  ['index.html', ...listed].forEach((f) => {
+  const covered = ['index.html', ...listed, ...HUB_PAGES];
+  if (CATALOG !== 'index.html') covered.push(CATALOG);
+  covered.forEach((f) => {
     const loc = cfg.site.baseUrl.replace(/\/$/, '') + '/' + (f === 'index.html' ? '' : f);
     if (!sitemap.includes(`<loc>${loc}</loc>`)) errors.push(`sitemap.xml 沒有涵蓋 ${f}`);
   });
