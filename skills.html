@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cloudflare AI Agent Skill 手冊 · 精選型錄與速查 · WoowTech</title>
+  <meta name="description" content="搭配 AI LLM／agent 使用 Cloudflare 的 skill 手冊：精選 8 顆與 Cloudflare 相關的 skills（含官方 cloudflare/skills、cloudflare/mcp、DNS + Tunnel 專用）、6 大熱門集合入口、安裝速查、相容性與安全守則、SKILL.md 規格與 FAQ。星數與資料為 2026-08-20 快照。" />
+  <meta name="author" content="WoowTech" />
+  <meta name="theme-color" content="#6183FC" />
+  <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/skills.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Yellowtail&display=swap" />
+  <style>
+/* Cloudflare Skill 手冊 — Woow_ha_tutorial_site 版型 × woowtech Brand Prompt Library v2 */
+:root {
+  --ww-blue: #6183FC;
+  --ww-blue-600: #4A6DE8;
+  --ww-blue-700: #3A57C4;
+  --ww-blue-050: #EEF2FF;
+  --ww-blue-100: #DCE4FF;
+
+  --ink-900: #1B2033;
+  --ink-700: #3A4054;
+  --ink-500: #6B7186;
+  --ink-300: #A5AAB9;
+  --ink-100: #E7E9F0;
+
+  --paper: #F7F8FC;
+  --surface: #FFFFFF;
+  --surface-alt: #F1F3FA;
+  --hairline: #E2E5EF;
+
+  --tip:  #8CD37F;
+  --warn: #E66D3E;
+
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-xs: 8px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 2px 6px rgba(27, 32, 51, 0.05), 0 1px 2px rgba(27, 32, 51, 0.04);
+  --shadow-float: 0 26px 60px -18px rgba(97, 131, 252, 0.28);
+
+  --font-display: "Outfit", "Poppins", -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-body: "Poppins", -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-script: "Yellowtail", cursive;
+  --font-mono: "SF Mono", Menlo, Consolas, "Fira Code", monospace;
+
+  --sidebar-w: 268px;
+  --max-content: 780px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  font-family: var(--font-body);
+  color: var(--ink-900);
+  background: var(--paper);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+html { scroll-behavior: smooth; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.005em; }
+
+a { color: var(--ww-blue-600); text-decoration: none; transition: color 0.15s; }
+a:hover { color: var(--ww-blue-700); text-decoration: underline; }
+
+.layout { display: grid; grid-template-columns: var(--sidebar-w) 1fr; min-height: 100vh; }
+
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--hairline);
+  padding: 28px 22px;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.sidebar h2 {
+  font-family: var(--font-body); font-size: 12px; color: var(--ink-500);
+  text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin: 0 0 12px;
+}
+.sidebar .brand {
+  display: block; font-family: var(--font-display); font-size: 20px; font-weight: 700;
+  color: var(--ink-900); margin-bottom: 4px; letter-spacing: -0.01em;
+}
+.sidebar .brand-sub { font-size: 13px; color: var(--ink-500); margin-bottom: 6px; }
+.sidebar .hub-link { display: inline-block; font-size: 12.5px; color: var(--ink-500); margin-bottom: 22px; }
+.sidebar .hub-link:hover { color: var(--ww-blue-700); text-decoration: none; }
+.sidebar .toc-in-chapter { border-top: 1px solid var(--hairline); padding-top: 16px; margin-top: 8px; }
+.sidebar .toc-in-chapter:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+.sidebar .toc-in-chapter a {
+  display: block; padding: 7px 12px; border-radius: var(--radius-xs);
+  color: var(--ink-700); font-size: 13.5px;
+}
+.sidebar .toc-in-chapter a:hover { background: var(--surface-alt); text-decoration: none; }
+.sidebar .toc-in-chapter a.active { background: var(--ww-blue-050); color: var(--ww-blue-700); font-weight: 600; }
+
+.content { padding: 56px 64px 96px; max-width: calc(var(--max-content) + 128px); }
+
+.chapter-header { margin-bottom: 40px; }
+.chapter-header .kicker-script {
+  font-family: var(--font-script); font-size: 30px; color: var(--ww-blue);
+  line-height: 1; margin-bottom: 10px; display: block;
+}
+.chapter-header .kicker {
+  color: var(--ww-blue); font-family: var(--font-display); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px;
+}
+.chapter-header h1 {
+  font-family: "Noto Sans TC", var(--font-display); font-size: 38px; font-weight: 700;
+  margin: 0 0 14px; letter-spacing: -0.02em; line-height: 1.25;
+}
+.chapter-header .lead { font-size: 17px; color: var(--ink-700); margin: 0; max-width: var(--max-content); }
+
+section { margin-bottom: 56px; scroll-margin-top: 24px; }
+section h2 {
+  font-family: var(--font-display); font-size: 24px; font-weight: 700;
+  margin: 0 0 20px; padding: 0; border: 0;
+  display: flex; align-items: center; gap: 14px; color: var(--ink-900);
+}
+section h2[data-icon]::before {
+  content: ""; display: inline-flex; flex-shrink: 0;
+  width: 40px; height: 40px; border-radius: var(--radius-sm);
+  background-color: var(--ww-blue-050);
+  background-repeat: no-repeat; background-position: center; background-size: 22px 22px;
+}
+section h2[data-icon="why"]::before      { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M12,2A7,7 0 0,1 19,9C19,11.38 17.81,13.47 16,14.74V17A1,1 0 0,1 15,18H9A1,1 0 0,1 8,17V14.74C6.19,13.47 5,11.38 5,9A7,7 0 0,1 12,2M9,21V20H15V21A1,1 0 0,1 14,22H10A1,1 0 0,1 9,21M12,4A5,5 0 0,0 7,9C7,11.05 8.23,12.81 10,13.58V16H14V13.58C15.77,12.81 17,11.05 17,9A5,5 0 0,0 12,4Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="steps"]::before    { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M7,13V11H21V13H7M7,19V17H21V19H7M7,7V5H21V7H7M3,8V5H2V4H4V8H3M2,17V16H5V20H2V19H4V18.5H3V17.5H4V17H2M4.25,10A0.75,0.75 0 0,1 5,10.75C5,10.95 4.92,11.14 4.79,11.27L3.12,13H5V14H2V13.08L4,11H2V10H4.25Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="picks"]::before    { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="collections"]::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5M12,4.15L10.11,5.22L16,8.61L17.96,7.5L12,4.15M6.04,7.5L12,10.85L13.96,9.75L8.08,6.35L6.04,7.5M5,15.91L11,19.29V12.58L5,9.21V15.91M19,15.91V9.21L13,12.58V19.29L19,15.91Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="integration"]::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M10.59,13.41C11,13.8 11,14.44 10.59,14.83C10.2,15.22 9.56,15.22 9.17,14.83C7.22,12.88 7.22,9.71 9.17,7.76V7.76L12.71,4.22C14.66,2.27 17.83,2.27 19.78,4.22C21.73,6.17 21.73,9.34 19.78,11.29L18.29,12.78C18.3,11.96 18.17,11.14 17.89,10.36L18.36,9.88C19.54,8.71 19.54,6.81 18.36,5.64C17.19,4.46 15.29,4.46 14.12,5.64L10.59,9.17C9.41,10.34 9.41,12.24 10.59,13.41M13.41,9.17C13.8,8.78 14.44,8.78 14.83,9.17C16.78,11.12 16.78,14.29 14.83,16.24V16.24L11.29,19.78C9.34,21.73 6.17,21.73 4.22,19.78C2.27,17.83 2.27,14.66 4.22,12.71L5.71,11.22C5.7,12.04 5.83,12.86 6.11,13.65L5.64,14.12C4.46,15.29 4.46,17.19 5.64,18.36C6.81,19.54 8.71,19.54 9.88,18.36L13.41,14.83C14.59,13.66 14.59,11.76 13.41,10.59C13,10.2 13,9.56 13.41,9.17Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="safety"]::before   { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M21,11C21,16.55 17.16,21.74 12,23C6.84,21.74 3,16.55 3,11V5L12,1L21,5V11M12,21C15.75,20 19,15.54 19,11.22V6.3L12,3.18L5,6.3V11.22C5,15.54 8.25,20 12,21M11,7H13V13H11V7M11,15H13V17H11V15Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="spec"]::before     { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M6,2A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6M6,4H13V9H18V20H6V4M8,12V14H16V12H8M8,16V18H13V16H8Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="faq"]::before      { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M4,2A2,2 0 0,0 2,4V16A2,2 0 0,0 4,18H8V21A1,1 0 0,0 9,22H9.5V22C9.75,22 10,21.9 10.2,21.71L13.9,18H20A2,2 0 0,0 22,16V4C22,2.89 21.1,2 20,2H4M4,4H20V16H13.08L10,19.08V16H4V4M12.19,5.5C11.3,5.5 10.59,5.68 10.05,6.04C9.5,6.4 9.22,7 9.27,7.69C0.21,7.69 6.57,7.69 11.24,7.69C11.24,7.41 11.34,7.2 11.5,7.06C11.7,6.92 11.92,6.85 12.19,6.85C12.5,6.85 12.77,6.93 12.95,7.11C13.13,7.28 13.22,7.5 13.22,7.8C13.22,8.08 13.14,8.33 13,8.54C12.83,8.76 12.62,8.94 12.36,9.08C11.84,9.4 11.5,9.68 11.29,9.92C11.1,10.16 11,10.5 11,11H13C13,10.72 13.05,10.5 13.14,10.32C13.23,10.15 13.4,10 13.66,9.85C14.12,9.64 14.5,9.36 14.79,9C15.08,8.63 15.23,8.24 15.23,7.8C15.23,7.1 14.96,6.54 14.42,6.12C13.88,5.71 13.13,5.5 12.19,5.5M11,12V14H13V12H11Z'/%3E%3C/svg%3E"); }
+section h2[data-icon="download"]::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A57C4' d='M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z'/%3E%3C/svg%3E"); }
+
+section h3 {
+  font-family: var(--font-display); font-size: 17px; font-weight: 600;
+  margin: 28px 0 12px; color: var(--ink-900);
+}
+section p, section li { color: var(--ink-700); max-width: var(--max-content); }
+
+.feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.feature-card {
+  padding: 24px 22px; border: 1px solid var(--hairline); border-radius: var(--radius);
+  background: var(--surface); box-shadow: var(--shadow-sm);
+}
+.feature-card h3 { margin: 0 0 4px; font-size: 17px; }
+.feature-card .pnote { margin: 0 0 10px; font-size: 12.5px; color: var(--ink-500); }
+.feature-card > p { margin: 0 0 12px; color: var(--ink-700); font-size: 14px; }
+
+.steps { list-style: none; padding: 0; margin: 0; counter-reset: step; }
+.steps > li {
+  counter-increment: step; position: relative;
+  padding: 22px 22px 22px 72px; margin-bottom: 14px;
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: var(--radius); box-shadow: var(--shadow-sm);
+}
+.steps > li::before {
+  content: counter(step);
+  position: absolute; left: 20px; top: 20px; width: 36px; height: 36px; border-radius: 50%;
+  background: var(--ww-blue); color: #fff;
+  font-family: var(--font-display); font-weight: 700; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(97, 131, 252, 0.35);
+}
+.steps > li h3 { margin: 0 0 8px; font-size: 16px; }
+.steps > li p:last-child { margin-bottom: 0; }
+
+.callout {
+  padding: 14px 18px 14px 44px; border-radius: var(--radius-sm);
+  background: var(--ww-blue-050); margin: 16px 0; font-size: 14px; color: var(--ink-700);
+  position: relative; border: 1px solid rgba(97, 131, 252, 0.18);
+  max-width: var(--max-content);
+}
+.callout::before {
+  content: ""; position: absolute; left: 14px; top: 15px; width: 18px; height: 18px;
+  background-repeat: no-repeat; background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%236183FC' d='M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z'/%3E%3C/svg%3E");
+}
+.callout.tip { background: rgba(140, 211, 127, 0.14); border-color: rgba(140, 211, 127, 0.32); }
+.callout.tip::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234E9C42' d='M12,2A7,7 0 0,0 5,9C5,11.38 6.19,13.47 8,14.74V17A1,1 0 0,0 9,18H15A1,1 0 0,0 16,17V14.74C17.81,13.47 19,11.38 19,9A7,7 0 0,0 12,2M9,21A1,1 0 0,0 10,22H14A1,1 0 0,0 15,21V20H9V21Z'/%3E%3C/svg%3E"); }
+.callout.warn { background: rgba(230, 109, 62, 0.10); border-color: rgba(230, 109, 62, 0.28); }
+.callout.warn::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23B94D22' d='M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z'/%3E%3C/svg%3E"); }
+.callout strong { color: var(--ink-900); }
+
+.data-table {
+  width: 100%; border-collapse: separate; border-spacing: 0; margin: 20px 0;
+  font-size: 14px; background: var(--surface);
+  border: 1px solid var(--hairline); border-radius: var(--radius-sm);
+  overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.data-table thead th {
+  text-align: left; padding: 12px 14px; background: var(--surface-alt); color: var(--ink-900);
+  font-family: var(--font-display); font-weight: 600; font-size: 13px;
+  border-bottom: 1px solid var(--hairline); white-space: nowrap;
+}
+.data-table tbody td { padding: 11px 14px; border-bottom: 1px solid var(--hairline); color: var(--ink-700); vertical-align: top; }
+.data-table tbody tr:last-child td { border-bottom: 0; }
+.data-table code { font-size: 12px; }
+
+details.faq {
+  margin-bottom: 10px; border: 1px solid var(--hairline); border-radius: var(--radius-sm);
+  background: var(--surface); overflow: hidden; box-shadow: var(--shadow-sm);
+  max-width: var(--max-content);
+}
+details.faq summary {
+  cursor: pointer; padding: 16px 48px 16px 20px;
+  font-family: var(--font-display); font-weight: 600; color: var(--ink-900);
+  list-style: none; position: relative;
+}
+details.faq summary::-webkit-details-marker { display: none; }
+details.faq summary::after {
+  content: ""; position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+  width: 20px; height: 20px; background-repeat: no-repeat; background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%236183FC' d='M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z'/%3E%3C/svg%3E");
+}
+details.faq[open] summary::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%236183FC' d='M19,13H5V11H19V13Z'/%3E%3C/svg%3E"); }
+details.faq[open] summary { border-bottom: 1px solid var(--hairline); }
+details.faq .body { padding: 16px 20px; color: var(--ink-700); font-size: 14px; }
+details.faq .body code {
+  font-family: var(--font-mono); font-size: 13px;
+  background: var(--surface-alt); padding: 1px 6px; border-radius: var(--radius-xs);
+  color: var(--ww-blue-700);
+}
+
+.site-footer {
+  margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--hairline);
+  color: var(--ink-700); font-size: 13.5px; line-height: 1.75;
+}
+.site-footer p { margin: 0 0 6px; }
+.site-footer .footer-meta { color: var(--ink-500); font-size: 12.5px; }
+
+.nav-toggle {
+  display: none; width: 100%; align-items: center; justify-content: space-between; gap: 8px;
+  margin: 4px 0 0; padding: 12px 16px;
+  font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--ink-900);
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-sm); cursor: pointer;
+}
+.nav-toggle-caret {
+  width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent;
+  border-top: 6px solid var(--ink-500); transition: transform 0.15s ease;
+}
+.sidebar.is-collapsed .nav-toggle-caret { transform: rotate(-90deg); }
+
+.layout > * { min-width: 0; }
+.content .data-table { max-width: 100%; }
+
+pre.code-block {
+  background: var(--surface-alt); color: var(--ink-900);
+  padding: 14px 16px; border-radius: var(--radius-sm); border: 1px solid var(--hairline);
+  font-family: var(--font-mono); font-size: 13px; line-height: 1.6;
+  overflow-x: auto; margin: 12px 0; max-width: var(--max-content);
+}
+code {
+  font-family: var(--font-mono); font-size: 13px;
+  background: var(--surface-alt); padding: 2px 8px; border-radius: var(--radius-xs);
+  color: var(--ww-blue-700);
+}
+pre.code-block code { background: none; padding: 0; color: inherit; }
+
+.feature-card pre.code-block { margin-bottom: 6px; }
+
+.btn-pill {
+  display: inline-block; font-family: var(--font-display); font-weight: 600; font-size: 15px;
+  background: var(--ww-blue); color: #fff; padding: 13px 32px;
+  border-radius: var(--radius-pill); text-decoration: none; transition: background 0.15s, transform 0.15s;
+}
+.btn-pill:hover { background: var(--ww-blue-600); color: #fff; text-decoration: none; transform: translateY(-1px); }
+.btn-ghost {
+  display: inline-block; font-family: var(--font-display); font-weight: 600; font-size: 15px;
+  background: var(--surface); color: var(--ink-900);
+  border: 1.5px solid var(--hairline); padding: 12px 30px; border-radius: 999px;
+  text-decoration: none; transition: border-color 0.15s;
+}
+.btn-ghost:hover { border-color: var(--ww-blue); color: var(--ww-blue-700); text-decoration: none; }
+
+@media (max-width: 960px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: relative; height: auto; border-right: none; border-bottom: 1px solid var(--hairline); }
+  .content { padding: 32px 20px 64px; }
+  .chapter-header h1 { font-size: 30px; }
+  .chapter-header .kicker-script { font-size: 26px; }
+  section h2 { font-size: 20px; }
+  section h2[data-icon]::before { width: 36px; height: 36px; background-size: 20px 20px; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .data-table { display: block; overflow-x: auto; }
+  .data-table tbody td, .data-table thead th { min-width: 120px; }
+  .sidebar .nav-toggle { display: flex; }
+  .sidebar.is-collapsed .toc-in-chapter { display: none; }
+  .sidebar.is-collapsed > h2 { display: none; }
+}
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#top">Cloudflare Skill 手冊</a>
+    <div class="brand-sub">WoowTech · agent 技能型錄與速查</div>
+    <a class="hub-link" href="index.html">◂ Cloudflare Tunnel 資源總覽</a>
+    <button class="nav-toggle" id="navToggle" type="button">本冊內容<span class="nav-toggle-caret"></span></button>
+    <div class="toc-in-chapter">
+      <h2>本冊內容</h2>
+      <a href="#why">Skill 是什麼</a>
+      <a href="#install">怎麼裝</a>
+      <a href="#picks">精選八顆</a>
+      <a href="#collections">熱門集合</a>
+      <a href="#compat">相容性須知</a>
+      <a href="#safety">安全守則</a>
+      <a href="#spec">SKILL.md 規格</a>
+      <a href="#faq">常見問題</a>
+      <a href="#download">下載</a>
+    </div>
+  </aside>
+
+  <main class="content" id="top">
+    <div class="chapter-header">
+      <span class="kicker-script">teach it cloudflare</span>
+      <div class="kicker">WoowTech Skill 手冊</div>
+      <h1>讓 AI agent 學會 Cloudflare 這門手藝</h1>
+      <p class="lead">Skill 是給 AI 看的「工作手冊」：一個資料夾、一份 SKILL.md，agent 遇到對應情況會翻出來照做。這本手冊挑好 8 顆與 Cloudflare 相關、能實際跑起來的 skill，附安裝速查、相容性提示、安全守則與 SKILL.md 規格。Workers/Pages 部署、DNS 自動化、Tunnel 管理、Zero Trust 政策生成都能上手。</p>
+      <div class="callout"><strong>調查基準：</strong>本冊 skill 的星數與集合規模為 <strong>2026-08-20</strong> 調查當日的 GitHub 公開數據，會隨時間變動；安裝前建議點進原始 repo 再確認一次。</div>
+    </div>
+
+    <section id="why" data-nav="Skill 是什麼">
+      <h2 data-icon="why">Skill 是什麼、為什麼要裝</h2>
+      <p>把 AI agent 想成一位很聰明的雲端工程師：Workers 語法、Wrangler CLI、REST API 都知道——但「你家 Cloudflare 帳號的做事方法」它不會通靈。Skill 就是<strong>寫給 agent 的工作 SOP</strong>：什麼情況、照什麼步驟、避開什麼坑，都寫成一份 Markdown，放進技能資料夾，agent 就會照做。</p>
+      <ul>
+        <li><strong>裝別人寫好的</strong>：Cloudflare 自家、社群、平台專用集合已經寫好，裝了就會。</li>
+        <li><strong>之後寫自己的</strong>：把你團隊的部署慣例、命名規則、環境變數 layout 包成 skill，新專案自動套用。</li>
+      </ul>
+      <p>Skill 的本質是「餵給 agent 的指令」——裝第三方 skill 等於讓一段陌生文字有機會指揮你的 Cloudflare token，本冊<a href="#safety">安全守則</a>裡的四條規則請務必遵守。</p>
+    </section>
+
+    <section id="install" data-nav="怎麼裝">
+      <h2 data-icon="steps">怎麼裝（3 分鐘版）</h2>
+      <p>Skill 生態現在有兩派安裝方式：Claude Code 的 <code>~/.claude/skills/</code> 資料夾扔進去、與其他 agent 平台的 plugin/skill 管理 UI。以 Claude Code 為例：</p>
+      <ol class="steps">
+        <li>
+          <h3>Clone 到 skills 資料夾</h3>
+          <p>個人用 <code>~/.claude/skills/</code>；專案用 <code>.claude/skills/</code>（跟隨 repo commit）。</p>
+          <pre class="code-block"><code>cd ~/.claude/skills
+git clone https://github.com/cloudflare/skills cloudflare-skills</code></pre>
+        </li>
+        <li>
+          <h3>確認 SKILL.md 位置</h3>
+          <p>Claude Code 遞迴掃描資料夾，找每一顆 skill 的 <code>SKILL.md</code>。集合型 repo 底下每個子資料夾都是一顆 skill。</p>
+        </li>
+        <li>
+          <h3>重啟或 Reload agent</h3>
+          <p>Skill 是 session 開始時載入的。重啟後問：「目前有哪些 cloudflare 相關的 skill？」確認清單。</p>
+        </li>
+        <li>
+          <h3>用一句話觸發測試</h3>
+          <p>照該 skill description 描述的情境講一個對應需求，看 agent 是否自動拿出來用。</p>
+        </li>
+      </ol>
+      <div class="callout tip"><strong>提示：</strong>純 Markdown 的 skill 幾乎跨所有 agent（Claude Code、Codex、Cursor、OpenCode、Pi Agent）都能跑；依賴 hooks / scripts / 特定 CLI 的先看該 skill README 的 compatibility 說明。</div>
+    </section>
+
+    <section id="picks" data-nav="精選八顆">
+      <h2 data-icon="picks">精選八顆（Cloudflare 視角）</h2>
+      <p>依「官方＋活躍度＋Cloudflare 涵蓋面」挑出來的實用款，由「最對口」往下排：</p>
+      <table class="data-table">
+        <thead>
+          <tr><th>Skill</th><th>它幫 agent 做什麼</th><th>安裝來源</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="https://github.com/cloudflare/skills" rel="noopener"><strong>cloudflare/skills</strong></a></td>
+            <td>Cloudflare 官方出品的「教 agent 在 Cloudflare 上蓋東西」skill 集，Workers / Pages / D1 / R2 / KV / Agents SDK 都有；<strong>Cloudflare 官方推薦第一包</strong>。</td>
+            <td><code>github.com/cloudflare/skills</code></td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/cloudflare/mcp-server-cloudflare" rel="noopener"><strong>cloudflare/mcp-server-cloudflare</strong></a></td>
+            <td>不是 skill 而是 MCP server，但它讓 agent 直接呼叫 Cloudflare tool 完成操作，跟 skill 搭配就是「知識＋能力」完整組合。Workers、KV、R2、D1、Analytics 都覆蓋。</td>
+            <td><code>github.com/cloudflare/mcp-server-cloudflare</code></td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/michael-ltm/cloudflare-skill" rel="noopener">michael-ltm/cloudflare-skill</a></td>
+            <td>基於 cloudflare/skills 再擴充：加了 <strong>DNS management、SSL/TLS Origin Certificates、多帳號憑證、Cloudflare Tunnel</strong>——正好補足官方版沒明說的 Tunnel/DNS 章節。</td>
+            <td><code>github.com/michael-ltm/cloudflare-skill</code></td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/D1DX/cloudflare-skill" rel="noopener">D1DX/cloudflare-skill</a></td>
+            <td>Workers (Hono)、R2、D1、KV、DNS、SSL/TLS、<strong>Zero Trust、Terraform IaC 部署</strong>都涵蓋。想把 CF 設定落地成 Terraform 的推薦這顆。</td>
+            <td><code>github.com/D1DX/cloudflare-skill</code></td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/OpenSIN-Code/cloudflare-skill" rel="noopener">OpenSIN-Code/cloudflare-skill</a></td>
+            <td>OpenCode agent 專用的 Cloudflare skill：<strong>觸發詞明確</strong>（<code>cloudflare</code>、<code>wrangler</code>、<code>cf worker</code>、<code>r2</code>、<code>d1</code>、<code>cloudflare tunnel</code>、<code>cf cache</code>），description 寫得清楚 agent 抓得準。</td>
+            <td><code>github.com/OpenSIN-Code/cloudflare-skill</code></td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/straticus1/claude-cloudflare-skill" rel="noopener">straticus1/claude-cloudflare-skill</a></td>
+            <td>Claude Code 專用：DNS、zones、SSL、caching、firewall、Workers 全套維運。<strong>企業 IT 味最重</strong>，適合把 skill 塞進客戶交付。</td>
+            <td><code>github.com/straticus1/claude-cloudflare-skill</code></td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/exoddus/claude-cloudflare-skill" rel="noopener">exoddus/claude-cloudflare-skill</a></td>
+            <td>專攻「新專案＋持久化 Cloudflare Tunnel」的自動化 skill。<strong>如果你常幫客戶開新環境</strong>，這顆把 tunnel 建立、DNS、Access 政策一次寫好。</td>
+            <td><code>github.com/exoddus/claude-cloudflare-skill</code></td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/andrewkriley/cloudflare-dns-cloudflared-mcp" rel="noopener">andrewkriley/cloudflare-dns-cloudflared-mcp</a></td>
+            <td>不是 skill，是自架 MCP server，<strong>只管 Cloudflare DNS + cloudflared tunnel</strong>——scope 最小、資料留在自家伺服器。適合對隱私有要求的 SRE。</td>
+            <td><code>github.com/andrewkriley/cloudflare-dns-cloudflared-mcp</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="pnote" style="margin-top:14px"><strong>備查（不獨立推薦但有價值）</strong>：<a href="https://github.com/skillsceo/cloudflare-skill" rel="noopener">skillsceo/cloudflare-skill</a>（zones/DNS/Pages/R2/KV/email routing/analytics 中型維運包）；<a href="https://github.com/pocc/cloudflare-mcp" rel="noopener">pocc/cloudflare-mcp</a>（354 個 read-only API tool，enterprise 級安全稽核）；<a href="https://github.com/wrxck/cloudflare-mcp" rel="noopener">wrxck/cloudflare-mcp</a>（OpenAPI 驅動、2,655 個 endpoint 全曝光——量最大但也最重）。</p>
+    </section>
+
+    <section id="collections" data-nav="熱門集合">
+      <h2 data-icon="collections">六大熱門集合（agent skill 生態入口）</h2>
+      <p>不只 Cloudflare 專用，這些是整個 agent skill 生態的旗艦集合。用來搭配上面精選、或在裡面挖新東西：</p>
+      <div class="feature-grid">
+
+        <div class="feature-card">
+          <h3>anthropics/skills</h3>
+          <div class="pnote">Anthropic 官方 Agent Skills 規格與示範 · ≈170,502 ★ · 極活躍</div>
+          <p>Skills 規格與官方 template 的家。19 顆 skill 含文件四件套（docx/pdf/pptx/xlsx）、canvas-design、mcp-builder、skill-creator。<strong>寫任何新 skill 前先看這個</strong>。</p>
+          <pre class="code-block"><code>github.com/anthropics/skills</code></pre>
+        </div>
+
+        <div class="feature-card">
+          <h3>cloudflare/skills</h3>
+          <div class="pnote">Cloudflare 官方 · ≈2,673 ★ · 剛推出、積極更新</div>
+          <p>Cloudflare 官方的 agent skill 集合，直接教 agent 在 Workers / Pages / D1 / R2 / KV / Agents SDK 上蓋東西。含 <a href="https://github.com/cloudflare/agent-skills-discovery-rfc" rel="noopener">agent-skills-discovery-rfc</a> 的 <code>.well-known</code> 討論。</p>
+          <pre class="code-block"><code>github.com/cloudflare/skills</code></pre>
+        </div>
+
+        <div class="feature-card">
+          <h3>obra/superpowers</h3>
+          <div class="pnote">開發方法論框架 · ≈274,339 ★ · README 明列多 agent 支援</div>
+          <p>14 顆紀律型 skill：brainstorming、TDD、systematic-debugging、writing-plans。Cloudflare Workers 部署也適用——把 debug 流程紀律化。</p>
+          <pre class="code-block"><code>github.com/obra/superpowers</code></pre>
+        </div>
+
+        <div class="feature-card">
+          <h3>mattpocock/skills</h3>
+          <div class="pnote">Skills For Real Engineers · ≈223,949 ★ · 極活躍</div>
+          <p>grill-me、tdd、diagnosing-bugs、handoff、teach——工程向為主。grill-me 對「先問清楚 Cloudflare 需求再開工」超好用，避免 agent 亂改 zone。</p>
+          <pre class="code-block"><code>github.com/mattpocock/skills</code></pre>
+        </div>
+
+        <div class="feature-card">
+          <h3>jezweb/claude-skills</h3>
+          <div class="pnote">Full-stack CF 導向 · ≈973 ★ · 生產就緒</div>
+          <p>Claude Code CLI 專用，主打 <strong>full-stack Cloudflare + React + Tailwind v4 + AI integrations</strong>。想把 Workers/Pages 當前端 + 後端 IaaS 用的最適合。</p>
+          <pre class="code-block"><code>github.com/jezweb/claude-skills</code></pre>
+        </div>
+
+        <div class="feature-card">
+          <h3>ComposioHQ/awesome-claude-skills</h3>
+          <div class="pnote">策展清單 · 上千條目 · 逛街用</div>
+          <p>1000+ 條目的入口站：文件處理、資料視覺化、發票整理、履歷客製、會議逐字稿——當目錄逛，找到有興趣的點進去裝原始 repo。品質參差，逐顆看清楚再裝。</p>
+          <pre class="code-block"><code>github.com/ComposioHQ/awesome-claude-skills</code></pre>
+        </div>
+
+      </div>
+      <p class="pnote" style="margin-top:14px">備查：<a href="https://github.com/VoltAgent/awesome-agent-skills" rel="noopener">VoltAgent/awesome-agent-skills</a>（跨 agent 純索引，只收官方團隊出品：Anthropic 全系列、Google Workspace、cloudflare）、<a href="https://github.com/cloudflare/agent-skills-discovery-rfc" rel="noopener">cloudflare/agent-skills-discovery-rfc</a>（<code>.well-known</code> URI 發現機制 RFC 草案）。</p>
+    </section>
+
+    <section id="compat" data-nav="相容性須知">
+      <h2 data-icon="integration">相容性須知</h2>
+      <p>SKILL.md 規格已被 Claude Code、Codex、Gemini CLI、Cursor、OpenCode、Pi Agent 等採用，純 Markdown 的 skill 幾乎到處能跑。會「退化」的只有三種情況：</p>
+      <ul>
+        <li><strong>依賴 Claude Code 專屬機制</strong>（hooks、plugin 指令、subagent 派工）——skill 本文仍可讀，但自動觸發行為可能不完整。</li>
+        <li><strong>依賴特定 MCP／SaaS 帳號</strong>——沒接那個服務就沒用；<strong>Cloudflare skill 幾乎都預設你已裝 <code>cloudflare/mcp-server-cloudflare</code> 或會用 Wrangler</strong>，先確認再裝。</li>
+        <li><strong><code>scripts/</code> 需要沒有的 runtime</strong>——需要 Node、Wrangler、Terraform、jq 的 skill，本機沒裝就跑不動；純 Markdown skill 相容性最好。</li>
+      </ul>
+      <div class="callout"><strong>觀念：</strong>挑 skill 的第一準則不是星數，是「它假設的環境你有沒有」。Cloudflare skill 90% 假設你有 Wrangler + API Token。</div>
+    </section>
+
+    <section id="safety" data-nav="安全守則">
+      <h2 data-icon="safety">安全守則</h2>
+      <div class="callout warn"><strong>注意：</strong>Skill 的本質是「餵給 agent 的指令」。裝第三方 Cloudflare skill＝讓一段陌生文字有機會指揮你的 Cloudflare token，等同帳號權限被借走。</div>
+      <ul>
+        <li><strong>先讀後裝</strong>：安裝前把 SKILL.md 打開讀一遍，特別看有沒有指示 agent「跑某某 curl」「刪某某 record」「set 某某 secret」。或直接叫 agent 讀給你聽：「先讀這顆 skill 的內容，列出它會對我 Cloudflare 帳號做什麼、有沒有風險，我同意再裝。」</li>
+        <li><strong>Token 用最小 scope</strong>：安裝 DNS skill 就只給 <code>Zone.DNS:Edit</code>，別給 Global API Key。skill 有問題傷害有限。</li>
+        <li><strong>正式環境釘版本</strong>：<code>git clone --branch v1.2.0</code> 或釘 commit，避免上游改內容你無感升級。</li>
+        <li><strong>星數＝人氣，不＝安全</strong>：熱門集合一樣要看它拿什麼權限做什麼事。Cloudflare 是 production infra，被誤操作代價比家用 HA 高得多。</li>
+      </ul>
+    </section>
+
+    <section id="spec" data-nav="SKILL.md 規格">
+      <h2 data-icon="spec">SKILL.md 規格速查</h2>
+      <p>一顆 Cloudflare skill 的最小骨架：</p>
+      <pre class="code-block"><code>cf-tunnel-quickstart/
+├── SKILL.md          ← 唯一必要檔案
+├── references/       ← 選填：官方文件節錄
+└── scripts/          ← 選填：wrangler、curl 範例
+
+# SKILL.md 內容
+---
+name: cf-tunnel-quickstart
+description: 使用者要求建立 Cloudflare Tunnel、加 hostname、
+  或把內網服務公開到 example.com 網域時觸發。
+  處理 cloudflared 安裝、tunnel 建立、DNS CNAME、Access 政策。
+license: MIT
+compatibility: claude-code, cursor, codex, opencode
+---
+
+# Cloudflare Tunnel 快速上線
+
+## 使用時機
+（給 agent 看的做法說明，寫得像教新同事）</code></pre>
+      <table class="data-table">
+        <thead>
+          <tr><th>欄位</th><th>必填</th><th>說明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>name</code></td><td>是</td><td>小寫英數與連字號，1–64 字元。</td></tr>
+          <tr><td><code>description</code></td><td>是</td><td>做什麼＋何時觸發。<strong>Agent 靠這行決定要不要載入</strong>，把使用者會講的話寫進去（例如「建 tunnel」「加 hostname」）。</td></tr>
+          <tr><td><code>license</code></td><td>否</td><td>建議填 MIT / Apache-2.0，讓別人放心 fork。</td></tr>
+          <tr><td><code>compatibility</code></td><td>否</td><td>列出實測過的 agent，讓使用者能篩選。</td></tr>
+          <tr><td><code>allowed-tools</code></td><td>否</td><td>指定 agent 可用工具白名單，例如 <code>[Read, Bash, WebFetch]</code>。</td></tr>
+        </tbody>
+      </table>
+      <p>慣例：SKILL.md 保持精簡（&lt; 500 行），大段官方文件放 <code>references/</code>、腳本放 <code>scripts/</code>，用到才讀，避免吃爆 context。</p>
+      <div class="callout tip"><strong>提示：</strong>Cloudflare RFC <a href="https://github.com/cloudflare/agent-skills-discovery-rfc" rel="noopener">agent-skills-discovery-rfc</a> 正在推動 <code>/.well-known/agent-skills</code> 讓 agent 自動從網站發現可用 skill——未來你的網站也能提供 skill 給客戶的 agent 使用。</div>
+    </section>
+
+    <section id="faq" data-nav="常見問題">
+      <h2 data-icon="faq">常見問題</h2>
+      <details class="faq">
+        <summary>Cloudflare 官方 skills 跟社群 skills 有什麼差別？</summary>
+        <div class="body">官方 <code>cloudflare/skills</code> 焦點在「在 Cloudflare 上蓋東西」——Workers、Pages、D1、R2、KV 開發；社群 skills 補足「維運」與「Tunnel/DNS/Access」等。實務上兩邊都裝，官方做骨、社群補肉。</div>
+      </details>
+      <details class="faq">
+        <summary>裝了 skill 但 agent 沒觸發？</summary>
+        <div class="body">三個原因：<strong>1)</strong> 沒重啟 agent（skill 是 session 開始載入）；<strong>2)</strong> description 沒涵蓋你的講法——直接點名「用 cloudflare-skill 幫我建 tunnel」；<strong>3)</strong> Claude Code 的話檢查 <code>~/.claude/skills/</code> 路徑是否對，允許 depth &gt; 1 遞迴。</div>
+      </details>
+      <details class="faq">
+        <summary>skill 裝太多會怎樣？</summary>
+        <div class="body">每顆 skill 的 name + description 會佔 system prompt 的 context；30 顆以上會讓 agent 分心也變貴。原則：常用留著，試玩過不用的移除。Cloudflare 相關可以固定留 1 顆 platform + 1 顆 tunnel/DNS 就夠 80% 用途。</div>
+      </details>
+      <details class="faq">
+        <summary>MCP server 跟 skill 是什麼關係？</summary>
+        <div class="body">Skill 是<strong>「該怎麼做」的知識</strong>（給 agent 讀的 markdown）；MCP server 是<strong>「能做什麼」的能力</strong>（給 agent 呼叫的 tool）。<code>cloudflare/mcp-server-cloudflare</code> 提供 tools（GET zones、PUT records...），Cloudflare skill 教 agent「什麼時候用哪個 tool、什麼順序、怎麼驗收」——最佳實踐是兩個一起用。</div>
+      </details>
+      <details class="faq">
+        <summary>怎麼把公司/客戶的 Cloudflare 慣例包成自己的 skill？</summary>
+        <div class="body">用 <code>anthropics/skills</code> 裡的 <code>skill-creator</code> 開個新骨架，把你們的「命名規則、標準 tunnel 配置、Access 政策 template、Wrangler bindings 慣例」寫進 SKILL.md。放進私有 GitHub repo，內部 agent 都 clone 到 <code>.claude/skills/</code>，一次寫全公司統一。</div>
+      </details>
+      <details class="faq">
+        <summary>怎麼看一顆 skill 適不適合我？</summary>
+        <div class="body">四個檢查點：<strong>1)</strong> SKILL.md 第一句 description 是否明確；<strong>2)</strong> 有沒有 <code>compatibility:</code> 欄位標明實測過的 agent；<strong>3)</strong> <code>scripts/</code> 需要的 runtime 你有沒有；<strong>4)</strong> issues / PR 是否還活躍（六個月沒 commit 的社群 skill 通常過期了）。</div>
+      </details>
+    </section>
+
+    <section id="download" data-nav="下載">
+      <h2 data-icon="download">把這本帶走</h2>
+      <p>整本是自包含單檔 HTML，圖示全部內嵌，下載後離線可開、可轉寄給團隊。集合資訊會過期（星數、活躍度），重要決定前回<a href="index.html">資源總覽</a>看線上版。</p>
+      <p>
+        <a class="btn-pill" href="skills.html" download="cloudflare-skill-manual.html">下載本冊 HTML</a>
+        <a class="btn-ghost" href="index.html">回資源總覽</a>
+      </p>
+    </section>
+
+    <footer class="site-footer">
+      <p>《Cloudflare AI Agent Skill 手冊》由 <strong>WoowTech 渥屋科技</strong> 製作，以 <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.zh-hant">CC BY 4.0</a> 授權釋出。星數與資料為 2026-08-20 快照。</p>
+      <p class="footer-meta">The Smart Space Solution · 智慧空間解決方案 · <a href="index.html">Cloudflare Tunnel 資源總覽</a></p>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  var sidebar = document.getElementById('sidebar');
+  var toggle = document.getElementById('navToggle');
+  var mq = window.matchMedia('(max-width: 960px)');
+  function applyCollapse(e) {
+    if (e.matches) { sidebar.classList.add('is-collapsed'); }
+    else { sidebar.classList.remove('is-collapsed'); }
+  }
+  applyCollapse(mq);
+  mq.addEventListener ? mq.addEventListener('change', applyCollapse) : mq.addListener(applyCollapse);
+  toggle.addEventListener('click', function () { sidebar.classList.toggle('is-collapsed'); });
+  sidebar.querySelectorAll('.toc-in-chapter a').forEach(function (a) {
+    a.addEventListener('click', function () { if (mq.matches) sidebar.classList.add('is-collapsed'); });
+  });
+
+  var links = Array.prototype.slice.call(sidebar.querySelectorAll('.toc-in-chapter a[href^="#"]'));
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  function onScroll() {
+    var current = null;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= 120) current = sections[i].id;
+    }
+    links.forEach(function (a) { a.classList.remove('active'); });
+    if (current && map[current]) map[current].classList.add('active');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>
