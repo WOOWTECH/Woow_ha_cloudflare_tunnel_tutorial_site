@@ -1410,6 +1410,48 @@
    "sourceHash": "259748aef03d66f6",
    "targetHash": null,
    "registeredAt": "2026-09-02"
+  },
+  "en:chapters.json:site.strings._readme": {
+   "status": "pending",
+   "sourceHash": "8e1994e21a115b5c",
+   "targetHash": null,
+   "registeredAt": "2026-09-02"
+  },
+  "en:chapters.json:site.strings.pagerPrev": {
+   "status": "pending",
+   "sourceHash": "4d39c18284897a19",
+   "targetHash": null,
+   "registeredAt": "2026-09-02"
+  },
+  "en:chapters.json:site.strings.pagerPrevAppendix": {
+   "status": "pending",
+   "sourceHash": "cb6e87cc17fb11b2",
+   "targetHash": null,
+   "registeredAt": "2026-09-02"
+  },
+  "en:chapters.json:site.strings.pagerNext": {
+   "status": "pending",
+   "sourceHash": "62521e58a365e5fd",
+   "targetHash": null,
+   "registeredAt": "2026-09-02"
+  },
+  "en:chapters.json:site.strings.pagerNextAppendix": {
+   "status": "pending",
+   "sourceHash": "6ae2bc697d1b8b6a",
+   "targetHash": null,
+   "registeredAt": "2026-09-02"
+  },
+  "en:chapters.json:site.strings.pagerNextAppendixFromAppendix": {
+   "status": "pending",
+   "sourceHash": "471c3264e7b672da",
+   "targetHash": null,
+   "registeredAt": "2026-09-02"
+  },
+  "en:chapters.json:site.strings.pagerContentsNext": {
+   "status": "pending",
+   "sourceHash": "745f299426be5dc6",
+   "targetHash": null,
+   "registeredAt": "2026-09-02"
   }
  }
 }
