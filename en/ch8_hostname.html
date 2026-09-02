@@ -1,54 +1,54 @@
 <!doctype html><html lang="en"><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chapter 8 · External hostname · Home Assistant Cloudflared Web GUI 指南</title>
-  <meta name="description" content="Cloudflared external_hostname 與 Home Assistant trusted_proxies 設定指南。" />
-  <meta name="author" content="woowtech" />
+  <title>Chapter 8 · External hostname · Home Assistant Cloudflared Web GUI guide</title>
+  <meta name="description" content="A guide to setting Cloudflared external_hostname and Home Assistant trusted_proxies." />
+  <meta name="author" content="WoowTech" />
   <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch8_hostname.html" />
   <meta name="robots" content="noindex, follow" />
   <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI 指南" />
+  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI guide" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="zh_TW" />
-  <meta property="og:title" content="Chapter 8 · External hostname · Home Assistant Cloudflared Web GUI 指南" />
-  <meta property="og:description" content="Cloudflared external_hostname 與 Home Assistant trusted_proxies 設定指南。" />
+  <meta property="og:title" content="Chapter 8 · External hostname · Home Assistant Cloudflared Web GUI guide" />
+  <meta property="og:description" content="A guide to setting Cloudflared external_hostname and Home Assistant trusted_proxies." />
   <meta property="og:url" content="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch8_hostname.html" />
   <meta property="og:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Chapter 8 · External hostname · Home Assistant Cloudflared Web GUI 指南" />
-  <meta name="twitter:description" content="Cloudflared external_hostname 與 Home Assistant trusted_proxies 設定指南。" />
+  <meta name="twitter:title" content="Chapter 8 · External hostname · Home Assistant Cloudflared Web GUI guide" />
+  <meta name="twitter:description" content="A guide to setting Cloudflared external_hostname and Home Assistant trusted_proxies." />
   <meta name="twitter:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="theme-color" content="#6183FC" />
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.en" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/i18n.css" />
 </head><body><div class="layout"><aside class="sidebar">
-    <a class="brand" href="tutorial.html">Cloudflared Web GUI 指南</a>
-    <div class="brand-sub">不開埠，安全連回家</div>
+    <a class="brand" href="tutorial.html">Cloudflared Web GUI Guide</a>
+    <div class="brand-sub">No open ports, a safe way home</div>
     <nav class="lang-switch" aria-label="Language"><a href="../ch8_hostname.html" lang="zh-Hant" hreflang="zh-Hant">中文</a><a class="active" href="ch8_hostname.html" lang="en" aria-current="page">EN</a></nav>
-    <a class="hub-link" href="index.html">◂ 資源總覽</a>
+    <a class="hub-link" href="index.html">◂ Resource Hub</a>
     <h2>Chapters</h2>
     <ol>
-      <li class="part-label">基礎：準備與安裝</li>
-      <li data-i18n="pending"><a href="ch1_overview.html">開始前：需求與安全邊界</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html">安裝 Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html">第一次開啟 Web GUI</a></li>
-      <li class="part-label">建置：建立安全入口</li>
-      <li data-i18n="pending"><a href="ch4_setup.html">Setup 首次設定精靈</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html">完成 Cloudflare 授權</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard 與 Tunnel 狀態</a></li>
-      <li class="part-label">管理：主機與日誌</li>
-      <li data-i18n="pending"><a href="ch7_config.html">Config 與 Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html" class="active">設定 external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html">管理 additional hosts</a></li>
-      <li class="part-label">維護：安全與排錯</li>
-      <li data-i18n="pending"><a href="ch10_logs.html">Logs 與日常維護</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html">安全檢查與最小暴露</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html">排錯、更新與交接</a></li>
+      <li class="part-label">Basics: prepare and install</li>
+      <li data-i18n="pending"><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
+      <li data-i18n="pending"><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
+      <li data-i18n="pending"><a href="ch3_first_open.html">First open of the Web GUI</a></li>
+      <li class="part-label">Build: create a secure entrance</li>
+      <li data-i18n="pending"><a href="ch4_setup.html">First-run Setup wizard</a></li>
+      <li data-i18n="pending"><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
+      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
+      <li class="part-label">Manage: hosts and logs</li>
+      <li data-i18n="pending"><a href="ch7_config.html">Config and Supervisor options</a></li>
+      <li data-i18n="pending"><a href="ch8_hostname.html" class="active">Set external hostname</a></li>
+      <li data-i18n="pending"><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
+      <li class="part-label">Maintain: security and troubleshooting</li>
+      <li data-i18n="pending"><a href="ch10_logs.html">Logs and routine maintenance</a></li>
+      <li data-i18n="pending"><a href="ch11_security.html">Security checks and minimal exposure</a></li>
+      <li data-i18n="pending"><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -64,10 +64,10 @@
     </div>
   </aside><main class="content">
 <div class="callout i18n-pending"><strong>This chapter has not been translated yet.</strong> You are reading the original Chinese text. <a href="../ch8_hostname.html" hreflang="zh-Hant">Open the Chinese version</a></div>
-<div class="chapter-header"><div class="kicker">Chapter 8</div><h1>Set the external hostname</h1><p class="lead">Connect Home Assistant to one clear public hostname, and make Home Assistant trust only the right reverse proxy. You will finish both the add-on configuration and the <code>http</code> configuration, and verify the result over two paths: from your local network and from outside.</p></div>
+<div class="chapter-header"><div class="kicker">Chapter 8</div><h1>Set the external hostname</h1><p class="lead">Connect Home Assistant to one clear public hostname, and make Home Assistant trust only the right reverse proxy. You will finish both the add-on configuration and the <code>http</code> configuration, and run the acceptance check over two paths: from your local network and from outside.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">Having a URL is not the same as signing in safely</h2>
 <p><code>external_hostname</code> tells the locally managed Cloudflared add-on which public domain name to send to Home Assistant. But there is a reverse proxy in front of the tunnel, and by default Home Assistant blocks requests that arrive from a proxy it does not trust, so you also have to set <code>use_x_forwarded_for</code> and <code>trusted_proxies</code> correctly.</p>
-<div class="callout warn"><strong>Two different restarts:</strong> after you change <code>configuration.yaml</code> you restart Home Assistant; pressing <strong>Save &amp; Restart</strong> in Config writes to Supervisor options and then restarts the Cloudflared Web GUI add-on. Either one can break the connection for a while, so make sure you still have a working local entrance first.</div>
+<div class="callout warn"><strong>Two different restarts:</strong> after you change <code>configuration.yaml</code> you must restart Home Assistant; pressing <strong>Save &amp; Restart</strong> in Config writes to Supervisor options and then restarts the Cloudflared Web GUI add-on. Either one can break the connection for a while, so make sure you still have a working local entrance first.</div>
 <div class="callout"><strong>This guide changed nothing in the demo environment:</strong> everything here comes from read-only observation and from checking the documentation; nothing was saved, restarted, authorized or created in DNS on the Home Assistant used for the screenshots. The steps below change something only when you run them on your own system.</div>
 </section>
 <section id="concept" data-nav="Connection path"><h2 data-icon="concept">Understand the hostname and the proxy path first</h2>
@@ -101,7 +101,7 @@
 <table class="data-table"><thead><tr><th>Scenario</th><th>Approach</th><th>Do not do this</th></tr></thead><tbody>
 <tr><td>A standard Home Assistant OS / Supervisor add-on</td><td>Use <code>172.30.33.0/24</code>, as the add-on DOCS says</td><td>Do not reach for <code>0.0.0.0/0</code> as the easy way out</td></tr>
 <tr><td>You already have an <code>http:</code> block</td><td>Merge <code>use_x_forwarded_for</code> and <code>trusted_proxies</code> into that same block</td><td>Do not create a duplicate top-level <code>http:</code></td></tr>
-<tr><td>A non-standard deployment, or another proxy in front</td><td>Use the Home Assistant log to identify the real IP or network range of the proxy that connects directly to HA, and take the smallest range</td><td>Do not guess at a whole local network range</td></tr>
+<tr><td>A non-standard deployment, or another proxy in front</td><td>Use the Home Assistant log to identify the real IP or network range of "the proxy that connects directly to HA", and take the smallest range</td><td>Do not guess at a whole local network range</td></tr>
 <tr><td>The HTTP settings are split out into an <code>!include</code></td><td>If you have a custom HA port or SSL, keep the complete <code>http:</code> in <code>configuration.yaml</code> itself, as the add-on DOCS says</td><td>Do not assume the add-on follows an include file to detect a custom port or SSL</td></tr>
 <tr><td>A remotely managed tunnel</td><td>Manage the public hostname and the service route in Cloudflare Zero Trust</td><td>Do not expect the local <code>external_hostname</code> to take effect</td></tr>
 <tr><td>You only want to expose a different service</td><td>Leave <code>external_hostname</code> empty and use the <code>additional_hosts</code> from Chapter 9 instead</td><td>Do not expose a Home Assistant you do not need just to get the tunnel started</td></tr>
@@ -109,11 +109,11 @@
 </section>
 <section id="security" data-nav="Security checks"><h2 data-icon="security">Item-by-item checks before you go public</h2>
 <ol class="steps">
-<li><h3>No new inbound forwarding on the router</h3><p>Cloudflare Tunnel connects out from your house, so there is no need to forward 8123 or any other service port to the internet. If you opened a port in the past, confirm nothing else uses it and then remove it the way your router expects.</p></li>
+<li><h3>No new inbound port forwarding on the router</h3><p>Cloudflare Tunnel connects out from your house, so there is no need to forward 8123 or any other service port to the internet. If you opened a port in the past, confirm nothing else uses it and then remove it the way your router expects.</p></li>
 <li><h3>trusted_proxies stays at the smallest range</h3><p>A standard add-on uses <code>172.30.33.0/24</code>, as the DOCS says; in a non-standard environment, judge from the log and the real topology. Do not trust all of IPv4, your whole home LAN, or Cloudflare edge ranges that never connect to HA directly.</p></li>
 <li><h3>Home Assistant accounts are protected</h3><p>Every user has their own account and a strong password, and administrators turn on multi-factor authentication. A tunnel does not make a weak password safe, and it does not replace Home Assistant's own permission controls.</p></li>
 <li><h3>The public name gives nothing else away</h3><p>A hostname is not a password, but still keep your address, your name and device model numbers out of it. Before you share a screen or Logs, redact the full hostname, IPs, accounts, the tunnel ID, tokens and the authorization URL.</p></li>
-<li><h3>Any extra Cloudflare protection is planned</h3><p>When you need tighter limits, you can evaluate Cloudflare Access separately, but check compatibility with the Home Assistant app, webhooks and your other integrations first. Access is another layer of policy; it does not replace the Home Assistant sign-in.</p></li>
+<li><h3>Any extra Cloudflare protection has a clear plan</h3><p>When you need tighter limits, you can evaluate Cloudflare Access separately, but check compatibility with the Home Assistant app, webhooks and your other integrations first. Access is another layer of policy; it does not replace the Home Assistant sign-in.</p></li>
 </ol>
 </section>
 <section id="test" data-nav="Acceptance tests"><h2 data-icon="test">End-to-end acceptance table</h2>
@@ -124,7 +124,7 @@
 <tr><td>DNS</td><td>Compare the full hostname the browser uses against Cloudflare DNS</td><td>The name resolves to the tunnel route, not to your home public IP</td></tr>
 <tr><td>External HTTPS</td><td>Turn Wi-Fi off on your phone and open <code>https://hostname</code> over mobile data</td><td>No certificate warning, and you reach the Home Assistant you expected</td></tr>
 <tr><td>Sign-in and the live connection</td><td>Sign in, switch between a few dashboard pages and operate a non-critical entity</td><td>The pages keep updating, with no quick disconnect and no repeated sign-in</td></tr>
-<tr><td>Client information</td><td>Read the HA log when a proxy is rejected, without posting the whole thing in public</td><td>No untrusted proxy error, and the range was not widened unnecessarily</td></tr>
+<tr><td>Source information</td><td>Read the HA log when a proxy is rejected, without posting the whole thing in public</td><td>No untrusted proxy error, and the range was not widened unnecessarily</td></tr>
 </tbody></table>
 <div class="callout tip"><strong>Acceptance complete:</strong> you are done only when both the local and the external entrance work, no inbound port is open, and Logs show no persistent error. A DNS record, or a tunnel that says connected, is not enough on its own.</div>
 </section>
@@ -142,25 +142,25 @@
 <details class="faq"><summary>Why do I have to set trusted_proxies?</summary><div class="body">Requests pass through Cloudflare and the Cloudflared proxy before they reach Home Assistant. By default Home Assistant does not accept forwarded headers from a proxy it does not trust; you have to trust the direct proxy explicitly before the original client information can be handled safely.</div></details>
 <details class="faq"><summary>Can I set trusted_proxies to every IP just to get it working?</summary><div class="body">No. That breaks the trust boundary. A standard add-on uses <code>172.30.33.0/24</code>, as the DOCS says; in a non-standard environment, read the HA log and your network topology and add only the direct proxy IP you need, or the smallest network range.</div></details>
 <details class="faq"><summary>After I change configuration.yaml, is restarting the add-on enough?</summary><div class="body">No. This is Home Assistant's own HTTP configuration, so you check the YAML and then restart Home Assistant. Changing Config and pressing Save &amp; Restart is a separate thing: that restarts the Cloudflared add-on.</div></details>
-<details class="faq"><summary>Do I have to expose Home Assistant to use the tunnel?</summary><div class="body">No. According to the add-on DOCS, <code>external_hostname</code> can stay empty and you can use <code>additional_hosts</code> alone. The other way round holds too: if Home Assistant is all you need, do not casually add other services from your local network.</div></details>
+<details class="faq"><summary>Do I have to expose Home Assistant to use the tunnel?</summary><div class="body">No. According to the add-on DOCS, <code>external_hostname</code> can stay empty and you can use <code>additional_hosts</code> alone. The other way around holds too: if Home Assistant is all you need, do not casually add other services from your local network.</div></details>
 </section>
 <section id="sources" data-nav="Official sources"><h2 data-icon="book">Official sources and version notes</h2>
 <p>The hostname and the standard network range follow the <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/DOCS.md" rel="noopener">WoowTech add-on DOCS</a>; Config synchronization and restart behavior follow the <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui" rel="noopener">Web GUI README</a>. For the trusted-proxy principle, check the <a href="https://www.home-assistant.io/integrations/http/" rel="noopener">official Home Assistant HTTP integration documentation</a>, and for Cloudflare connectivity and DNS routes, defer to the <a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/" rel="noopener">official Cloudflare Tunnel documentation</a>.</p>
-<div class="callout"><strong>Version note:</strong> where Home Assistant puts the configuration check and the restart control moves between versions, so this chapter does not hard-code a menu path. <code>172.30.33.0/24</code> is what this add-on's DOCS specifies for the standard Supervisor network; if your deployment is not standard, do not force it — confirm the direct proxy from the HA log.</div>
+<div class="callout"><strong>Version note:</strong> the configuration check and the restart control move between Home Assistant versions, so this chapter does not hard-code a menu path. <code>172.30.33.0/24</code> is what this add-on's DOCS specifies for the standard Supervisor network; if your deployment is not standard, do not force it — confirm the direct proxy from the HA log.</div>
 </section>
 
 <div class="pager">
       <a class="prev" href="ch7_config.html">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> Previous</span>
-        <span class="title">07 · Config 與 Supervisor options</span>
+        <span class="title">07 · Config and Supervisor options</span>
       </a>
       <a class="next" href="ch9_additional_hosts.html">
         <span class="label">Next <i class="mdi mdi-arrow-right" aria-hidden="true"></i></span>
-        <span class="title">09 · 管理 additional hosts</span>
+        <span class="title">09 · Manage additional hosts</span>
       </a>
     </div>
 
     <footer class="site-footer">
-      <p>Home Assistant Cloudflared Web GUI 指南 is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">woowtech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
-      <p class="footer-meta">截圖取自 Home Assistant 與 Cloudflared Web GUI。Home Assistant 與 Cloudflare 為其各自權利人的商標，本站與其無隸屬關係。 · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
+      <p>Home Assistant Cloudflared Web GUI guide is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">WoowTech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
+      <p class="footer-meta">Screenshots are from Home Assistant and the Cloudflared Web GUI. Home Assistant and Cloudflare are trademarks of their respective owners; this site is not affiliated with either. · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
     </footer></main></div><script id="ui-strings" type="application/json">{"tocToggle":"Contents","tocExpand":"Expand chapter navigation","tocCollapse":"Collapse chapter navigation"}</script><script src="../assets/js/toc.js"></script></body></html>

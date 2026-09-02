@@ -1,54 +1,54 @@
 <!doctype html><html lang="en"><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chapter 7 · Config 設定 · Home Assistant Cloudflared Web GUI 指南</title>
-  <meta name="description" content="Cloudflared Web GUI Config：Supervisor options、tunnel_name、log_level 與設定安全。" />
-  <meta name="author" content="woowtech" />
+  <title>Chapter 7 · Config settings · Home Assistant Cloudflared Web GUI guide</title>
+  <meta name="description" content="Cloudflared Web GUI Config: Supervisor options, tunnel_name, log_level and safe configuration." />
+  <meta name="author" content="WoowTech" />
   <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch7_config.html" />
   <meta name="robots" content="noindex, follow" />
   <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI 指南" />
+  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI guide" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="zh_TW" />
-  <meta property="og:title" content="Chapter 7 · Config 設定 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta property="og:description" content="Cloudflared Web GUI Config：Supervisor options、tunnel_name、log_level 與設定安全。" />
+  <meta property="og:title" content="Chapter 7 · Config settings · Home Assistant Cloudflared Web GUI guide" />
+  <meta property="og:description" content="Cloudflared Web GUI Config: Supervisor options, tunnel_name, log_level and safe configuration." />
   <meta property="og:url" content="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch7_config.html" />
   <meta property="og:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Chapter 7 · Config 設定 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta name="twitter:description" content="Cloudflared Web GUI Config：Supervisor options、tunnel_name、log_level 與設定安全。" />
+  <meta name="twitter:title" content="Chapter 7 · Config settings · Home Assistant Cloudflared Web GUI guide" />
+  <meta name="twitter:description" content="Cloudflared Web GUI Config: Supervisor options, tunnel_name, log_level and safe configuration." />
   <meta name="twitter:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="theme-color" content="#6183FC" />
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.en" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/i18n.css" />
 </head><body><div class="layout"><aside class="sidebar">
-    <a class="brand" href="tutorial.html">Cloudflared Web GUI 指南</a>
-    <div class="brand-sub">不開埠，安全連回家</div>
+    <a class="brand" href="tutorial.html">Cloudflared Web GUI Guide</a>
+    <div class="brand-sub">No open ports, a safe way home</div>
     <nav class="lang-switch" aria-label="Language"><a href="../ch7_config.html" lang="zh-Hant" hreflang="zh-Hant">中文</a><a class="active" href="ch7_config.html" lang="en" aria-current="page">EN</a></nav>
-    <a class="hub-link" href="index.html">◂ 資源總覽</a>
+    <a class="hub-link" href="index.html">◂ Resource Hub</a>
     <h2>Chapters</h2>
     <ol>
-      <li class="part-label">基礎：準備與安裝</li>
-      <li data-i18n="pending"><a href="ch1_overview.html">開始前：需求與安全邊界</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html">安裝 Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html">第一次開啟 Web GUI</a></li>
-      <li class="part-label">建置：建立安全入口</li>
-      <li data-i18n="pending"><a href="ch4_setup.html">Setup 首次設定精靈</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html">完成 Cloudflare 授權</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard 與 Tunnel 狀態</a></li>
-      <li class="part-label">管理：主機與日誌</li>
-      <li data-i18n="pending"><a href="ch7_config.html" class="active">Config 與 Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html">設定 external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html">管理 additional hosts</a></li>
-      <li class="part-label">維護：安全與排錯</li>
-      <li data-i18n="pending"><a href="ch10_logs.html">Logs 與日常維護</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html">安全檢查與最小暴露</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html">排錯、更新與交接</a></li>
+      <li class="part-label">Basics: prepare and install</li>
+      <li data-i18n="pending"><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
+      <li data-i18n="pending"><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
+      <li data-i18n="pending"><a href="ch3_first_open.html">First open of the Web GUI</a></li>
+      <li class="part-label">Build: create a secure entrance</li>
+      <li data-i18n="pending"><a href="ch4_setup.html">First-run Setup wizard</a></li>
+      <li data-i18n="pending"><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
+      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
+      <li class="part-label">Manage: hosts and logs</li>
+      <li data-i18n="pending"><a href="ch7_config.html" class="active">Config and Supervisor options</a></li>
+      <li data-i18n="pending"><a href="ch8_hostname.html">Set external hostname</a></li>
+      <li data-i18n="pending"><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
+      <li class="part-label">Maintain: security and troubleshooting</li>
+      <li data-i18n="pending"><a href="ch10_logs.html">Logs and routine maintenance</a></li>
+      <li data-i18n="pending"><a href="ch11_security.html">Security checks and minimal exposure</a></li>
+      <li data-i18n="pending"><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -66,22 +66,22 @@
 <div class="callout i18n-pending"><strong>This chapter has not been translated yet.</strong> You are reading the original Chinese text. <a href="../ch7_config.html" hreflang="zh-Hant">Open the Chinese version</a></div>
 <div class="chapter-header"><div class="kicker">Chapter 7</div><h1>Config and Supervisor options</h1><p class="lead">Config is not a second, separate configuration; it is a friendlier entrance to the same set of add-on options. You will read the current values first, change only the fields you have to, and know the scope of the impact before anything actually restarts.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">Understand it before you press save</h2>
-<p>You will see the same fields on the Web GUI's Config page and on the add-on's Configuration page in Home Assistant. These are not two files overwriting each other: the Cloudflared Web GUI reads and writes the add-on's own options through the Supervisor API, and Supervisor options are the single source of truth. A value saved from either side is the same value the other side reads afterwards.</p>
+<p>You may see the same fields on the Web GUI's Config page and on the Home Assistant add-on configuration page. These are not two files overwriting each other: the Cloudflared Web GUI reads and writes the add-on's own options through the Supervisor API, and Supervisor options are the single source of truth. A value saved from either side is the same value the other side reads afterwards.</p>
 <div class="callout warn"><strong>What the action does:</strong> Config's <strong>Save &amp; Restart</strong> is not a preview. It writes to Supervisor options and then restarts the Cloudflared Web GUI add-on; the tunnel connection drops for a short while. Make sure someone at home can help, and avoid any window in which this tunnel is your only way to manage the system remotely.</div>
 <div class="callout"><strong>The safety boundary for this guide:</strong> the guide text and the screenshot environment are read-only observation; nobody pressed Save &amp; Restart, re-authorized or changed a tunnel there. What follows describes changes that happen only when you make them on your own Home Assistant.</div></section>
 <section id="concept" data-nav="Single source"><h2 data-icon="concept">Supervisor options are the single source of truth</h2>
-<p>Think of Supervisor options as the official label on the breaker panel at home, and of Config and the add-on configuration page as two doors that read and write that one label. When the two sides disagree, do not keep two tabs open and save from each in turn; refresh first and confirm the value that was saved last.</p>
+<p>Think of Supervisor options as the official label on the breaker panel at home, and of Config and the add-on configuration page as two doors that read and write that one label. When the two sides disagree, do not keep two tabs open and save from each in turn; refresh first and confirm the last value that saved successfully.</p>
 <table class="data-table"><thead><tr><th>Entrance</th><th>What it actually does</th><th>Best for</th></tr></thead><tbody>
-<tr><td>Web GUI → Config</td><td>Reads and writes Supervisor options; Save &amp; Restart then restarts the add-on</td><td>Everyday changes, guided by the field hints</td></tr>
+<tr><td>Web GUI → Config</td><td>Reads and writes Supervisor options; Save &amp; Restart then restarts the add-on</td><td>Ordinary users making changes, guided by the field hints</td></tr>
 <tr><td>The Home Assistant add-on configuration page</td><td>Reads and writes the same Supervisor options</td><td>Checking the values actually stored, or using the built-in configuration editor</td></tr>
 <tr><td>Cloudflare Zero Trust</td><td>Manages the public hostnames and routes of a remotely managed tunnel</td><td>The advanced mode that uses <code>tunnel_token</code></td></tr>
 <tr><td><code>configuration.yaml</code></td><td>Home Assistant's own HTTP and trusted proxy settings</td><td>The <code>trusted_proxies</code> of Chapter 8; not add-on options</td></tr>
 </tbody></table>
-<div class="callout tip"><strong>Work out the mode first:</strong> a locally managed tunnel leaves the hostname, DNS and ingress to the add-on; once a remotely managed tunnel has <code>tunnel_token</code> set, the add-on's other routing options are ignored and you manage them in the Cloudflare interface.</div></section>
+<div class="callout tip"><strong>Work out the mode first:</strong> a locally managed tunnel leaves the hostname, DNS and ingress to the add-on; once a remotely managed tunnel has <code>tunnel_token</code> set, the add-on's other routing options are ignored and you manage them in the Cloudflare dashboard.</div></section>
 <section id="steps" data-nav="Safe changes"><h2 data-icon="steps">The full flow for changing Config safely</h2>
 <ol class="steps">
 <li><h3>Confirm you still have a local entrance</h3><p>Open Home Assistant's local URL from your home Wi-Fi first and confirm you can sign in. If you are away from home and this tunnel is your only way in, do not restart yet; a wrong setting can leave you unable to reach your house.</p></li>
-<li><h3>Open Config in the Cloudflared Web GUI</h3><p>Go in through Open Web UI on the add-on page, or through the Cloudflared sidebar entry if you enabled it, then pick Config. Button size and capitalization differ between versions; follow the Config on the page in front of you.</p></li>
+<li><h3>Open Config in the Cloudflared Web GUI</h3><p>Go in through Open Web UI on the add-on page, or through the Cloudflared sidebar entry if you enabled it, then pick Config. Button size or capitalization may differ between versions; follow the Config on the page in front of you.</p></li>
 <li><h3>Work out whether the mode is locally or remotely managed</h3><p>If <code>tunnel_token</code> has a value, treat it as a remotely managed tunnel: the public hostname and the routes belong in Cloudflare Zero Trust. Only when there is no token do you work through this chapter's table for the locally managed options such as <code>external_hostname</code> and <code>additional_hosts</code>.</p></li>
 <li><h3>Record the current values and change one kind of setting only</h3><p>Write the non-sensitive fields into your own offline notes, the tunnel name and the hostname for example, and never copy down a token or a full authorization URL. Change one kind of setting at a time, say <code>log_level</code> on its own, rather than the hostname, the proxy and the run parameters at once, so you can roll back later.</p></li>
 <li><h3>Check the format field by field</h3><p>A hostname is the domain name only: no <code>https://</code>, no path, no trailing slash. An additional service needs a full origin service instead, such as <code>http://192.168.1.20:8080</code>. Leave any advanced field you are unsure about at its current value.</p></li>
@@ -96,18 +96,18 @@
 <tr><td><code>tunnel_name</code></td><td>The name of a locally managed tunnel; must be unique within the Cloudflare account</td><td>Do not rename a working tunnel just to make it look nicer</td></tr>
 <tr><td><code>catch_all_service</code></td><td>Hands any request that no earlier hostname rule matched to a service you name</td><td>Leave it off in an ordinary home; its reach is wider than a list of explicit hostnames</td></tr>
 <tr><td><code>nginx_proxy_manager</code></td><td>Points the catch-all at that add-on's internal address; a catch-all entered separately is ignored</td><td>Use it only once you understand reverse proxy routing</td></tr>
-<tr><td><code>post_quantum</code></td><td>Requires the tunnel to use post-quantum hybrid key exchange, and restricts it to QUIC</td><td>Your network may not cope with it; it is not a switch to flip while troubleshooting</td></tr>
+<tr><td><code>post_quantum</code></td><td>Requires the tunnel to use post-quantum hybrid key exchange, and restricts it to QUIC</td><td>It may be affected by your network environment; it is not a switch to flip while troubleshooting</td></tr>
 <tr><td><code>tunnel_token</code></td><td>Connects to a remotely managed tunnel created in Cloudflare</td><td>Treat it like a password; once it is set, the other local routing options are ignored</td></tr>
 <tr><td><code>run_parameters</code></td><td>Passes the extra cloudflared run parameters that the documentation allows</td><td>For advanced troubleshooting only, and record the original value; it cannot overwrite the parameters the add-on already fixes</td></tr>
 <tr><td><code>log_level</code></td><td>Controls how verbose the add-on script's log is</td><td>Stay on the default <code>info</code>; switch to <code>debug</code> briefly while troubleshooting, then switch back</td></tr>
 </tbody></table>
-<div class="callout"><strong>Two log levels:</strong> the add-on's <code>log_level</code> controls the add-on's own output; the tunnel's own verbosity is adjusted through the allowed <code>run_parameters</code>, using <code>--loglevel</code>. If you are starting from scratch, do not mix the two.</div></section>
+<div class="callout"><strong>Two log levels:</strong> the add-on's <code>log_level</code> controls the add-on's own output; the tunnel's own verbosity can be adjusted through the allowed <code>run_parameters</code>, using <code>--loglevel</code>. If you are new to this, do not mix the two for now.</div></section>
 <section id="security" data-nav="Security checks"><h2 data-icon="security">Security checks before you save</h2>
 <ol class="steps">
 <li><h3>Confirm there is no public entrance you do not need</h3><p>Go through <code>external_hostname</code> and <code>additional_hosts</code> one entry at a time. Do not create a route you have no reason to use from outside, and above all avoid exposing your router, your NAS or another admin back end directly.</p></li>
 <li><h3>Check that no sensitive field has leaked</h3><p>A password manager may hold a token; a chat app, a public issue, a screenshot and a shared document may not. If a token has leaked, revoke or rotate it on the Cloudflare side instead of only deleting the message.</p></li>
-<li><h3>Avoid a broad catch-all</h3><p><code>catch_all_service</code> and wildcard DNS widen what can be reached. If one Home Assistant hostname is all you need, use explicit rules; do not open a wildcard entrance now for the sake of convenience later.</p></li>
-<li><h3>Keep each service's own sign-in protection</h3><p>The tunnel solves the connection from Cloudflare to your home; it does not add the sign-in and permissions that suit you to every origin. Home Assistant still needs individual accounts, strong passwords and multi-factor authentication, and so does every other service.</p></li>
+<li><h3>Avoid a broad catch-all</h3><p><code>catch_all_service</code> and wildcard DNS widen what can be reached. If one Home Assistant hostname is all you need, use explicit rules; do not open a wildcard entrance now for the sake of "convenience later."</p></li>
+<li><h3>Keep each service's own sign-in protection</h3><p>The tunnel solves the connection from Cloudflare to your home; it does not automatically give every origin the sign-in and permissions that suit you. Home Assistant still needs individual accounts, strong passwords and multi-factor authentication, and so does every other service.</p></li>
 <li><h3>Arrange a way to roll back</h3><p>Make sure the local URL works, and write down the last non-sensitive configuration that was known good. Before you work remotely, decide in advance who can use the local entrance at home to recover if the tunnel does not come back up.</p></li>
 </ol></section>
 <section id="test" data-nav="Acceptance tests"><h2 data-icon="test">Acceptance tests after a change</h2>
@@ -115,17 +115,17 @@
 <tr><td>The configuration agrees</td><td>Refresh the Web GUI Config, then open the add-on configuration page</td><td>The non-sensitive options you just changed match, and have not reverted</td></tr>
 <tr><td>The add-on runs</td><td>Look at the Dashboard and the add-on state</td><td>The add-on has started and is no longer restarting in a loop</td></tr>
 <tr><td>The tunnel connects</td><td>Read edge connections on the Dashboard and check Logs</td><td>There is a connection, and no new fatal errors keep arriving</td></tr>
-<tr><td>Local access</td><td>Sign in to Home Assistant from your home Wi-Fi using the original local URL</td><td>Sign-in and everyday use work as before</td></tr>
+<tr><td>Local access</td><td>Sign in to Home Assistant from your home Wi-Fi using the original local URL</td><td>Sign-in and basic operations work normally</td></tr>
 <tr><td>External access</td><td>Turn Wi-Fi off on your phone and open the hostname you configured over mobile data</td><td>The HTTPS page loads, you can sign in, and the page keeps updating as you use it</td></tr>
 <tr><td>Minimal exposure</td><td>Test every hostname on the list one by one and cross-check Cloudflare DNS</td><td>Only the hostnames you expect are reachable, with no unexpected catch-all</td></tr>
 </tbody></table>
 <div class="callout tip"><strong>The acceptance rule:</strong> one change, one restart, one acceptance check. Confirm this change is stable before you move on to Chapters 8 and 9 and add hostnames.</div></section>
 <section id="troubleshoot" data-nav="Common pitfalls"><h2 data-icon="troubleshoot">Common Config pitfalls</h2>
 <ol class="steps">
-<li><h3>A field reverts after you save</h3><p>Do not press save again and again. Refresh both the Web GUI and the add-on configuration page, and check whether another stale tab overwrote it moments later. Keep a single editing entrance open, make one small change again and wait for the restart to finish.</p></li>
+<li><h3>A field reverts after you save</h3><p>Do not press save again and again. Refresh both the Web GUI and the add-on configuration page, and check whether another stale tab overwrote it later. Keep a single editing entrance open, make one small change again and wait for the restart to finish.</p></li>
 <li><h3>The Web GUI will not open for a while after you press it</h3><p>Save &amp; Restart really does restart the add-on, and a short Ingress outage is expected. Go back to the add-on page for the state and Logs; if it restarts over and over, use the first clear validation or fatal message to roll back the field you just changed.</p></li>
 <li><h3>You changed the hostname and nothing happened</h3><p>Check whether <code>tunnel_token</code> is filled in. A remotely managed tunnel ignores the other locally managed settings; change the hostname and the public hostname routes in Cloudflare Zero Trust.</p></li>
-<li><h3>Too much log, or nothing stands out</h3><p>Reproduce it once on <code>info</code> and note the time; switch to <code>debug</code> briefly if you have to. Capture only the slice around the error, redact the hostname, IP, token, certificate and authorization URL, and set it back to <code>info</code> when you are done.</p></li>
+<li><h3>Too many log lines, or nothing stands out</h3><p>Reproduce it once on <code>info</code> and note the time; switch to <code>debug</code> briefly if you have to. Capture only the slice around the error, redact the hostname, IP, token, certificate and authorization URL, and set it back to <code>info</code> when you are done.</p></li>
 <li><h3>Configuration validation fails</h3><p>Compare the field formats: a hostname carries no protocol, an additional host's service needs <code>http://</code> or <code>https://</code>, and a boolean is not text. Restore the last value that worked, and do not guess at fields that are not in the schema.</p></li>
 </ol></section>
 <section id="faq" data-nav="FAQ"><h2 data-icon="faq">FAQ</h2>
@@ -133,22 +133,22 @@
 <details class="faq"><summary>Can Save &amp; Restart save without restarting?</summary><div class="body">The button is designed to write Supervisor options and then restart the add-on. If a short tunnel outage is not acceptable right now, do not press it; work in a maintenance window instead.</div></details>
 <details class="faq"><summary>Should I leave log_level on debug all the time?</summary><div class="body">We do not recommend it. The upstream documentation recommends the default <code>info</code> for normal use. <code>debug</code> suits short troubleshooting sessions: it produces more, and it needs more checking for sensitive data before you share it.</div></details>
 <details class="faq"><summary>If I only want to expose other services, can I leave external_hostname empty?</summary><div class="body">Yes. A locally managed tunnel lets you leave <code>external_hostname</code> empty and set only <code>additional_hosts</code>. Every extra service still goes through the necessity and security checks in Chapter 9 first.</div></details>
-<details class="faq"><summary>With tunnel_token set, do I still fill in additional_hosts in Config?</summary><div class="body">Do not rely on those fields. Per the add-on documentation, the remotely managed mode with <code>tunnel_token</code> set ignores the other options; manage public hostnames and service routes in the Cloudflare interface.</div></details></section>
+<details class="faq"><summary>With tunnel_token set, do I still fill in additional_hosts in Config?</summary><div class="body">Do not rely on those fields. Per the add-on documentation, the remotely managed mode with <code>tunnel_token</code> set ignores the other options; manage public hostnames and service routes in the Cloudflare dashboard.</div></details></section>
 <section id="sources" data-nav="Official sources"><h2 data-icon="book">Official sources and version notes</h2>
 <p>This chapter follows the <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui" rel="noopener">WoowTech Cloudflared Web GUI README</a> for Supervisor options as the single source of truth, the Config sync and the Save &amp; Restart behavior, and its <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/DOCS.md" rel="noopener">add-on DOCS</a> for what each option does. For advanced parameters, check only the <a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/configure-tunnels/tunnel-run-parameters/" rel="noopener">official Cloudflare Tunnel run parameters documentation</a>.</p>
 <div class="callout"><strong>Version note:</strong> button positions and wording in Home Assistant and the Web GUI can shift between versions, but the two product behaviors this chapter's decisions rest on do not: Supervisor options are the single source of truth, and pressing Save &amp; Restart writes and then restarts. When the interface differs, follow the README, the DOCS and the field hints for your current version rather than pressing blindly from an old screen.</div></section>
 <div class="pager">
       <a class="prev" href="ch6_dashboard.html">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> Previous</span>
-        <span class="title">06 · Dashboard 與 Tunnel 狀態</span>
+        <span class="title">06 · Dashboard and tunnel status</span>
       </a>
       <a class="next" href="ch8_hostname.html">
         <span class="label">Next <i class="mdi mdi-arrow-right" aria-hidden="true"></i></span>
-        <span class="title">08 · 設定 external hostname</span>
+        <span class="title">08 · Set the external hostname</span>
       </a>
     </div>
 
     <footer class="site-footer">
-      <p>Home Assistant Cloudflared Web GUI 指南 is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">woowtech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
-      <p class="footer-meta">截圖取自 Home Assistant 與 Cloudflared Web GUI。Home Assistant 與 Cloudflare 為其各自權利人的商標，本站與其無隸屬關係。 · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
+      <p>Home Assistant Cloudflared Web GUI guide is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">WoowTech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
+      <p class="footer-meta">Screenshots are from Home Assistant and the Cloudflared Web GUI. Home Assistant and Cloudflare are trademarks of their respective owners; this site is not affiliated with either. · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
     </footer></main></div><script id="ui-strings" type="application/json">{"tocToggle":"Contents","tocExpand":"Expand chapter navigation","tocCollapse":"Collapse chapter navigation"}</script><script src="../assets/js/toc.js"></script></body></html>

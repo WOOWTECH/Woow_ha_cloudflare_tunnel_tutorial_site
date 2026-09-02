@@ -1,54 +1,54 @@
 <!doctype html><html lang="en"><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chapter 5 · Cloudflare 授權 · Home Assistant Cloudflared Web GUI 指南</title>
-  <meta name="description" content="Cloudflared Tunnel Cloudflare 授權流程、安全注意事項與驗收方式。" />
-  <meta name="author" content="woowtech" />
+  <title>Chapter 5 · Cloudflare authorization · Home Assistant Cloudflared Web GUI guide</title>
+  <meta name="description" content="Cloudflared Tunnel: the Cloudflare authorization flow, the safety points to watch and how to run the acceptance check." />
+  <meta name="author" content="WoowTech" />
   <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch5_authorize.html" />
   <meta name="robots" content="noindex, follow" />
   <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI 指南" />
+  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI guide" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="zh_TW" />
-  <meta property="og:title" content="Chapter 5 · Cloudflare 授權 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta property="og:description" content="Cloudflared Tunnel Cloudflare 授權流程、安全注意事項與驗收方式。" />
+  <meta property="og:title" content="Chapter 5 · Cloudflare authorization · Home Assistant Cloudflared Web GUI guide" />
+  <meta property="og:description" content="Cloudflared Tunnel: the Cloudflare authorization flow, the safety points to watch and how to run the acceptance check." />
   <meta property="og:url" content="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch5_authorize.html" />
   <meta property="og:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Chapter 5 · Cloudflare 授權 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta name="twitter:description" content="Cloudflared Tunnel Cloudflare 授權流程、安全注意事項與驗收方式。" />
+  <meta name="twitter:title" content="Chapter 5 · Cloudflare authorization · Home Assistant Cloudflared Web GUI guide" />
+  <meta name="twitter:description" content="Cloudflared Tunnel: the Cloudflare authorization flow, the safety points to watch and how to run the acceptance check." />
   <meta name="twitter:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="theme-color" content="#6183FC" />
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.en" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/i18n.css" />
 </head><body><div class="layout"><aside class="sidebar">
-    <a class="brand" href="tutorial.html">Cloudflared Web GUI 指南</a>
-    <div class="brand-sub">不開埠，安全連回家</div>
+    <a class="brand" href="tutorial.html">Cloudflared Web GUI Guide</a>
+    <div class="brand-sub">No open ports, a safe way home</div>
     <nav class="lang-switch" aria-label="Language"><a href="../ch5_authorize.html" lang="zh-Hant" hreflang="zh-Hant">中文</a><a class="active" href="ch5_authorize.html" lang="en" aria-current="page">EN</a></nav>
-    <a class="hub-link" href="index.html">◂ 資源總覽</a>
+    <a class="hub-link" href="index.html">◂ Resource Hub</a>
     <h2>Chapters</h2>
     <ol>
-      <li class="part-label">基礎：準備與安裝</li>
-      <li data-i18n="pending"><a href="ch1_overview.html">開始前：需求與安全邊界</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html">安裝 Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html">第一次開啟 Web GUI</a></li>
-      <li class="part-label">建置：建立安全入口</li>
-      <li data-i18n="pending"><a href="ch4_setup.html">Setup 首次設定精靈</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html" class="active">完成 Cloudflare 授權</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard 與 Tunnel 狀態</a></li>
-      <li class="part-label">管理：主機與日誌</li>
-      <li data-i18n="pending"><a href="ch7_config.html">Config 與 Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html">設定 external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html">管理 additional hosts</a></li>
-      <li class="part-label">維護：安全與排錯</li>
-      <li data-i18n="pending"><a href="ch10_logs.html">Logs 與日常維護</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html">安全檢查與最小暴露</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html">排錯、更新與交接</a></li>
+      <li class="part-label">Basics: prepare and install</li>
+      <li data-i18n="pending"><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
+      <li data-i18n="pending"><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
+      <li data-i18n="pending"><a href="ch3_first_open.html">First open of the Web GUI</a></li>
+      <li class="part-label">Build: create a secure entrance</li>
+      <li data-i18n="pending"><a href="ch4_setup.html">First-run Setup wizard</a></li>
+      <li data-i18n="pending"><a href="ch5_authorize.html" class="active">Complete the Cloudflare authorization</a></li>
+      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
+      <li class="part-label">Manage: hosts and logs</li>
+      <li data-i18n="pending"><a href="ch7_config.html">Config and Supervisor options</a></li>
+      <li data-i18n="pending"><a href="ch8_hostname.html">Set external hostname</a></li>
+      <li data-i18n="pending"><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
+      <li class="part-label">Maintain: security and troubleshooting</li>
+      <li data-i18n="pending"><a href="ch10_logs.html">Logs and routine maintenance</a></li>
+      <li data-i18n="pending"><a href="ch11_security.html">Security checks and minimal exposure</a></li>
+      <li data-i18n="pending"><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -66,7 +66,7 @@
 <div class="callout i18n-pending"><strong>This chapter has not been translated yet.</strong> You are reading the original Chinese text. <a href="../ch5_authorize.html" hreflang="zh-Hant">Open the Chinese version</a></div>
 <div class="chapter-header"><div class="kicker">Chapter 5</div><h1>One-time Cloudflare authorization</h1><p class="lead">The first time you start in locally managed mode, Setup shows a sensitive Cloudflare authorization link. You will learn how to check the account and the zone in your own environment, how to run the acceptance check afterwards, and why you must never hand the link, the certificate or the screen to anyone else.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">This is not an ordinary sign-in link</h2>
-<p>A locally managed tunnel has to run <code>cloudflared tunnel login</code> first. Cloudflared starts a browser authorization flow that has you sign in to Cloudflare and pick the domain zone to authorize; on success it downloads the account certificate <code>cert.pem</code>, and only then can the add-on create the tunnel and the DNS route. Setup in the Web GUI only takes the link that used to be buried in Logs and shows it as a button you can click.</p>
+<p>A locally managed tunnel has to run <code>cloudflared tunnel login</code> first. That command starts a browser authorization flow that has you sign in to Cloudflare and pick the domain zone to authorize; on success it downloads the account certificate <code>cert.pem</code>, and only then can the add-on create the tunnel and the DNS route. Setup in the Web GUI only takes the link that used to be buried in Logs and shows it as a button you can click.</p>
 <p>This flow is closer to pairing a new key with your own front-door lock than to reading a public web page. The authorization URL, the sign-in session and the certificate it produces can all affect your Cloudflare resources. Do not forward it to a friend to "press it for you", do not put it in a public issue, and do not run it for real in an environment that is not supposed to change just to get a screenshot.</p>
 <div class="callout warn"><strong>Capture environment disclosure:</strong> the capture environment for this site never clicked the authorization link, never signed in to Cloudflare, never picked a zone, and never created <code>cert.pem</code>, a tunnel or a DNS route. The completed states are described from the official docs and the project's behavior; we did not trade a real authorization for a screenshot.</div>
 <div class="callout danger"><strong>The previous step already had real effects:</strong> the authorization link usually appears after the local settings are saved and the add-on restarts. <strong>Save &amp; Restart</strong> in Config writes to Supervisor options and then restarts the add-on; do not treat it as a harmless button that only opens the authorization page.</div>
@@ -74,13 +74,13 @@
 <section id="concept" data-nav="Authorization basics"><h2 data-icon="login">What the authorization link, the zone and the certificate each do</h2>
 <table class="data-table"><thead><tr><th>Item</th><th>Role</th><th>Security boundary</th></tr></thead><tbody>
 <tr><td>The Setup authorization link</td><td>Takes your browser into the <code>cloudflared tunnel login</code> flow; shown only while there is no local certificate and the add-on is waiting</td><td>Treat it as one-time sensitive flow data: do not post the full URL, do not screenshot it, do not send it in a message</td></tr>
-<tr><td>Your Cloudflare account</td><td>Decides which DNS zones and tunnel resources you can see</td><td>Check the account and the signed-in identity character by character; turn on multi-factor authentication (MFA) on the account itself</td></tr>
-<tr><td>zone / hostname</td><td>The domain the Cloudflare authorization page asks you to pick; it has to match the name you plan to make public this time</td><td>Pick only the zone that owns your planned hostname; do not let a similar name lead you into a company or client domain</td></tr>
-<tr><td><code>cert.pem</code></td><td>The account certificate cloudflared uses for a locally managed tunnel; it can manage that account's tunnels</td><td>It is not a website TLS certificate. What it grants goes far beyond one success screen: never publish it, never download it to a shared location, never paste it into a request for help</td></tr>
+<tr><td>Your Cloudflare account</td><td>Decides which DNS zones and tunnel resources you can see</td><td>Check the account and the signed-in identity character by character; use the account's own multi-factor authentication (MFA)</td></tr>
+<tr><td>zone / hostname</td><td>The domain the Cloudflare authorization page asks you to pick; it has to match the name you plan to make public this time</td><td>Pick only the zone that owns your planned hostname; do not pick the wrong company or client domain just because the names look alike</td></tr>
+<tr><td><code>cert.pem</code></td><td>The account certificate cloudflared uses for a locally managed tunnel; it can manage that account's tunnels</td><td>It is not a website TLS certificate. What it grants is not just a success screen: never publish it, never download it to a shared location, never paste it into a request for help</td></tr>
 <tr><td>The tunnel credentials file</td><td>Created when the tunnel is created after authorization; it belongs to that one tunnel</td><td>Redact both the tunnel UUID and the file contents, and restrict access to them</td></tr>
 <tr><td><code>tunnel_token</code></td><td>The connector token for a remotely managed tunnel</td><td>A secret that belongs to the other mode; when a token is set, the local authorization in this chapter does not apply</td></tr>
 </tbody></table>
-<div class="callout"><strong>What “one-time” really means:</strong> treat Setup as a single flow you use only when you need that first local authorization, not as a URL to bookmark. Once it succeeds, Setup decides authorization is complete by detecting <code>cert.pem</code>, and stops showing that sign-in URL.</div>
+<div class="callout"><strong>What “one-time” really means:</strong> treat Setup as a single flow you use only when you need that first local authorization, not as a permanent bookmark. Once it succeeds, Setup decides authorization is complete by detecting <code>cert.pem</code>, and stops showing that sign-in URL.</div>
 <div class="callout warn"><strong>Authorization is not the same as working in public:</strong> seeing Certificate found only proves the local certificate exists. The tunnel still has to be created, and the edge connection, DNS and Home Assistant proxy settings still have to pass; do not skip the acceptance checks that follow.</div>
 </section>
 <section id="steps" data-nav="Authorization steps"><h2 data-icon="steps">Authorize safely in your own environment</h2>
@@ -105,16 +105,16 @@
 <tr><td>Certificate found</td><td><code>cert.pem</code> exists and the Setup authorization step is done</td><td>It is no guarantee that the tunnel, DNS or external access is working</td></tr>
 <tr><td>Tunnel exists, with a UUID shown</td><td>The local tunnel file exists</td><td>You cannot treat the UUID as ordinary on-screen information and make it public</td></tr>
 <tr><td>Tunnel connected</td><td>There is at least one ready edge connection</td><td>It is no guarantee that every hostname points at the right origin, or that sign-in is secure</td></tr>
-<tr><td>A remote-managed tunnel notice</td><td>A token is already set in the add-on options</td><td>You should not carry on with local authorization; manage it from Cloudflare instead</td></tr>
+<tr><td>The remote-managed tunnel notice</td><td>A token is already set in the add-on options</td><td>You should not carry on with local authorization; manage it from Cloudflare instead</td></tr>
 </tbody></table>
 <div class="callout warn"><strong>Do not chase an all-green screenshot:</strong> the authorization page, the zone name, the account and the UUID can all expose your environment. A maintenance record only needs the date, the mode, the result and a redacted error code; do not keep sensitive success screens.</div>
 </section>
 <section id="security" data-nav="Security checks"><h2 data-icon="security">Protecting authorization data and handling a leak</h2>
 <ol class="steps">
 <li><h3>Verify the official domain and TLS</h3><p>Open the link only from Setup itself, and confirm the browser shows an official Cloudflare HTTPS domain with no certificate warning. Do not use a search ad, a shortened URL or a sign-in page a stranger sent you.</p></li>
-<li><h3>Turn on MFA for the Cloudflare account</h3><p>Authorization reaches your DNS and tunnel management rights, so the account needs its own strong password and multi-factor authentication. Recovery codes are just as sensitive: keep them out of public notes and never send them to whoever is helping you.</p></li>
-<li><h3>Narrow what is visible and what you share</h3><p>Do not photograph the authorization page, the zone list, the account menu, full Logs or the Setup URL. When you ask for help, describe the symptom ("the link never appeared") or paste the first error only, redacted and cut down to the smallest useful range.</p></li>
-<li><h3>Protect the local data directory</h3><p><code>cert.pem</code> and the tunnel credentials are used by the add-on; they do not need to be downloaded to your everyday computer, a shared NAS folder or a repository. A Home Assistant backup also contains sensitive settings, so encrypt it and restrict access.</p></li>
+<li><h3>Turn on MFA for the Cloudflare account</h3><p>Authorization reaches your DNS and tunnel management rights, so the account needs its own strong password and multi-factor authentication. MFA recovery codes are just as sensitive: keep them out of public notes and never send them to whoever is helping you.</p></li>
+<li><h3>Narrow what is visible and what you share</h3><p>Do not photograph the authorization page, the zone list, the account menu, full Logs or the Setup URL. When you ask for help, say only that the link never appeared, or paste the first error, redacted and cut down to the smallest range.</p></li>
+<li><h3>Protect the local data directory</h3><p><code>cert.pem</code> and the tunnel credentials are used by the add-on; they do not need to be downloaded to your everyday computer, a shared NAS folder or a version-control repository. A Home Assistant backup also contains sensitive settings, so encrypt it and restrict access.</p></li>
 <li><h3>Stop the flow the moment you suspect a leak</h3><p>If the URL, a session cookie, a token or a certificate has been posted anywhere, first stop the authorization and any change that goes public. Sign suspicious sessions out of Cloudflare and Home Assistant, review tunnel, DNS and account activity, then revoke or rotate the affected credentials the official way.</p></li>
 <li><h3>Deleting a message does not replace revoking</h3><p>A chat message, an issue or a recording may already have been copied. Deleting the public content only reduces further exposure; it does not prove the secret went unread. Treat it as leaked, and work through the account and credential steps.</p></li>
 </ol>
@@ -127,7 +127,7 @@
 <tr><td>Edge connection</td><td>Read connected in Setup, plus the Dashboard</td><td>Tunnel running, with ready edge connections greater than zero</td></tr>
 <tr><td>DNS</td><td>Check the planned hostname in Cloudflare DNS</td><td>Only the planned name changed; no other website or mail record was overwritten</td></tr>
 <tr><td>Local Home Assistant</td><td>Use the local URL on your home Wi-Fi</td><td>You can still sign in and work, so you keep a fallback that does not depend on the tunnel</td></tr>
-<tr><td>External HTTPS</td><td>Turn Wi-Fi off on your phone and open the planned full URL over mobile data</td><td>You land on the right Home Assistant sign-in page, HTTPS is clean and the page keeps updating</td></tr>
+<tr><td>External HTTPS</td><td>Turn Wi-Fi off on your phone and open the planned full URL over mobile data</td><td>You land on the right Home Assistant sign-in page, HTTPS works normally and the page keeps updating</td></tr>
 <tr><td>Minimal exposure</td><td>Test the planned hostname and a hostname you never configured</td><td>Only the planned service is reachable; there is no accidental catch-all</td></tr>
 <tr><td>Privacy</td><td>Check downloads, the clipboard, screenshots and your maintenance notes</td><td>No URL, account, zone, UUID, IP address, token or full Logs</td></tr>
 </tbody></table>
@@ -147,7 +147,7 @@
 <section id="faq" data-nav="FAQ"><h2 data-icon="faq">Authorization FAQ</h2>
 <details class="faq"><summary>Does a remotely managed tunnel need this authorization link too?</summary><div class="body">No. Remotely managed mode uses the <code>tunnel_token</code> the Cloudflare dashboard gives you; Setup shows a token-mode notice, and the locally managed authorization, certificate and four-step flow do not apply.</div></details>
 <details class="faq"><summary>Can I copy the link to my phone and finish it there?</summary><div class="body">We do not recommend sending it over chat, email or a cross-device clipboard. The safest approach is to open it directly on the same trusted device that is showing Setup; if that device is not trusted, stop rather than carry a sensitive URL around.</div></details>
-<details class="faq"><summary>Is the thing authorization produces a website HTTPS certificate?</summary><div class="body">No. <code>cert.pem</code> is the account certificate cloudflared uses for a locally managed tunnel, not the website TLS certificate a browser sees; protect it as a secret all the same.</div></details>
+<details class="faq"><summary>Does authorization produce a website HTTPS certificate?</summary><div class="body">No. <code>cert.pem</code> is the account certificate cloudflared uses for a locally managed tunnel, not the website TLS certificate a browser sees; protect it as a secret all the same.</div></details>
 <details class="faq"><summary>Once I see Certificate found, can I sign in from outside?</summary><div class="body">Not necessarily. Tunnel creation, the DNS route, the edge connection, the Home Assistant proxy settings and an external HTTPS test all still have to be done; work through the acceptance table in this chapter layer by layer.</div></details>
 <details class="faq"><summary>I picked the wrong zone while authorizing. Can I carry on and change it later?</summary><div class="body">Do not go on to create routes. Stop the flow, check your Cloudflare account and anything it has already created, then revoke the wrong authorization or certificate the official way; only once you have confirmed things are clean, redo it with the right zone.</div></details>
 <details class="faq"><summary>Why does this guide not include a screenshot of a successful authorization?</summary><div class="body">Because the authorization page shows the account, the zone and sensitive flow data, and reaching the completed state takes a real change. We deliberately do not authorize in the capture environment, and describe it in words and from official sources instead.</div></details>
@@ -161,20 +161,20 @@
 <tr><td><a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/get-started/create-remote-tunnel/" rel="noopener">Cloudflare: Create a remotely-managed tunnel</a></td><td>The Cloudflare dashboard flow for the token-based mode, so you do not mix it with local authorization</td></tr>
 <tr><td><a href="https://developers.cloudflare.com/fundamentals/account/account-security/2fa/" rel="noopener">Cloudflare: Two-factor authentication</a></td><td>The official setup and recovery information for multi-factor authentication on a Cloudflare account</td></tr>
 </tbody></table>
-<div class="callout"><strong>Version note:</strong> the layout of the Cloudflare authorization page, its sign-in method or the wording of the zone picker may change; always enter from the current Setup, and check the official HTTPS domain and the right account and zone. If the screen differs from this guide, do not click blindly and do not publish a screenshot.</div>
+<div class="callout"><strong>Version note:</strong> the layout of the Cloudflare authorization page, its sign-in method or the wording of the zone picker may change; enter only from the current Setup, directly, and check the official HTTPS domain and the right account and zone. If the screen differs from this guide, do not click blindly and do not publish a screenshot.</div>
 </section>
 <div class="pager">
       <a class="prev" href="ch4_setup.html">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> Previous</span>
-        <span class="title">04 · Setup 首次設定精靈</span>
+        <span class="title">04 · First-run Setup wizard</span>
       </a>
       <a class="next" href="ch6_dashboard.html">
         <span class="label">Next <i class="mdi mdi-arrow-right" aria-hidden="true"></i></span>
-        <span class="title">06 · Dashboard 與 Tunnel 狀態</span>
+        <span class="title">06 · Dashboard and tunnel status</span>
       </a>
     </div>
 
     <footer class="site-footer">
-      <p>Home Assistant Cloudflared Web GUI 指南 is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">woowtech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
-      <p class="footer-meta">截圖取自 Home Assistant 與 Cloudflared Web GUI。Home Assistant 與 Cloudflare 為其各自權利人的商標，本站與其無隸屬關係。 · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
+      <p>Home Assistant Cloudflared Web GUI guide is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">WoowTech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
+      <p class="footer-meta">Screenshots are from Home Assistant and the Cloudflared Web GUI. Home Assistant and Cloudflare are trademarks of their respective owners; this site is not affiliated with either. · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
     </footer></main></div><script id="ui-strings" type="application/json">{"tocToggle":"Contents","tocExpand":"Expand chapter navigation","tocCollapse":"Collapse chapter navigation"}</script><script src="../assets/js/toc.js"></script></body></html>

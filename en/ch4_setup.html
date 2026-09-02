@@ -1,54 +1,54 @@
 <!doctype html><html lang="en"><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chapter 4 · Setup 精靈 · Home Assistant Cloudflared Web GUI 指南</title>
-  <meta name="description" content="Cloudflared Web GUI Setup 精靈：首次設定、local tunnel 與授權準備。" />
-  <meta name="author" content="woowtech" />
+  <title>Chapter 4 · Setup wizard · Home Assistant Cloudflared Web GUI guide</title>
+  <meta name="description" content="Cloudflared Web GUI Setup wizard: first-run configuration, local tunnel and getting ready to authorize." />
+  <meta name="author" content="WoowTech" />
   <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch4_setup.html" />
   <meta name="robots" content="noindex, follow" />
   <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI 指南" />
+  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI guide" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="zh_TW" />
-  <meta property="og:title" content="Chapter 4 · Setup 精靈 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta property="og:description" content="Cloudflared Web GUI Setup 精靈：首次設定、local tunnel 與授權準備。" />
+  <meta property="og:title" content="Chapter 4 · Setup wizard · Home Assistant Cloudflared Web GUI guide" />
+  <meta property="og:description" content="Cloudflared Web GUI Setup wizard: first-run configuration, local tunnel and getting ready to authorize." />
   <meta property="og:url" content="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch4_setup.html" />
   <meta property="og:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Chapter 4 · Setup 精靈 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta name="twitter:description" content="Cloudflared Web GUI Setup 精靈：首次設定、local tunnel 與授權準備。" />
+  <meta name="twitter:title" content="Chapter 4 · Setup wizard · Home Assistant Cloudflared Web GUI guide" />
+  <meta name="twitter:description" content="Cloudflared Web GUI Setup wizard: first-run configuration, local tunnel and getting ready to authorize." />
   <meta name="twitter:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="theme-color" content="#6183FC" />
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.en" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/i18n.css" />
 </head><body><div class="layout"><aside class="sidebar">
-    <a class="brand" href="tutorial.html">Cloudflared Web GUI 指南</a>
-    <div class="brand-sub">不開埠，安全連回家</div>
+    <a class="brand" href="tutorial.html">Cloudflared Web GUI Guide</a>
+    <div class="brand-sub">No open ports, a safe way home</div>
     <nav class="lang-switch" aria-label="Language"><a href="../ch4_setup.html" lang="zh-Hant" hreflang="zh-Hant">中文</a><a class="active" href="ch4_setup.html" lang="en" aria-current="page">EN</a></nav>
-    <a class="hub-link" href="index.html">◂ 資源總覽</a>
+    <a class="hub-link" href="index.html">◂ Resource Hub</a>
     <h2>Chapters</h2>
     <ol>
-      <li class="part-label">基礎：準備與安裝</li>
-      <li data-i18n="pending"><a href="ch1_overview.html">開始前：需求與安全邊界</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html">安裝 Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html">第一次開啟 Web GUI</a></li>
-      <li class="part-label">建置：建立安全入口</li>
-      <li data-i18n="pending"><a href="ch4_setup.html" class="active">Setup 首次設定精靈</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html">完成 Cloudflare 授權</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard 與 Tunnel 狀態</a></li>
-      <li class="part-label">管理：主機與日誌</li>
-      <li data-i18n="pending"><a href="ch7_config.html">Config 與 Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html">設定 external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html">管理 additional hosts</a></li>
-      <li class="part-label">維護：安全與排錯</li>
-      <li data-i18n="pending"><a href="ch10_logs.html">Logs 與日常維護</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html">安全檢查與最小暴露</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html">排錯、更新與交接</a></li>
+      <li class="part-label">Basics: prepare and install</li>
+      <li data-i18n="pending"><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
+      <li data-i18n="pending"><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
+      <li data-i18n="pending"><a href="ch3_first_open.html">First open of the Web GUI</a></li>
+      <li class="part-label">Build: create a secure entrance</li>
+      <li data-i18n="pending"><a href="ch4_setup.html" class="active">First-run Setup wizard</a></li>
+      <li data-i18n="pending"><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
+      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
+      <li class="part-label">Manage: hosts and logs</li>
+      <li data-i18n="pending"><a href="ch7_config.html">Config and Supervisor options</a></li>
+      <li data-i18n="pending"><a href="ch8_hostname.html">Set external hostname</a></li>
+      <li data-i18n="pending"><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
+      <li class="part-label">Maintain: security and troubleshooting</li>
+      <li data-i18n="pending"><a href="ch10_logs.html">Logs and routine maintenance</a></li>
+      <li data-i18n="pending"><a href="ch11_security.html">Security checks and minimal exposure</a></li>
+      <li data-i18n="pending"><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -67,7 +67,7 @@
 <div class="chapter-header"><div class="kicker">Chapter 4</div><h1>The Setup wizard: choose your management mode first</h1><p class="lead">Tell locally managed and remotely managed apart first, then look at what each step of the Setup wizard stands for. You will finish a configuration plan and know when a write and a restart happen, without mixing the two modes together.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">Setup is a progress tracker, not a second set of settings</h2>
 <p>Once <a href="ch3_first_open.html">Chapter 3</a> has walked you through the four pages, Setup is the one that is easiest to misread: it looks like a form that collects everything from you, when its main job is to watch the progress of the first start. The real values still live in Supervisor options, written and read by Config and by the Home Assistant add-on configuration page; the tunnel login, the tunnel creation, the DNS route and the connection work all run automatically from those values when the add-on starts.</p>
-<p>Choosing the management mode before you begin matters. In locally managed mode (local-managed) the add-on creates the tunnel, keeps the local account certificate and builds the routes from your options; in remotely managed mode (remote-managed) the Cloudflare dashboard is in charge and the add-on only uses <code>tunnel_token</code> to connect. Mix the two, the way you would confuse a courier by handing over two addresses at once, and the hostname fields are still on screen while nothing actually uses them.</p>
+<p>Choosing the management mode before you begin matters. In locally managed mode (local-managed) the add-on creates the tunnel, keeps the local certificate and builds the routes from your options; in remotely managed mode (remote-managed) the Cloudflare dashboard is in charge and the add-on only uses <code>tunnel_token</code> to connect. Mix the two, the way you would hand a courier two addresses at once, and the hostname fields are still on screen even though in practice they may not be used at all.</p>
 <div class="callout warn"><strong>Scope of this walkthrough:</strong> in the capture environment for this guide we only read Setup. We saved nothing, restarted nothing, authorized nothing with Cloudflare, created no tunnel and changed no DNS. The real steps below apply only to a Home Assistant you control yourself, with a local fallback already in place.</div>
 <div class="callout danger"><strong>Remember this first:</strong> <strong>Save &amp; Restart</strong> writes to Supervisor options and then restarts the add-on; it is not a preview button and it is not a next button. The restart interrupts the Web GUI and the tunnel for a while, and it can also trigger authorization, tunnel creation and a DNS route.</div>
 </section>
@@ -78,7 +78,7 @@
 <tr><td>First authorization</td><td>Setup shows the authorization link that <code>cloudflared tunnel login</code> produces</td><td>Does not go through the local authorization step in Setup</td></tr>
 <tr><td>Hostname and service routing</td><td>Decided by options such as <code>external_hostname</code>, <code>additional_hosts</code> and catch-all</td><td>Set in the Cloudflare dashboard; the add-on's other options are ignored</td></tr>
 <tr><td>Local file state</td><td>Setup can show whether <code>cert.pem</code> and the tunnel files exist</td><td>Connects with a token, without the four steps of the locally managed flow</td></tr>
-<tr><td>Who it suits</td><td>A first install, letting the add-on manage it as the project recommends</td><td>Advanced users already at home with the Cloudflare dashboard and public hostnames</td></tr>
+<tr><td>Who it suits</td><td>Someone using it for the first time, letting the add-on manage it as the project recommends</td><td>Advanced users who already know the Cloudflare dashboard and public hostnames</td></tr>
 </tbody></table>
 <div class="callout"><strong>Reading the screen:</strong> when Setup detects a token it shows the remote-managed tunnel notice and explains that the four local steps below do not apply. The Mode card on the Dashboard also shows <code>token</code> or <code>local</code>; that is a hint about the mode, not proof that the tunnel is connected.</div>
 <div class="callout warn"><strong>Switching modes is not switching tabs:</strong> adding or removing <code>tunnel_token</code> changes who is responsible, and it only takes effect after a save and a restart. While an existing tunnel is working, do not switch back and forth just to see what the screen does.</div>
@@ -93,17 +93,17 @@
   trusted_proxies:
     - 172.30.33.0/24</code></pre><p>Use the Home Assistant configuration check to confirm the YAML is sound, schedule one Home Assistant restart, and verify again that you can sign in on the local URL. This step is a real change; if you have no local fallback, stop here.</p></li>
 <li><h3>Enter the minimal local route in Config</h3><p>In locally managed mode, fill in exactly one <code>external_hostname</code> that is genuinely yours the first time, for example <code>ha.example.com</code>; check that it sits in the right Cloudflare zone and that it carries no website, mail or other existing service. Keep <code>additional_hosts</code> empty, and turn on no catch-all, no wildcard DNS, and no router or NAS admin page.</p></li>
-<li><h3>In remote mode, prepare only the token and the Cloudflare routes</h3><p>Take the token from the tunnel you created in the Cloudflare dashboard and keep it in a password manager; the public hostname and the origin service are set on the Cloudflare side as well. Do not expect the add-on's local options to manage the same routes at the same time.</p></li>
+<li><h3>In remotely managed mode, prepare only the token and the Cloudflare routes</h3><p>Take the token from the tunnel you created in the Cloudflare dashboard and keep it in a password manager; the public hostname and the origin service are set on the Cloudflare side as well. Do not expect the add-on's local options to manage the same routes at the same time.</p></li>
 <li><h3>Go back to Setup and check the expected path</h3><p>In locally managed mode, once the minimal values are in Config, press nothing yet: go back and confirm that Setup is expected to show the four steps Configure, Authorize, Tunnel created and Tunnel connected; remotely managed mode should show the token notice. Then return to Config for a final check. Only when you are in your own environment, have finished the Home Assistant proxy configuration, and have a local fallback and a maintenance window, may you press <strong>Save &amp; Restart</strong>; it really does write the options and restart the add-on, and only then does locally managed mode move on to the authorization in Chapter 5.</p></li>
 </ol>
-<div class="callout tip"><strong>The minimal-change principle:</strong> let exactly one necessary hostname through the first time. Once authorization and the end-to-end test are done, weigh up additional hosts with <a href="ch9_additional_hosts.html">Chapter 9</a>.</div>
+<div class="callout tip"><strong>The minimal-change principle:</strong> let exactly one necessary hostname through the first time. Once authorization and the end-to-end test are done, assess additional hosts with <a href="ch9_additional_hosts.html">Chapter 9</a>.</div>
 </section>
 <section id="choices" data-nav="Choosing options"><h2 data-icon="compare">How to read what Setup shows you</h2>
 <table class="data-table"><thead><tr><th>Screen</th><th>What it means</th><th>Next safe action</th></tr></thead><tbody>
 <tr><td>Welcome / not configured, Tunnel stopped</td><td>The options are completely blank; the fork deliberately keeps the GUI available for the first setup</td><td>Finish this chapter's planning first, then enter the values you need in Config</td></tr>
 <tr><td>Configure your hostnames not complete</td><td>There is no external hostname, additional host, catch-all or Nginx Proxy Manager configuration</td><td>Do not enter fake values to make it complete; work out what you actually need</td></tr>
 <tr><td>Authorize with Cloudflare, waiting</td><td>Locally managed mode has no <code>cert.pem</code> yet, or the start-up flow is waiting for a login</td><td>When the authorization link appears, handle it as in Chapter 5, and do not make the link public</td></tr>
-<tr><td>Certificate found</td><td>The add-on data directory already holds the locally managed account certificate</td><td>That does not mean a tunnel exists or is connected; read on through the last two steps</td></tr>
+<tr><td>Certificate found</td><td>The add-on data directory already holds the locally managed certificate</td><td>That does not mean a tunnel exists or is connected; read on through the last two steps</td></tr>
 <tr><td>Tunnel exists</td><td>The local tunnel file exists; the screen may show the tunnel UUID</td><td>Redact the UUID as well, then look at the connected status and at Logs</td></tr>
 <tr><td>connected / starting / not started</td><td>Respectively: there is a ready edge connection, a connection is being established, or cloudflared is not running yet</td><td>Wait and read Logs first; do not restart over and over</td></tr>
 <tr><td>The remote-managed tunnel notice</td><td><code>tunnel_token</code> is set</td><td>Manage the routes in Cloudflare; the four local steps do not apply</td></tr>
@@ -137,8 +137,8 @@
 <ol class="steps">
 <li><h3>The configuration is blank and it says Tunnel stopped</h3><p>That is this fork's expected first state, not a broken add-on install. As long as Ingress and the four pages open, plan the real configuration first; do not use a fake hostname or token to clear the red status.</p></li>
 <li><h3>You entered a hostname and Configure is still not complete</h3><p>Reload Config first and confirm the value really was written to Supervisor options. Typing it into the form without saving does not count; and if you did press Save &amp; Restart, it has already written and restarted, so wait for the add-on to come back instead of pressing again.</p></li>
-<li><h3>The four local steps are suddenly replaced by the token notice</h3><p>That means the current options contain <code>tunnel_token</code>. Do not simply clear it or paste in another token; first work out whether this is an existing remote-managed tunnel, and check the Cloudflare-side routes with whoever administers it.</p></li>
-<li><h3>Stuck on Waiting for authorization</h3><p>Confirm that locally managed mode has every setting it needs and that the add-on has finished restarting, then look in Logs for a login request. If the authorization URL does not appear, do not assemble one yourself; follow Chapter 5 to check the network, the system time and the first prepare error.</p></li>
+<li><h3>The four local steps are suddenly replaced by the token notice</h3><p>That means the current options contain <code>tunnel_token</code>. Do not just clear it or paste in another token; first work out whether this is an existing remote-managed tunnel, and check the Cloudflare-side routes with whoever administers it.</p></li>
+<li><h3>Stuck on Waiting for authorization</h3><p>Confirm that locally managed mode has every setting it needs and that the add-on has finished restarting, then look in Logs for a login request. If the authorization URL does not appear, do not assemble one yourself; follow Chapter 5 to check the network, the time and the first prepare error.</p></li>
 <li><h3>Certificate found, but no tunnel was created</h3><p>An existing certificate only completes the second step. Look in Logs for the first clear error after authorization, and check that the tunnel name is unique within the account, that your Cloudflare permissions are right and that the network works; deleting the certificate or authorizing over and over is not the first thing to try.</p></li>
 <li><h3>Setup shows prepare failed</h3><p>Note the time it happened first, then take the smallest, already redacted error context from Logs. Schedule one restart only after you have fixed a clear configuration problem; restarting over and over only adds noise, and it can touch DNS again and again.</p></li>
 </ol>
@@ -147,7 +147,7 @@
 <details class="faq"><summary>Does Setup store the data in a second configuration?</summary><div class="body">No. Supervisor options are the single source of truth; Setup mostly watches the mode, the certificate, the tunnel files and the connection progress, and Config is where you edit the options inside the Web GUI.</div></details>
 <details class="faq"><summary>For a first install, should I choose locally or remotely managed?</summary><div class="body">The project DOCS list locally managed as the recommended flow. Choose remotely managed only when you already know Cloudflare Zero Trust, already have a remote-managed tunnel, and are clear about who is responsible for the token and the public hostnames.</div></details>
 <details class="faq"><summary>Does remotely managed mode still have to finish the four Setup steps?</summary><div class="body">No. Once <code>tunnel_token</code> is set, Setup explains that the four local steps do not apply; the tunnel and the routes are managed in the Cloudflare dashboard, and the add-on's other local options are ignored.</div></details>
-<details class="faq"><summary>Can I fill in the hostname first and decide the mode later?</summary><div class="body">You can plan it offline, but do not rush to save. The mode decides which of those fields get used; settling the boundary of responsibility first, then making one small and complete change, is safer than mixing the two afterwards.</div></details>
+<details class="faq"><summary>Can I fill in the hostname first and decide the mode later?</summary><div class="body">You can plan it offline, but do not rush to save. The mode decides who uses those fields; settling the boundary of responsibility first, then making one small and complete change, is safer than mixing the two afterwards.</div></details>
 <details class="faq"><summary>Does Save &amp; Restart just refresh Setup?</summary><div class="body">No. It writes to Supervisor options and restarts the add-on, so the Web GUI and the tunnel are interrupted for a while; locally managed mode may then go on to ask for authorization, create the tunnel and add a DNS route.</div></details>
 <details class="faq"><summary>Why is there no finished screen from the capture environment?</summary><div class="body">Because a finished screen needs a real save, a real restart, a real Cloudflare authorization or a real tunnel state. Under the safety boundary for this guide we make none of those changes in the capture environment, and describe them from the current project documentation and source code instead.</div></details>
 </section>
@@ -165,15 +165,15 @@
 <div class="pager">
       <a class="prev" href="ch3_first_open.html">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> Previous</span>
-        <span class="title">03 · 第一次開啟 Web GUI</span>
+        <span class="title">03 · First open of the Web GUI</span>
       </a>
       <a class="next" href="ch5_authorize.html">
         <span class="label">Next <i class="mdi mdi-arrow-right" aria-hidden="true"></i></span>
-        <span class="title">05 · 完成 Cloudflare 授權</span>
+        <span class="title">05 · Complete the Cloudflare authorization</span>
       </a>
     </div>
 
     <footer class="site-footer">
-      <p>Home Assistant Cloudflared Web GUI 指南 is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">woowtech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
-      <p class="footer-meta">截圖取自 Home Assistant 與 Cloudflared Web GUI。Home Assistant 與 Cloudflare 為其各自權利人的商標，本站與其無隸屬關係。 · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
+      <p>Home Assistant Cloudflared Web GUI guide is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">WoowTech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
+      <p class="footer-meta">Screenshots are from Home Assistant and the Cloudflared Web GUI. Home Assistant and Cloudflare are trademarks of their respective owners; this site is not affiliated with either. · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
     </footer></main></div><script id="ui-strings" type="application/json">{"tocToggle":"Contents","tocExpand":"Expand chapter navigation","tocCollapse":"Collapse chapter navigation"}</script><script src="../assets/js/toc.js"></script></body></html>

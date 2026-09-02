@@ -1,54 +1,54 @@
 <!doctype html><html lang="en"><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chapter 6 · Dashboard 狀態 · Home Assistant Cloudflared Web GUI 指南</title>
-  <meta name="description" content="Cloudflared Web GUI Dashboard：Tunnel 狀態、edge connections 與安全檢查。" />
-  <meta name="author" content="woowtech" />
+  <title>Chapter 6 · Dashboard status · Home Assistant Cloudflared Web GUI guide</title>
+  <meta name="description" content="Cloudflared Web GUI Dashboard: tunnel status, edge connections and security checks." />
+  <meta name="author" content="WoowTech" />
   <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch6_dashboard.html" />
   <meta name="robots" content="noindex, follow" />
   <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI 指南" />
+  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI guide" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="zh_TW" />
-  <meta property="og:title" content="Chapter 6 · Dashboard 狀態 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta property="og:description" content="Cloudflared Web GUI Dashboard：Tunnel 狀態、edge connections 與安全檢查。" />
+  <meta property="og:title" content="Chapter 6 · Dashboard status · Home Assistant Cloudflared Web GUI guide" />
+  <meta property="og:description" content="Cloudflared Web GUI Dashboard: tunnel status, edge connections and security checks." />
   <meta property="og:url" content="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch6_dashboard.html" />
   <meta property="og:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/screenshots/ch6/01_dashboard_status.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Chapter 6 · Dashboard 狀態 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta name="twitter:description" content="Cloudflared Web GUI Dashboard：Tunnel 狀態、edge connections 與安全檢查。" />
+  <meta name="twitter:title" content="Chapter 6 · Dashboard status · Home Assistant Cloudflared Web GUI guide" />
+  <meta name="twitter:description" content="Cloudflared Web GUI Dashboard: tunnel status, edge connections and security checks." />
   <meta name="twitter:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/screenshots/ch6/01_dashboard_status.png" />
   <meta name="theme-color" content="#6183FC" />
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.en" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/i18n.css" />
 </head><body><div class="layout"><aside class="sidebar">
-    <a class="brand" href="tutorial.html">Cloudflared Web GUI 指南</a>
-    <div class="brand-sub">不開埠，安全連回家</div>
+    <a class="brand" href="tutorial.html">Cloudflared Web GUI Guide</a>
+    <div class="brand-sub">No open ports, a safe way home</div>
     <nav class="lang-switch" aria-label="Language"><a href="../ch6_dashboard.html" lang="zh-Hant" hreflang="zh-Hant">中文</a><a class="active" href="ch6_dashboard.html" lang="en" aria-current="page">EN</a></nav>
-    <a class="hub-link" href="index.html">◂ 資源總覽</a>
+    <a class="hub-link" href="index.html">◂ Resource Hub</a>
     <h2>Chapters</h2>
     <ol>
-      <li class="part-label">基礎：準備與安裝</li>
-      <li data-i18n="pending"><a href="ch1_overview.html">開始前：需求與安全邊界</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html">安裝 Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html">第一次開啟 Web GUI</a></li>
-      <li class="part-label">建置：建立安全入口</li>
-      <li data-i18n="pending"><a href="ch4_setup.html">Setup 首次設定精靈</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html">完成 Cloudflare 授權</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html" class="active">Dashboard 與 Tunnel 狀態</a></li>
-      <li class="part-label">管理：主機與日誌</li>
-      <li data-i18n="pending"><a href="ch7_config.html">Config 與 Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html">設定 external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html">管理 additional hosts</a></li>
-      <li class="part-label">維護：安全與排錯</li>
-      <li data-i18n="pending"><a href="ch10_logs.html">Logs 與日常維護</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html">安全檢查與最小暴露</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html">排錯、更新與交接</a></li>
+      <li class="part-label">Basics: prepare and install</li>
+      <li data-i18n="pending"><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
+      <li data-i18n="pending"><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
+      <li data-i18n="pending"><a href="ch3_first_open.html">First open of the Web GUI</a></li>
+      <li class="part-label">Build: create a secure entrance</li>
+      <li data-i18n="pending"><a href="ch4_setup.html">First-run Setup wizard</a></li>
+      <li data-i18n="pending"><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
+      <li data-i18n="pending"><a href="ch6_dashboard.html" class="active">Dashboard and tunnel status</a></li>
+      <li class="part-label">Manage: hosts and logs</li>
+      <li data-i18n="pending"><a href="ch7_config.html">Config and Supervisor options</a></li>
+      <li data-i18n="pending"><a href="ch8_hostname.html">Set external hostname</a></li>
+      <li data-i18n="pending"><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
+      <li class="part-label">Maintain: security and troubleshooting</li>
+      <li data-i18n="pending"><a href="ch10_logs.html">Logs and routine maintenance</a></li>
+      <li data-i18n="pending"><a href="ch11_security.html">Security checks and minimal exposure</a></li>
+      <li data-i18n="pending"><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -67,7 +67,7 @@
 <div class="chapter-header"><div class="kicker">Chapter 6</div><h1>Dashboard: read the tunnel's health</h1><p class="lead">Read the three status cards — Tunnel, Mode and Add-on — one layer at a time, and understand that edge connections are ready connections to the Cloudflare edge, not a count of visitors. This chapter only observes, cross-checks and records; you never press Restart Add-on.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">One red card does not mean the whole service is down</h2>
 <p>The Dashboard puts three different questions in one place: <strong>Tunnel Status</strong> tells you whether cloudflared already has a usable edge connection, <strong>Mode</strong> tells you whether the configuration is local or token mode, and <strong>Add-on</strong> tells you what the add-on and Supervisor report. They are related, but none of them stands in for another.</p>
-<p>For example, if the Home Assistant in your living room works locally while Tunnel shows stopped, the problem is usually at the connector or before it; if Tunnel is running and your phone gets a 502 from outside, the edge is connected and you should look at DNS, the hostname, ingress or the origin. Restarting on the strength of a color alone usually washes away the most useful thing you had: the first error.</p>
+<p>For example, if the Home Assistant in your living room works locally while Tunnel shows stopped, the problem is usually at the connector or before it; if Tunnel is running and your phone gets a 502 from outside, the edge is connected and you should look at DNS, the hostname, ingress or the origin. Restarting because of a color alone usually wipes out the most useful thing you have: the first error.</p>
 <div class="callout"><strong>Chapter task:</strong> record the three cards, cross-check Setup and Logs, then run a local and an external read-only test. The Dashboard is a quick summary, not a full diagnosis, and it does not prove that every public hostname is safe.</div>
 <div class="callout danger"><strong>No Restart in this chapter:</strong> do not press <strong>Restart Add-on</strong> here. It disconnects the tunnel and the Web GUI for a while, and it re-runs the authorization check, the tunnel setup and the DNS routes from the options already saved. Keep your evidence first, then decide whether a maintenance change is really needed.</div>
 <div class="callout warn"><strong>Another hard stop:</strong> if you move over to Config, <strong>Save &amp; Restart</strong> writes to Supervisor options and then restarts the add-on. It does everything the Dashboard Restart does and writes the configuration as well; a read-only health check needs neither.</div>
@@ -84,7 +84,7 @@
 <tr><td>Supervisor connected</td><td>The Web GUI backend can read the Supervisor API and the version and state it returns</td><td>Not the same as the Cloudflare network being reachable</td></tr>
 </tbody></table>
 <div class="callout tip"><strong>The number moves:</strong> edge connections can rise and fall with the network, with Cloudflare edge maintenance, or with a renegotiation. Judge health by whether the count stays above zero, whether the external service works and whether Logs keep repeating an error, rather than chasing a fixed number.</div>
-<div class="callout"><strong>Not the same as the Cloudflare dashboard:</strong> Cloudflare's own Tunnel status has its own health roll-up and connector states; the running / starting / stopped on this page is what this Web GUI derives from local metrics readiness. The names are close, but the data source and the scope of the call are not.</div>
+<div class="callout"><strong>Not the same as the Cloudflare dashboard:</strong> Cloudflare's own Tunnel status has its own health roll-up and connector states; the running / starting / stopped on this page is what this Web GUI derives from local metrics readiness. The names are close, but the data source and the scope of what each one judges are not.</div>
 </section>
 <section id="steps" data-nav="Read-only check"><h2 data-icon="steps">Eight steps to one read-only health check</h2>
 <ol class="steps">
@@ -93,12 +93,12 @@
 <li><h3>Record Tunnel Status word for word</h3><p>Write down <code>running</code>, <code>starting</code>, <code>stopped</code> or unknown, and the edge connections count. Record the time and the non-sensitive result only; do not capture a hostname, a tunnel ID, an account or an IP.</p></li>
 <li><h3>Check that Mode matches the design</h3><p>Use <a href="ch4_setup.html">Chapter 4</a> to confirm whether local or token is expected. If the mode does not match, stop and check with whoever administers it; do not go into Config to clear the token, and do not press Restart hoping it will right itself.</p></li>
 <li><h3>Read the Add-on and Supervisor state</h3><p>Record the add-on state, whether the version loaded, and whether the text says Supervisor connected or unreachable. Supervisor unreachable only tells you the management API path is off; cross-check it against the Home Assistant add-on detail page.</p></li>
-<li><h3>Cross-check against Setup</h3><p>In locally managed mode, see which of the four steps it stops at; in token mode, look at the remotely managed notice. If there is a prepare failed, note the time. Only look: do not open the authorization URL, do not copy the link, and do not start fixing settings just because it says stopped.</p></li>
-<li><h3>Find the same time window in Logs</h3><p>Read the smallest range around the error first, and find the first clear validation, authorization, DNS, network or origin message. Logs can carry hostnames, IPs, UUIDs and sensitive URLs, so redact before you record anything.</p></li>
+<li><h3>Cross-check against Setup</h3><p>In local mode, see which of the four steps it stops at; in token mode, look at the remotely managed notice. If there is a prepare failed, note the time. Only look: do not open the authorization URL, do not copy the link, and do not start fixing settings just because it says stopped.</p></li>
+<li><h3>Find the same time window in Logs</h3><p>Read the smallest range around the error first, and find the first clear validation, authorization, DNS, network or origin message. Logs can carry hostnames, IPs, UUIDs and sensitive URLs, and you must redact them before you record anything.</p></li>
 <li><h3>Test from outside over mobile data</h3><p>If the service is already live, turn Wi-Fi off on your phone and open the existing HTTPS hostname; confirm you reach the right sign-in page and that it keeps updating. When you are done, go back to the Dashboard and record the state once more. Nowhere in this flow do you press Restart Add-on.</p></li>
 </ol>
 <figure class="shot"><img src="../assets/screenshots/ch6/01_dashboard_status.png" alt="The Tunnel, Mode and Add-on status cards on the Cloudflared Web GUI Dashboard" /><figcaption><strong>Figure 6-1</strong> Read the three status cards and the edge connections first, then cross-check with Setup, Logs and an external test; a read-only check does not press Restart.</figcaption></figure>
-<div class="callout"><strong>The order to look in:</strong> local HA → the three Dashboard cards → Setup → Logs → the external URL. That order separates the layers — HA itself, add-on management, the connector, DNS and the origin — instead of restarting and hoping.</div>
+<div class="callout"><strong>The order to look in:</strong> local HA → the three Dashboard cards → Setup → Logs → the external URL. That order separates the layers — HA itself, add-on management, the connector, and DNS / origin — instead of restarting and hoping.</div>
 </section>
 <section id="choices" data-nav="Reading status"><h2 data-icon="compare">Common status combinations and what to do next</h2>
 <table class="data-table"><thead><tr><th>Combination</th><th>The more likely reading</th><th>First thing to do</th></tr></thead><tbody>
@@ -116,12 +116,12 @@
 </section>
 <section id="security" data-nav="Security checks"><h2 data-icon="security">The Dashboard has sensitive, high-impact actions too</h2>
 <ol class="steps">
-<li><h3>Do not press Restart Add-on</h3><p>A read-only round has no reason to restart anything. Restart re-runs setup from the saved configuration and interrupts the tunnel and the Web GUI for a while; if authorization, DNS or the configuration is wrong, it can touch those flows again as well.</p></li>
-<li><h3>Do not treat the Dashboard as a public status page</h3><p>It is a Home Assistant Ingress admin interface and belongs behind the HA sign-in. Do not give the internal 8099 a public hostname, inbound port forwarding or an unauthenticated reverse proxy.</p></li>
+<li><h3>Do not press Restart Add-on</h3><p>A read-only check has no reason to restart anything. Restart re-runs setup from the saved configuration and interrupts the tunnel and the Web GUI briefly; if authorization, DNS or the configuration is wrong, it can touch those flows again as well.</p></li>
+<li><h3>Do not treat the Dashboard as a public monitoring page</h3><p>It is a Home Assistant Ingress admin interface and belongs behind the HA sign-in. Do not give the internal 8099 a public hostname, inbound port forwarding or an unauthenticated reverse proxy.</p></li>
 <li><h3>Strip identifying data before you share</h3><p>The screen, and the Setup and Logs pages beside it, can expose the version, a hostname, the tunnel UUID, an account, an IP and the authorization URL. When you ask for help, rewrite it as a timeline and the status words, instead of a full-page screenshot.</p></li>
 <li><h3>Do not loosen access because it says running</h3><p>Tunnel readiness is not authentication. Home Assistant still needs individual accounts, strong passwords and multi-factor authentication; remove any additional hosts, catch-all and high-privilege admin page you do not need.</p></li>
-<li><h3>Keep a local fallback</h3><p>Remote health today does not mean remote access forever. Keep maintaining your home local-network entrance, your backups and a way to get help on site, so the tunnel never becomes your only way in to manage the system.</p></li>
-<li><h3>Tell Save and Restart apart</h3><p>The Dashboard Restart uses the options as currently saved; <strong>Save &amp; Restart</strong> in Config writes the options first and then restarts. The second one changes the configuration, and neither of them is a diagnostic “refresh”.</p></li>
+<li><h3>Keep a local fallback</h3><p>Remote health does not mean it will always be available. Keep maintaining your home network entrance, your backups and a way to get help on site, so the tunnel never becomes your only way in to manage the system.</p></li>
+<li><h3>Tell Save and Restart apart</h3><p>The Dashboard Restart uses the options as currently saved; <strong>Save &amp; Restart</strong> in Config writes the options first and then restarts. The second one changes the configuration, and neither of them is a diagnostic "refresh".</p></li>
 </ol>
 <div class="callout danger"><strong>The zero-change standard for this chapter:</strong> you pressed no Restart Add-on, no Save, no Save &amp; Restart, no authorization, no Copy link and no Cloudflare control at all. Refreshing the page and a read-only external test are enough to read the health.</div>
 </section>
@@ -130,14 +130,14 @@
 <tr><td>Home Assistant, locally</td><td>Sign in from your home Wi-Fi using the local URL and move between pages</td><td>HA itself is fine, and you still have an entrance other than the tunnel</td></tr>
 <tr><td>Web GUI / Ingress</td><td>Open the Dashboard from the add-on detail page, then switch to Setup and Logs</td><td>The admin pages are readable, and 8099 is not public</td></tr>
 <tr><td>Supervisor</td><td>Read the Add-on card and compare it with the Home Assistant add-on detail page</td><td>They agree, and it says Supervisor connected, or you have explained the transient difference</td></tr>
-<tr><td>Mode</td><td>Read Mode and compare it with your maintenance notes</td><td>local or token matches the management responsibility you expected</td></tr>
+<tr><td>Mode</td><td>Read Mode and compare it with your maintenance documentation</td><td>local or token matches the management responsibility you expected</td></tr>
 <tr><td>Connector</td><td>Read the Tunnel card and the edge connections</td><td>In production it stays running with ready connections greater than zero</td></tr>
 <tr><td>DNS / HTTPS</td><td>Open the existing public hostname on your phone over mobile data</td><td>HTTPS reaches the right service, not another origin or the wrong catch-all</td></tr>
-<tr><td>Application behavior</td><td>Sign in, switch pages and watch for live updates</td><td>Not just the first page loading: interaction and long-lived connections work too</td></tr>
+<tr><td>Application features</td><td>Sign in, switch pages and watch for live updates</td><td>Not just the first page loading: interaction and long-lived connections work too</td></tr>
 <tr><td>Logs</td><td>Compare the messages around the time of the test</td><td>No new fatal messages piling up, no repeated connection failures, no unexpected route</td></tr>
 <tr><td>Zero change</td><td>Look back over what you did</td><td>No Restart, no Save &amp; Restart, no authorization and no DNS change</td></tr>
 </tbody></table>
-<div class="callout tip"><strong>One success does not mean lasting health:</strong> run the same read-only test at different times of day, and keep only the date, the text on the three cards and the external result. Do not build a long-lived library of Dashboard screenshots that hold secrets.</div>
+<div class="callout tip"><strong>One success does not mean lasting health:</strong> you can run the same read-only test at different times of day, and keep only the date, the text on the three cards and the external result. Do not build a long-lived library of Dashboard screenshots that hold secrets.</div>
 </section>
 <section id="troubleshoot" data-nav="Common pitfalls"><h2 data-icon="troubleshoot">Common Dashboard pitfalls</h2>
 <ol class="steps">
@@ -155,13 +155,13 @@
 <details class="faq"><summary>Is edge connections the number of users online right now?</summary><div class="body">No. It is the number of ready connections from the cloudflared connector to the Cloudflare edge, which is not the same as a count of visitors, browser tabs, hostnames or Home Assistant devices.</div></details>
 <details class="faq"><summary>Does running mean every hostname is fine?</summary><div class="body">No. It only means there is at least one ready edge connection; you still verify DNS, the ingress rule, the origin, HTTPS, sign-in and live features one by one.</div></details>
 <details class="faq"><summary>The edge connections count is not a fixed number. Do I need to restart?</summary><div class="body">Usually not. A brief rise or fall can be the network or an edge renegotiation; look first at whether it stays above zero, whether the external test passes, and whether Logs repeat an error.</div></details>
-<details class="faq"><summary>What is the difference between add-on started and Tunnel running?</summary><div class="body">The add-on container can run and serve the Web GUI while cloudflared is stopped or starting because the configuration is blank, prepare failed, or it has not connected yet. Read the two cards separately.</div></details>
+<details class="faq"><summary>What is the difference between Add-on started and Tunnel running?</summary><div class="body">The add-on container can run and serve the Web GUI while cloudflared is stopped or starting because the configuration is blank, prepare failed, or it has not connected yet. Read the two cards separately.</div></details>
 <details class="faq"><summary>Is the Dashboard Restart the same as Save &amp; Restart in Config?</summary><div class="body">No. The Dashboard Restart restarts with the options already saved and re-runs setup; Save &amp; Restart in Config writes to Supervisor options and then restarts the add-on. Both cause a short outage, and this chapter uses neither.</div></details>
-<details class="faq"><summary>How often should I look at the Dashboard?</summary><div class="body">Run one full read-only check after a network, DNS or add-on change, or whenever external access misbehaves; otherwise look as regularly as your household needs. What matters is a fixed routine and a record of the time, not staring at a fixed connection count.</div></details>
+<details class="faq"><summary>How often should I look at the Dashboard?</summary><div class="body">Run one full read-only check after a network, DNS or add-on update, or whenever external access misbehaves; otherwise look as regularly as your household needs. What matters is a fixed routine and a record of the time, not staring at a fixed connection count.</div></details>
 </section>
 <section id="sources" data-nav="Official sources"><h2 data-icon="records">Official sources and version notes</h2>
 <table class="data-table"><thead><tr><th>Source</th><th>What to verify</th></tr></thead><tbody>
-<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui#what-you-get" rel="noopener">WoowTech README: Dashboard</a></td><td>Live tunnel status, edge connections, add-on state, Restart, and where Supervisor options end</td></tr>
+<tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui#what-you-get" rel="noopener">WoowTech README: Dashboard</a></td><td>Live tunnel status, edge connections, add-on state, Restart, and the Supervisor options boundary</td></tr>
 <tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/DOCS.md#web-gui" rel="noopener">Cloudflared Web GUI DOCS</a></td><td>What the four pages do, Ingress, a blank configuration, and how setup behaves after a restart</td></tr>
 <tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/webgui/backend/metrics.py" rel="noopener">Project metrics backend</a></td><td><code>/ready</code>, <code>readyConnections</code>, and how running / starting / stopped are actually decided</td></tr>
 <tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/webgui/frontend/src/pages/Dashboard.vue" rel="noopener">Project Dashboard source</a></td><td>The three status cards, Mode, Supervisor connected, and the wording of the Restart warning</td></tr>
@@ -174,15 +174,15 @@
 <div class="pager">
       <a class="prev" href="ch5_authorize.html">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> Previous</span>
-        <span class="title">05 · 完成 Cloudflare 授權</span>
+        <span class="title">05 · Complete the Cloudflare authorization</span>
       </a>
       <a class="next" href="ch7_config.html">
         <span class="label">Next <i class="mdi mdi-arrow-right" aria-hidden="true"></i></span>
-        <span class="title">07 · Config 與 Supervisor options</span>
+        <span class="title">07 · Config and Supervisor options</span>
       </a>
     </div>
 
     <footer class="site-footer">
-      <p>Home Assistant Cloudflared Web GUI 指南 is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">woowtech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
-      <p class="footer-meta">截圖取自 Home Assistant 與 Cloudflared Web GUI。Home Assistant 與 Cloudflare 為其各自權利人的商標，本站與其無隸屬關係。 · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
+      <p>Home Assistant Cloudflared Web GUI guide is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">WoowTech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
+      <p class="footer-meta">Screenshots are from Home Assistant and the Cloudflared Web GUI. Home Assistant and Cloudflare are trademarks of their respective owners; this site is not affiliated with either. · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
     </footer></main></div><script id="ui-strings" type="application/json">{"tocToggle":"Contents","tocExpand":"Expand chapter navigation","tocCollapse":"Collapse chapter navigation"}</script><script src="../assets/js/toc.js"></script></body></html>

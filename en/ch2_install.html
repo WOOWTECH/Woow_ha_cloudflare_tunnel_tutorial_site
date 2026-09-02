@@ -1,54 +1,54 @@
 <!doctype html><html lang="en"><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chapter 2 · 安裝 Web GUI · Home Assistant Cloudflared Web GUI 指南</title>
-  <meta name="description" content="Home Assistant Cloudflared Web GUI 安裝教學：加入 repository、安裝 App 與啟動前檢查。" />
-  <meta name="author" content="woowtech" />
+  <title>Chapter 2 · Install the Web GUI · Home Assistant Cloudflared Web GUI guide</title>
+  <meta name="description" content="Home Assistant Cloudflared Web GUI install guide: add the repository, install the add-on and check everything before you start it." />
+  <meta name="author" content="WoowTech" />
   <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch2_install.html" />
   <meta name="robots" content="noindex, follow" />
   <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI 指南" />
+  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI guide" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="zh_TW" />
-  <meta property="og:title" content="Chapter 2 · 安裝 Web GUI · Home Assistant Cloudflared Web GUI 指南" />
-  <meta property="og:description" content="Home Assistant Cloudflared Web GUI 安裝教學：加入 repository、安裝 App 與啟動前檢查。" />
+  <meta property="og:title" content="Chapter 2 · Install the Web GUI · Home Assistant Cloudflared Web GUI guide" />
+  <meta property="og:description" content="Home Assistant Cloudflared Web GUI install guide: add the repository, install the add-on and check everything before you start it." />
   <meta property="og:url" content="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch2_install.html" />
   <meta property="og:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Chapter 2 · 安裝 Web GUI · Home Assistant Cloudflared Web GUI 指南" />
-  <meta name="twitter:description" content="Home Assistant Cloudflared Web GUI 安裝教學：加入 repository、安裝 App 與啟動前檢查。" />
+  <meta name="twitter:title" content="Chapter 2 · Install the Web GUI · Home Assistant Cloudflared Web GUI guide" />
+  <meta name="twitter:description" content="Home Assistant Cloudflared Web GUI install guide: add the repository, install the add-on and check everything before you start it." />
   <meta name="twitter:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="theme-color" content="#6183FC" />
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.en" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/i18n.css" />
 </head><body><div class="layout"><aside class="sidebar">
-    <a class="brand" href="tutorial.html">Cloudflared Web GUI 指南</a>
-    <div class="brand-sub">不開埠，安全連回家</div>
+    <a class="brand" href="tutorial.html">Cloudflared Web GUI Guide</a>
+    <div class="brand-sub">No open ports, a safe way home</div>
     <nav class="lang-switch" aria-label="Language"><a href="../ch2_install.html" lang="zh-Hant" hreflang="zh-Hant">中文</a><a class="active" href="ch2_install.html" lang="en" aria-current="page">EN</a></nav>
-    <a class="hub-link" href="index.html">◂ 資源總覽</a>
+    <a class="hub-link" href="index.html">◂ Resource Hub</a>
     <h2>Chapters</h2>
     <ol>
-      <li class="part-label">基礎：準備與安裝</li>
-      <li data-i18n="pending"><a href="ch1_overview.html">開始前：需求與安全邊界</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html" class="active">安裝 Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html">第一次開啟 Web GUI</a></li>
-      <li class="part-label">建置：建立安全入口</li>
-      <li data-i18n="pending"><a href="ch4_setup.html">Setup 首次設定精靈</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html">完成 Cloudflare 授權</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard 與 Tunnel 狀態</a></li>
-      <li class="part-label">管理：主機與日誌</li>
-      <li data-i18n="pending"><a href="ch7_config.html">Config 與 Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html">設定 external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html">管理 additional hosts</a></li>
-      <li class="part-label">維護：安全與排錯</li>
-      <li data-i18n="pending"><a href="ch10_logs.html">Logs 與日常維護</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html">安全檢查與最小暴露</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html">排錯、更新與交接</a></li>
+      <li class="part-label">Basics: prepare and install</li>
+      <li data-i18n="pending"><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
+      <li data-i18n="pending"><a href="ch2_install.html" class="active">Install the Cloudflared Web GUI</a></li>
+      <li data-i18n="pending"><a href="ch3_first_open.html">First open of the Web GUI</a></li>
+      <li class="part-label">Build: create a secure entrance</li>
+      <li data-i18n="pending"><a href="ch4_setup.html">First-run Setup wizard</a></li>
+      <li data-i18n="pending"><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
+      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
+      <li class="part-label">Manage: hosts and logs</li>
+      <li data-i18n="pending"><a href="ch7_config.html">Config and Supervisor options</a></li>
+      <li data-i18n="pending"><a href="ch8_hostname.html">Set external hostname</a></li>
+      <li data-i18n="pending"><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
+      <li class="part-label">Maintain: security and troubleshooting</li>
+      <li data-i18n="pending"><a href="ch10_logs.html">Logs and routine maintenance</a></li>
+      <li data-i18n="pending"><a href="ch11_security.html">Security checks and minimal exposure</a></li>
+      <li data-i18n="pending"><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -64,18 +64,18 @@
     </div>
   </aside><main class="content">
 <div class="callout i18n-pending"><strong>This chapter has not been translated yet.</strong> You are reading the original Chinese text. <a href="../ch2_install.html" hreflang="zh-Hant">Open the Chinese version</a></div>
-<div class="chapter-header"><div class="kicker">Chapter 2</div><h1>Install the Cloudflared Web GUI</h1><p class="lead">Add the WoowTech repository to the Home Assistant Apps store, check the source and the hardware compatibility, and only then install. This chapter does one thing: it gets the Web GUI opening with a blank configuration. It creates no tunnel, authorizes nothing with Cloudflare, and adds no public hostname.</p></div>
+<div class="chapter-header"><div class="kicker">Chapter 2</div><h1>Install the Cloudflared Web GUI</h1><p class="lead">Add the WoowTech repository to the Home Assistant Apps store, check the source and the hardware compatibility, and only then install. This chapter only gets the Web GUI opening with a blank configuration. It creates no tunnel, authorizes nothing with Cloudflare, and adds no public hostname.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">Install the right package in the right place</h2>
 <p>The Cloudflared Web GUI is not an ordinary Home Assistant integration. It is a third-party App managed by Supervisor (formerly called add-ons). You have to add its repository first, so that the Apps store can fetch the package information and the image; pasting the GitHub URL into the integrations page, into HACS or into your browser's address bar installs nothing.</p>
-<div class="callout"><strong>When this chapter is done:</strong> the Apps detail page shows <strong>Cloudflared Web GUI</strong>, the add-on starts, and you can open the Web UI from Home Assistant. With the configuration left blank, the WoowTech documentation says the Web GUI keeps running while the tunnel stays stopped.</div>
-<div class="callout warn"><strong>A word on third-party software:</strong> Home Assistant states plainly that it cannot guarantee the quality or the security of third-party Apps. Before you install, check the GitHub organization, the full repository URL and the project documentation; do not install a similarly named package from the search results.</div>
+<div class="callout"><strong>When this chapter is done:</strong> the add-on detail page shows <strong>Cloudflared Web GUI</strong>, the add-on starts, and you can open the Web UI from Home Assistant. With the configuration left blank, the WoowTech documentation says the Web GUI keeps running while the tunnel stays stopped.</div>
+<div class="callout warn"><strong>A word on third-party software:</strong> Home Assistant states plainly that it cannot guarantee the quality or the security of third-party add-ons. Before you install, check the GitHub organization, the full repository URL and the project documentation; do not install a similarly named package from the search results.</div>
 </section>
 <section id="concept" data-nav="Core concepts"><h2 data-icon="concept">Repository, add-on and Ingress each do one thing</h2>
 <table class="data-table"><thead><tr><th>Item</th><th>What it is for</th><th>Does this step create a tunnel</th></tr></thead><tbody>
-<tr><td>App repository</td><td>Tells Home Assistant where to get the add-on list and the version data</td><td>No</td></tr>
+<tr><td>Add-on repository</td><td>Tells Home Assistant where to get the add-on list and the version data</td><td>No</td></tr>
 <tr><td>Installing the add-on</td><td>Downloads the image that matches your architecture and creates an add-on managed by Supervisor</td><td>No</td></tr>
 <tr><td>Starting the add-on</td><td>Starts the service inside the container; with a blank configuration the Web GUI stays available</td><td>Per this fork's documentation, a blank configuration leaves the tunnel stopped</td></tr>
-<tr><td>Home Assistant Ingress</td><td>Opens the Web GUI through the Home Assistant sign-in and its embedded path</td><td>No, and it opens no extra port to the outside</td></tr>
+<tr><td>Home Assistant Ingress</td><td>Opens the Web GUI through the Home Assistant sign-in and its embedded path</td><td>It opens no extra port to the outside</td></tr>
 <tr><td>Saving in Setup or Config</td><td>Writes the values into Supervisor options, and may start the setup flow</td><td>It can; do not do it in this chapter</td></tr>
 </tbody></table>
 <p>This add-on's Web GUI runs through Ingress on the container-internal port <code>8099</code>, and the project configuration never asks you to map it to the outside. Dashboard, Setup, Config and Logs are admin pages inside the same add-on, so the admin interface needs no router port forwarding.</p>
@@ -121,7 +121,7 @@
 <li><h3>The add-on starts with a blank configuration</h3><p>After you start it, the add-on status does not sit at "starting" indefinitely. With a completely blank configuration, a tunnel that is not running is the expected behavior of this fork, so do not put in any hostname just to make a message go away.</p></li>
 <li><h3>The Web UI entrance exists</h3><p>The detail page shows <strong>Open Web UI</strong>, or Cloudflared already appears in the sidebar. For now, just confirm the entrance: do not authorize anything and do not save.</p></li>
 <li><h3>No extra network changes</h3><p>You have not added router port forwarding, a Cloudflare DNS record, a public hostname or a reverse proxy rule.</p></li>
-<li><h3>No sensitive data has leaked</h3><p>You have not made any private screen public beyond the repository itself; above all, you have not shared the authorization URL, the token for the tunnel, the full Logs, an account or an internal IP address.</p></li>
+<li><h3>No sensitive data has leaked</h3><p>You have not made any private screen public beyond the repository itself; above all, you have not shared the authorization URL, the tunnel token, the full Logs, an account or an internal IP address.</p></li>
 </ol>
 <div class="callout tip"><strong>Acceptance passed:</strong> the next chapter opens the Web GUI through Ingress for the first time. You only learn to recognize Dashboard, Setup, Config and Logs, and you save nothing.</div>
 </section>
@@ -130,41 +130,41 @@
 <li><h3>There is no Repositories option</h3><p>Check that you are on the Apps store page, not on Devices &amp; services, in HACS or on some add-on's configuration page. If the whole Apps section is missing, check your installation type; do not try to use HACS in place of a Supervisor add-on.</p></li>
 <li><h3>The add-on does not show up after you add the repository</h3><p>As Home Assistant recommends, refresh the browser first, then go back to the Apps store and look again. If it is still missing, check the repository URL once more; a third-party repository can also fail to appear when its configuration data is invalid.</p></li>
 <li><h3>It says unsupported, or there is no installable version</h3><p>Compare your system architecture with the <code>aarch64</code> and <code>amd64</code> the project currently supports. If your architecture does not match, stop: do not download an image for another architecture and force it in.</p></li>
-<li><h3>The install never finishes</h3><p>Keep the host powered and the network stable, come back to the add-on detail page later and check the status, then look for a download or disk-space error in the Supervisor system logs. Redact the hostname, the IP address, private repository details and any credentials before you share an error.</p></li>
-<li><h3>It starts and then stops</h3><p>First confirm that what you installed is the WoowTech Web GUI build, then read the last few lines of the log on the add-on detail page. With a blank configuration this fork should keep the Web GUI running; if it still stops, write down the version, the architecture and the redacted error, and do not start by filling in a fake hostname or token.</p></li>
+<li><h3>The install never finishes</h3><p>Keep the host powered and the network stable, come back to the add-on detail page later and check the status, then look for a download or disk-space error in the system logs related to Supervisor. Redact the hostname, the IP address, private repository details and any credentials before you share an error.</p></li>
+<li><h3>It starts and then stops</h3><p>First confirm that what you installed is the WoowTech Web GUI version, then read the last few lines of the log on the add-on detail page. With a blank configuration this fork should keep the Web GUI running; if it still stops, write down the version, the architecture and the redacted error, and do not start by filling in a fake hostname or token.</p></li>
 <li><h3>The Open Web UI button does not work</h3><p>Confirm that the add-on has finished starting, refresh Home Assistant and try again; you can also turn the sidebar option off and back on. Do not switch to connecting to 8099 directly: Ingress is the entrance protected by the Home Assistant sign-in.</p></li>
 </ol>
 </section>
 <section id="faq" data-nav="FAQ"><h2 data-icon="faq">Install FAQ</h2>
-<details class="faq"><summary>Is the Cloudflared Web GUI an official Home Assistant App?</summary><div class="body">No. It is a third-party repository maintained by WoowTech, and its tunnel core is forked from the upstream <code>homeassistant-apps/app-cloudflared</code>. Home Assistant also warns that you have to judge the quality and the security of third-party Apps yourself.</div></details>
-<details class="faq"><summary>Can I install it from HACS?</summary><div class="body">HACS is not a substitute for the flow in this chapter. This is an add-on managed by Supervisor: you add the repository in the Home Assistant Apps store and install it from there.</div></details>
+<details class="faq"><summary>Is the Cloudflared Web GUI an official Home Assistant add-on?</summary><div class="body">No. It is a third-party repository maintained by WoowTech, and its tunnel core is forked from the upstream <code>homeassistant-apps/app-cloudflared</code>. Home Assistant also warns that you have to judge the quality and the security of third-party add-ons yourself.</div></details>
+<details class="faq"><summary>Can I install it from HACS?</summary><div class="body">No, you cannot use HACS in place of the flow in this chapter. This is an add-on managed by Supervisor: you add the repository in the Home Assistant Apps store and install it from there.</div></details>
 <details class="faq"><summary>Do I have to fill in a hostname right after installing?</summary><div class="body">No. The particular behavior of this fork is that a completely blank configuration keeps the Web GUI and stops the tunnel, so you can open the interface and do your first round of planning. Do not type in fake data just to make the screen "look complete".</div></details>
-<details class="faq"><summary>Do I need to open 8099 or 8123 on the router?</summary><div class="body">No. 8099 is the Web GUI's internal Ingress port, and a Cloudflare Tunnel is dialed out by the connector. This guide never asks you to add inbound port forwarding for Home Assistant.</div></details>
+<details class="faq"><summary>Do I need to open 8099 or 8123 on the router?</summary><div class="body">No. 8099 is the Web GUI's internal Ingress port, and a Cloudflare Tunnel is dialed out by the connector. This guide does not require you to add inbound port forwarding for Home Assistant.</div></details>
 <details class="faq"><summary>Can I press Save &amp; Restart now, just to see?</summary><div class="body">Do not treat it as a test button. It writes to Supervisor options and then restarts the add-on, and it may go on to sign in, create the tunnel or change DNS. Wait until a later chapter has you check the real configuration.</div></details>
-<details class="faq"><summary>The menu names changed after a Home Assistant update. Does that mean this flow no longer works?</summary><div class="body">Not necessarily. The official English interface renamed Add-ons to Apps, and translations and button positions can move between versions. Navigate by what each step is for — Settings → Apps → App store → Repositories — and follow the latest official Home Assistant documentation.</div></details>
+<details class="faq"><summary>The menu names changed after a Home Assistant update. Does that mean this flow no longer works?</summary><div class="body">Not necessarily. The official English interface renamed Add-ons to Apps, and translations and button positions can move between versions. Navigate by what each step is for — Settings → Apps → Apps store → Repositories — and follow the latest official Home Assistant documentation.</div></details>
 </section>
 <section id="sources" data-nav="Official sources"><h2 data-icon="book">Official sources and version notes</h2>
 <table class="data-table"><thead><tr><th>Source</th><th>What this chapter verifies</th></tr></thead><tbody>
 <tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui#installation" rel="noopener">WoowTech README: Installation</a></td><td>The repository URL, the manual install path, the add-on name, starting it and Open Web UI</td></tr>
 <tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/DOCS.md#web-gui" rel="noopener">Cloudflared Web GUI add-on documentation</a></td><td>Ingress, the four pages, and how the Web GUI and the tunnel behave with a blank configuration</td></tr>
 <tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/config.yaml" rel="noopener">The add-on's <code>config.yaml</code></a></td><td><code>aarch64</code> / <code>amd64</code>, Ingress 8099 and the initial options</td></tr>
-<tr><td><a href="https://www.home-assistant.io/common-tasks/os/#installing-a-third-party-app-repository" rel="noopener">Home Assistant: installing a third-party App repository</a></td><td>The current official Apps store path, the three-dot menu, Repositories, the refresh advice and third-party risk</td></tr>
-<tr><td><a href="https://developers.home-assistant.io/docs/apps" rel="noopener">Home Assistant Developer: Apps</a></td><td>The official development and packaging background of Supervisor Apps</td></tr>
+<tr><td><a href="https://www.home-assistant.io/common-tasks/os/#installing-a-third-party-app-repository" rel="noopener">Home Assistant: installing a third-party add-on repository</a></td><td>The current official Apps store path, the three-dot menu, Repositories, the refresh advice and third-party risk</td></tr>
+<tr><td><a href="https://developers.home-assistant.io/docs/apps" rel="noopener">Home Assistant Developer: Apps</a></td><td>The official development and packaging background of Supervisor add-ons</td></tr>
 </tbody></table>
-<div class="callout"><strong>Version note:</strong> the button may say Apps, Add-ons, Install app or Add repository. If the project's supported architectures, its version or the repository path change later, follow the latest README in the repository, its <code>config.yaml</code> and the official Home Assistant documentation.</div>
+<div class="callout"><strong>Version note:</strong> the button may say Apps, Add-ons, its translated equivalent in a localized interface, Install app or Add repository. If the project's supported architectures, its version or the repository path change later, follow the latest README in the repository, its <code>config.yaml</code> and the official Home Assistant documentation.</div>
 </section>
 <div class="pager">
       <a class="prev" href="ch1_overview.html">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> Previous</span>
-        <span class="title">01 · 需求與安全邊界</span>
+        <span class="title">01 · Requirements and security boundaries</span>
       </a>
       <a class="next" href="ch3_first_open.html">
         <span class="label">Next <i class="mdi mdi-arrow-right" aria-hidden="true"></i></span>
-        <span class="title">03 · 第一次開啟 Web GUI</span>
+        <span class="title">03 · First open of the Web GUI</span>
       </a>
     </div>
 
     <footer class="site-footer">
-      <p>Home Assistant Cloudflared Web GUI 指南 is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">woowtech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
-      <p class="footer-meta">截圖取自 Home Assistant 與 Cloudflared Web GUI。Home Assistant 與 Cloudflare 為其各自權利人的商標，本站與其無隸屬關係。 · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
+      <p>Home Assistant Cloudflared Web GUI guide is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">WoowTech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
+      <p class="footer-meta">Screenshots are from Home Assistant and the Cloudflared Web GUI. Home Assistant and Cloudflare are trademarks of their respective owners; this site is not affiliated with either. · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
     </footer></main></div><script id="ui-strings" type="application/json">{"tocToggle":"Contents","tocExpand":"Expand chapter navigation","tocCollapse":"Collapse chapter navigation"}</script><script src="../assets/js/toc.js"></script></body></html>

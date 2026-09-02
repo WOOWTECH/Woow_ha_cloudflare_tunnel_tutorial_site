@@ -1,54 +1,54 @@
 <!doctype html><html lang="en"><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chapter 10 · Logs 與維護 · Home Assistant Cloudflared Web GUI 指南</title>
-  <meta name="description" content="Cloudflared Web GUI Logs、日常維護、版本更新與安全記錄。" />
-  <meta name="author" content="woowtech" />
+  <title>Chapter 10 · Logs and maintenance · Home Assistant Cloudflared Web GUI guide</title>
+  <meta name="description" content="Cloudflared Web GUI Logs, routine maintenance, version updates and safe log handling." />
+  <meta name="author" content="WoowTech" />
   <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch10_logs.html" />
   <meta name="robots" content="noindex, follow" />
   <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI 指南" />
+  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI guide" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="zh_TW" />
-  <meta property="og:title" content="Chapter 10 · Logs 與維護 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta property="og:description" content="Cloudflared Web GUI Logs、日常維護、版本更新與安全記錄。" />
+  <meta property="og:title" content="Chapter 10 · Logs and maintenance · Home Assistant Cloudflared Web GUI guide" />
+  <meta property="og:description" content="Cloudflared Web GUI Logs, routine maintenance, version updates and safe log handling." />
   <meta property="og:url" content="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch10_logs.html" />
   <meta property="og:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Chapter 10 · Logs 與維護 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta name="twitter:description" content="Cloudflared Web GUI Logs、日常維護、版本更新與安全記錄。" />
+  <meta name="twitter:title" content="Chapter 10 · Logs and maintenance · Home Assistant Cloudflared Web GUI guide" />
+  <meta name="twitter:description" content="Cloudflared Web GUI Logs, routine maintenance, version updates and safe log handling." />
   <meta name="twitter:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="theme-color" content="#6183FC" />
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.en" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/i18n.css" />
 </head><body><div class="layout"><aside class="sidebar">
-    <a class="brand" href="tutorial.html">Cloudflared Web GUI 指南</a>
-    <div class="brand-sub">不開埠，安全連回家</div>
+    <a class="brand" href="tutorial.html">Cloudflared Web GUI Guide</a>
+    <div class="brand-sub">No open ports, a safe way home</div>
     <nav class="lang-switch" aria-label="Language"><a href="../ch10_logs.html" lang="zh-Hant" hreflang="zh-Hant">中文</a><a class="active" href="ch10_logs.html" lang="en" aria-current="page">EN</a></nav>
-    <a class="hub-link" href="index.html">◂ 資源總覽</a>
+    <a class="hub-link" href="index.html">◂ Resource Hub</a>
     <h2>Chapters</h2>
     <ol>
-      <li class="part-label">基礎：準備與安裝</li>
-      <li data-i18n="pending"><a href="ch1_overview.html">開始前：需求與安全邊界</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html">安裝 Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html">第一次開啟 Web GUI</a></li>
-      <li class="part-label">建置：建立安全入口</li>
-      <li data-i18n="pending"><a href="ch4_setup.html">Setup 首次設定精靈</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html">完成 Cloudflare 授權</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard 與 Tunnel 狀態</a></li>
-      <li class="part-label">管理：主機與日誌</li>
-      <li data-i18n="pending"><a href="ch7_config.html">Config 與 Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html">設定 external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html">管理 additional hosts</a></li>
-      <li class="part-label">維護：安全與排錯</li>
-      <li data-i18n="pending"><a href="ch10_logs.html" class="active">Logs 與日常維護</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html">安全檢查與最小暴露</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html">排錯、更新與交接</a></li>
+      <li class="part-label">Basics: prepare and install</li>
+      <li data-i18n="pending"><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
+      <li data-i18n="pending"><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
+      <li data-i18n="pending"><a href="ch3_first_open.html">First open of the Web GUI</a></li>
+      <li class="part-label">Build: create a secure entrance</li>
+      <li data-i18n="pending"><a href="ch4_setup.html">First-run Setup wizard</a></li>
+      <li data-i18n="pending"><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
+      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
+      <li class="part-label">Manage: hosts and logs</li>
+      <li data-i18n="pending"><a href="ch7_config.html">Config and Supervisor options</a></li>
+      <li data-i18n="pending"><a href="ch8_hostname.html">Set external hostname</a></li>
+      <li data-i18n="pending"><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
+      <li class="part-label">Maintain: security and troubleshooting</li>
+      <li data-i18n="pending"><a href="ch10_logs.html" class="active">Logs and routine maintenance</a></li>
+      <li data-i18n="pending"><a href="ch11_security.html">Security checks and minimal exposure</a></li>
+      <li data-i18n="pending"><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -64,7 +64,7 @@
     </div>
   </aside><main class="content">
 <div class="callout i18n-pending"><strong>This chapter has not been translated yet.</strong> You are reading the original Chinese text. <a href="../ch10_logs.html" hreflang="zh-Hant">Open the Chinese version</a></div>
-<div class="chapter-header"><div class="kicker">Chapter 10</div><h1>Logs and routine maintenance</h1><p class="lead">You do not have to understand every English line to judge whether the tunnel is healthy: the time, the severity and any repeating pattern are enough. You will learn to watch the log live, filter it, download it and tidy it up safely, and to settle into a maintenance rhythm that does not disturb the services at home.</p></div>
+<div class="chapter-header"><div class="kicker">Chapter 10</div><h1>Logs and routine maintenance</h1><p class="lead">You do not have to understand every line of the log to judge whether the tunnel is healthy: the time, the severity and any repeating pattern are enough. You will learn to watch the log live, filter it, download it and tidy it up safely, and to settle into a maintenance rhythm that does not disturb the services at home.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">Why this matters</h2>
 <p>When remote access breaks, the browser only tells you it "cannot open the page", while the real cause may sit in DNS, the Cloudflare edge, cloudflared or Home Assistant. A log is like the visitor log by your front door: you do not have to memorize every entry. Look at the time the failure happened, then find the warnings or errors that repeat around that time, and you narrow the search.</p>
 <p>The <strong>Logs</strong> page in the Cloudflared Web GUI shows a live stream of the add-on log. It comes from the same source as the Log tab of the Home Assistant add-on, and it adds text filtering and download. This page is for watching and collecting evidence, not a permanent audit system: after you reopen it, clear the screen, or the buffer rotates, older lines may no longer be there.</p>
@@ -83,10 +83,10 @@
 <ol class="steps">
 <li><h3>Confirm local Home Assistant is healthy first</h3><p>On your home network, open the local Home Assistant URL and check that you can sign in and use it. Note the current time, and keep a second device ready with Wi-Fi off and mobile data on. Do not change any settings yet.</p></li>
 <li><h3>Open the Cloudflared Logs page</h3><p>Open Cloudflared from the Home Assistant sidebar, then select <strong>Logs</strong>. It normally connects on its own; if the status is <code>Disconnected</code>, press <strong>Connect</strong>. New lines arriving only means the log stream works — tunnel health still needs its own acceptance check.</p></li>
-<li><h3>Turn off auto-scroll and find the time</h3><p>Turn <strong>Auto-scroll</strong> off and go back to around the time you noted. Read the few lines before and after the error line, and work out whether it appeared while the add-on was preparing its configuration, opening edge connections, setting up DNS, or reaching the Home Assistant origin.</p></li>
+<li><h3>Turn off auto-scroll and find the time</h3><p>Turn <strong>Auto-scroll</strong> off and go back to around the time you noted. Read the few lines before and after the error line, and work out which stage it came from: preparing the configuration, opening edge connections, setting up DNS, or reaching the Home Assistant origin.</p></li>
 <li><h3>Filter with one short word at a time</h3><p>In Filter, enter <code>error</code> first, then try <code>fatal</code> and <code>warn</code> separately. Do not paste the three words in together: this is a single substring match, not an advanced query language. Clear the Filter when you need the full context.</p></li>
 <li><h3>Reproduce it once from outside</h3><p>Open your external hostname over mobile data, and note the result and the time. Go back to Logs and check whether new errors appear in the same window, then compare the add-on and edge connection status on the Dashboard. One test is enough; refreshing rapidly just creates noise.</p></li>
-<li><h3>Decide on full or trimmed before you download</h3><p>When someone else will analyze the file, clear the Filter and then press <strong>Download</strong>, so the context is kept; keep the Filter on only when you want one kind of message. After downloading, open the file in a text editor and redact the hostname, account, IP, tunnel ID, authorization URL, token and any other internal-network detail before you share it.</p></li>
+<li><h3>Decide on full or trimmed before you download</h3><p>When you are handing it to a maintainer to analyze, clear the Filter and then press <strong>Download</strong>, so the context is kept; keep the Filter on only when you want one kind of message. After downloading, check the file in a text editor and redact the hostname, account, IP, tunnel ID, authorization URL, token and any other detail about your local network before you share it.</p></li>
 </ol>
 <div class="callout danger"><strong>Do not mistake a walkthrough for something already done:</strong> while the tutorial environment for this site was being made we only looked, read-only: we pressed no Save, Save &amp; Restart, Restart or Authorize, and changed no tunnel. When you press <strong>Save &amp; Restart</strong> in your own Config, it really does write to Supervisor options and restart the add-on, interrupting the tunnel briefly. Do not press it without a maintenance window and a backup of the original settings.</div></section>
 <section id="choices" data-nav="Choosing options"><h2 data-icon="compare">How to plan routine maintenance</h2>
@@ -103,20 +103,20 @@
 <tr><td>Authorization data</td><td>No Cloudflare authorization URL, <code>tunnel_token</code>, TunnelSecret, certificate content or full command line.</td><td>Whoever obtains them may gain authorization, or attach a connector to your tunnel.</td></tr>
 <tr><td>Identity and location</td><td>Redact accounts, email addresses, hostnames, public and private IPs, tunnel IDs, and zone or account identifiers.</td><td>It lowers the risk of someone scouting the entrance to your home and your account.</td></tr>
 <tr><td>Internal services</td><td>Redact the real service addresses, device names and ports in <code>additional_hosts</code>.</td><td>Together they draw a map of your home network.</td></tr>
-<tr><td>Who you share with</td><td>Only the person handling the troubleshooting, through a channel with permissions and an expiry, and remove the file once the problem is over.</td><td>A log does not belong in a public forum or anywhere a search engine can reach.</td></tr>
+<tr><td>Sharing scope</td><td>Only the person handling the troubleshooting, through a channel with permissions and an expiry, and remove the file once the problem is over.</td><td>A log does not belong in a public forum or anywhere a search engine can reach.</td></tr>
 <tr><td>Verbosity level</td><td>Stay on <code>info</code> day to day; turn debug / trace on only for as long as you need it, and restore it after the acceptance check.</td><td>The more verbose it is, the more likely it carries environment and runtime detail.</td></tr>
 </tbody></table>
-<div class="callout warn"><strong>The Web GUI redacts some secrets, but that does not replace checking by hand:</strong> the project hides known tunnel tokens and some secret formats, but unknown formats, hostnames, IPs and your own content can still appear. Treat every downloaded file as sensitive data.</div></section>
+<div class="callout warn"><strong>The Web GUI redacts some secrets, but that does not replace checking by hand:</strong> the project redacts known tunnel tokens and some secret formats, but unknown formats, hostnames, IPs and the content of your own services can still appear. Treat every downloaded file as sensitive data.</div></section>
 <section id="test" data-nav="Acceptance tests"><h2 data-icon="test">Acceptance tests after maintenance</h2>
 <ol class="steps">
 <li><h3>The local entrance passes</h3><p>On the same home network you can open Home Assistant, sign in and load the dashboard, which confirms Home Assistant itself is not the source of the failure.</p></li>
 <li><h3>The external entrance passes</h3><p>With Wi-Fi off on your phone, open <code>https://你的-hostname</code>; you reach the Cloudflare or Home Assistant sign-in flow you expect, and nothing is routed to another internal service.</p></li>
 <li><h3>The Dashboard passes</h3><p>The Cloudflared Dashboard shows the add-on running and the tunnel holding an edge connection. The connection count moves around, so do not treat one fixed number as the only standard.</p></li>
-<li><h3>Logs passes</h3><p>Logs shows <code>Connected</code>, new lines arrive during the test, and no single fatal/error keeps cycling. Judge a brief warning together with whether the feature actually works.</p></li>
-<li><h3>The security state passes</h3><p>Nothing in this guide has opened an inbound port for Home Assistant on your router; the temporary debug / trace setting is back to normal, and the downloaded file is redacted and moved somewhere controlled.</p></li>
+<li><h3>The Logs page passes</h3><p>Logs shows <code>Connected</code>, new lines arrive during the test, and no single fatal/error keeps cycling. Judge a brief warning together with whether the feature actually works.</p></li>
+<li><h3>The security state passes</h3><p>Your router still has no inbound port open for Home Assistant as a result of this guide; the temporary debug / trace setting is back to normal, and the downloaded file is redacted and moved somewhere controlled.</p></li>
 <li><h3>The record passes</h3><p>Write down the test date, the versions, the mode and the result. Do not record tokens, authorization URLs or credentials anyone could use directly. If you changed something, write down how to undo it as well.</p></li>
 </ol>
-<div class="callout"><strong>How to judge the acceptance check:</strong> confirm all four at once — it really works, nothing goes to the wrong service, no error repeats, and nothing extra is exposed. A green status on its own is not a complete acceptance check.</div></section>
+<div class="callout"><strong>How to judge the acceptance check:</strong> confirm all of these at once — it really works, nothing goes to the wrong service, no error repeats, and nothing extra is exposed. A green status on its own is not a complete acceptance check.</div></section>
 <section id="troubleshoot" data-nav="Common pitfalls"><h2 data-icon="troubleshoot">Common Logs page pitfalls</h2>
 <ol class="steps">
 <li><h3>It stays on Disconnected</h3><p>Press Connect first, then reload the Cloudflared Ingress page. Check that your Home Assistant sign-in is still valid; if the Dashboard will not open either, look at the add-on's Home Assistant Log tab. Disconnected describes the log WebSocket, and on its own it is not enough to conclude that the tunnel is down.</p></li>
@@ -136,22 +136,22 @@
 <table class="data-table"><thead><tr><th>Source</th><th>What it confirms</th></tr></thead><tbody>
 <tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/README_zh-TW.md" rel="noopener">WoowTech project README (Traditional Chinese)</a></td><td>The Web GUI runs through HA Ingress, Logs and the HA Log share one source, filtering and download are available, and Supervisor options are the source of truth for settings.</td></tr>
 <tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/DOCS.md" rel="noopener">Cloudflared Web GUI add-on documentation</a></td><td>The <code>log_level</code> levels, the <code>info</code> default, the tunnel's own <code>--loglevel</code>, and the restart a settings change requires.</td></tr>
-<tr><td><a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/" rel="noopener">Cloudflare Tunnel official documentation</a></td><td>Tunnel architecture, connectors, and where the next actions live.</td></tr>
+<tr><td><a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/" rel="noopener">Cloudflare Tunnel official documentation</a></td><td>The tunnel architecture, the connectors, and where the next actions live.</td></tr>
 <tr><td><a href="https://www.home-assistant.io/common-tasks/os/#backups" rel="noopener">Home Assistant OS backups</a></td><td>The official procedure for creating and restoring a backup before an update or a settings change.</td></tr>
 </tbody></table>
 <p>This page follows the WoowTech Web GUI 1.0.x interface and documentation. Home Assistant, Cloudflare and the add-on all get updates; if a button sits elsewhere or reads differently, follow the add-on documentation, the changelog and the official docs for the version you installed, and do not guess at the steps just to make your screen match ours.</p></section>
 <div class="pager">
       <a class="prev" href="ch9_additional_hosts.html">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> Previous</span>
-        <span class="title">09 · 管理 additional hosts</span>
+        <span class="title">09 · Manage additional hosts</span>
       </a>
       <a class="next" href="ch11_security.html">
         <span class="label">Next <i class="mdi mdi-arrow-right" aria-hidden="true"></i></span>
-        <span class="title">11 · 安全檢查與最小暴露</span>
+        <span class="title">11 · Security checks and minimal exposure</span>
       </a>
     </div>
 
     <footer class="site-footer">
-      <p>Home Assistant Cloudflared Web GUI 指南 is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">woowtech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
-      <p class="footer-meta">截圖取自 Home Assistant 與 Cloudflared Web GUI。Home Assistant 與 Cloudflare 為其各自權利人的商標，本站與其無隸屬關係。 · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
+      <p>Home Assistant Cloudflared Web GUI guide is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">WoowTech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
+      <p class="footer-meta">Screenshots are from Home Assistant and the Cloudflared Web GUI. Home Assistant and Cloudflare are trademarks of their respective owners; this site is not affiliated with either. · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
     </footer></main></div><script id="ui-strings" type="application/json">{"tocToggle":"Contents","tocExpand":"Expand chapter navigation","tocCollapse":"Collapse chapter navigation"}</script><script src="../assets/js/toc.js"></script></body></html>

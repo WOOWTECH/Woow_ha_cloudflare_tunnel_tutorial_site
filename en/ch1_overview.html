@@ -1,54 +1,54 @@
 <!doctype html><html lang="en"><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chapter 1 · 開始前 · Home Assistant Cloudflared Web GUI 指南</title>
-  <meta name="description" content="Cloudflared Web GUI 使用前規劃：Cloudflare 網域、HA Apps、Tunnel 模式與安全邊界。" />
-  <meta name="author" content="woowtech" />
+  <title>Chapter 1 · Before you start · Home Assistant Cloudflared Web GUI guide</title>
+  <meta name="description" content="Cloudflared Web GUI, planning before you start: your Cloudflare domain, Home Assistant add-ons, tunnel mode and security boundaries." />
+  <meta name="author" content="WoowTech" />
   <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch1_overview.html" />
   <meta name="robots" content="noindex, follow" />
   <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI 指南" />
+  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI guide" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="zh_TW" />
-  <meta property="og:title" content="Chapter 1 · 開始前 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta property="og:description" content="Cloudflared Web GUI 使用前規劃：Cloudflare 網域、HA Apps、Tunnel 模式與安全邊界。" />
+  <meta property="og:title" content="Chapter 1 · Before you start · Home Assistant Cloudflared Web GUI guide" />
+  <meta property="og:description" content="Cloudflared Web GUI, planning before you start: your Cloudflare domain, Home Assistant add-ons, tunnel mode and security boundaries." />
   <meta property="og:url" content="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch1_overview.html" />
   <meta property="og:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Chapter 1 · 開始前 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta name="twitter:description" content="Cloudflared Web GUI 使用前規劃：Cloudflare 網域、HA Apps、Tunnel 模式與安全邊界。" />
+  <meta name="twitter:title" content="Chapter 1 · Before you start · Home Assistant Cloudflared Web GUI guide" />
+  <meta name="twitter:description" content="Cloudflared Web GUI, planning before you start: your Cloudflare domain, Home Assistant add-ons, tunnel mode and security boundaries." />
   <meta name="twitter:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/og/ha-cloudflare-tunnel-guide.en.png" />
   <meta name="theme-color" content="#6183FC" />
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.en" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/i18n.css" />
 </head><body><div class="layout"><aside class="sidebar">
-    <a class="brand" href="tutorial.html">Cloudflared Web GUI 指南</a>
-    <div class="brand-sub">不開埠，安全連回家</div>
+    <a class="brand" href="tutorial.html">Cloudflared Web GUI Guide</a>
+    <div class="brand-sub">No open ports, a safe way home</div>
     <nav class="lang-switch" aria-label="Language"><a href="../ch1_overview.html" lang="zh-Hant" hreflang="zh-Hant">中文</a><a class="active" href="ch1_overview.html" lang="en" aria-current="page">EN</a></nav>
-    <a class="hub-link" href="index.html">◂ 資源總覽</a>
+    <a class="hub-link" href="index.html">◂ Resource Hub</a>
     <h2>Chapters</h2>
     <ol>
-      <li class="part-label">基礎：準備與安裝</li>
-      <li data-i18n="pending"><a href="ch1_overview.html" class="active">開始前：需求與安全邊界</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html">安裝 Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html">第一次開啟 Web GUI</a></li>
-      <li class="part-label">建置：建立安全入口</li>
-      <li data-i18n="pending"><a href="ch4_setup.html">Setup 首次設定精靈</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html">完成 Cloudflare 授權</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard 與 Tunnel 狀態</a></li>
-      <li class="part-label">管理：主機與日誌</li>
-      <li data-i18n="pending"><a href="ch7_config.html">Config 與 Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html">設定 external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html">管理 additional hosts</a></li>
-      <li class="part-label">維護：安全與排錯</li>
-      <li data-i18n="pending"><a href="ch10_logs.html">Logs 與日常維護</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html">安全檢查與最小暴露</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html">排錯、更新與交接</a></li>
+      <li class="part-label">Basics: prepare and install</li>
+      <li data-i18n="pending"><a href="ch1_overview.html" class="active">Before you start: requirements and security boundaries</a></li>
+      <li data-i18n="pending"><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
+      <li data-i18n="pending"><a href="ch3_first_open.html">First open of the Web GUI</a></li>
+      <li class="part-label">Build: create a secure entrance</li>
+      <li data-i18n="pending"><a href="ch4_setup.html">First-run Setup wizard</a></li>
+      <li data-i18n="pending"><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
+      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
+      <li class="part-label">Manage: hosts and logs</li>
+      <li data-i18n="pending"><a href="ch7_config.html">Config and Supervisor options</a></li>
+      <li data-i18n="pending"><a href="ch8_hostname.html">Set external hostname</a></li>
+      <li data-i18n="pending"><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
+      <li class="part-label">Maintain: security and troubleshooting</li>
+      <li data-i18n="pending"><a href="ch10_logs.html">Logs and routine maintenance</a></li>
+      <li data-i18n="pending"><a href="ch11_security.html">Security checks and minimal exposure</a></li>
+      <li data-i18n="pending"><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -66,7 +66,7 @@
 <div class="callout i18n-pending"><strong>This chapter has not been translated yet.</strong> You are reading the original Chinese text. <a href="../ch1_overview.html" hreflang="zh-Hant">Open the Chinese version</a></div>
 <div class="chapter-header"><div class="kicker">Chapter 1</div><h1>Before you start: draw the security boundary first</h1><p class="lead">First confirm that your Home Assistant can run add-ons and that your domain is served by Cloudflare, then decide who is allowed to connect from outside. This chapter is inventory and planning only. It changes nothing in the Cloudflared options, in Cloudflare, or on your home router.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">Plan first, so you don't open the wrong door</h2>
-<p>Cloudflare Tunnel lets the <code>cloudflared</code> in your home dial out to Cloudflare, so you do not have to set up inbound port forwarding on your router. That removes one common risk, but it does not turn the URL itself into a private space: the moment you publish a public hostname, people on the internet can still reach the entrance on the Cloudflare side. What protects you from there on is the Home Assistant sign-in and the Cloudflare Access policy you choose.</p>
+<p>Cloudflare Tunnel lets the <code>cloudflared</code> in your home dial out to Cloudflare, so you do not have to set up inbound port forwarding on your router. That removes one common risk, but it does not turn the URL itself into a private space: once you publish a public hostname, people on the internet may still reach the entrance on the Cloudflare side. What protects you from there on is the Home Assistant sign-in and the Cloudflare access policy you choose.</p>
 <div class="callout"><strong>What you get from this chapter:</strong> a preparation checklist, a decision on which tunnel management mode to use, and a clear security line around what you are not doing yet. Gathering the facts first and only then moving on to install and configuration is far safer than clicking and guessing.</div>
 <div class="callout warn"><strong>Read-only disclosure:</strong> the capture and verification environment for this guide was used only to look at the interface read-only. Nothing was saved, restarted or authorized, and no tunnel was changed. The text describes what each action does when you really run it, which does not mean that environment was modified.</div>
 </section>
@@ -83,12 +83,12 @@
 </section>
 <section id="steps" data-nav="Hands-on"><h2 data-icon="steps">Six steps to a pre-flight inventory</h2>
 <ol class="steps">
-<li><h3>Confirm your Home Assistant installation type</h3><p>On the Home Assistant system information page, confirm that your installation can run Supervisor-managed add-ons. The official Home Assistant docs currently cover add-ons under the Home Assistant OS workflow. If there is no add-on store under "Settings", do not force these install steps onto your system; look up your installation type first.</p></li>
+<li><h3>Confirm your Home Assistant installation type</h3><p>On the Home Assistant system information page, confirm that your installation can run Supervisor-managed add-ons. The official Home Assistant docs currently cover add-ons under the Home Assistant OS workflow. If there is no Apps store under "Settings", do not force these install steps onto your system; look up your installation type first.</p></li>
 <li><h3>Confirm your hardware architecture</h3><p>The add-on config in this repository currently lists <code>aarch64</code> and <code>amd64</code>. If your system architecture is neither, adding the repository may still leave you with no installable version; stop and check the project's release information first.</p></li>
 <li><h3>Get your Cloudflare account and domain ready</h3><p>Confirm that you can sign in to the right Cloudflare account, and that the domain you plan to use already has its DNS served by Cloudflare. Write down only the public name of the domain. Never put an account password, an API token or a tunnel token into shared notes.</p></li>
 <li><h3>Pick a hostname that is not already in use</h3><p>Plan a full subdomain, for example <code>ha.example.com</code>. Check in Cloudflare DNS whether it already serves a website, mail or something else; when the locally managed mode starts, the docs warn explicitly that a matching <code>external_hostname</code> or <code>additional_hosts</code> DNS record may be overwritten.</p></li>
 <li><h3>Decide between locally managed and remotely managed</h3><p>If this is your first time and you want the add-on to create the tunnel and the DNS route, the locally managed mode the docs recommend is usually the right choice. Only weigh up the remotely managed mode if you already manage tunnels and public hostnames in the Cloudflare dashboard; it uses <code>tunnel_token</code>, and the other local settings in the add-on are ignored.</p></li>
-<li><h3>Write down your stopping point and how to roll back</h3><p>This chapter stops at "the facts are confirmed": no tunnel is started, nothing is authorized, no DNS is changed. Check the date of your existing Home Assistant backup and how to restore it, and confirm that you can still sign in over your home network URL. If you have no usable backup, make creating one a required item before any real change.</p></li>
+<li><h3>Write down your stopping point and how to roll back</h3><p>This chapter stops at "the facts are confirmed": no tunnel is started, nothing is authorized, no DNS is changed. Check the date of your existing Home Assistant backup and how to restore it, and confirm that you can still sign in from your home network using the local URL. If you have no usable backup, make creating one a required item before any real change.</p></li>
 </ol>
 <div class="callout danger"><strong>Do not share secrets:</strong> the Cloudflare authorization URL, the tunnel token, the session cookie, and any log that may contain them or your account, hostname, tunnel ID or IP must never be posted to a public forum. When you ask for help, quote only the error you have to show, and redact it first.</div>
 </section>
@@ -98,21 +98,21 @@
 <tr><td>First-time setup</td><td>The add-on produces a Cloudflare authorization URL</td><td>You get a <code>tunnel_token</code> from Cloudflare</td></tr>
 <tr><td>Hostname and routing</td><td>Mostly set in the add-on's <code>external_hostname</code> and <code>additional_hosts</code></td><td>Mostly set in the Cloudflare dashboard; the add-on's other settings are ignored</td></tr>
 <tr><td>Best fit</td><td>A first run, following the flow the project docs recommend</td><td>You already know the Zero Trust dashboard, or you need more advanced settings on the Cloudflare side</td></tr>
-<tr><td>The main secret</td><td>The authorization URL that appears in your browser, and the certificate created afterwards</td><td><code>tunnel_token</code></td></tr>
+<tr><td>The main secret</td><td>The authorization URL that appears in your browser, and the account certificate created afterwards</td><td><code>tunnel_token</code></td></tr>
 </tbody></table>
 <div class="callout warn"><strong>Do not mix the two modes:</strong> once <code>tunnel_token</code> is filled in for the remotely managed mode, the docs state that the add-on's other settings are ignored. Seeing the fields still on the screen does not mean they control the routes in the Cloudflare dashboard.</div>
 <p>If you are still unsure, pick locally managed and plan a single Home Assistant hostname. Do not add the router, the NAS, a camera or an admin interface on day one. The fewer services there are, the clearer the acceptance check and the troubleshooting.</p>
 </section>
 <section id="security" data-nav="Security checks"><h2 data-icon="security">Security checks before you start</h2>
 <table class="data-table"><thead><tr><th>Check</th><th>Passing state</th><th>If it fails, what to do</th></tr></thead><tbody>
-<tr><td>Router inbound rules</td><td>You add no Home Assistant port forwarding for this guide</td><td>Leave the port closed; the tunnel uses an outbound connection</td></tr>
+<tr><td>Router inbound rules</td><td>You add no Home Assistant port forwarding for this guide</td><td>Do not open a port yet; the tunnel uses an outbound connection</td></tr>
 <tr><td>Home Assistant accounts</td><td>Everyone has their own account and a strong password; the admin account is not shared</td><td>Tidy up the accounts and their authentication first</td></tr>
 <tr><td>Admin entrance</td><td>The Web GUI is opened only through the Home Assistant Ingress</td><td>Do not separately proxy the internal 8099 or the admin page to the internet</td></tr>
 <tr><td>Exposure</td><td>You start by planning only the Home Assistant hostname you need</td><td>Delete any plan to expose other local devices just because it is convenient</td></tr>
-<tr><td>Handling secrets</td><td>The authorization URL, the token and full logs stay on a trusted device</td><td>If anything leaked, stop and revoke or rotate the affected certificates in the Cloudflare dashboard</td></tr>
+<tr><td>Handling secrets</td><td>The authorization URL, the token and full logs stay on a trusted device</td><td>If anything leaked, stop the process and revoke or rotate the affected certificates in the Cloudflare dashboard</td></tr>
 <tr><td>Knowing what changes</td><td>You know that <strong>Save &amp; Restart</strong> writes to Supervisor options and then restarts the add-on</td><td>Do not press it before you have checked the fields and what they affect</td></tr>
 </tbody></table>
-<div class="callout danger"><strong>Save &amp; Restart is not a preview:</strong> it really does change the Supervisor options and then restarts the add-on; that restart can begin authorization, create a tunnel, update DNS or drop existing connections. Do not press it while you are only looking, and check both your settings and your maintenance window before you do it for real.</div>
+<div class="callout danger"><strong>Save &amp; Restart is not a preview:</strong> it really does change the Supervisor options and then restarts the add-on; that restart can begin authorization, create a tunnel, update DNS or drop existing connections. Do not press it while you are viewing read-only, and check both your settings and your maintenance window before you do it for real.</div>
 </section>
 <section id="test" data-nav="Acceptance tests"><h2 data-icon="test">Chapter acceptance check: all six answers must be yes</h2>
 <ol class="steps">
@@ -123,19 +123,19 @@
 <li><h3>You still have a local fallback</h3><p>You can sign in to Home Assistant from your home network, and you have checked your existing backup and how to restore it; if you have no usable backup, stop at this chapter and make no real change.</p></li>
 <li><h3>Nothing has changed yet</h3><p>You have only taken inventory. Reading this chapter has not made you save a setting, start the add-on, complete a Cloudflare authorization, or change DNS or a router rule.</p></li>
 </ol>
-<div class="callout tip"><strong>Move on only when everything passes:</strong> the next chapter is where you add the third-party add-on repository and install the package; creating the tunnel and authorizing it come in later chapters.</div>
+<div class="callout tip"><strong>Move on only when everything passes:</strong> the next chapter is where you add the third-party repository and install the package; creating the tunnel and authorizing it come in later chapters.</div>
 </section>
 <section id="troubleshoot" data-nav="Common pitfalls"><h2 data-icon="troubleshoot">Common planning pitfalls</h2>
 <ol class="steps">
-<li><h3>You cannot find add-ons under "Settings"</h3><p>Check the installation type on the system information page first. Add-ons need a Supervisor-managed environment, and Home Assistant Container is not installed through this add-on store flow. Do not run some unknown container command just because the name looks similar.</p></li>
+<li><h3>You cannot find Apps under "Settings"</h3><p>Check the installation type on the system information page first. Add-ons need a Supervisor-managed environment, and Home Assistant Container is not installed through this add-on store flow. Do not run some unknown container command just because the name looks similar.</p></li>
 <li><h3>You do not know your CPU architecture</h3><p>Read the architecture from the Home Assistant system information, then compare it with the project's <code>config.yaml</code>, which lists <code>aarch64</code> and <code>amd64</code>. Do not guess from the device's product name alone.</p></li>
 <li><h3>The domain is not on Cloudflare DNS</h3><p>Set up the DNS delegation correctly between your registrar and the Cloudflare zone first, then wait for the status to go normal. Typing the subdomain into the add-on does not replace the domain's Cloudflare DNS setup.</p></li>
 <li><h3>The hostname you picked already has a DNS record</h3><p>Find out what that record serves. If it is still in use, pick a new hostname; do not let the locally managed flow overwrite the record of an existing website, mail service or anything else.</p></li>
-<li><h3>You do not know which tunnel mode to choose</h3><p>With no prior experience managing a Cloudflare Tunnel, follow the project docs and choose locally managed. Choose remotely managed only once you have created a remote-managed tunnel and understand where the token and the dashboard routing responsibilities sit.</p></li>
+<li><h3>You do not know which tunnel mode to choose</h3><p>With no prior experience managing a Cloudflare Tunnel, follow the project docs and choose locally managed. Choose remotely managed only once you have created a remotely managed tunnel and understand where the token and the dashboard routing responsibilities sit.</p></li>
 </ol>
 </section>
 <section id="faq" data-nav="FAQ"><h2 data-icon="faq">Before you start FAQ</h2>
-<details class="faq"><summary>Does using a tunnel mean I no longer need the Home Assistant sign-in?</summary><div class="body">No. A tunnel solves the connection path; it does not replace Home Assistant authentication. A public hostname should still keep the Home Assistant sign-in in front of it, and if your risk profile calls for it, weigh up an Access policy by following the official Cloudflare docs.</div></details>
+<details class="faq"><summary>Does using a tunnel mean I don't need the Home Assistant sign-in at all?</summary><div class="body">No. A tunnel solves the connection path; it does not replace Home Assistant authentication. A public hostname should still keep the Home Assistant sign-in in front of it, and if your risk profile calls for it, weigh up an Access policy by following the official Cloudflare docs.</div></details>
 <details class="faq"><summary>Do I have to have a domain of my own?</summary><div class="body">The first-run setup docs for this add-on's locally managed mode say you need a domain whose DNS is served by Cloudflare, and that you settle on a full hostname. Do not treat a temporary test URL or somebody else's domain as a real solution.</div></details>
 <details class="faq"><summary>Do I need a static public IP, or to open 8123 on the router?</summary><div class="body">Cloudflare Tunnel has <code>cloudflared</code> open the connection outbound, so it does not require a publicly routable source IP, and you should not add inbound port forwarding for Home Assistant for this guide.</div></details>
 <details class="faq"><summary>Does the Web GUI behave differently from the original Cloudflared add-on?</summary><div class="body">The WoowTech README states that the tunnel core, the Supervisor options schema and the log output are inherited from upstream; what is new is the Ingress Web GUI. With a completely blank configuration, this fork keeps the GUI reachable while the tunnel stays stopped, which makes the first setup easier.</div></details>
@@ -145,7 +145,7 @@
 <table class="data-table"><thead><tr><th>Source</th><th>What this chapter verifies</th></tr></thead><tbody>
 <tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui" rel="noopener">WoowTech project README</a></td><td>The Web GUI, Ingress, the two tunnel modes, Supervisor options and blank-configuration behavior</td></tr>
 <tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/DOCS.md" rel="noopener">Cloudflared Web GUI add-on docs</a></td><td>The domain prerequisite, the difference between the modes, the DNS overwrite warning and the Home Assistant proxy prerequisite</td></tr>
-<tr><td><a href="https://www.home-assistant.io/common-tasks/os/#installing-a-third-party-app-repository" rel="noopener">Home Assistant: third-party add-on repository</a></td><td>Where add-ons apply, the risk of a third-party repository and the install flow</td></tr>
+<tr><td><a href="https://www.home-assistant.io/common-tasks/os/#installing-a-third-party-app-repository" rel="noopener">Home Assistant: third-party App repository</a></td><td>Where add-ons apply, the risk of a third-party repository and the install flow</td></tr>
 <tr><td><a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/" rel="noopener">Cloudflare Tunnel official docs</a></td><td>How the connector opens an outbound-only connection, and why no publicly routable source IP is needed</td></tr>
 <tr><td><a href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/" rel="noopener">Cloudflare: connect networks</a></td><td>The current navigation entry points for tunnels and public hostnames</td></tr>
 </tbody></table>
@@ -158,11 +158,11 @@
       </a>
       <a class="next" href="ch2_install.html">
         <span class="label">Next <i class="mdi mdi-arrow-right" aria-hidden="true"></i></span>
-        <span class="title">02 · 安裝 Cloudflared Web GUI</span>
+        <span class="title">02 · Install the Cloudflared Web GUI</span>
       </a>
     </div>
 
     <footer class="site-footer">
-      <p>Home Assistant Cloudflared Web GUI 指南 is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">woowtech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
-      <p class="footer-meta">截圖取自 Home Assistant 與 Cloudflared Web GUI。Home Assistant 與 Cloudflare 為其各自權利人的商標，本站與其無隸屬關係。 · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
+      <p>Home Assistant Cloudflared Web GUI guide is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">WoowTech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
+      <p class="footer-meta">Screenshots are from Home Assistant and the Cloudflared Web GUI. Home Assistant and Cloudflare are trademarks of their respective owners; this site is not affiliated with either. · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
     </footer></main></div><script id="ui-strings" type="application/json">{"tocToggle":"Contents","tocExpand":"Expand chapter navigation","tocCollapse":"Collapse chapter navigation"}</script><script src="../assets/js/toc.js"></script></body></html>

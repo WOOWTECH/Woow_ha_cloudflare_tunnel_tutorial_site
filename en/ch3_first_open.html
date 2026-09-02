@@ -1,54 +1,54 @@
 <!doctype html><html lang="en"><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chapter 3 · 第一次開啟 · Home Assistant Cloudflared Web GUI 指南</title>
-  <meta name="description" content="Cloudflared Web GUI 首次開啟：Ingress、四個主要頁面與唯讀狀態檢查。" />
-  <meta name="author" content="woowtech" />
+  <title>Chapter 3 · First open · Home Assistant Cloudflared Web GUI guide</title>
+  <meta name="description" content="Cloudflared Web GUI first open: Ingress, the four main pages and a read-only status check." />
+  <meta name="author" content="WoowTech" />
   <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch3_first_open.html" />
   <meta name="robots" content="noindex, follow" />
   <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI 指南" />
+  <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI guide" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="zh_TW" />
-  <meta property="og:title" content="Chapter 3 · 第一次開啟 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta property="og:description" content="Cloudflared Web GUI 首次開啟：Ingress、四個主要頁面與唯讀狀態檢查。" />
+  <meta property="og:title" content="Chapter 3 · First open · Home Assistant Cloudflared Web GUI guide" />
+  <meta property="og:description" content="Cloudflared Web GUI first open: Ingress, the four main pages and a read-only status check." />
   <meta property="og:url" content="https://ha-cloudflare-tunnel-guide.woowtech.io/en/ch3_first_open.html" />
   <meta property="og:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/screenshots/ch3/01_webgui_dashboard.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Chapter 3 · 第一次開啟 · Home Assistant Cloudflared Web GUI 指南" />
-  <meta name="twitter:description" content="Cloudflared Web GUI 首次開啟：Ingress、四個主要頁面與唯讀狀態檢查。" />
+  <meta name="twitter:title" content="Chapter 3 · First open · Home Assistant Cloudflared Web GUI guide" />
+  <meta name="twitter:description" content="Cloudflared Web GUI first open: Ingress, the four main pages and a read-only status check." />
   <meta name="twitter:image" content="https://ha-cloudflare-tunnel-guide.woowtech.io/assets/screenshots/ch3/01_webgui_dashboard.png" />
   <meta name="theme-color" content="#6183FC" />
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.en" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/i18n.css" />
 </head><body><div class="layout"><aside class="sidebar">
-    <a class="brand" href="tutorial.html">Cloudflared Web GUI 指南</a>
-    <div class="brand-sub">不開埠，安全連回家</div>
+    <a class="brand" href="tutorial.html">Cloudflared Web GUI Guide</a>
+    <div class="brand-sub">No open ports, a safe way home</div>
     <nav class="lang-switch" aria-label="Language"><a href="../ch3_first_open.html" lang="zh-Hant" hreflang="zh-Hant">中文</a><a class="active" href="ch3_first_open.html" lang="en" aria-current="page">EN</a></nav>
-    <a class="hub-link" href="index.html">◂ 資源總覽</a>
+    <a class="hub-link" href="index.html">◂ Resource Hub</a>
     <h2>Chapters</h2>
     <ol>
-      <li class="part-label">基礎：準備與安裝</li>
-      <li data-i18n="pending"><a href="ch1_overview.html">開始前：需求與安全邊界</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html">安裝 Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html" class="active">第一次開啟 Web GUI</a></li>
-      <li class="part-label">建置：建立安全入口</li>
-      <li data-i18n="pending"><a href="ch4_setup.html">Setup 首次設定精靈</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html">完成 Cloudflare 授權</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard 與 Tunnel 狀態</a></li>
-      <li class="part-label">管理：主機與日誌</li>
-      <li data-i18n="pending"><a href="ch7_config.html">Config 與 Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html">設定 external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html">管理 additional hosts</a></li>
-      <li class="part-label">維護：安全與排錯</li>
-      <li data-i18n="pending"><a href="ch10_logs.html">Logs 與日常維護</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html">安全檢查與最小暴露</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html">排錯、更新與交接</a></li>
+      <li class="part-label">Basics: prepare and install</li>
+      <li data-i18n="pending"><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
+      <li data-i18n="pending"><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
+      <li data-i18n="pending"><a href="ch3_first_open.html" class="active">First open of the Web GUI</a></li>
+      <li class="part-label">Build: create a secure entrance</li>
+      <li data-i18n="pending"><a href="ch4_setup.html">First-run Setup wizard</a></li>
+      <li data-i18n="pending"><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
+      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
+      <li class="part-label">Manage: hosts and logs</li>
+      <li data-i18n="pending"><a href="ch7_config.html">Config and Supervisor options</a></li>
+      <li data-i18n="pending"><a href="ch8_hostname.html">Set external hostname</a></li>
+      <li data-i18n="pending"><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
+      <li class="part-label">Maintain: security and troubleshooting</li>
+      <li data-i18n="pending"><a href="ch10_logs.html">Logs and routine maintenance</a></li>
+      <li data-i18n="pending"><a href="ch11_security.html">Security checks and minimal exposure</a></li>
+      <li data-i18n="pending"><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -66,9 +66,9 @@
 <div class="callout i18n-pending"><strong>This chapter has not been translated yet.</strong> You are reading the original Chinese text. <a href="../ch3_first_open.html" hreflang="zh-Hant">Open the Chinese version</a></div>
 <div class="chapter-header"><div class="kicker">Chapter 3</div><h1>Open the Web GUI for the first time</h1><p class="lead">Go into the admin interface through Home Assistant Ingress and work out what Dashboard, Setup, Config and Logs are each responsible for. This time you only browse and read status. You press no Restart, no Save, no Save &amp; Restart, no authorization and no other control that changes the system.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">Learn your way around before you touch a button that changes settings</h2>
-<p>The Cloudflared Web GUI gathers information that used to be scattered across the add-on options and the log into four pages. That makes it easier to read, but it also puts "Save" and "Restart" within easy reach: if you keep clicking before you understand what each page is responsible for, you can write to Supervisor options, restart the add-on, and then create or change a tunnel and DNS.</p>
+<p>The Cloudflared Web GUI gathers information that used to be scattered across the add-on options and the log into four pages. The upside is that it is easier to read; the risk is that saving and restarting are also within easy reach: if you keep clicking before you understand what each page is responsible for, you can write to Supervisor options, restart the add-on, and then create or change a tunnel and DNS.</p>
 <div class="callout"><strong>This chapter is a read-only tour only:</strong> you will confirm that Ingress works, that all four pages load and that a blank configuration displays sensibly, and you will learn which buttons are the hard stops. The real Setup, the Cloudflare authorization and the hostname settings are left to later chapters.</div>
-<div class="callout warn"><strong>Environment disclosure:</strong> in the capture environment for this guide nothing was saved, restarted or authorized, and no tunnel was changed. Reading the screens does not mean the real actions described in this chapter were ever run there. When you press the buttons on your own Home Assistant, the warnings still apply and the changes are real.</div>
+<div class="callout warn"><strong>Environment disclosure:</strong> in the capture environment for this guide nothing was saved, restarted or authorized, and no tunnel was changed. Reading the screens does not mean the real actions described in this chapter were ever run there. When you press the buttons on your own Home Assistant, you still have to follow the warnings and take responsibility for the real changes.</div>
 </section>
 <section id="concept" data-nav="Core concepts"><h2 data-icon="concept">Ingress is the admin entrance, not a public remote URL</h2>
 <p>When you choose <strong>Open Web UI</strong> on the add-on detail page, Home Assistant uses Ingress to show the Web GUI inside the interface you are already signed in to. The project's internal Web GUI service uses 8099, but the add-on config does not ask you to map that port to the outside; your Home Assistant sign-in is the first door into this admin page.</p>
@@ -84,10 +84,10 @@
 <ol class="steps">
 <li><h3>Start from the add-on detail page</h3><p>Go to Apps under "Settings" and open the <strong>Cloudflared Web GUI</strong> detail page. Confirm that the add-on is started, then choose <strong>Open Web UI</strong>. If you turned on the sidebar entry in <a href="ch2_install.html">Chapter 2</a>, you can use the Cloudflared shortcut instead.</p></li>
 <li><h3>Confirm you are still inside Home Assistant</h3><p>The page should open behind the Home Assistant sign-in, not ask you to connect to an internal port directly. Check that the Home Assistant navigation is still on the left and that it names the host you are on, so you do not mistake another host's interface for this one.</p></li>
-<li><h3>Look at the Dashboard first, and do not press Restart</h3><p>Identify the three kinds of status card, Tunnel, Mode and Add-on, and the <strong>Restart Add-on</strong> button. With empty options the page may say that nothing is configured yet and that Tunnel is stopped; that is the expected state on a first tour, not a prompt to restart right away.</p></li>
+<li><h3>Look at the Dashboard first, and do not press Restart</h3><p>Identify the three kinds of status card — Tunnel, Mode and Add-on — and <strong>Restart Add-on</strong>. With empty options the page may say that nothing is configured yet and that Tunnel is stopped; that is the expected state on a first tour, not a prompt to restart right away.</p></li>
 <li><h3>Switch to Setup and only read the step status</h3><p>Setup tracks the configuration, the Cloudflare authorization, the tunnel creation and the connection. With a blank configuration it usually stops at the first step and points you to Config. If an authorization URL appears unexpectedly, do not click, copy or share it; first check whether this host is already configured.</p></li>
 <li><h3>Switch to Config and do not touch the form</h3><p>Confirm that the page loads the Supervisor options, and find where <strong>Save</strong>, <strong>Save &amp; Restart</strong> and <strong>Reset</strong> are. Do not type in a field, flip a toggle or remove a token; in this chapter you do not even change the unsaved form. Read it, then leave.</p></li>
-<li><h3>Switch to Logs and only watch the live status</h3><p>Logs shows the same content as the Home Assistant add-on Log tab: Connected / Disconnected, the filter field and the log area. Do not download or publish the full log; to identify the page it is enough to see that the stream is connected, or Waiting for logs.</p></li>
+<li><h3>Switch to Logs and only watch the live status</h3><p>Logs shows the same content as the Home Assistant add-on Log tab: Connected / Disconnected, the Filter field and the log area. Do not download or publish the full log; to identify the page it is enough to see that the stream is connected, or Waiting for logs.</p></li>
 <li><h3>Go back to the Dashboard and leave</h3><p>Check once more that there is no restart in progress, that no hostname was added and that you never entered the Cloudflare authorization page. Close the Web GUI tab or go back to the Home Assistant home page; you do not need to sign out of Home Assistant, and you do not need to stop the add-on.</p></li>
 </ol>
 <figure class="shot"><img src="../assets/screenshots/ch3/01_webgui_dashboard.png" alt="The Cloudflared Web GUI Dashboard for an existing remotely managed tunnel, showing the four main tabs" /><figcaption><strong>Figure 3-1</strong> This is a read-only example of an existing remotely managed tunnel, not the blank state you should expect from a fresh install. This chapter uses it only to identify the four tabs, and does not press Restart Add-on.</figcaption></figure>
@@ -95,13 +95,13 @@
 </section>
 <section id="choices" data-nav="Choosing options"><h2 data-icon="compare">What question each of the four pages answers</h2>
 <table class="data-table"><thead><tr><th>Page</th><th>What it answers</th><th>What you can see</th><th>This chapter's hard stop</th></tr></thead><tbody>
-<tr><td>Dashboard</td><td>What is happening with the add-on and the tunnel right now?</td><td>Tunnel status, edge connections, mode, the add-on and Supervisor connection, versions</td><td>Do not press Restart Add-on</td></tr>
-<tr><td>Setup</td><td>How far has the first-time setup got?</td><td>Progress on configuration, authorization, tunnel creation and the connection; it shows the authorization URL when one is needed</td><td>Do not open the authorization URL and do not copy the link</td></tr>
+<tr><td>Dashboard</td><td>What is happening with the add-on and the tunnel right now?</td><td>Tunnel status, edge connections, Mode, the add-on and Supervisor connection, versions</td><td>Do not press Restart Add-on</td></tr>
+<tr><td>Setup</td><td>How far has the first-time setup progressed?</td><td>Progress on configuration, authorization, tunnel creation and the connection; it shows the authorization URL when one is needed</td><td>Do not open the authorization URL and do not copy the link</td></tr>
 <tr><td>Config</td><td>What are the Supervisor options right now?</td><td>The token, the hostname, additional hosts, catch-all and the advanced options</td><td>Do not change a field and do not press Save or Save &amp; Restart</td></tr>
-<tr><td>Logs</td><td>What are the add-on and <code>cloudflared</code> reporting?</td><td>The same live stream as the HA Log tab, plus filter, clear the view and download</td><td>Do not publish or casually download the full content</td></tr>
+<tr><td>Logs</td><td>What are the add-on and <code>cloudflared</code> reporting?</td><td>The same live stream as the HA Log tab, plus Filter, Clear the view and Download</td><td>Do not publish or casually download the full content</td></tr>
 </tbody></table>
 <div class="callout"><strong>Single source of truth:</strong> the project README states that the Supervisor options are the single source of truth for the configuration. Config is not a second set of settings: saving in the Web GUI shows up on the Home Assistant add-on configuration page, and a change made there syncs back the other way.</div>
-<div class="callout warn"><strong>Reset is not a restore from backup either:</strong> in the current front end, Reset returns the unsaved form to the options that were loaded. It does not put the system back to a factory state. Since you type nothing in this chapter, you have no reason to press it.</div>
+<div class="callout warn"><strong>Reset is not a restore from backup either:</strong> in the current frontend, Reset returns the unsaved form to the options that were loaded. It does not put the system back to a factory state. Since you type nothing in this chapter, you have no reason to press it.</div>
 </section>
 <section id="security" data-nav="Security checks"><h2 data-icon="security">Spot everything that changes the system or leaks data</h2>
 <table class="data-table"><thead><tr><th>Control or data</th><th>Real impact</th><th>Safe practice</th></tr></thead><tbody>
@@ -113,7 +113,7 @@
 <tr><td>Logs: display and download</td><td>May contain a hostname, a tunnel ID, an IP, an authorization URL and error context</td><td>Cut it down to the smallest excerpt and redact it before you ask someone you trust for help</td></tr>
 </tbody></table>
 <div class="callout danger"><strong>The most important hard stop:</strong> <strong>Save &amp; Restart</strong> writes to Supervisor options and then restarts the add-on. That can trigger Cloudflare authorization, tunnel creation, a DNS route or a break in an existing connection; on a read-only tour, never press it.</div>
-<div class="callout danger"><strong>Secrets are never shared:</strong> the authorization URL, the tunnel token, the certificate, the session cookie and unredacted Logs must never go into a public issue, a forum post, a recording or a screenshot. Saying "I can see an authorization button" is enough; do not copy the URL out.</div>
+<div class="callout danger"><strong>Secrets are never shared:</strong> the authorization URL, the tunnel token, the certificate, the session cookie and unredacted Logs must never go into a public issue, a community or social media post, a recording or a screenshot. Saying "I can see an authorization button" is enough; do not copy the URL out.</div>
 </section>
 <section id="test" data-nav="Acceptance tests"><h2 data-icon="test">Acceptance tests for your first open</h2>
 <ol class="steps">
@@ -142,15 +142,15 @@
 <details class="faq"><summary>Are Open Web UI and Cloudflared in the sidebar different interfaces?</summary><div class="body">No. Both go through Home Assistant Ingress into the same Web GUI; the sidebar entry is only a shortcut. Neither needs 8099 exposed separately.</div></details>
 <details class="faq"><summary>If I only press Save and not Restart, does that count as a change?</summary><div class="body">It still counts. Save writes the form back to Supervisor options; it just has not been applied by a restart yet. Save &amp; Restart writes and restarts the add-on at the same time. Neither button is a preview.</div></details>
 <details class="faq"><summary>What is the difference between Restart Add-on on the Dashboard and Save &amp; Restart?</summary><div class="body">The Dashboard restart uses the options already saved: it restarts and runs setup again. Save &amp; Restart on Config writes the form first, then restarts. Both drop the GUI and the tunnel briefly.</div></details>
-<details class="faq"><summary>Does Filter on Logs delete the lines that do not match?</summary><div class="body">No, it only filters the messages currently shown. Clear only clears the messages in the front end as well, so do not treat it as a guarantee that sensitive data is gone; the genuinely safe practice is not to download or publish the full log.</div></details>
-<details class="faq"><summary>Can I send the authorization URL to my phone and open it there?</summary><div class="body">We do not recommend sending it over chat, email or a shared clipboard. Treat the authorization URL as sensitive data and open it directly on a device you control and trust. This chapter does not authorize anything.</div></details>
+<details class="faq"><summary>Does Filter on Logs delete the lines that do not match?</summary><div class="body">No, it only filters the messages currently shown. Clear, too, only clears the messages currently in the frontend, so do not treat it as a guarantee that sensitive data is gone; the genuinely safe practice is not to download or publish the full log.</div></details>
+<details class="faq"><summary>Can I send the authorization URL to my phone and open it there?</summary><div class="body">We do not recommend sending it over chat, email or a public clipboard. Treat the authorization URL as sensitive data and open it directly on a device you control and trust. This chapter does not authorize anything.</div></details>
 </section>
 <section id="sources" data-nav="Official sources"><h2 data-icon="book">Official sources and version notes</h2>
 <table class="data-table"><thead><tr><th>Source</th><th>What this chapter verifies</th></tr></thead><tbody>
 <tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui#what-you-get" rel="noopener">WoowTech README: What you get</a></td><td>What Dashboard, Setup, Config and Logs are for, and how they sync with the Supervisor options</td></tr>
 <tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/blob/main/cloudflared/DOCS.md#web-gui" rel="noopener">Cloudflared Web GUI add-on docs</a></td><td>Open Web UI and the sidebar Ingress, the blank-configuration behavior, Save &amp; Restart and what the four pages do</td></tr>
 <tr><td><a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_webgui/tree/main/cloudflared/webgui" rel="noopener">Web GUI source code</a></td><td>The current navigation names, the Dashboard restart prompt, how Config saves and the Logs controls</td></tr>
-<tr><td><a href="https://developers.home-assistant.io/docs/apps/presentation#ingress" rel="noopener">Home Assistant Developer: add-on Ingress</a></td><td>The official mechanism by which add-ons serve a web interface through the Home Assistant front end</td></tr>
+<tr><td><a href="https://developers.home-assistant.io/docs/apps/presentation#ingress" rel="noopener">Home Assistant Developer: add-on Ingress</a></td><td>The official mechanism by which add-ons serve a web interface through the Home Assistant frontend</td></tr>
 <tr><td><a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/" rel="noopener">Cloudflare Tunnel official docs</a></td><td>Where the connector and the tunnel stop, so you do not mistake the Ingress admin page for a public hostname</td></tr>
 </tbody></table>
 <div class="callout"><strong>Version note:</strong> this chapter uses the project's current Dashboard, Setup, Config and Logs names. Card layout, colors, button text and the Home Assistant translation of Apps / Add-ons may change between versions. Follow what the pages actually do, the latest docs in the repository and the source code.</div>
@@ -158,15 +158,15 @@
 <div class="pager">
       <a class="prev" href="ch2_install.html">
         <span class="label"><i class="mdi mdi-arrow-left" aria-hidden="true"></i> Previous</span>
-        <span class="title">02 · 安裝 Cloudflared Web GUI</span>
+        <span class="title">02 · Install the Cloudflared Web GUI</span>
       </a>
       <a class="next" href="ch4_setup.html">
         <span class="label">Next <i class="mdi mdi-arrow-right" aria-hidden="true"></i></span>
-        <span class="title">04 · Setup 首次設定精靈</span>
+        <span class="title">04 · First-run Setup wizard</span>
       </a>
     </div>
 
     <footer class="site-footer">
-      <p>Home Assistant Cloudflared Web GUI 指南 is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">woowtech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
-      <p class="footer-meta">截圖取自 Home Assistant 與 Cloudflared Web GUI。Home Assistant 與 Cloudflare 為其各自權利人的商標，本站與其無隸屬關係。 · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
+      <p>Home Assistant Cloudflared Web GUI guide is produced by <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">WoowTech</a> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> — share and adapt freely, with attribution.</p>
+      <p class="footer-meta">Screenshots are from Home Assistant and the Cloudflared Web GUI. Home Assistant and Cloudflare are trademarks of their respective owners; this site is not affiliated with either. · <a href="https://github.com/WOOWTECH/Woow_ha_cloudflare_tunnel_tutorial_site" rel="noopener">Source &amp; errata</a></p>
     </footer></main></div><script id="ui-strings" type="application/json">{"tocToggle":"Contents","tocExpand":"Expand chapter navigation","tocCollapse":"Collapse chapter navigation"}</script><script src="../assets/js/toc.js"></script></body></html>
