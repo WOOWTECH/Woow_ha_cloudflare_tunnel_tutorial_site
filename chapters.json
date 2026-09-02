@@ -9,7 +9,23 @@
     "locale": "zh_TW",
     "description": "12 章繁體中文 Cloudflared Web GUI 教學：從安裝、Setup、Cloudflare 授權、hostname、Dashboard、Config、Logs，到安全與排錯。",
     "ogImage": "assets/screenshots/ch3/01_webgui_dashboard.png",
-    "license": {"name":"CC BY 4.0","url":"https://creativecommons.org/licenses/by/4.0/deed.zh-hant","holder":"woowtech"}
+    "license": {"name":"CC BY 4.0","url":"https://creativecommons.org/licenses/by/4.0/deed.zh-hant","holder":"woowtech"},
+    "footerMeta": "截圖取自 Home Assistant 與 Cloudflared Web GUI。Home Assistant 與 Cloudflare 為其各自權利人的商標，本站與其無隸屬關係。",
+    "fontsUrl": "https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;500;600&family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Yellowtail&display=swap",
+    "strings": {
+      "_readme": "本站 pager 標籤帶 mdi 箭頭圖示（舊 generator 的寫法），其餘 chrome 字串沿用 kit 預設。",
+      "pagerPrev": "<i class=\"mdi mdi-arrow-left\" aria-hidden=\"true\"></i> 上一章",
+      "pagerPrevAppendix": "<i class=\"mdi mdi-arrow-left\" aria-hidden=\"true\"></i> 附錄 {n}",
+      "pagerNext": "下一章 <i class=\"mdi mdi-arrow-right\" aria-hidden=\"true\"></i>",
+      "pagerNextAppendix": "附錄 {n} <i class=\"mdi mdi-arrow-right\" aria-hidden=\"true\"></i>",
+      "pagerNextAppendixFromAppendix": "下一附錄 <i class=\"mdi mdi-arrow-right\" aria-hidden=\"true\"></i>",
+      "pagerContentsNext": "回目錄 <i class=\"mdi mdi-arrow-right\" aria-hidden=\"true\"></i>"
+    },
+    "chrome": {
+      "_readme": "沒有附錄時側欄與目錄頁不輸出空的「附錄」區塊；目錄頁第二組以後用 class chapter-index-spaced（style.css 定義）而非 inline style。",
+      "hideEmptyAppendices": true,
+      "catalogGroupClass": "chapter-index-spaced"
+    }
   },
   "hub": {
     "_readme": "index.html 是四類資源總覽(hub)，由人手維護、build_nav 不碰。教學目錄頁由 build_nav 產生到 catalog 指定的檔案。pages 是 hub 底下的獨立單檔手冊（自帶 head 與樣式），納入 sitemap 與 check_links 白名單。",
@@ -32,5 +48,10 @@
     {"file":"ch12_troubleshooting.html","num":"12","navLabel":"排錯、更新與交接","title":"排錯與交接","pagerTitle":"12 · 排錯、更新與交接","card":"依序檢查 HA、Web GUI、cloudflared、DNS 與 Cloudflare edge，留下可交接記錄。","description":"Cloudflared Web GUI 排錯：HA ingress、Tunnel、DNS、Logs、更新與交接。","part":"維護：安全與排錯"}
   ],
   "appendices": [],
-  "sectionLabels": {}
+  "sectionLabels": {},
+  "i18n": {
+    "_readme": "hreflang 給 zh 頁自指用；xDefault 指向哪個語系（en 或 primary），一行可反轉。語系清單在 i18n/locales.json。",
+    "hreflang": ["zh-Hant", "zh"],
+    "xDefault": "en"
+  }
 }
