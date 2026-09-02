@@ -34,21 +34,21 @@
     <h2>Chapters</h2>
     <ol>
       <li class="part-label">Basics: prepare and install</li>
-      <li data-i18n="pending"><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html">First open of the Web GUI</a></li>
+      <li><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
+      <li><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
+      <li><a href="ch3_first_open.html">First open of the Web GUI</a></li>
       <li class="part-label">Build: create a secure entrance</li>
-      <li data-i18n="pending"><a href="ch4_setup.html">First-run Setup wizard</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html" class="active">Complete the Cloudflare authorization</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
+      <li><a href="ch4_setup.html">First-run Setup wizard</a></li>
+      <li><a href="ch5_authorize.html" class="active">Complete the Cloudflare authorization</a></li>
+      <li><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
       <li class="part-label">Manage: hosts and logs</li>
-      <li data-i18n="pending"><a href="ch7_config.html">Config and Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html">Set external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
+      <li><a href="ch7_config.html">Config and Supervisor options</a></li>
+      <li><a href="ch8_hostname.html">Set external hostname</a></li>
+      <li><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
       <li class="part-label">Maintain: security and troubleshooting</li>
-      <li data-i18n="pending"><a href="ch10_logs.html">Logs and routine maintenance</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html">Security checks and minimal exposure</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
+      <li><a href="ch10_logs.html">Logs and routine maintenance</a></li>
+      <li><a href="ch11_security.html">Security checks and minimal exposure</a></li>
+      <li><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -63,7 +63,6 @@
       <a href="#sources">Official sources</a>
     </div>
   </aside><main class="content">
-<div class="callout i18n-pending"><strong>This chapter has not been translated yet.</strong> You are reading the original Chinese text. <a href="../ch5_authorize.html" hreflang="zh-Hant">Open the Chinese version</a></div>
 <div class="chapter-header"><div class="kicker">Chapter 5</div><h1>One-time Cloudflare authorization</h1><p class="lead">The first time you start in locally managed mode, Setup shows a sensitive Cloudflare authorization link. You will learn how to check the account and the zone in your own environment, how to run the acceptance check afterwards, and why you must never hand the link, the certificate or the screen to anyone else.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">This is not an ordinary sign-in link</h2>
 <p>A locally managed tunnel has to run <code>cloudflared tunnel login</code> first. That command starts a browser authorization flow that has you sign in to Cloudflare and pick the domain zone to authorize; on success it downloads the account certificate <code>cert.pem</code>, and only then can the add-on create the tunnel and the DNS route. Setup in the Web GUI only takes the link that used to be buried in Logs and shows it as a button you can click.</p>

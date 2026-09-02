@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cloudflare API/MCP 控制提示詞庫 · 40+ 條可複製 · WoowTech</title>
-  <meta name="description" content="給 Claude / AI agent 用來控制 Cloudflare 的提示詞庫：DNS records、Tunnel & hostname、Access rules（Zero Trust）、Workers deploy、Pages 部署、Firewall/WAF、Analytics、故障排除。40+ 條分 8 類，觸發 Cloudflare API v4 或 cloudflare-mcp。每條可直接複製。" />
+  <title>Cloudflare API/MCP Prompt Library · 46 copy-and-paste prompts · WoowTech</title>
+  <meta name="description" content="A prompt library for driving Cloudflare with Claude or any AI agent: DNS records, Tunnel &amp; hostname, Access rules (Zero Trust), Workers deploy, Pages deploy, Firewall/WAF, Analytics and troubleshooting. 46 prompts in 8 categories, calling Cloudflare API v4 or cloudflare-mcp. Every one is ready to copy." />
   <meta name="author" content="WoowTech" />
   <meta name="theme-color" content="#6183FC" />
   <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/prompts.html" />
@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
   <style>
-/* Cloudflare 提示詞庫 — Woow_ha_tutorial_site 版型 × woowtech Brand Prompt Library v2 */
+/* Cloudflare Prompt Library — Woow_ha_tutorial_site layout x woowtech Brand Prompt Library v2 */
 :root {
   --ww-blue: #6183FC;
   --ww-blue-600: #4A6DE8;
@@ -252,7 +252,7 @@ code {
 }
 pre.code-block code { background: none; padding: 0; color: inherit; }
 
-/* 提示詞卡 */
+/* Prompt cards */
 .prompt-card {
   position: relative; background: var(--surface);
   border: 1px solid var(--hairline); border-radius: var(--radius-sm);
@@ -307,379 +307,379 @@ pre.code-block code { background: none; padding: 0; color: inherit; }
 <body>
 <div class="layout">
   <aside class="sidebar" id="sidebar">
-    <a class="brand" href="#top">Cloudflare 提示詞庫</a>
-    <div class="brand-sub">WoowTech · 給 AI agent 用的 40+ 條</div>
+    <a class="brand" href="#top">Cloudflare Prompt Library</a>
+    <div class="brand-sub">WoowTech · 46 prompts for your AI agent</div>
     <!-- i18n:switch --><nav class="lang-switch" aria-label="Language"><a href="../prompts.html" lang="zh-Hant" hreflang="zh-Hant">中文</a><a class="active" href="prompts.html" lang="en" aria-current="page">EN</a></nav><!-- /i18n:switch -->
-    <a class="hub-link" href="index.html">◂ Cloudflare Tunnel 資源總覽</a>
-    <button class="nav-toggle" id="navToggle" type="button">本冊內容<span class="nav-toggle-caret"></span></button>
+    <a class="hub-link" href="index.html">◂ Cloudflare Tunnel Resource Hub</a>
+    <button class="nav-toggle" id="navToggle" type="button">What's in this handbook<span class="nav-toggle-caret"></span></button>
     <div class="toc-in-chapter">
-      <h2>本冊內容</h2>
-      <a href="#why">這本是什麼</a>
-      <a href="#howto">怎麼用</a>
+      <h2>What's in this handbook</h2>
+      <a href="#why">What this is</a>
+      <a href="#howto">How to use</a>
       <a href="#cat-dns">DNS records</a>
       <a href="#cat-tunnel">Tunnel & hostname</a>
-      <a href="#cat-access">Access（Zero Trust）</a>
-      <a href="#cat-workers">Workers 部署</a>
-      <a href="#cat-pages">Pages 部署</a>
+      <a href="#cat-access">Access (Zero Trust)</a>
+      <a href="#cat-workers">Workers deploy</a>
+      <a href="#cat-pages">Pages deploy</a>
       <a href="#cat-waf">Firewall / WAF</a>
       <a href="#cat-analytics">Analytics</a>
-      <a href="#cat-debug">故障排除</a>
-      <a href="#tips">寫法小抄</a>
-      <a href="#faq">常見問題</a>
-      <a href="#download">下載</a>
+      <a href="#cat-debug">Troubleshooting</a>
+      <a href="#tips">Cheat sheet</a>
+      <a href="#faq">FAQ</a>
+      <a href="#download">Download</a>
     </div>
   </aside>
 
   <main class="content" id="top">
     <div class="chapter-header">
       <span class="kicker-script">just tell your agent</span>
-      <div class="kicker">WoowTech 提示詞庫</div>
-      <h1>用自然語言，讓 AI agent 幫你操作 Cloudflare</h1>
-      <p class="lead">Cloudflare 有官方的 <code>cloudflare/mcp-server-cloudflare</code>，也有覆蓋全套資源的 REST API v4（<code>api.cloudflare.com/client/v4/</code>）。這本收錄 40+ 條實務提示詞，涵蓋 DNS、Tunnel、Access、Workers、Pages、WAF、Analytics 與故障排除，每一條都能直接複製丟給 Claude Code / Cursor / 任何支援 MCP 或 curl 的 AI agent，把手動操作 Dashboard 的時間拿回來。</p>
+      <div class="kicker">WoowTech Prompt Library</div>
+      <h1>Let your AI agent drive Cloudflare in plain language</h1>
+      <p class="lead">Cloudflare ships an official <code>cloudflare/mcp-server-cloudflare</code>, and REST API v4 (<code>api.cloudflare.com/client/v4/</code>) covers the whole resource set. This handbook collects 46 working prompts across DNS, Tunnel, Access, Workers, Pages, WAF, Analytics and troubleshooting. Every one of them is ready to copy into Claude Code, Cursor or any AI agent that speaks MCP or curl. Take back the time you spend clicking through the dashboard.</p>
     </div>
 
-    <section id="why" data-nav="這本是什麼">
-      <h2 data-icon="why">這本是什麼</h2>
-      <p>當你的 AI agent 有以下任一能力，這本就派上用場：</p>
+    <section id="why" data-nav="What this is">
+      <h2 data-icon="why">What this handbook is</h2>
+      <p>This handbook earns its place as soon as your AI agent can do any one of the following:</p>
       <ul>
-        <li><strong>裝了 Cloudflare 官方 MCP server</strong>（<code>cloudflare/mcp-server-cloudflare</code>）：agent 直接呼叫 tool 完成操作。</li>
-        <li><strong>會 curl / fetch REST API</strong>：任何模型只要能執行 shell 或 HTTP，都能打 <code>https://api.cloudflare.com/client/v4/</code>。</li>
-        <li><strong>會呼叫 Wrangler CLI</strong>：Workers/Pages 部署類提示詞會走這條路徑。</li>
+        <li><strong>It has Cloudflare's official MCP server installed</strong> (<code>cloudflare/mcp-server-cloudflare</code>): the agent calls a tool directly.</li>
+        <li><strong>It can curl or fetch the REST API</strong>: any model that can run a shell or make an HTTP request can reach <code>https://api.cloudflare.com/client/v4/</code>.</li>
+        <li><strong>It can call the Wrangler CLI</strong>: the Workers and Pages deploy prompts take that route.</li>
       </ul>
-      <p>寫法上刻意避開「請生一段 curl」——直接描述目標讓 agent 挑正確工具，Dashboard 能做的它都做得到，包含批量、審計與跨資源自動化。</p>
-      <div class="callout"><strong>觀念：</strong>提示詞的價值不在「一字不差咒語」，而在「把目標、範圍、驗收、風險一次講清楚」。照抄能動，改成你 zone / account 的實情更好用。</div>
+      <p>The prompts deliberately avoid "write me a curl command". Describe the goal and let the agent pick the right tool: anything the dashboard can do, the agent can do too, including bulk edits, audits and automation across resources.</p>
+      <div class="callout"><strong>Concept:</strong> a prompt is not valuable because it is a word-perfect incantation. It is valuable because it states the goal, the scope, the acceptance check and the risk in one go. Copying one as it stands works; editing it to match your own zone and account works better.</div>
     </section>
 
-    <section id="howto" data-nav="怎麼用">
-      <h2 data-icon="steps">怎麼用這些提示詞</h2>
+    <section id="howto" data-nav="How to use">
+      <h2 data-icon="steps">How to use these prompts</h2>
       <ol class="steps">
         <li>
-          <h3>準備 API Token（不是 Global Key）</h3>
-          <p>Cloudflare Dashboard → My Profile → API Tokens → 建一個範圍最小的 token（例如：<code>Zone.DNS:Edit</code>、<code>Zone.Zone:Read</code>）。</p>
+          <h3>Prepare an API token (not the Global Key)</h3>
+          <p>Cloudflare Dashboard → My Profile → API Tokens → create a token with the smallest scope that does the job (for example <code>Zone.DNS:Edit</code>, <code>Zone.Zone:Read</code>).</p>
         </li>
         <li>
-          <h3>把 token 交給 agent</h3>
-          <p>用環境變數 <code>CF_API_TOKEN</code>（curl 走 <code>Authorization: Bearer</code>）；Wrangler 走 <code>CLOUDFLARE_API_TOKEN</code>；MCP server 依照 <a href="https://github.com/cloudflare/mcp-server-cloudflare" rel="noopener">官方 README</a> 設定。</p>
+          <h3>Hand the token to the agent</h3>
+          <p>Use the environment variable <code>CF_API_TOKEN</code> (curl sends it as <code>Authorization: Bearer</code>); Wrangler reads <code>CLOUDFLARE_API_TOKEN</code>; for the MCP server, follow the <a href="https://github.com/cloudflare/mcp-server-cloudflare" rel="noopener">official README</a>.</p>
         </li>
         <li>
-          <h3>複製一條提示詞</h3>
-          <p>把你的 zone 名稱、hostname、tunnel ID 替換進去，貼進 agent 對話。</p>
+          <h3>Copy one prompt</h3>
+          <p>Substitute your own zone name, hostname and tunnel ID, then paste it into the agent. Every prompt here ends with "Answer in English." — keep that line.</p>
         </li>
         <li>
-          <h3>保留「先報告再執行」的習慣</h3>
-          <p>會改資源的請求都寫成「先給我 dry-run 摘要，我確認再套用」。<strong>DNS / Access / WAF 誤改都會馬上影響對外服務</strong>——這句話最便宜。</p>
+          <h3>Keep the habit of "report first, act second"</h3>
+          <p>Write every request that changes a resource as "give me a dry-run summary first, I will confirm before you apply it". <strong>A wrong DNS, Access or WAF edit hits your public service immediately</strong> — that one sentence is the cheapest insurance you have.</p>
         </li>
       </ol>
-      <div class="callout warn"><strong>安全：</strong>Token 不要貼進共享訊息、不要 commit 進 repo；發現外洩立刻在 Dashboard revoke。正式環境建議用 <strong>Scoped Token</strong> 限制到單一 zone、單一 permission group。</div>
+      <div class="callout warn"><strong>Security:</strong> never paste a token into a shared message and never commit one to a repo; if one leaks, revoke it in the dashboard right away. In production we recommend a <strong>Scoped Token</strong> limited to a single zone and a single permission group.</div>
     </section>
 
     <section id="cat-dns" data-nav="DNS records">
-      <h2 data-icon="dns">1 · DNS records 管理</h2>
-      <p>Cloudflare 對 DNS 的操作走 <code>/zones/{zone_id}/dns_records</code>。批量整理 A/CNAME/TXT 用它比 Dashboard 快十倍。</p>
+      <h2 data-icon="dns">1 · DNS record management</h2>
+      <p>Cloudflare's DNS operations run through <code>/zones/{zone_id}/dns_records</code>. For bulk work on A, CNAME and TXT records it is ten times faster than the dashboard.</p>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">列出 <strong>example.com</strong> zone 底下所有 DNS record，用 markdown 表格輸出 type / name / content / proxied / TTL。如果同一個 hostname 有多筆記錄，特別標註出來。</p>
-        <p class="pnote">API: <code>GET /zones/{zone_id}/dns_records</code>。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">List every DNS record in the <strong>example.com</strong> zone and output type / name / content / proxied / TTL as a markdown table. Call out any hostname that has more than one record. Answer in English.</p>
+        <p class="pnote">API: <code>GET /zones/{zone_id}/dns_records</code>.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">幫我在 <strong>example.com</strong> 加一筆 CNAME：<code>ha</code> 指向 <code>&lt;tunnel-uuid&gt;.cfargotunnel.com</code>，proxied 開啟。加之前先確認同名 record 不存在，如果存在就先給我列出來我決定要不要覆蓋。</p>
-        <p class="pnote">API: <code>POST /zones/{zone_id}/dns_records</code>；覆蓋走 <code>PUT</code> 帶 record_id。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Add a CNAME to <strong>example.com</strong>: <code>ha</code> pointing at <code>&lt;tunnel-uuid&gt;.cfargotunnel.com</code>, proxied on. Before you add it, confirm no record of the same name exists; if one does, list it and let me decide whether to overwrite. Answer in English.</p>
+        <p class="pnote">API: <code>POST /zones/{zone_id}/dns_records</code>; to overwrite, use <code>PUT</code> with the record_id.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">把 <strong>example.com</strong> 底下所有 <code>_acme-challenge.*</code> 的 TXT record 列出來，超過 24 小時沒更新的直接刪掉（憑證早就簽完了）。刪之前先給我看要刪哪些。</p>
-        <p class="pnote">批量清 Let's Encrypt 驗證殘留最實用。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Under <strong>example.com</strong>, list every TXT record matching <code>_acme-challenge.*</code> and delete the ones that have not been updated in over 24 hours (the certificate was issued long ago). Show me the list before you delete anything. Answer in English.</p>
+        <p class="pnote">Most useful for clearing out leftover Let's Encrypt validation records in bulk.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">幫我對 <strong>example.com</strong> 做一次 DNS 健檢：找出未使用 proxy 卻是 A / AAAA record（暴露源站 IP）、TTL 設 Auto 但實際 300 秒以下、以及指向已不存在的 tunnel / worker route 的 CNAME。用清單告訴我哪些該修。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Run a DNS health check on <strong>example.com</strong>: find A / AAAA records that are not proxied (they expose the origin IP), TTLs set to Auto that resolve to under 300 seconds, and CNAMEs pointing at a tunnel or worker route that no longer exists. Give me a list of what to fix. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">我要把 <strong>old.example.com</strong> 302 轉址到 <strong>https://new.example.com/$1</strong>。用 Cloudflare 的 Bulk Redirect 或 Redirect Rules 幫我建，並確認轉址對 query string 也生效。</p>
-        <p class="pnote">Bulk Redirect API 在 <code>/accounts/{account_id}/rules/lists</code>。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">I want <strong>old.example.com</strong> to 302-redirect to <strong>https://new.example.com/$1</strong>. Build it with Cloudflare Bulk Redirect or Redirect Rules, and confirm the redirect also applies to the query string. Answer in English.</p>
+        <p class="pnote">The Bulk Redirect API is at <code>/accounts/{account_id}/rules/lists</code>.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">幫我為 <strong>example.com</strong> 導入 email 相關 DNS：SPF（<code>v=spf1 include:_spf.google.com ~all</code>）、DKIM（selector <code>google</code>）、DMARC（<code>v=DMARC1; p=quarantine; rua=mailto:dmarc@example.com</code>）。同名 record 存在的話先給我列出來。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Set up the email DNS records for <strong>example.com</strong>: SPF (<code>v=spf1 include:_spf.google.com ~all</code>), DKIM (selector <code>google</code>) and DMARC (<code>v=DMARC1; p=quarantine; rua=mailto:dmarc@example.com</code>). If a record of the same name already exists, list it first. Answer in English.</p>
       </div>
     </section>
 
     <section id="cat-tunnel" data-nav="Tunnel & hostname">
-      <h2 data-icon="tunnel">2 · Tunnel / hostname 設定</h2>
-      <p>Cloudflare Tunnel 在 API 走 <code>/accounts/{account_id}/cfd_tunnel</code>；hostname 是 tunnel 內部的 ingress 配置。多主機路由這區最好用。</p>
+      <h2 data-icon="tunnel">2 · Tunnel and hostname setup</h2>
+      <p>In the API, Cloudflare Tunnel lives at <code>/accounts/{account_id}/cfd_tunnel</code>; a hostname is an ingress entry inside the tunnel. This is the section to use for multi-host routing.</p>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">列出我 account 底下所有 Cloudflare Tunnels：ID、name、status、connections 數。狀態不是 <code>healthy</code> 的排前面，並附上 dashboard 直接跳轉的連結。</p>
-        <p class="pnote">API: <code>GET /accounts/{account_id}/cfd_tunnel</code>。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">List every Cloudflare Tunnel in my account: ID, name, status and connection count. Put the ones whose status is not <code>healthy</code> first, and include a link straight into the dashboard for each. Answer in English.</p>
+        <p class="pnote">API: <code>GET /accounts/{account_id}/cfd_tunnel</code>.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">建一條新的 tunnel 叫 <code>home-lab</code>，配置 ingress：<code>ha.example.com → http://192.168.1.10:8123</code>、<code>z2m.example.com → http://192.168.1.10:8080</code>、預設 catch-all 回 <code>http_status:404</code>。順便把對應的 DNS CNAME 建好。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Create a new tunnel called <code>home-lab</code> with this ingress: <code>ha.example.com → http://192.168.1.10:8123</code>, <code>z2m.example.com → http://192.168.1.10:8080</code>, and a default catch-all returning <code>http_status:404</code>. Create the matching DNS CNAMEs while you are at it. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">我要把現有 tunnel <strong>home-lab</strong> 加一個 hostname <code>nas.example.com</code>，指向內網 <code>https://192.168.1.20:5001</code>，因為 NAS 用自簽憑證所以 <code>originRequest.noTLSVerify</code> 設 true。改完幫我列出完整 config 讓我確認。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">On the existing tunnel <strong>home-lab</strong>, add the hostname <code>nas.example.com</code> pointing at <code>https://192.168.1.20:5001</code> on my local network. The NAS uses a self-signed certificate, so set <code>originRequest.noTLSVerify</code> to true. When you are done, print the full config so I can check it. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">tunnel <strong>home-lab</strong> 的所有 hostname 中，找出過去 7 天沒有流量的（用 Analytics API 交叉比對）。可能是我忘記刪的舊服務。列出來讓我決定要不要移除。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Across every hostname on tunnel <strong>home-lab</strong>, find the ones with no traffic in the past 7 days (cross-check with the Analytics API). They are probably old services I forgot to delete. List them and let me decide whether to remove them. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">幫我為 tunnel <strong>home-lab</strong> 產生一份設定備份：全部 config、關聯的 DNS records、關聯的 Access apps 一起匯出成一個 JSON。方便我離站保存。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Produce a configuration backup for tunnel <strong>home-lab</strong>: export the full config, the associated DNS records and the associated Access apps together as one JSON file, so I can keep a copy off-site. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">刪除 tunnel <strong>old-test-tunnel</strong>。刪之前先確認它沒有 active connections，並列出所有指向它的 DNS records 要一起清掉。全部搞定再回報。</p>
-      </div>
-    </section>
-
-    <section id="cat-access" data-nav="Access（Zero Trust）">
-      <h2 data-icon="access">3 · Access rules（Zero Trust）</h2>
-      <p>Cloudflare Access 的 API 走 <code>/accounts/{account_id}/access/apps</code> 與 <code>/access/policies</code>。管家人白名單、SSO 政策這裡搞定。</p>
-
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">幫我在 Zero Trust 為 <code>ha.example.com</code> 建一個 Access application，type 是 self-hosted。加一條 allow policy：只允許 email 是 <code>me@example.com</code> 或 <code>wife@example.com</code>，session 24 小時，identity provider 用 Google + One-time PIN。</p>
-      </div>
-
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">列出我 Zero Trust 帳號下所有 Access apps：domain、type、associated policies、最近 30 天登入次數。從沒人登入過的排前面（可能是設好了但沒公開）。</p>
-      </div>
-
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">在 <code>ha.example.com</code> 這個 app 底下加一條 policy：對路徑 <code>/config/*</code> 只允許主帳號，家人 email 白名單只能看 <code>/lovelace/*</code>。用 <code>include</code> + <code>require</code> 組合實作。改完給我 dry-run summary。</p>
-      </div>
-
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">幫我建一個「臨時訪客」Access policy 給 <code>ha.example.com</code>：接受任意 email 走 OTP，但 session 只有 4 小時、只允許路徑 <code>/lovelace/guest</code>。我要給水電師傅遠端看狀態時用。</p>
-      </div>
-
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">加一條國家限制到所有 Access apps：只允許來源國家 = TW，其他一律 block（連 Access 登入頁都不給看）。用 device posture rules 或 IP geolocation 實作，哪個穩就用哪個。</p>
-      </div>
-
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">在 Access 幫我接 Google Workspace SSO：註冊一個 SAML / OIDC provider 給 <code>@example.com</code> 網域，之後所有 apps 預設用 Workspace 登入，家人 Gmail 用 OTP fallback。設定完給我測試連結。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Delete tunnel <strong>old-test-tunnel</strong>. Before you delete it, confirm it has no active connections and list every DNS record pointing at it that has to be cleared as well. Report back once it is all done. Answer in English.</p>
       </div>
     </section>
 
-    <section id="cat-workers" data-nav="Workers 部署">
+    <section id="cat-access" data-nav="Access (Zero Trust)">
+      <h2 data-icon="access">3 · Access rules (Zero Trust)</h2>
+      <p>The Cloudflare Access API runs through <code>/accounts/{account_id}/access/apps</code> and <code>/access/policies</code>. Allow lists for the people you live with, and SSO policies, are handled here.</p>
+
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">In Zero Trust, create an Access application for <code>ha.example.com</code> with type self-hosted. Add one allow policy: permit only the emails <code>me@example.com</code> and <code>wife@example.com</code>, a 24-hour session, and Google plus One-time PIN as the identity providers. Answer in English.</p>
+      </div>
+
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">List every Access app in my Zero Trust account: domain, type, associated policies and sign-ins over the past 30 days. Put the ones nobody has ever signed in to first — they may be configured but never published. Answer in English.</p>
+      </div>
+
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">On the <code>ha.example.com</code> app, add a policy: only the main account may reach the path <code>/config/*</code>, while the family email allow list may see only <code>/lovelace/*</code>. Implement it with a combination of <code>include</code> and <code>require</code>. Give me a dry-run summary of the change. Answer in English.</p>
+      </div>
+
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Create a "temporary guest" Access policy for <code>ha.example.com</code>: accept any email over OTP, but with a session of only 4 hours and access limited to the path <code>/lovelace/guest</code>. I want it for letting a contractor check a status page remotely. Answer in English.</p>
+      </div>
+
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Add a country restriction to every Access app: allow only source country = TW and block everything else, down to the Access sign-in page. Implement it with device posture rules or IP geolocation, whichever is more reliable. Answer in English.</p>
+      </div>
+
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Wire Google Workspace SSO into Access: register a SAML / OIDC provider for the <code>@example.com</code> domain, make Workspace the default sign-in for every app afterwards, and leave OTP as the fallback for family Gmail accounts. Give me a test link when it is set up. Answer in English.</p>
+      </div>
+    </section>
+
+    <section id="cat-workers" data-nav="Workers deploy">
       <h2 data-icon="workers">4 · Workers deploy</h2>
-      <p>Workers 走 <code>wrangler deploy</code> 或 API <code>/accounts/{account_id}/workers/scripts/{name}</code>。搭配 KV / D1 / R2 做 serverless 邊緣邏輯很好用。</p>
+      <p>Workers go through <code>wrangler deploy</code> or the API at <code>/accounts/{account_id}/workers/scripts/{name}</code>. Paired with KV, D1 and R2 they are a good fit for serverless logic at the edge.</p>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">列出我 account 底下所有 Workers scripts：name、routes、最近 24 小時 request 數、error rate。error rate &gt; 1% 的排前面。</p>
-        <p class="pnote">用 GraphQL Analytics API 抓 metrics。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">List every Workers script in my account: name, routes, requests over the past 24 hours and error rate. Put anything with an error rate &gt; 1% first. Answer in English.</p>
+        <p class="pnote">Pull the metrics from the GraphQL Analytics API.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">幫我寫一個 Worker <code>ha-webhook-proxy</code>：接收 POST 請求，驗證 <code>X-Auth-Token</code> header，然後 forward 到我內網的 <code>https://ha.example.com/api/webhook/xxx</code>。設 route <code>webhook.example.com/*</code>。用 <code>wrangler init</code> + <code>wrangler deploy</code>。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Write a Worker called <code>ha-webhook-proxy</code>: take a POST request, validate the <code>X-Auth-Token</code> header, then forward it to <code>https://ha.example.com/api/webhook/xxx</code> on my local network. Set the route to <code>webhook.example.com/*</code>. Use <code>wrangler init</code> and <code>wrangler deploy</code>. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">我有一個 Worker 叫 <code>image-optim</code>，幫我加一個 KV binding 到現有的 KV namespace <code>IMG_CACHE</code>，並更新 <code>wrangler.toml</code>。改完部署到 preview，不要直接 push production。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">I have a Worker called <code>image-optim</code>. Add a KV binding to the existing KV namespace <code>IMG_CACHE</code> and update <code>wrangler.toml</code>. Deploy the change to preview; do not push straight to production. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">為 Worker <code>api-gateway</code> 設定 secrets：<code>UPSTREAM_TOKEN</code> 從我的環境變數帶入、<code>SIGNING_KEY</code> 幫我產一個 32-byte random hex。用 <code>wrangler secret put</code>，不要落地到 wrangler.toml。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Set the secrets for Worker <code>api-gateway</code>: take <code>UPSTREAM_TOKEN</code> from my environment variables, and generate a 32-byte random hex value for <code>SIGNING_KEY</code>. Use <code>wrangler secret put</code>; do not let them land in wrangler.toml. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">Worker <code>api-gateway</code> 過去 1 小時的 error log tail 給我看，只顯示 status &gt;= 500 的。用 <code>wrangler tail --format=json</code> 抓，pretty-print 出來。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Show me the error log tail for Worker <code>api-gateway</code> over the past hour, filtered to status &gt;= 500. Capture it with <code>wrangler tail --format=json</code> and pretty-print the output. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">幫我把現有 Worker <code>legacy-api</code> 從 Service Worker 語法遷移到 Module Worker：<code>addEventListener('fetch', ...)</code> 改成 <code>export default { fetch(...) }</code>，順便升到 TypeScript。改完跑 <code>wrangler dev</code> 讓我本地測試。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Migrate the existing Worker <code>legacy-api</code> from Service Worker syntax to a Module Worker: turn <code>addEventListener('fetch', ...)</code> into <code>export default { fetch(...) }</code>, and move it to TypeScript while you are there. When it is done, run <code>wrangler dev</code> so I can test it locally. Answer in English.</p>
       </div>
     </section>
 
-    <section id="cat-pages" data-nav="Pages 部署">
-      <h2 data-icon="pages">5 · Pages 部署</h2>
-      <p>Pages 用 <code>wrangler pages deploy</code> 直接推 build output，或走 API <code>/accounts/{account_id}/pages/projects</code> 管專案。適合靜態站 + Functions。</p>
+    <section id="cat-pages" data-nav="Pages deploy">
+      <h2 data-icon="pages">5 · Pages deploy</h2>
+      <p>Pages pushes build output straight up with <code>wrangler pages deploy</code>, or you manage projects through the API at <code>/accounts/{account_id}/pages/projects</code>. It suits static sites plus Functions.</p>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">我剛剛 build 好在 <code>./dist</code>，幫我用 <code>wrangler pages deploy ./dist --project-name=my-blog</code> 部署，並設 custom domain <code>blog.example.com</code>（如果 DNS record 還沒有就一起建）。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">I have just built into <code>./dist</code>. Deploy it with <code>wrangler pages deploy ./dist --project-name=my-blog</code> and set the custom domain to <code>blog.example.com</code> (create the DNS record too if it does not exist yet). Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">列出 Pages project <code>my-blog</code> 最近 10 次 deployment：id、branch、commit、狀態、建置時間。失敗的展開錯誤訊息第一行。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">List the last 10 deployments of Pages project <code>my-blog</code>: id, branch, commit, status and build time. For the failed ones, expand the first line of the error message. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">把 Pages project <code>my-blog</code> 上個 production deployment rollback：找出前一個 status=success 的 deployment，用 promote API 讓它成為 current。動作前先給我 diff 摘要。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Roll back the last production deployment of Pages project <code>my-blog</code>: find the previous deployment with status=success and promote it to current with the promote API. Give me a diff summary before you act. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">建一個新的 Pages project <code>docs-site</code>：連 GitHub repo <code>myorg/docs</code>、build command <code>npm run build</code>、output <code>dist</code>、production branch <code>main</code>、preview 所有 PR。設 custom domain <code>docs.example.com</code>。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Create a new Pages project <code>docs-site</code>: connect the GitHub repo <code>myorg/docs</code>, build command <code>npm run build</code>, output <code>dist</code>, production branch <code>main</code>, and preview every PR. Set the custom domain to <code>docs.example.com</code>. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">為 Pages project <code>my-blog</code> 加一個 Functions middleware，把所有 <code>/admin/*</code> 路徑丟給 Cloudflare Access 保護。順便產一個對應的 Access application 設定。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Add a Functions middleware to Pages project <code>my-blog</code> that hands every <code>/admin/*</code> path to Cloudflare Access for protection. Produce the matching Access application configuration as well. Answer in English.</p>
       </div>
     </section>
 
     <section id="cat-waf" data-nav="Firewall / WAF">
       <h2 data-icon="waf">6 · Firewall / WAF rules</h2>
-      <p>Firewall 走 <code>/zones/{zone_id}/rulesets</code>（新版）或舊的 <code>/firewall/rules</code>；Rate Limit 走 <code>/rate_limits</code>。用 Expression 語法描述條件。</p>
+      <p>Firewall runs through <code>/zones/{zone_id}/rulesets</code> (the current API) or the older <code>/firewall/rules</code>; Rate Limit runs through <code>/rate_limits</code>. Conditions are written in Expression syntax.</p>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">在 <strong>example.com</strong> 加一條 WAF Custom Rule：<code>(cf.threat_score gt 20 or ip.geoip.country in {"CN" "RU" "KP"}) and not http.request.uri.path contains "/api/webhook"</code>，action = Managed Challenge。加之前先告訴我目前 zone 的 rule 順序會擺哪裡。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Add a WAF Custom Rule to <strong>example.com</strong>: <code>(cf.threat_score gt 20 or ip.geoip.country in {"CN" "RU" "KP"}) and not http.request.uri.path contains "/api/webhook"</code>, action = Managed Challenge. Before you add it, tell me where it will sit in the zone's current rule order. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">列出 <strong>example.com</strong> 目前所有 WAF rules（Custom + Managed + Rate Limits）：id、expression、action、last hit time、last 24h hits。命中 0 次的排最後，可能可以刪。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">List every WAF rule currently on <strong>example.com</strong> (Custom + Managed + Rate Limits): id, expression, action, last hit time and hits over the last 24h. Put the ones with zero hits last — they may be safe to delete. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">為 <code>ha.example.com</code> 加一條 rate limit：同一 IP 對 <code>/auth/*</code> 每分鐘超過 10 次就 block 1 小時。避免暴力破解 Home Assistant 登入。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Add a rate limit for <code>ha.example.com</code>: if one IP hits <code>/auth/*</code> more than 10 times a minute, block it for an hour. That keeps brute-force attempts off the Home Assistant sign-in. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">開啟 <strong>example.com</strong> 的 Bot Fight Mode（免費層）與 Managed Rules 的 Cloudflare Managed Ruleset。啟用前告訴我可能會誤傷哪些合法工具（例如 Uptime monitor），我確認再開。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Turn on Bot Fight Mode (the free tier) and the Cloudflare Managed Ruleset under Managed Rules for <strong>example.com</strong>. Before you enable them, tell me which legitimate tools they might catch by mistake (an uptime monitor, for example); I will confirm before you switch them on. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">把 <code>ha.example.com</code> 的 SSL/TLS 模式設 Full (strict)，並開 Always Use HTTPS、Automatic HTTPS Rewrites、HSTS（max-age 6 個月，含 subdomain）。改之前先確認 origin 憑證有效。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Set the SSL/TLS mode for <code>ha.example.com</code> to Full (strict), and turn on Always Use HTTPS, Automatic HTTPS Rewrites and HSTS (max-age 6 months, including subdomains). Confirm the origin certificate is valid before you change anything. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">建立一個 IP Access Rule 白名單：把家裡固定 IP <code>1.2.3.4</code> 加成 whitelist，並將公司 IP <code>5.6.7.8/32</code> 也加進來。之後 WAF 規則可以引用這個 list。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Build an IP Access Rule allow list: add my home static IP <code>1.2.3.4</code> to the whitelist, and add the office IP <code>5.6.7.8/32</code> as well. WAF rules can reference the list afterwards. Answer in English.</p>
       </div>
     </section>
 
     <section id="cat-analytics" data-nav="Analytics">
-      <h2 data-icon="analytics">7 · Analytics 查詢</h2>
-      <p>Cloudflare 分析走 GraphQL Analytics API（<code>/graphql</code>）。跟 Dashboard 一樣的資料，但可以 script / 定時抓。</p>
+      <h2 data-icon="analytics">7 · Analytics queries</h2>
+      <p>Cloudflare analytics run on the GraphQL Analytics API (<code>/graphql</code>). Same data as the dashboard, but you can script it and pull it on a schedule.</p>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">用 GraphQL Analytics API 撈 <strong>example.com</strong> 過去 24 小時的 request 統計：total requests、cached requests、cache hit ratio、bandwidth、top 10 status codes。輸出成 markdown 表格。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Use the GraphQL Analytics API to pull request statistics for <strong>example.com</strong> over the past 24 hours: total requests, cached requests, cache hit ratio, bandwidth and the top 10 status codes. Output it as a markdown table. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">列出過去 7 天 <code>ha.example.com</code> 的 Access 登入紀錄：user email、時間、來源 IP、國家、user agent。可疑（半夜、非常用 IP、失敗次數多）的標記出來。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">List the Access sign-in records for <code>ha.example.com</code> over the past 7 days: user email, time, source IP, country and user agent. Flag the suspicious ones (the middle of the night, an unusual IP, repeated failures). Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">給我 <strong>example.com</strong> 過去 30 天的 WAF 攻擊摘要：top 10 blocked countries、top 10 blocked rules、被觸發最多的 URL path。用一段 Chinese narrative 加表格輸出，適合貼進客戶月報。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Give me a WAF attack summary for <strong>example.com</strong> over the past 30 days: the top 10 blocked countries, the top 10 blocked rules, and the URL paths that triggered rules most often. Output a short narrative plus a table, ready to paste into a monthly client report. Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">Worker <code>api-gateway</code> 過去 6 小時每 15 分鐘的 invocation 數、CPU time p50/p99、error rate 折線資料，輸出成可以直接畫圖的 JSON（timestamp, value）。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">For Worker <code>api-gateway</code>, give me 15-minute buckets over the past 6 hours of invocation count, CPU time p50/p99 and error rate as line data, output as JSON I can plot directly (timestamp, value). Answer in English.</p>
       </div>
 
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">跨所有 zone 查：哪些 zone 過去 7 天 5xx error rate &gt; 5%？列表按 error rate 排。error 詳情前 5 條的 sample trace 也一起帶。</p>
-      </div>
-    </section>
-
-    <section id="cat-debug" data-nav="故障排除">
-      <h2 data-icon="debug">8 · 故障排除</h2>
-      <p>Tunnel 掉線、DNS 沒生效、Access 一直退登、Worker 5xx——先讓 agent 做完診斷再動手。</p>
-
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext"><code>ha.example.com</code> 打開一直 502。幫我做一次完整診斷：DNS 記錄是否正確、tunnel connections 狀態、對應的 ingress config、origin 是否 reachable、最近 10 分鐘 Cloudflare edge 錯誤 log。給我一份 markdown 診斷報告。</p>
-      </div>
-
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">Cloudflare 上顯示 tunnel <strong>home-lab</strong> 是 <code>degraded</code>，只有 1 個 edge connection 而不是 4 個。幫我查：cloudflared 版本是否過舊、edge_ip_version 設定、家裡網路是否有 QUIC / UDP 阻擋。給修復建議。</p>
-      </div>
-
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">我剛剛改了 <code>ha.example.com</code> 的 CNAME，dig 出來還是舊值。幫我：<br/>1) 檢查 Cloudflare 上的 record 是否已更新<br/>2) 從多個 public DNS resolver（1.1.1.1, 8.8.8.8, 9.9.9.9）測試 propagation<br/>3) 檢查 TTL 設定是否過長。</p>
-      </div>
-
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">家人回報 <code>ha.example.com</code> 一直被 Access 踢出來重登。幫我查最近 24 小時的 Access log 找他 email 的登入紀錄，看是不是 session duration 設太短、或觸發某條 require rule。</p>
-      </div>
-
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext">Worker <code>api-gateway</code> 從凌晨開始 5xx 暴增。幫我 <code>wrangler tail</code> 抓最近 15 分鐘 error，找出重複最多的 exception 訊息，並在 dashboard 看是不是撞到 CPU time / subrequest 上限。</p>
-      </div>
-
-      <div class="prompt-card"><button class="copy" type="button">複製</button>
-        <p class="ptext"><strong>example.com</strong> Universal SSL 一直卡在 pending。幫我：<br/>1) 列出 zone status 與 nameserver 設定<br/>2) 查 CAA record 是否阻擋 Cloudflare / Let's Encrypt<br/>3) 確認 root 與 www CNAME 是否都指到 Cloudflare。修復完主動幫我重新觸發簽發。</p>
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Query across every zone: which zones had a 5xx error rate &gt; 5% over the past 7 days? Sort the list by error rate, and bring a sample trace for the top 5 errors with it. Answer in English.</p>
       </div>
     </section>
 
-    <section id="tips" data-nav="寫法小抄">
-      <h2 data-icon="tips">提示詞寫法小抄</h2>
-      <p>Cloudflare 資源改一下就影響外部服務——比家用自動化更需要「防呆」。看完 40+ 條，套路只有這五招：</p>
+    <section id="cat-debug" data-nav="Troubleshooting">
+      <h2 data-icon="debug">8 · Troubleshooting</h2>
+      <p>A tunnel that drops, DNS that has not taken effect, Access that keeps signing people out, a Worker returning 5xx — let the agent finish the diagnosis before you touch anything.</p>
+
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext"><code>ha.example.com</code> keeps returning 502. Run a full diagnosis: whether the DNS record is correct, the state of the tunnel connections, the matching ingress config, whether the origin is reachable, and the Cloudflare edge error log for the past 10 minutes. Give me a markdown diagnosis report. Answer in English.</p>
+      </div>
+
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Cloudflare shows tunnel <strong>home-lab</strong> as <code>degraded</code>, with 1 edge connection instead of 4. Check whether the cloudflared version is too old, what edge_ip_version is set to, and whether my home network blocks QUIC or UDP. Give me a repair recommendation. Answer in English.</p>
+      </div>
+
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">I have just changed the CNAME for <code>ha.example.com</code>, but dig still returns the old value. Please:<br/>1) check whether the record on Cloudflare has updated<br/>2) test propagation from several public DNS resolvers (1.1.1.1, 8.8.8.8, 9.9.9.9)<br/>3) check whether the TTL is set too long. Answer in English.</p>
+      </div>
+
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Someone in my family reports that Access keeps throwing them out of <code>ha.example.com</code> and making them sign in again. Search the past 24 hours of Access logs for that email's sign-in records, and work out whether the session duration is set too short or a require rule is being triggered. Answer in English.</p>
+      </div>
+
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Worker <code>api-gateway</code> has been throwing far more 5xx since early this morning. Use <code>wrangler tail</code> to capture the errors from the past 15 minutes, find the exception message that repeats most, and check in the dashboard whether it is hitting the CPU time or subrequest limit. Answer in English.</p>
+      </div>
+
+      <div class="prompt-card"><button class="copy" type="button">Copy</button>
+        <p class="ptext">Universal SSL on <strong>example.com</strong> is stuck at pending. Please:<br/>1) list the zone status and the nameserver settings<br/>2) check whether a CAA record is blocking Cloudflare or Let's Encrypt<br/>3) confirm that both the root and the www CNAME point to Cloudflare. Once it is fixed, re-trigger issuance without waiting to be asked. Answer in English.</p>
+      </div>
+    </section>
+
+    <section id="tips" data-nav="Cheat sheet">
+      <h2 data-icon="tips">Prompt-writing cheat sheet</h2>
+      <p>One change to a Cloudflare resource reaches your public service straight away, so these prompts need more guardrails than home automation does. Across all 46, the pattern comes down to five moves:</p>
       <table class="data-table">
         <thead>
-          <tr><th>這樣講</th><th>不要這樣講</th><th>為什麼</th></tr>
+          <tr><th>Say this</th><th>Not this</th><th>Why</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td>指定 zone / account：「在 example.com zone 底下…」</td>
-            <td>「幫我加一筆 DNS」</td>
-            <td>Cloudflare token 常有多 zone 權限；不指定 agent 會猜錯。</td>
+            <td>Name the zone or account: "under the example.com zone…"</td>
+            <td>"Add a DNS record for me"</td>
+            <td>A Cloudflare token often covers several zones; without a name, the agent guesses wrong.</td>
           </tr>
           <tr>
-            <td>先 dry-run：「先給我 diff / 預覽，我確認再套用」</td>
-            <td>「直接改 production」</td>
-            <td>DNS / WAF 誤改馬上影響對外服務。</td>
+            <td>Ask for a dry run first: "give me a diff or preview, I will confirm before you apply it"</td>
+            <td>"Just change production"</td>
+            <td>A wrong DNS or WAF edit hits your public service immediately.</td>
           </tr>
           <tr>
-            <td>驗收條件：「跑完 curl 一次 <code>ha.example.com</code> 確認 200」</td>
-            <td>省略驗證</td>
-            <td>不驗證等於在猜；agent 願意跑就讓它跑。</td>
+            <td>State the acceptance check: "when you are done, curl <code>ha.example.com</code> once and confirm a 200"</td>
+            <td>Leaving verification out</td>
+            <td>No verification means you are guessing; if the agent is willing to run the check, let it.</td>
           </tr>
           <tr>
-            <td>限制範圍：「只針對 <code>/config/*</code> 這一條 path」</td>
-            <td>「全部路徑套用」</td>
-            <td>Access / WAF 影響面越大越容易誤傷。</td>
+            <td>Limit the scope: "only the <code>/config/*</code> path"</td>
+            <td>"Apply it to every path"</td>
+            <td>The wider an Access or WAF rule reaches, the more it catches by mistake.</td>
           </tr>
           <tr>
-            <td>失敗處理：「同名 record 存在時先讓我選要不要覆蓋」</td>
-            <td>假設一切順利</td>
-            <td>Cloudflare API 對重複資源會直接報錯或覆蓋，先想好。</td>
+            <td>Say what happens on failure: "if a record of the same name exists, let me choose whether to overwrite"</td>
+            <td>Assuming everything goes well</td>
+            <td>On a duplicate resource the Cloudflare API either errors or overwrites; decide up front.</td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <section id="faq" data-nav="常見問題">
-      <h2 data-icon="faq">常見問題</h2>
+    <section id="faq" data-nav="FAQ">
+      <h2 data-icon="faq">FAQ</h2>
       <details class="faq">
-        <summary>Cloudflare 官方 MCP server 在哪？現在能用嗎？</summary>
-        <div class="body">Cloudflare 官方 <a href="https://github.com/cloudflare/mcp-server-cloudflare" rel="noopener">cloudflare/mcp-server-cloudflare</a> 提供 Workers、KV、R2、D1、Analytics 等 tool；本站的 Claude 環境也裝了 <code>cloudflare-platform-mcp</code>。若你的 agent 不支援 MCP，直接用 curl 打 REST API 效果一樣。</div>
+        <summary>Where is Cloudflare's official MCP server, and can I use it today?</summary>
+        <div class="body">Cloudflare's official <a href="https://github.com/cloudflare/mcp-server-cloudflare" rel="noopener">cloudflare/mcp-server-cloudflare</a> gives you tools for Workers, KV, R2, D1 and Analytics, among others; the Claude environment behind this site also has <code>cloudflare-platform-mcp</code> installed. If your agent does not support MCP, calling the REST API with curl gets you the same result.</div>
       </details>
       <details class="faq">
-        <summary>Global API Key 跟 API Token 差在哪？</summary>
-        <div class="body">Global API Key 是「萬能鑰匙」，權限等同帳號本人；API Token 可以指定 scope（哪個 zone / account、哪些 permission）。<strong>永遠用 Token</strong>，不要用 Global Key。生一個 token → 只勾當前任務需要的權限 → 綁 IP filter 更安全。</div>
+        <summary>What is the difference between a Global API Key and an API token?</summary>
+        <div class="body">A Global API Key is a master key: it carries the same rights as the account owner. An API token can be scoped (which zone or account, which permissions). <strong>Always use a token</strong>, never the Global Key. Create a token → tick only the permissions the task in front of you needs → bind an IP filter to make it safer still.</div>
       </details>
       <details class="faq">
-        <summary>Wrangler 跟 curl API 什麼時候該用哪個？</summary>
-        <div class="body">Workers / Pages 部署與 tail 用 <strong>Wrangler</strong>（有 hot-reload、bindings 管理）；DNS / Access / WAF / Analytics 之類的資源操作用 <strong>REST API</strong>（更精細、可 script）。Cloudflare MCP server 大部分包裝的是 REST。</div>
+        <summary>When should I use Wrangler and when the curl API?</summary>
+        <div class="body">Use <strong>Wrangler</strong> for Workers and Pages deploys and for tailing logs (it gives you hot reload and bindings management). Use the <strong>REST API</strong> for resource work such as DNS, Access, WAF and Analytics (finer-grained, and scriptable). The Cloudflare MCP server mostly wraps REST.</div>
       </details>
       <details class="faq">
-        <summary>agent 亂改我 zone 怎麼辦？</summary>
-        <div class="body">兩層保險：1) Token 只給最小 scope，不給的就打不到；2) 提示詞永遠寫「先給我 diff / 預覽，我確認再套用」。誤操作真的發生了，Cloudflare Audit Logs（Enterprise）或 Dashboard 的 change history 可以還原大部分設定。</div>
+        <summary>What if the agent makes a mess of my zone?</summary>
+        <div class="body">Two layers of insurance: 1) give the token the smallest scope possible, because what it cannot reach it cannot touch; 2) always write "give me a diff or preview, I will confirm before you apply it" into the prompt. If a wrong change does happen, Cloudflare Audit Logs (Enterprise) or the change history in the dashboard will restore most settings.</div>
       </details>
       <details class="faq">
-        <summary>怎麼在 CI 裡自動化這些提示詞？</summary>
-        <div class="body">CI 就別用 LLM 中介了——把提示詞落地成 Terraform（<a href="https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs" rel="noopener">cloudflare/cloudflare</a> provider）或直接 curl script。LLM 適合互動探索與一次性操作；規律變更用 IaC 才穩定可 review。</div>
+        <summary>How do I automate these prompts in CI?</summary>
+        <div class="body">In CI, drop the LLM from the middle. Turn the prompt into Terraform (the <a href="https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs" rel="noopener">cloudflare/cloudflare</a> provider) or a plain curl script. An LLM suits interactive exploration and one-off operations; for changes that repeat, only IaC is stable and reviewable.</div>
       </details>
       <details class="faq">
-        <summary>可以把這頁分享出去嗎？</summary>
-        <div class="body">歡迎。整本是自包含單檔 HTML，圖示全部內嵌，下載後離線可開、可轉寄給團隊。若在文件內引用，請保留 WoowTech 出處。</div>
+        <summary>Can I share this page?</summary>
+        <div class="body">Please do. The handbook is a self-contained single HTML file with every icon embedded, so once downloaded it opens offline and can be forwarded to your team. If you quote it in a document, keep the WoowTech credit.</div>
       </details>
     </section>
 
-    <section id="download" data-nav="下載">
-      <h2 data-icon="download">把這本帶走</h2>
-      <p>整本是自包含單檔 HTML，圖示全部內嵌，下載後離線可開、可直接轉寄給團隊。</p>
+    <section id="download" data-nav="Download">
+      <h2 data-icon="download">Take this handbook with you</h2>
+      <p>The handbook is a self-contained single HTML file with every icon embedded, so once downloaded it opens offline and can be forwarded to your team as it is.</p>
       <p>
-        <a class="btn-pill" href="prompts.html" download="cloudflare-agent-prompts.html">下載本冊 HTML</a>
-        <a class="btn-ghost" href="index.html">回資源總覽</a>
+        <a class="btn-pill" href="prompts.html" download="cloudflare-agent-prompts.html">Download this handbook (HTML)</a>
+        <a class="btn-ghost" href="index.html">Back to the Resource Hub</a>
       </p>
     </section>
 
     <footer class="site-footer">
-      <p>《Cloudflare API/MCP 控制提示詞庫》由 <strong>WoowTech 渥屋科技</strong> 製作，以 <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a> 授權釋出。</p>
-      <p class="footer-meta">The Smart Space Solution · 智慧空間解決方案 · <a href="index.html">Cloudflare Tunnel 資源總覽</a></p>
+      <p>The Cloudflare API/MCP Prompt Library is produced by <strong>WoowTech</strong> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a>.</p>
+      <p class="footer-meta">The Smart Space Solution · <a href="index.html">Cloudflare Tunnel Resource Hub</a></p>
     </footer>
   </main>
 </div>
@@ -729,8 +729,8 @@ pre.code-block code { background: none; padding: 0; color: inherit; }
     btn.addEventListener('click', function () {
       var text = card.querySelector('.ptext').innerText;
       var done = function () {
-        btn.textContent = '已複製'; btn.classList.add('ok');
-        setTimeout(function () { btn.textContent = '複製'; btn.classList.remove('ok'); }, 1600);
+        btn.textContent = 'Copied'; btn.classList.add('ok');
+        setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('ok'); }, 1600);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });

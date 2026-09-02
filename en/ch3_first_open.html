@@ -34,21 +34,21 @@
     <h2>Chapters</h2>
     <ol>
       <li class="part-label">Basics: prepare and install</li>
-      <li data-i18n="pending"><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html" class="active">First open of the Web GUI</a></li>
+      <li><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
+      <li><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
+      <li><a href="ch3_first_open.html" class="active">First open of the Web GUI</a></li>
       <li class="part-label">Build: create a secure entrance</li>
-      <li data-i18n="pending"><a href="ch4_setup.html">First-run Setup wizard</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
+      <li><a href="ch4_setup.html">First-run Setup wizard</a></li>
+      <li><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
+      <li><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
       <li class="part-label">Manage: hosts and logs</li>
-      <li data-i18n="pending"><a href="ch7_config.html">Config and Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html">Set external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
+      <li><a href="ch7_config.html">Config and Supervisor options</a></li>
+      <li><a href="ch8_hostname.html">Set external hostname</a></li>
+      <li><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
       <li class="part-label">Maintain: security and troubleshooting</li>
-      <li data-i18n="pending"><a href="ch10_logs.html">Logs and routine maintenance</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html">Security checks and minimal exposure</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
+      <li><a href="ch10_logs.html">Logs and routine maintenance</a></li>
+      <li><a href="ch11_security.html">Security checks and minimal exposure</a></li>
+      <li><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -63,7 +63,6 @@
       <a href="#sources">Official sources</a>
     </div>
   </aside><main class="content">
-<div class="callout i18n-pending"><strong>This chapter has not been translated yet.</strong> You are reading the original Chinese text. <a href="../ch3_first_open.html" hreflang="zh-Hant">Open the Chinese version</a></div>
 <div class="chapter-header"><div class="kicker">Chapter 3</div><h1>Open the Web GUI for the first time</h1><p class="lead">Go into the admin interface through Home Assistant Ingress and work out what Dashboard, Setup, Config and Logs are each responsible for. This time you only browse and read status. You press no Restart, no Save, no Save &amp; Restart, no authorization and no other control that changes the system.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">Learn your way around before you touch a button that changes settings</h2>
 <p>The Cloudflared Web GUI gathers information that used to be scattered across the add-on options and the log into four pages. The upside is that it is easier to read; the risk is that saving and restarting are also within easy reach: if you keep clicking before you understand what each page is responsible for, you can write to Supervisor options, restart the add-on, and then create or change a tunnel and DNS.</p>

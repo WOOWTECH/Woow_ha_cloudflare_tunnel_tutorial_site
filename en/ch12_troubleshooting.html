@@ -34,21 +34,21 @@
     <h2>Chapters</h2>
     <ol>
       <li class="part-label">Basics: prepare and install</li>
-      <li data-i18n="pending"><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html">First open of the Web GUI</a></li>
+      <li><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
+      <li><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
+      <li><a href="ch3_first_open.html">First open of the Web GUI</a></li>
       <li class="part-label">Build: create a secure entrance</li>
-      <li data-i18n="pending"><a href="ch4_setup.html">First-run Setup wizard</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
+      <li><a href="ch4_setup.html">First-run Setup wizard</a></li>
+      <li><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
+      <li><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
       <li class="part-label">Manage: hosts and logs</li>
-      <li data-i18n="pending"><a href="ch7_config.html">Config and Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html">Set external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
+      <li><a href="ch7_config.html">Config and Supervisor options</a></li>
+      <li><a href="ch8_hostname.html">Set external hostname</a></li>
+      <li><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
       <li class="part-label">Maintain: security and troubleshooting</li>
-      <li data-i18n="pending"><a href="ch10_logs.html">Logs and routine maintenance</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html">Security checks and minimal exposure</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html" class="active">Troubleshooting, updates and handover</a></li>
+      <li><a href="ch10_logs.html">Logs and routine maintenance</a></li>
+      <li><a href="ch11_security.html">Security checks and minimal exposure</a></li>
+      <li><a href="ch12_troubleshooting.html" class="active">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -63,7 +63,6 @@
       <a href="#sources">Official sources</a>
     </div>
   </aside><main class="content">
-<div class="callout i18n-pending"><strong>This chapter has not been translated yet.</strong> You are reading the original Chinese text. <a href="../ch12_troubleshooting.html" hreflang="zh-Hant">Open the Chinese version</a></div>
 <div class="chapter-header"><div class="kicker">Chapter 12</div><h1>Troubleshooting, updates and handover</h1><p class="lead">Work inward from what your phone shows you: DNS, the Cloudflare edge, the tunnel connector, cloudflared and the Home Assistant origin. You will also learn to leave yourself a way back before an update, to roll back safely when one fails, and to hand over a record that carries no secrets but is still enough for the next person to take over.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">Why this matters</h2><p>When the remote URL will not open, the most common failure is not that "the whole thing is broken" — it is that one layer failed to connect. Reinstalling the add-on, changing DNS or resetting the token as your first move is like pulling the breaker box apart the moment the power trips at home: the evidence disappears, and you may add a second problem on top of the first.</p><p>This chapter works outside in: first save the error the user actually saw, then check the hostname and the Cloudflare edge, then the tunnel connector and the add-on log, and finally verify the local Home Assistant origin. Each step makes one decision. When you find the first layer that fails, stop there and deal with it.</p><div class="callout tip"><strong>The troubleshooting trio:</strong> note the time it happened, the full error code or the text on the screen, and whether you were on Wi-Fi or mobile data at the time. Do not just write "it does not work", and do not attach the authorization URL, a token, or a whole log you have not redacted.</div></section>
 <section id="concept" data-nav="Core concepts"><h2 data-icon="concept">Read the external symptom first</h2><table class="data-table"><thead><tr><th>What you see from outside</th><th>Layer to suspect first</th><th>Next read-only check</th></tr></thead><tbody><tr><td>hostname not found, or a DNS error</td><td>A typo, the DNS record, or propagation and cache that have not caught up.</td><td>Check the full hostname and the record in Cloudflare DNS. Do not restart the add-on first.</td></tr><tr><td>Cloudflare Error 1033</td><td>Cloudflare cannot find a usable tunnel connector.</td><td>Look at the Cloudflare Tunnel connector status, the Web GUI Dashboard and the add-on Logs.</td></tr><tr><td>Cloudflare 502</td><td>The request reached Cloudflare and the connector, but cloudflared could not reach the configured origin properly. That is the usual direction.</td><td>Test the local HA URL first, then check the origin URL, the port, TLS and proxy errors.</td></tr><tr><td>Cloudflare Access denies you, or sign-in loops</td><td>The Access application, the policy, the identity provider, or the browser session.</td><td>Test once with an allowed account in a private window, and check the application hostname and the policy.</td></tr><tr><td>A Home Assistant reverse proxy error</td><td><code>trusted_proxies</code> or <code>use_x_forwarded_for</code>.</td><td>Find the actual source address in the HA log and check it against the official HTTP documentation. Do not widen it to trusting every network.</td></tr><tr><td>You reach the HA sign-in but things misbehave</td><td>The basic tunnel path works. The problem sits closer to the HA account, the frontend, an integration or the WebSocket.</td><td>Compare the local and the external result, and keep the same point in time from the browser and the HA log.</td></tr></tbody></table><div class="callout"><strong>A status is not a conclusion:</strong> an edge connection on the Dashboard only means the connector has a link to the Cloudflare edge. It does not prove that DNS points to the right place, that the Access policy is correct, or that the origin Home Assistant is usable.</div></section>

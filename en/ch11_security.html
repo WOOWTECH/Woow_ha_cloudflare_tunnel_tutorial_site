@@ -34,21 +34,21 @@
     <h2>Chapters</h2>
     <ol>
       <li class="part-label">Basics: prepare and install</li>
-      <li data-i18n="pending"><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html">First open of the Web GUI</a></li>
+      <li><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
+      <li><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
+      <li><a href="ch3_first_open.html">First open of the Web GUI</a></li>
       <li class="part-label">Build: create a secure entrance</li>
-      <li data-i18n="pending"><a href="ch4_setup.html">First-run Setup wizard</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
+      <li><a href="ch4_setup.html">First-run Setup wizard</a></li>
+      <li><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
+      <li><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
       <li class="part-label">Manage: hosts and logs</li>
-      <li data-i18n="pending"><a href="ch7_config.html">Config and Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html">Set external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
+      <li><a href="ch7_config.html">Config and Supervisor options</a></li>
+      <li><a href="ch8_hostname.html">Set external hostname</a></li>
+      <li><a href="ch9_additional_hosts.html">Manage additional hosts</a></li>
       <li class="part-label">Maintain: security and troubleshooting</li>
-      <li data-i18n="pending"><a href="ch10_logs.html">Logs and routine maintenance</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html" class="active">Security checks and minimal exposure</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
+      <li><a href="ch10_logs.html">Logs and routine maintenance</a></li>
+      <li><a href="ch11_security.html" class="active">Security checks and minimal exposure</a></li>
+      <li><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -63,7 +63,6 @@
       <a href="#sources">Official sources</a>
     </div>
   </aside><main class="content">
-<div class="callout i18n-pending"><strong>This chapter has not been translated yet.</strong> You are reading the original Chinese text. <a href="../ch11_security.html" hreflang="zh-Hant">Open the Chinese version</a></div>
 <div class="chapter-header"><div class="kicker">Chapter 11</div><h1>Security checks and minimal exposure</h1><p class="lead">A tunnel saves you from opening a router port, but that does not mean every hostname should be public. You will work through the layers one at a time — the Cloudflare account, DNS, tunnel routes, Zero Trust Access, Home Assistant sign-in and the trusted proxy — so that each layer holds only the permissions it needs to do its job.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">Why this matters</h2><p>With Cloudflare Tunnel the cloudflared at home dials out to Cloudflare, so you never have to open an inbound port on the router for Home Assistant. But "no open port" only solves part of the network-entrance problem: DNS still decides which name the outside world can find, the tunnel route decides which local service that name is sent to, and sign-in and Access policy decide who gets in.</p><p>Putting the NAS, the router and the camera admin page all into <code>additional_hosts</code> is like fitting an external door to every room. Even if every one of them asks for a sign-in, you have added entrances to update, watch and protect. The safest starting point is to expose only the Home Assistant hostname you genuinely need remotely, and to keep every other service on the local network.</p><div class="callout"><strong>Minimal exposure:</strong> before you add a hostname, answer this first: "who needs it, when they need it, whether a Home Assistant feature could do the same job, and who deletes the DNS record and the route once it is no longer used." If you cannot answer, do not add it yet.</div></section>
 <section id="concept" data-nav="Core concepts"><h2 data-icon="concept">Six boundaries, each doing one job</h2><table class="data-table"><thead><tr><th>Boundary</th><th>What it covers</th><th>Least-privilege practice</th></tr></thead><tbody><tr><td>Domain registrar and Cloudflare account</td><td>Control over the domain and the zone.</td><td>Use an individual account that is not shared, a unique password and multi-factor authentication (MFA); keep the number of administrators as small as possible.</td></tr><tr><td>Cloudflare DNS</td><td>Points a hostname at the tunnel.</td><td>Keep only the records still in use; after you remove a route, check for a leftover DNS record too.</td></tr><tr><td>Cloudflare Tunnel</td><td>Sends the requests the edge receives to the origin you named.</td><td>Create only the public hostnames you need; avoid a catch-all or a wildcard you have no use for.</td></tr><tr><td>Cloudflare Zero Trust Access</td><td>Applies an identity policy before the request reaches the origin.</td><td>Start with an explicit allow list and a test account; do not use an over-wide domain rule or an everyone rule.</td></tr><tr><td>Home Assistant</td><td>User sign-in, MFA, permissions and what people can do in the app.</td><td>One account per person, no shared administrator; enable MFA on accounts in use.</td></tr><tr><td>Ingress / Web GUI</td><td>Lets a user already signed in to Home Assistant open the add-on GUI.</td><td>The Web GUI opens no extra port; limit who holds a Home Assistant administrator account, and sign out when you leave a shared device.</td></tr></tbody></table><div class="callout warn"><strong>The layers add up; they do not replace each other:</strong> Cloudflare Access will not manage your Home Assistant users for you, and Home Assistant MFA will not clean up a spare DNS record or tunnel route. Check every layer on its own.</div><div class="callout danger"><strong>Three things you never share:</strong> the Cloudflare authorization URL, the tunnel token and the secrets inside a log. The authorization URL can carry someone into a one-time authorization flow; the <code>tunnel_token</code> of a remotely managed setup lets whoever holds it run that tunnel; a debug log can contain environment secrets too. Do not paste any of them into an issue, a chat room or a screenshot.</div></section>

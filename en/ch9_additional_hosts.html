@@ -34,21 +34,21 @@
     <h2>Chapters</h2>
     <ol>
       <li class="part-label">Basics: prepare and install</li>
-      <li data-i18n="pending"><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
-      <li data-i18n="pending"><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
-      <li data-i18n="pending"><a href="ch3_first_open.html">First open of the Web GUI</a></li>
+      <li><a href="ch1_overview.html">Before you start: requirements and security boundaries</a></li>
+      <li><a href="ch2_install.html">Install the Cloudflared Web GUI</a></li>
+      <li><a href="ch3_first_open.html">First open of the Web GUI</a></li>
       <li class="part-label">Build: create a secure entrance</li>
-      <li data-i18n="pending"><a href="ch4_setup.html">First-run Setup wizard</a></li>
-      <li data-i18n="pending"><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
-      <li data-i18n="pending"><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
+      <li><a href="ch4_setup.html">First-run Setup wizard</a></li>
+      <li><a href="ch5_authorize.html">Complete the Cloudflare authorization</a></li>
+      <li><a href="ch6_dashboard.html">Dashboard and tunnel status</a></li>
       <li class="part-label">Manage: hosts and logs</li>
-      <li data-i18n="pending"><a href="ch7_config.html">Config and Supervisor options</a></li>
-      <li data-i18n="pending"><a href="ch8_hostname.html">Set external hostname</a></li>
-      <li data-i18n="pending"><a href="ch9_additional_hosts.html" class="active">Manage additional hosts</a></li>
+      <li><a href="ch7_config.html">Config and Supervisor options</a></li>
+      <li><a href="ch8_hostname.html">Set external hostname</a></li>
+      <li><a href="ch9_additional_hosts.html" class="active">Manage additional hosts</a></li>
       <li class="part-label">Maintain: security and troubleshooting</li>
-      <li data-i18n="pending"><a href="ch10_logs.html">Logs and routine maintenance</a></li>
-      <li data-i18n="pending"><a href="ch11_security.html">Security checks and minimal exposure</a></li>
-      <li data-i18n="pending"><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
+      <li><a href="ch10_logs.html">Logs and routine maintenance</a></li>
+      <li><a href="ch11_security.html">Security checks and minimal exposure</a></li>
+      <li><a href="ch12_troubleshooting.html">Troubleshooting, updates and handover</a></li>
     </ol>
     <div class="toc-in-chapter">
       <h2>This chapter</h2>
@@ -63,7 +63,6 @@
       <a href="#sources">Official sources</a>
     </div>
   </aside><main class="content">
-<div class="callout i18n-pending"><strong>This chapter has not been translated yet.</strong> You are reading the original Chinese text. <a href="../ch9_additional_hosts.html" hreflang="zh-Hant">Open the Chinese version</a></div>
 <div class="chapter-header"><div class="kicker">Chapter 9</div><h1>Manage additional hosts</h1><p class="lead">The same tunnel can forward other services on your local network, but "you can" does not mean "you should make it public". You will map one hostname to one origin, apply minimal exposure, and clear the leftover DNS by hand after you remove a route.</p></div>
 <section id="why" data-nav="Why this matters"><h2 data-icon="why">Every extra host is another way in</h2><p><code>additional_hosts</code> lets a locally managed tunnel send different public hostnames to different services on your local network — a site you maintain yourself, for example. The add-on creates a Cloudflare DNS route for each hostname on the list, so you do not have to open an inbound port on your home router.</p><p>But every entry you add is one more external entrance to keep updated, protect with a sign-in, monitor and eventually shut off. Routers, NAS boxes, virtualization platforms and add-on admin interfaces usually carry high privileges, so "handy once in a while" is not a good reason to expose them directly.</p><div class="callout warn"><strong>A real change:</strong> the Config page's <strong>Save &amp; Restart</strong> writes to Supervisor options and then restarts the add-on. A locally managed tunnel may also overwrite an existing DNS record that shares a name with <code>external_hostname</code> or with an entry in <code>additional_hosts</code> when it starts. Check the names, and what the existing DNS records are for, before you act.</div><div class="callout"><strong>The demo environment stays read-only:</strong> for this guide we added no host, saved nothing, restarted nothing, authorized nothing and changed no DNS in the screenshot environment. The steps below are for you to run in an environment you own and manage.</div></section>
 <section id="concept" data-nav="Route model"><h2 data-icon="concept">Three things matter in one route</h2><table class="data-table"><thead><tr><th>Field</th><th>What it means</th><th>The right idea</th></tr></thead><tbody><tr><td><code>hostname</code></td><td>The public name an outside user types</td><td>For example <code>notes.example.com</code>; no protocol, port or path</td></tr><tr><td><code>service</code></td><td>The address cloudflared uses to reach the origin from the network the add-on sits on</td><td>For example <code>http://192.168.1.20:8080</code>; it must include <code>http://</code> or <code>https://</code></td></tr><tr><td><code>disableChunkedEncoding</code></td><td>Turns off HTTP chunked transfer encoding to the origin</td><td>Optional; set it to <code>true</code> only when the origin genuinely cannot handle it</td></tr></tbody></table><p>The public side usually runs over HTTPS, but that does not mean the internal <code>service</code> has to be written as HTTPS too; service must match the protocol and port the origin actually serves. If the origin uses a self-signed certificate, do not casually turn verification off to get around it, and this chapter does not add advanced keys that are absent from the add-on schema.</p><pre class="code-block"><code>additional_hosts:

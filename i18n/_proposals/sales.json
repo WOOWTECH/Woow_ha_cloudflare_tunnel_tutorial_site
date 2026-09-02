@@ -1,0 +1,25 @@
+{
+  "file": "sales.html",
+  "entries": [
+    {
+      "unit": "#what",
+      "zh": "<code style=\"background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)\">https://ha.你的域名</code>",
+      "en": "<code style=\"background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)\">https://ha.your-domain.example</code>"
+    },
+    {
+      "unit": "#tunnel",
+      "zh": "<code style=\"font-family:var(--font-mono);color:var(--ww-blue-700)\">https://ha.家.tw</code>",
+      "en": "<code style=\"font-family:var(--font-mono);color:var(--ww-blue-700)\">https://ha.example.com</code>"
+    },
+    {
+      "unit": "#plans",
+      "zh": "<code style=\"background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)\">ha.你的域名</code>",
+      "en": "<code style=\"background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)\">ha.your-domain.example</code>"
+    },
+    {
+      "unit": "#faq",
+      "zh": "<code>你家名.woowtech.cloud</code>",
+      "en": "<code>yourhome.woowtech.cloud</code>"
+    }
+  ]
+}

@@ -1,4 +1,47 @@
 {
   "_readme": "code 區塊的例外清單：只有列在這裡的 <pre>/<code>/<kbd> 才允許與 zh 不同（通常是程式碼裡的中文註解或中文佔位值）。zh 那邊改了就會對不上而紅燈。由 scripts/apply_code_translations.js 維護。",
-  "allow": []
+  "allow": [
+    {
+      "file": "ch10_logs.html",
+      "unit": "#test",
+      "zh": "<code>https://你的-hostname</code>",
+      "en": "<code>https://your-hostname</code>"
+    },
+    {
+      "file": "ch8_hostname.html",
+      "unit": "#steps",
+      "zh": "<code>https://你的-hostname</code>",
+      "en": "<code>https://your-hostname</code>"
+    },
+    {
+      "file": "sales.html",
+      "unit": "#what",
+      "zh": "<code style=\"background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)\">https://ha.你的域名</code>",
+      "en": "<code style=\"background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)\">https://ha.your-domain.example</code>"
+    },
+    {
+      "file": "sales.html",
+      "unit": "#tunnel",
+      "zh": "<code style=\"font-family:var(--font-mono);color:var(--ww-blue-700)\">https://ha.家.tw</code>",
+      "en": "<code style=\"font-family:var(--font-mono);color:var(--ww-blue-700)\">https://ha.example.com</code>"
+    },
+    {
+      "file": "sales.html",
+      "unit": "#plans",
+      "zh": "<code style=\"background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)\">ha.你的域名</code>",
+      "en": "<code style=\"background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)\">ha.your-domain.example</code>"
+    },
+    {
+      "file": "sales.html",
+      "unit": "#faq",
+      "zh": "<code>你家名.woowtech.cloud</code>",
+      "en": "<code>yourhome.woowtech.cloud</code>"
+    },
+    {
+      "file": "skills.html",
+      "unit": "#spec",
+      "zh": "<pre class=\"code-block\"><code>cf-tunnel-quickstart/\n├── SKILL.md          ← 唯一必要檔案\n├── references/       ← 選填：官方文件節錄\n└── scripts/          ← 選填：wrangler、curl 範例\n\n# SKILL.md 內容\n---\nname: cf-tunnel-quickstart\ndescription: 使用者要求建立 Cloudflare Tunnel、加 hostname、\n  或把內網服務公開到 example.com 網域時觸發。\n  處理 cloudflared 安裝、tunnel 建立、DNS CNAME、Access 政策。\nlicense: MIT\ncompatibility: claude-code, cursor, codex, opencode\n---\n\n# Cloudflare Tunnel 快速上線\n\n## 使用時機\n（給 agent 看的做法說明，寫得像教新同事）</code></pre>",
+      "en": "<pre class=\"code-block\"><code>cf-tunnel-quickstart/\n├── SKILL.md          ← the only required file\n├── references/       ← optional: excerpts from the official docs\n└── scripts/          ← optional: wrangler and curl examples\n\n# SKILL.md contents\n---\nname: cf-tunnel-quickstart\ndescription: Triggers when the user asks to create a Cloudflare Tunnel, add a hostname,\n  or expose an internal service on the example.com domain.\n  Covers cloudflared install, tunnel creation, DNS CNAME and Access policy.\nlicense: MIT\ncompatibility: claude-code, cursor, codex, opencode\n---\n\n# Cloudflare Tunnel quickstart\n\n## When to use it\n(instructions written for the agent, as if you were briefing a new colleague)</code></pre>"
+    }
+  ]
 }
