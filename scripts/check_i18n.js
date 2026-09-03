@@ -42,9 +42,14 @@ const locales = i18n.loadLocales(REPO_ROOT);
 const ledger = i18n.loadLedger(REPO_ROOT);
 ledger.units = ledger.units || {};
 const rootCfg = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'chapters.json'), 'utf8'));
-const CATALOG = (rootCfg.hub && rootCfg.hub.catalog) || 'index.html';
-const HUB_PAGES = (rootCfg.hub && rootCfg.hub.pages) || [];
-const PAGES = [...rootCfg.chapters, ...rootCfg.appendices].map((p) => p.file);
+// Some locale-only hubs have no publishable primary-root counterpart. Keep their original
+// zh translation sources outside the root so root HTML can remain byte-identical to main,
+// while parity/code/ledger gates still validate every locale page.
+const SOURCE_DIR = path.join(REPO_ROOT, 'i18n', 'source', 'zh');
+const sourceCfg = i18n.readJSON(path.join(SOURCE_DIR, 'chapters.json'), rootCfg);
+const CATALOG = (sourceCfg.hub && sourceCfg.hub.catalog) || 'index.html';
+const HUB_PAGES = (sourceCfg.hub && sourceCfg.hub.pages) || [];
+const PAGES = [...sourceCfg.chapters, ...sourceCfg.appendices].map((p) => p.file);
 const ALL_FILES = [...new Set(['index.html', CATALOG, ...PAGES, ...HUB_PAGES])];
 const whitelist = i18n.readJSON(path.join(REPO_ROOT, 'i18n', 'code-translate.json'), { allow: [] });
 const today = new Date().toISOString().slice(0, 10);
@@ -155,7 +160,7 @@ for (const [code, loc] of Object.entries(locales)) {
   const primaryBase = rootCfg.site.baseUrl.replace(/\/$/, '');
 
   /* ---- E1: config units (chapters.json 人讀欄位) */
-  const zhCfgUnits = new Map(i18n.extractConfigUnits(rootCfg).map((u) => [u.key, u.hash]));
+  const zhCfgUnits = new Map(i18n.extractConfigUnits(sourceCfg).map((u) => [u.key, u.hash]));
   const enCfgUnits = new Map(i18n.extractConfigUnits(cfg).map((u) => [u.key, u.hash]));
   for (const [ukey, zhHash] of zhCfgUnits) {
     const key = `${code}:${ukey}`;
@@ -166,7 +171,7 @@ for (const [code, loc] of Object.entries(locales)) {
 
   /* ---- pages */
   for (const f of ALL_FILES) {
-    const zh = read(path.join(REPO_ROOT, f));
+    const zh = read(path.join(SOURCE_DIR, f.replace(/\.html$/, '.source'))) || read(path.join(REPO_ROOT, f));
     const en = read(path.join(dir, f));
     if (!zh) continue;
     if (!en) {
@@ -277,10 +282,12 @@ function reconcile(key, entry, zhHash, enHash, label) {
   if (ACCEPT.length && ACCEPT.some((a) => key === a || key.startsWith(a + '#') || key.startsWith(a + '.') || key.startsWith(a + ':'))) {
     if (enHash == null) err(`${label}: [E] 找不到譯文，無法 accept`);
     else {
-      entry.status = entry.status === 'localized' ? 'localized' : 'complete';
+      const acceptedStatus = entry.status === 'localized' ? 'localized' : 'complete';
+      const changed = entry.status !== acceptedStatus || entry.sourceHash !== zhHash || entry.targetHash !== enHash;
+      entry.status = acceptedStatus;
       entry.sourceHash = zhHash;
       entry.targetHash = enHash;
-      entry.translatedAt = today;
+      if (changed) entry.translatedAt = today;
       delete entry.zhChangedAt;
       ledgerChanged = true;
     }

@@ -534,8 +534,10 @@ function applyAlternates(html, file) {
 
 // 手寫頁（資源總覽、三本手冊）與目錄頁的語言切換：章節頁的側欄是 generator 產的，這幾頁不是，
 // 所以用註解夾住單獨插一塊。未發布語系時 langSwitch() 回空字串，zh 產物不動。
+// locale-only 頁沒有可連結的 root 頁；移除既有 switch 後不要產生失效的 zh 連結。
 function applyLangSwitch(html, file) {
   html = html.replace(/\n?[ \t]*<!-- i18n:switch -->[\s\S]*?<!-- \/i18n:switch -->/, '');
+  if (!IS_PRIMARY && !fs.existsSync(path.join(REPO_ROOT, file))) return html;
   const sw = i18n.langSwitch({
     isPrimary: IS_PRIMARY,
     locale: LOCALE,
