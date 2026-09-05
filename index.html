@@ -7,6 +7,10 @@
   <meta name="description" content="12 章繁體中文 Cloudflared Web GUI 教學：從安裝、Setup、Cloudflare 授權、hostname、Dashboard、Config、Logs，到安全與排錯。" />
   <meta name="author" content="woowtech" />
   <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/" />
+  <link rel="alternate" hreflang="zh-Hant" href="https://ha-cloudflare-tunnel-guide.woowtech.io/" />
+  <link rel="alternate" hreflang="zh" href="https://ha-cloudflare-tunnel-guide.woowtech.io/" />
+  <link rel="alternate" hreflang="en" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Home Assistant Cloudflared Web GUI 指南" />
@@ -26,10 +30,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;500;600&family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Yellowtail&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/i18n.css" />
 </head>
 <body>
   <main class="home">
     <div class="hero">
+      <!-- i18n:switch -->
+      <nav class="lang-switch" aria-label="語言"><a class="active" href="index.html" lang="zh-Hant" aria-current="page">中文</a><a href="en/" lang="en" hreflang="en">EN</a></nav>
+      <!-- /i18n:switch -->
       <span class="kicker-script">Secure</span>
       <div class="kicker">Home Assistant Cloudflared Web GUI 指南</div>
       <h1>不開埠，安全連回家</h1>

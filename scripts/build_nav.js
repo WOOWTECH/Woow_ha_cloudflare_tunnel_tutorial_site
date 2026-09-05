@@ -97,6 +97,9 @@ const I18N_CSS = NEEDS_I18N_CSS ? `\n  <link rel="stylesheet" href="${site.asset
 /* ---------------------------------------------------------------- head --- */
 
 function alternateLinks(file) {
+  // Locale-only pages have no real primary-root counterpart. They may be indexed,
+  // but must not emit hreflang links to source snapshots or nonexistent URLs.
+  if (!IS_PRIMARY && !fs.existsSync(path.join(REPO_ROOT, file))) return '';
   const list = i18n.alternates({
     isPrimary: IS_PRIMARY,
     locale: LOCALE,

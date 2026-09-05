@@ -171,7 +171,9 @@ for (const [code, loc] of Object.entries(locales)) {
 
   /* ---- pages */
   for (const f of ALL_FILES) {
-    const zh = read(path.join(SOURCE_DIR, f.replace(/\.html$/, '.source'))) || read(path.join(REPO_ROOT, f));
+    const primaryPage = read(path.join(REPO_ROOT, f));
+    const hasPrimaryCounterpart = primaryPage != null;
+    const zh = read(path.join(SOURCE_DIR, f.replace(/\.html$/, '.source'))) || primaryPage;
     const en = read(path.join(dir, f));
     if (!zh) continue;
     if (!en) {
@@ -251,15 +253,21 @@ for (const [code, loc] of Object.entries(locales)) {
       if (!noindex) err(`${code}/${f}: [F] 未上線的頁必須 noindex（${loc.published ? 'pending 未翻完' : `語系 ${code} published=false`}；重跑 SITE_ROOT=${code} build_nav.js）`);
       if (inMap) err(`${code}/${f}: [F] 未上線的頁不得進 sitemap`);
       if (en.includes(`<link rel="alternate" hreflang=`)) err(`${code}/${f}: [F] 未上線卻發了 hreflang（單向 hreflang 會讓整組被忽略）`);
-      if (zh.includes(`href="${primaryBase}/${loc.dir || code}/${zhRel}"`)) err(`${f}: [F] zh 頁指向未上線的 ${code}`);
+      if (primaryPage && primaryPage.includes(`href="${primaryBase}/${loc.dir || code}/${zhRel}"`)) err(`${f}: [F] zh 頁指向未上線的 ${code}`);
     } else {
       if (noindex) err(`${code}/${f}: [F] 已上線頁卻 noindex`);
       if (!inMap) err(`${code}/${f}: [F] 已上線頁不在 sitemap`);
-      // hreflang 是全有或全無：少一邊 return tag，整組會被 Google 忽略，所以兩邊都驗。
-      const zhHas = zh.includes(`hreflang="${loc.hreflang || code}" href="${primaryBase}/${loc.dir || code}/${zhRel}"`);
-      const enHas = en.includes(`hreflang="zh-Hant" href="${primaryBase}/${zhRel}"`);
-      if (!zhHas) err(`${f}: [F] zh 頁缺少指向 ${code} 的 hreflang（重跑 node scripts/build_nav.js）`);
-      if (!enHas) err(`${code}/${f}: [F] 缺少指回 zh 的 hreflang`);
+      if (!hasPrimaryCounterpart) {
+        // Source snapshots are translation evidence, not publishable pages. A
+        // locale-only English page must not advertise a nonexistent zh return URL.
+        if (en.includes('<link rel="alternate" hreflang=')) err(`${code}/${f}: [F] locale-only 頁不得發 nonexistent primary hreflang`);
+      } else {
+        // hreflang 是全有或全無：少一邊 return tag，整組會被 Google 忽略，所以兩邊都驗。
+        const zhHas = primaryPage.includes(`hreflang="${loc.hreflang || code}" href="${primaryBase}/${loc.dir || code}/${zhRel}"`);
+        const enHas = en.includes(`hreflang="zh-Hant" href="${primaryBase}/${zhRel}"`);
+        if (!zhHas) err(`${f}: [F] zh 頁缺少指向 ${code} 的 hreflang（重跑 node scripts/build_nav.js）`);
+        if (!enHas) err(`${code}/${f}: [F] 缺少指回 zh 的 hreflang`);
+      }
     }
 
     report.push({ locale: code, file: f, status, units: zhUnits.length });
