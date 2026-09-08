@@ -1,25 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cloudflare AI Agent Skill Handbook · Curated catalog and quick reference · WoowTech</title>
-  <meta name="description" content="A skill handbook for using Cloudflare with an AI LLM / agent: 8 picks from the Cloudflare-related skills (including the official cloudflare/skills, cloudflare/mcp and one dedicated to DNS + Tunnel), entry points to 6 popular collections, an install quick reference, compatibility notes and safety rules, the SKILL.md spec and an FAQ. Stars and data are a 2026-08-20 snapshot." />
+  <title>Cloudflare AI Agent Skill 手冊 · 精選型錄與速查 · WoowTech</title>
+  <meta name="description" content="搭配 AI LLM／agent 使用 Cloudflare 的 skill 手冊：精選 8 顆與 Cloudflare 相關的 skills（含官方 cloudflare/skills、cloudflare/mcp、DNS + Tunnel 專用）、6 大熱門集合入口、安裝速查、相容性與安全守則、SKILL.md 規格與 FAQ。星數與資料為 2026-08-20 快照。" />
   <meta name="author" content="WoowTech" />
   <meta name="theme-color" content="#6183FC" />
-  <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/skills.html" />
+  <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/skills.html" />
   <!-- i18n:alternates -->
-  <link rel="alternate" hreflang="en" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/skills.html" />
-  <link rel="alternate" hreflang="x-default" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/skills.html" />
   <link rel="alternate" hreflang="zh-Hant" href="https://ha-cloudflare-tunnel-guide.woowtech.io/skills.html" />
   <link rel="alternate" hreflang="zh" href="https://ha-cloudflare-tunnel-guide.woowtech.io/skills.html" />
+  <link rel="alternate" hreflang="en" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/skills.html" />
+  <link rel="alternate" hreflang="x-default" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/skills.html" />
   <!-- /i18n:alternates -->
-  <meta name="robots" content="index, follow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Yellowtail&display=swap" />
   <style>
-/* Cloudflare Skill Handbook — Woow_ha_tutorial_site layout x woowtech Brand Prompt Library v2 */
+/* Cloudflare Skill 手冊 — Woow_ha_tutorial_site 版型 × woowtech Brand Prompt Library v2 */
 :root {
   --ww-blue: #6183FC;
   --ww-blue-600: #4A6DE8;
@@ -301,279 +300,279 @@ pre.code-block code { background: none; padding: 0; color: inherit; }
   .sidebar.is-collapsed > h2 { display: none; }
 }
   </style>
-<!-- i18n:css --><link rel="stylesheet" href="../assets/css/i18n.css" /><!-- /i18n:css -->
+<!-- i18n:css --><link rel="stylesheet" href="assets/css/i18n.css" /><!-- /i18n:css -->
 </head>
 <body>
 <div class="layout">
   <aside class="sidebar" id="sidebar">
-    <a class="brand" href="#top">Cloudflare Skill Handbook</a>
-    <div class="brand-sub">WoowTech · agent skill catalog and quick reference</div>
-    <!-- i18n:switch --><nav class="lang-switch" aria-label="Language"><a href="../skills.html" lang="zh-Hant" hreflang="zh-Hant">中文</a><a class="active" href="skills.html" lang="en" aria-current="page">EN</a></nav><!-- /i18n:switch -->
-    <a class="hub-link" href="index.html">◂ Cloudflare Tunnel Resource Hub</a>
-    <button class="nav-toggle" id="navToggle" type="button">What's in this handbook<span class="nav-toggle-caret"></span></button>
+    <a class="brand" href="#top">Cloudflare Skill 手冊</a>
+    <div class="brand-sub">WoowTech · agent 技能型錄與速查</div>
+    <!-- i18n:switch --><nav class="lang-switch" aria-label="語言"><a class="active" href="skills.html" lang="zh-Hant" aria-current="page">中文</a><a href="en/skills.html" lang="en" hreflang="en">EN</a></nav><!-- /i18n:switch -->
+    <a class="hub-link" href="index.html">◂ Cloudflare Tunnel 資源總覽</a>
+    <button class="nav-toggle" id="navToggle" type="button">本冊內容<span class="nav-toggle-caret"></span></button>
     <div class="toc-in-chapter">
-      <h2>What's in this handbook</h2>
-      <a href="#why">What a skill is</a>
-      <a href="#install">How to install</a>
-      <a href="#picks">Eight picks</a>
-      <a href="#collections">Collections</a>
-      <a href="#compat">Compatibility</a>
-      <a href="#safety">Safety rules</a>
-      <a href="#spec">SKILL.md spec</a>
-      <a href="#faq">FAQ</a>
-      <a href="#download">Download</a>
+      <h2>本冊內容</h2>
+      <a href="#why">Skill 是什麼</a>
+      <a href="#install">怎麼裝</a>
+      <a href="#picks">精選八顆</a>
+      <a href="#collections">熱門集合</a>
+      <a href="#compat">相容性須知</a>
+      <a href="#safety">安全守則</a>
+      <a href="#spec">SKILL.md 規格</a>
+      <a href="#faq">常見問題</a>
+      <a href="#download">下載</a>
     </div>
   </aside>
 
   <main class="content" id="top">
     <div class="chapter-header">
       <span class="kicker-script">teach it cloudflare</span>
-      <div class="kicker">WoowTech Skill Handbook</div>
-      <h1>Teach your AI agent the craft of Cloudflare</h1>
-      <p class="lead">A skill is a "work manual" written for an AI: one folder, one SKILL.md, and when the matching situation comes up the agent opens it and follows it. This handbook picks 8 Cloudflare-related skills that actually run, and adds an install quick reference, compatibility notes, safety rules and the SKILL.md spec. Workers/Pages deploys, DNS automation, tunnel management and Zero Trust policy generation are all covered.</p>
-      <div class="callout"><strong>How this was researched:</strong> the star counts and collection sizes in this handbook are the public GitHub figures on <strong>2026-08-20</strong>, the day of the survey; they move over time, so open the original repo and check again before you install.</div>
+      <div class="kicker">WoowTech Skill 手冊</div>
+      <h1>讓 AI agent 學會 Cloudflare 這門手藝</h1>
+      <p class="lead">Skill 是給 AI 看的「工作手冊」：一個資料夾、一份 SKILL.md，agent 遇到對應情況會翻出來照做。這本手冊挑好 8 顆與 Cloudflare 相關、能實際跑起來的 skill，附安裝速查、相容性提示、安全守則與 SKILL.md 規格。Workers/Pages 部署、DNS 自動化、Tunnel 管理、Zero Trust 政策生成都能上手。</p>
+      <div class="callout"><strong>調查基準：</strong>本冊 skill 的星數與集合規模為 <strong>2026-08-20</strong> 調查當日的 GitHub 公開數據，會隨時間變動；安裝前建議點進原始 repo 再確認一次。</div>
     </div>
 
-    <section id="why" data-nav="What a skill is">
-      <h2 data-icon="why">What a skill is and why you'd install one</h2>
-      <p>Think of an AI agent as a very capable cloud engineer: it knows Workers syntax, the Wrangler CLI and the REST API — but it cannot read your mind about the way things are done in your Cloudflare account. A skill is <strong>the working SOP you write for the agent</strong>: which situation, which steps to follow, which pitfalls to avoid, all written into one Markdown file. Put it in the skills folder and the agent follows it.</p>
+    <section id="why" data-nav="Skill 是什麼">
+      <h2 data-icon="why">Skill 是什麼、為什麼要裝</h2>
+      <p>把 AI agent 想成一位很聰明的雲端工程師：Workers 語法、Wrangler CLI、REST API 都知道——但「你家 Cloudflare 帳號的做事方法」它不會通靈。Skill 就是<strong>寫給 agent 的工作 SOP</strong>：什麼情況、照什麼步驟、避開什麼坑，都寫成一份 Markdown，放進技能資料夾，agent 就會照做。</p>
       <ul>
-        <li><strong>Install what other people have written</strong>: Cloudflare's own, community and platform-specific collections are already written; install one and the agent knows it.</li>
-        <li><strong>Write your own later</strong>: package your team's deploy conventions, naming rules and environment-variable layout into a skill, and a new project picks them up automatically.</li>
+        <li><strong>裝別人寫好的</strong>：Cloudflare 自家、社群、平台專用集合已經寫好，裝了就會。</li>
+        <li><strong>之後寫自己的</strong>：把你團隊的部署慣例、命名規則、環境變數 layout 包成 skill，新專案自動套用。</li>
       </ul>
-      <p>A skill is, at heart, "instructions fed to the agent" — installing a third-party skill gives text you did not write a chance to direct your Cloudflare token, so be sure to follow all four rules in this handbook's <a href="#safety">Safety rules</a>.</p>
+      <p>Skill 的本質是「餵給 agent 的指令」——裝第三方 skill 等於讓一段陌生文字有機會指揮你的 Cloudflare token，本冊<a href="#safety">安全守則</a>裡的四條規則請務必遵守。</p>
     </section>
 
-    <section id="install" data-nav="How to install">
-      <h2 data-icon="steps">How to install (the 3-minute version)</h2>
-      <p>The skill ecosystem has two ways to install today: drop the folder into Claude Code's <code>~/.claude/skills/</code>, or use another agent platform's plugin/skill management UI. Using Claude Code as the example:</p>
+    <section id="install" data-nav="怎麼裝">
+      <h2 data-icon="steps">怎麼裝（3 分鐘版）</h2>
+      <p>Skill 生態現在有兩派安裝方式：Claude Code 的 <code>~/.claude/skills/</code> 資料夾扔進去、與其他 agent 平台的 plugin/skill 管理 UI。以 Claude Code 為例：</p>
       <ol class="steps">
         <li>
-          <h3>Clone into the skills folder</h3>
-          <p>Use <code>~/.claude/skills/</code> for yourself; use <code>.claude/skills/</code> for a project (it is committed with the repo).</p>
+          <h3>Clone 到 skills 資料夾</h3>
+          <p>個人用 <code>~/.claude/skills/</code>；專案用 <code>.claude/skills/</code>（跟隨 repo commit）。</p>
           <pre class="code-block"><code>cd ~/.claude/skills
 git clone https://github.com/cloudflare/skills cloudflare-skills</code></pre>
         </li>
         <li>
-          <h3>Check where SKILL.md sits</h3>
-          <p>Claude Code scans the folder recursively for each skill's <code>SKILL.md</code>. In a collection repo every subfolder is one skill.</p>
+          <h3>確認 SKILL.md 位置</h3>
+          <p>Claude Code 遞迴掃描資料夾，找每一顆 skill 的 <code>SKILL.md</code>。集合型 repo 底下每個子資料夾都是一顆 skill。</p>
         </li>
         <li>
-          <h3>Restart or reload the agent</h3>
-          <p>Skills are loaded when the session starts. After the restart, ask "which cloudflare-related skills do I have right now?" and check the list.</p>
+          <h3>重啟或 Reload agent</h3>
+          <p>Skill 是 session 開始時載入的。重啟後問：「目前有哪些 cloudflare 相關的 skill？」確認清單。</p>
         </li>
         <li>
-          <h3>Test the trigger with one sentence</h3>
-          <p>State a request that matches the situation the skill's description names, and see whether the agent reaches for it on its own.</p>
+          <h3>用一句話觸發測試</h3>
+          <p>照該 skill description 描述的情境講一個對應需求，看 agent 是否自動拿出來用。</p>
         </li>
       </ol>
-      <div class="callout tip"><strong>Tip:</strong> a pure-Markdown skill runs on almost every agent (Claude Code, Codex, Cursor, OpenCode, Pi Agent); for one that depends on hooks, scripts or a particular CLI, read the compatibility section of that skill's README first.</div>
+      <div class="callout tip"><strong>提示：</strong>純 Markdown 的 skill 幾乎跨所有 agent（Claude Code、Codex、Cursor、OpenCode、Pi Agent）都能跑；依賴 hooks / scripts / 特定 CLI 的先看該 skill README 的 compatibility 說明。</div>
     </section>
 
-    <section id="picks" data-nav="Eight picks">
-      <h2 data-icon="picks">Eight picks, from a Cloudflare angle</h2>
-      <p>Practical picks chosen on "official status + activity + Cloudflare coverage", ordered from the best fit down:</p>
+    <section id="picks" data-nav="精選八顆">
+      <h2 data-icon="picks">精選八顆（Cloudflare 視角）</h2>
+      <p>依「官方＋活躍度＋Cloudflare 涵蓋面」挑出來的實用款，由「最對口」往下排：</p>
       <table class="data-table">
         <thead>
-          <tr><th>Skill</th><th>What it does for the agent</th><th>Install source</th></tr>
+          <tr><th>Skill</th><th>它幫 agent 做什麼</th><th>安裝來源</th></tr>
         </thead>
         <tbody>
           <tr>
             <td><a href="https://github.com/cloudflare/skills" rel="noopener"><strong>cloudflare/skills</strong></a></td>
-            <td>Cloudflare's own skill set for "teaching an agent to build things on Cloudflare", covering Workers / Pages / D1 / R2 / KV / Agents SDK; <strong>the first pack Cloudflare officially recommends</strong>.</td>
+            <td>Cloudflare 官方出品的「教 agent 在 Cloudflare 上蓋東西」skill 集，Workers / Pages / D1 / R2 / KV / Agents SDK 都有；<strong>Cloudflare 官方推薦第一包</strong>。</td>
             <td><code>github.com/cloudflare/skills</code></td>
           </tr>
           <tr>
             <td><a href="https://github.com/cloudflare/mcp-server-cloudflare" rel="noopener"><strong>cloudflare/mcp-server-cloudflare</strong></a></td>
-            <td>Not a skill but an MCP server: it lets the agent call Cloudflare tools directly to get the work done, and paired with a skill it gives you the full "knowledge + ability" combination. Covers Workers, KV, R2, D1 and Analytics.</td>
+            <td>不是 skill 而是 MCP server，但它讓 agent 直接呼叫 Cloudflare tool 完成操作，跟 skill 搭配就是「知識＋能力」完整組合。Workers、KV、R2、D1、Analytics 都覆蓋。</td>
             <td><code>github.com/cloudflare/mcp-server-cloudflare</code></td>
           </tr>
           <tr>
             <td><a href="https://github.com/michael-ltm/cloudflare-skill" rel="noopener">michael-ltm/cloudflare-skill</a></td>
-            <td>Built on cloudflare/skills and extended: it adds <strong>DNS management, SSL/TLS Origin Certificates, multi-account certificates and Cloudflare Tunnel</strong> — exactly the tunnel/DNS sections the official set leaves unsaid.</td>
+            <td>基於 cloudflare/skills 再擴充：加了 <strong>DNS management、SSL/TLS Origin Certificates、多帳號憑證、Cloudflare Tunnel</strong>——正好補足官方版沒明說的 Tunnel/DNS 章節。</td>
             <td><code>github.com/michael-ltm/cloudflare-skill</code></td>
           </tr>
           <tr>
             <td><a href="https://github.com/D1DX/cloudflare-skill" rel="noopener">D1DX/cloudflare-skill</a></td>
-            <td>Covers Workers (Hono), R2, D1, KV, DNS, SSL/TLS, <strong>Zero Trust and Terraform IaC deploys</strong>. Pick this one if you want your Cloudflare configuration written down as Terraform.</td>
+            <td>Workers (Hono)、R2、D1、KV、DNS、SSL/TLS、<strong>Zero Trust、Terraform IaC 部署</strong>都涵蓋。想把 CF 設定落地成 Terraform 的推薦這顆。</td>
             <td><code>github.com/D1DX/cloudflare-skill</code></td>
           </tr>
           <tr>
             <td><a href="https://github.com/OpenSIN-Code/cloudflare-skill" rel="noopener">OpenSIN-Code/cloudflare-skill</a></td>
-            <td>A Cloudflare skill made for the OpenCode agent: <strong>explicit trigger words</strong> (<code>cloudflare</code>, <code>wrangler</code>, <code>cf worker</code>, <code>r2</code>, <code>d1</code>, <code>cloudflare tunnel</code>, <code>cf cache</code>), with a description clear enough that the agent picks it accurately.</td>
+            <td>OpenCode agent 專用的 Cloudflare skill：<strong>觸發詞明確</strong>（<code>cloudflare</code>、<code>wrangler</code>、<code>cf worker</code>、<code>r2</code>、<code>d1</code>、<code>cloudflare tunnel</code>、<code>cf cache</code>），description 寫得清楚 agent 抓得準。</td>
             <td><code>github.com/OpenSIN-Code/cloudflare-skill</code></td>
           </tr>
           <tr>
             <td><a href="https://github.com/straticus1/claude-cloudflare-skill" rel="noopener">straticus1/claude-cloudflare-skill</a></td>
-            <td>Claude Code only: full operations for DNS, zones, SSL, caching, firewall and Workers. <strong>The most enterprise-IT of the set</strong>, and a good fit for shipping a skill inside a customer deliverable.</td>
+            <td>Claude Code 專用：DNS、zones、SSL、caching、firewall、Workers 全套維運。<strong>企業 IT 味最重</strong>，適合把 skill 塞進客戶交付。</td>
             <td><code>github.com/straticus1/claude-cloudflare-skill</code></td>
           </tr>
           <tr>
             <td><a href="https://github.com/exoddus/claude-cloudflare-skill" rel="noopener">exoddus/claude-cloudflare-skill</a></td>
-            <td>An automation skill aimed at "a new project + a persistent Cloudflare Tunnel". <strong>If you often set up new environments for customers</strong>, this one writes the tunnel creation, the DNS and the Access policy in one go.</td>
+            <td>專攻「新專案＋持久化 Cloudflare Tunnel」的自動化 skill。<strong>如果你常幫客戶開新環境</strong>，這顆把 tunnel 建立、DNS、Access 政策一次寫好。</td>
             <td><code>github.com/exoddus/claude-cloudflare-skill</code></td>
           </tr>
           <tr>
             <td><a href="https://github.com/andrewkriley/cloudflare-dns-cloudflared-mcp" rel="noopener">andrewkriley/cloudflare-dns-cloudflared-mcp</a></td>
-            <td>Not a skill but a self-hosted MCP server that <strong>handles only Cloudflare DNS + cloudflared tunnel</strong> — the smallest scope, and the data stays on your own server. Good for an SRE with privacy requirements.</td>
+            <td>不是 skill，是自架 MCP server，<strong>只管 Cloudflare DNS + cloudflared tunnel</strong>——scope 最小、資料留在自家伺服器。適合對隱私有要求的 SRE。</td>
             <td><code>github.com/andrewkriley/cloudflare-dns-cloudflared-mcp</code></td>
           </tr>
         </tbody>
       </table>
-      <p class="pnote" style="margin-top:14px"><strong>For reference (worth knowing, not a standalone pick)</strong>: <a href="https://github.com/skillsceo/cloudflare-skill" rel="noopener">skillsceo/cloudflare-skill</a> (a mid-size operations pack for zones/DNS/Pages/R2/KV/email routing/analytics); <a href="https://github.com/pocc/cloudflare-mcp" rel="noopener">pocc/cloudflare-mcp</a> (354 read-only API tools, enterprise-grade security auditing); <a href="https://github.com/wrxck/cloudflare-mcp" rel="noopener">wrxck/cloudflare-mcp</a> (OpenAPI-driven, all 2,655 endpoints exposed — the largest, and the heaviest).</p>
+      <p class="pnote" style="margin-top:14px"><strong>備查（不獨立推薦但有價值）</strong>：<a href="https://github.com/skillsceo/cloudflare-skill" rel="noopener">skillsceo/cloudflare-skill</a>（zones/DNS/Pages/R2/KV/email routing/analytics 中型維運包）；<a href="https://github.com/pocc/cloudflare-mcp" rel="noopener">pocc/cloudflare-mcp</a>（354 個 read-only API tool，enterprise 級安全稽核）；<a href="https://github.com/wrxck/cloudflare-mcp" rel="noopener">wrxck/cloudflare-mcp</a>（OpenAPI 驅動、2,655 個 endpoint 全曝光——量最大但也最重）。</p>
     </section>
 
-    <section id="collections" data-nav="Collections">
-      <h2 data-icon="collections">Six popular collections (entry points into the agent-skill ecosystem)</h2>
-      <p>These are not Cloudflare-only; they are the flagship collections of the whole agent-skill ecosystem. Use them alongside the picks above, or dig through them for something new:</p>
+    <section id="collections" data-nav="熱門集合">
+      <h2 data-icon="collections">六大熱門集合（agent skill 生態入口）</h2>
+      <p>不只 Cloudflare 專用，這些是整個 agent skill 生態的旗艦集合。用來搭配上面精選、或在裡面挖新東西：</p>
       <div class="feature-grid">
 
         <div class="feature-card">
           <h3>anthropics/skills</h3>
-          <div class="pnote">The official Anthropic Agent Skills spec and examples · ≈170,502 ★ · very active</div>
-          <p>Home of the Skills spec and the official templates. 19 skills, including the four document skills (docx/pdf/pptx/xlsx), canvas-design, mcp-builder and skill-creator. <strong>Read this before you write any new skill</strong>.</p>
+          <div class="pnote">Anthropic 官方 Agent Skills 規格與示範 · ≈170,502 ★ · 極活躍</div>
+          <p>Skills 規格與官方 template 的家。19 顆 skill 含文件四件套（docx/pdf/pptx/xlsx）、canvas-design、mcp-builder、skill-creator。<strong>寫任何新 skill 前先看這個</strong>。</p>
           <pre class="code-block"><code>github.com/anthropics/skills</code></pre>
         </div>
 
         <div class="feature-card">
           <h3>cloudflare/skills</h3>
-          <div class="pnote">Cloudflare official · ≈2,673 ★ · just released, actively updated</div>
-          <p>Cloudflare's official agent-skill collection: it teaches the agent to build directly on Workers / Pages / D1 / R2 / KV / Agents SDK. It includes the <a href="https://github.com/cloudflare/agent-skills-discovery-rfc" rel="noopener">agent-skills-discovery-rfc</a> discussion of <code>.well-known</code>.</p>
+          <div class="pnote">Cloudflare 官方 · ≈2,673 ★ · 剛推出、積極更新</div>
+          <p>Cloudflare 官方的 agent skill 集合，直接教 agent 在 Workers / Pages / D1 / R2 / KV / Agents SDK 上蓋東西。含 <a href="https://github.com/cloudflare/agent-skills-discovery-rfc" rel="noopener">agent-skills-discovery-rfc</a> 的 <code>.well-known</code> 討論。</p>
           <pre class="code-block"><code>github.com/cloudflare/skills</code></pre>
         </div>
 
         <div class="feature-card">
           <h3>obra/superpowers</h3>
-          <div class="pnote">A development-methodology framework · ≈274,339 ★ · the README lists support for several agents</div>
-          <p>14 discipline-style skills: brainstorming, TDD, systematic-debugging, writing-plans. They apply to a Cloudflare Workers deploy too — they put a discipline around the debugging process.</p>
+          <div class="pnote">開發方法論框架 · ≈274,339 ★ · README 明列多 agent 支援</div>
+          <p>14 顆紀律型 skill：brainstorming、TDD、systematic-debugging、writing-plans。Cloudflare Workers 部署也適用——把 debug 流程紀律化。</p>
           <pre class="code-block"><code>github.com/obra/superpowers</code></pre>
         </div>
 
         <div class="feature-card">
           <h3>mattpocock/skills</h3>
-          <div class="pnote">Skills For Real Engineers · ≈223,949 ★ · very active</div>
-          <p>grill-me, tdd, diagnosing-bugs, handoff, teach — mostly engineering-facing. grill-me is very good at "pin the Cloudflare requirement down before you start", which keeps the agent from changing a zone at random.</p>
+          <div class="pnote">Skills For Real Engineers · ≈223,949 ★ · 極活躍</div>
+          <p>grill-me、tdd、diagnosing-bugs、handoff、teach——工程向為主。grill-me 對「先問清楚 Cloudflare 需求再開工」超好用，避免 agent 亂改 zone。</p>
           <pre class="code-block"><code>github.com/mattpocock/skills</code></pre>
         </div>
 
         <div class="feature-card">
           <h3>jezweb/claude-skills</h3>
-          <div class="pnote">Full-stack Cloudflare oriented · ≈973 ★ · production ready</div>
-          <p>Claude Code CLI only, built around <strong>full-stack Cloudflare + React + Tailwind v4 + AI integrations</strong>. The best fit if you want to use Workers/Pages as both the frontend and the backend IaaS.</p>
+          <div class="pnote">Full-stack CF 導向 · ≈973 ★ · 生產就緒</div>
+          <p>Claude Code CLI 專用，主打 <strong>full-stack Cloudflare + React + Tailwind v4 + AI integrations</strong>。想把 Workers/Pages 當前端 + 後端 IaaS 用的最適合。</p>
           <pre class="code-block"><code>github.com/jezweb/claude-skills</code></pre>
         </div>
 
         <div class="feature-card">
           <h3>ComposioHQ/awesome-claude-skills</h3>
-          <div class="pnote">A curated list · thousands of entries · for browsing</div>
-          <p>An entry point with 1000+ entries: document handling, data visualization, invoice tidying, resume tailoring, meeting transcripts — browse it as a catalog, and install anything that interests you from its original repo. Quality varies, so read each one carefully before you install it.</p>
+          <div class="pnote">策展清單 · 上千條目 · 逛街用</div>
+          <p>1000+ 條目的入口站：文件處理、資料視覺化、發票整理、履歷客製、會議逐字稿——當目錄逛，找到有興趣的點進去裝原始 repo。品質參差，逐顆看清楚再裝。</p>
           <pre class="code-block"><code>github.com/ComposioHQ/awesome-claude-skills</code></pre>
         </div>
 
       </div>
-      <p class="pnote" style="margin-top:14px">For reference: <a href="https://github.com/VoltAgent/awesome-agent-skills" rel="noopener">VoltAgent/awesome-agent-skills</a> (a cross-agent index only, listing official team output alone: the whole Anthropic range, Google Workspace, cloudflare), <a href="https://github.com/cloudflare/agent-skills-discovery-rfc" rel="noopener">cloudflare/agent-skills-discovery-rfc</a> (the RFC draft for a <code>.well-known</code> URI discovery mechanism).</p>
+      <p class="pnote" style="margin-top:14px">備查：<a href="https://github.com/VoltAgent/awesome-agent-skills" rel="noopener">VoltAgent/awesome-agent-skills</a>（跨 agent 純索引，只收官方團隊出品：Anthropic 全系列、Google Workspace、cloudflare）、<a href="https://github.com/cloudflare/agent-skills-discovery-rfc" rel="noopener">cloudflare/agent-skills-discovery-rfc</a>（<code>.well-known</code> URI 發現機制 RFC 草案）。</p>
     </section>
 
-    <section id="compat" data-nav="Compatibility">
-      <h2 data-icon="integration">Compatibility notes</h2>
-      <p>The SKILL.md spec has been adopted by Claude Code, Codex, Gemini CLI, Cursor, OpenCode, Pi Agent and others, so a pure-Markdown skill runs almost anywhere. Only three situations make it "degrade":</p>
+    <section id="compat" data-nav="相容性須知">
+      <h2 data-icon="integration">相容性須知</h2>
+      <p>SKILL.md 規格已被 Claude Code、Codex、Gemini CLI、Cursor、OpenCode、Pi Agent 等採用，純 Markdown 的 skill 幾乎到處能跑。會「退化」的只有三種情況：</p>
       <ul>
-        <li><strong>It depends on a Claude Code-only mechanism</strong> (hooks, plugin commands, dispatching work to a subagent) — the skill text is still readable, but the automatic triggering may be incomplete.</li>
-        <li><strong>It depends on a particular MCP / SaaS account</strong> — without that service connected it does nothing; <strong>almost every Cloudflare skill assumes you have installed <code>cloudflare/mcp-server-cloudflare</code> or can use Wrangler</strong>, so check before you install.</li>
-        <li><strong><code>scripts/</code> needs a runtime you do not have</strong> — a skill that needs Node, Wrangler, Terraform or jq will not run if they are not installed locally; a pure-Markdown skill is the most compatible.</li>
+        <li><strong>依賴 Claude Code 專屬機制</strong>（hooks、plugin 指令、subagent 派工）——skill 本文仍可讀，但自動觸發行為可能不完整。</li>
+        <li><strong>依賴特定 MCP／SaaS 帳號</strong>——沒接那個服務就沒用；<strong>Cloudflare skill 幾乎都預設你已裝 <code>cloudflare/mcp-server-cloudflare</code> 或會用 Wrangler</strong>，先確認再裝。</li>
+        <li><strong><code>scripts/</code> 需要沒有的 runtime</strong>——需要 Node、Wrangler、Terraform、jq 的 skill，本機沒裝就跑不動；純 Markdown skill 相容性最好。</li>
       </ul>
-      <div class="callout"><strong>Concept:</strong> the first rule for picking a skill is not the star count, it is "do you have the environment it assumes". 90% of Cloudflare skills assume you have Wrangler + an API Token.</div>
+      <div class="callout"><strong>觀念：</strong>挑 skill 的第一準則不是星數，是「它假設的環境你有沒有」。Cloudflare skill 90% 假設你有 Wrangler + API Token。</div>
     </section>
 
-    <section id="safety" data-nav="Safety rules">
-      <h2 data-icon="safety">Safety rules</h2>
-      <div class="callout warn"><strong>Warning:</strong> a skill is, at heart, "instructions fed to the agent". Installing a third-party Cloudflare skill = giving text you did not write a chance to direct your Cloudflare token, which is the same as lending out your account permissions.</div>
+    <section id="safety" data-nav="安全守則">
+      <h2 data-icon="safety">安全守則</h2>
+      <div class="callout warn"><strong>注意：</strong>Skill 的本質是「餵給 agent 的指令」。裝第三方 Cloudflare skill＝讓一段陌生文字有機會指揮你的 Cloudflare token，等同帳號權限被借走。</div>
       <ul>
-        <li><strong>Read it before you install it</strong>: open SKILL.md and read it through, watching especially for instructions telling the agent to "run this curl", "delete that record" or "set that secret". Or have the agent read it to you: "Read this skill first, list what it would do to my Cloudflare account and whether there is any risk, and install it only once I agree."</li>
-        <li><strong>Give the token the smallest scope</strong>: for a DNS skill grant only <code>Zone.DNS:Edit</code>, never the Global API Key. If the skill turns out to be wrong, the damage is limited.</li>
-        <li><strong>Pin the version in production</strong>: <code>git clone --branch v1.2.0</code>, or pin a commit, so an upstream change cannot upgrade you without your noticing.</li>
-        <li><strong>Stars = popularity, not safety</strong>: a popular collection still has to be read for which permissions it takes and what it does with them. Cloudflare is production infrastructure, and a mistake there costs far more than one on your home Home Assistant.</li>
+        <li><strong>先讀後裝</strong>：安裝前把 SKILL.md 打開讀一遍，特別看有沒有指示 agent「跑某某 curl」「刪某某 record」「set 某某 secret」。或直接叫 agent 讀給你聽：「先讀這顆 skill 的內容，列出它會對我 Cloudflare 帳號做什麼、有沒有風險，我同意再裝。」</li>
+        <li><strong>Token 用最小 scope</strong>：安裝 DNS skill 就只給 <code>Zone.DNS:Edit</code>，別給 Global API Key。skill 有問題傷害有限。</li>
+        <li><strong>正式環境釘版本</strong>：<code>git clone --branch v1.2.0</code> 或釘 commit，避免上游改內容你無感升級。</li>
+        <li><strong>星數＝人氣，不＝安全</strong>：熱門集合一樣要看它拿什麼權限做什麼事。Cloudflare 是 production infra，被誤操作代價比家用 HA 高得多。</li>
       </ul>
     </section>
 
-    <section id="spec" data-nav="SKILL.md spec">
-      <h2 data-icon="spec">SKILL.md spec quick reference</h2>
-      <p>The minimal skeleton of one Cloudflare skill:</p>
+    <section id="spec" data-nav="SKILL.md 規格">
+      <h2 data-icon="spec">SKILL.md 規格速查</h2>
+      <p>一顆 Cloudflare skill 的最小骨架：</p>
       <pre class="code-block"><code>cf-tunnel-quickstart/
-├── SKILL.md          ← the only required file
-├── references/       ← optional: excerpts from the official docs
-└── scripts/          ← optional: wrangler and curl examples
+├── SKILL.md          ← 唯一必要檔案
+├── references/       ← 選填：官方文件節錄
+└── scripts/          ← 選填：wrangler、curl 範例
 
-# SKILL.md contents
+# SKILL.md 內容
 ---
 name: cf-tunnel-quickstart
-description: Triggers when the user asks to create a Cloudflare Tunnel, add a hostname,
-  or expose an internal service on the example.com domain.
-  Covers cloudflared install, tunnel creation, DNS CNAME and Access policy.
+description: 使用者要求建立 Cloudflare Tunnel、加 hostname、
+  或把內網服務公開到 example.com 網域時觸發。
+  處理 cloudflared 安裝、tunnel 建立、DNS CNAME、Access 政策。
 license: MIT
 compatibility: claude-code, cursor, codex, opencode
 ---
 
-# Cloudflare Tunnel quickstart
+# Cloudflare Tunnel 快速上線
 
-## When to use it
-(instructions written for the agent, as if you were briefing a new colleague)</code></pre>
+## 使用時機
+（給 agent 看的做法說明，寫得像教新同事）</code></pre>
       <table class="data-table">
         <thead>
-          <tr><th>Field</th><th>Required</th><th>What it means</th></tr>
+          <tr><th>欄位</th><th>必填</th><th>說明</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>name</code></td><td>Yes</td><td>Lowercase letters, digits and hyphens, 1–64 characters.</td></tr>
-          <tr><td><code>description</code></td><td>Yes</td><td>What it does + when it triggers. <strong>The agent decides from this line whether to load the skill</strong>, so put the words a user would actually say into it (for example "create a tunnel" or "add a hostname").</td></tr>
-          <tr><td><code>license</code></td><td>No</td><td>MIT / Apache-2.0 is recommended, so other people can fork it with confidence.</td></tr>
-          <tr><td><code>compatibility</code></td><td>No</td><td>List the agents you have actually tested, so users can filter.</td></tr>
-          <tr><td><code>allowed-tools</code></td><td>No</td><td>An allowlist of the tools the agent may use, for example <code>[Read, Bash, WebFetch]</code>.</td></tr>
+          <tr><td><code>name</code></td><td>是</td><td>小寫英數與連字號，1–64 字元。</td></tr>
+          <tr><td><code>description</code></td><td>是</td><td>做什麼＋何時觸發。<strong>Agent 靠這行決定要不要載入</strong>，把使用者會講的話寫進去（例如「建 tunnel」「加 hostname」）。</td></tr>
+          <tr><td><code>license</code></td><td>否</td><td>建議填 MIT / Apache-2.0，讓別人放心 fork。</td></tr>
+          <tr><td><code>compatibility</code></td><td>否</td><td>列出實測過的 agent，讓使用者能篩選。</td></tr>
+          <tr><td><code>allowed-tools</code></td><td>否</td><td>指定 agent 可用工具白名單，例如 <code>[Read, Bash, WebFetch]</code>。</td></tr>
         </tbody>
       </table>
-      <p>Convention: keep SKILL.md short (&lt; 500 lines), put long stretches of official documentation in <code>references/</code> and scripts in <code>scripts/</code>, and read them only when they are needed so you do not blow up the context.</p>
-      <div class="callout tip"><strong>Tip:</strong> the Cloudflare RFC <a href="https://github.com/cloudflare/agent-skills-discovery-rfc" rel="noopener">agent-skills-discovery-rfc</a> is pushing <code>/.well-known/agent-skills</code> so an agent can discover the available skills on a site automatically — in future your own site could serve skills to a customer's agent.</div>
+      <p>慣例：SKILL.md 保持精簡（&lt; 500 行），大段官方文件放 <code>references/</code>、腳本放 <code>scripts/</code>，用到才讀，避免吃爆 context。</p>
+      <div class="callout tip"><strong>提示：</strong>Cloudflare RFC <a href="https://github.com/cloudflare/agent-skills-discovery-rfc" rel="noopener">agent-skills-discovery-rfc</a> 正在推動 <code>/.well-known/agent-skills</code> 讓 agent 自動從網站發現可用 skill——未來你的網站也能提供 skill 給客戶的 agent 使用。</div>
     </section>
 
-    <section id="faq" data-nav="FAQ">
-      <h2 data-icon="faq">FAQ</h2>
+    <section id="faq" data-nav="常見問題">
+      <h2 data-icon="faq">常見問題</h2>
       <details class="faq">
-        <summary>What is the difference between the official Cloudflare skills and community skills?</summary>
-        <div class="body">The official <code>cloudflare/skills</code> focuses on "building things on Cloudflare" — Workers, Pages, D1, R2 and KV development; community skills fill in "operations" and things like tunnel/DNS/Access. In practice you install both: the official set is the skeleton, the community set is the flesh.</div>
+        <summary>Cloudflare 官方 skills 跟社群 skills 有什麼差別？</summary>
+        <div class="body">官方 <code>cloudflare/skills</code> 焦點在「在 Cloudflare 上蓋東西」——Workers、Pages、D1、R2、KV 開發；社群 skills 補足「維運」與「Tunnel/DNS/Access」等。實務上兩邊都裝，官方做骨、社群補肉。</div>
       </details>
       <details class="faq">
-        <summary>The skill is installed but the agent never triggers it?</summary>
-        <div class="body">Three causes: <strong>1)</strong> you did not restart the agent (skills load when the session starts); <strong>2)</strong> the description does not cover the way you phrased it — name it directly, "use cloudflare-skill to create a tunnel for me"; <strong>3)</strong> on Claude Code, check that the <code>~/.claude/skills/</code> path is right and that recursion with depth &gt; 1 is allowed.</div>
+        <summary>裝了 skill 但 agent 沒觸發？</summary>
+        <div class="body">三個原因：<strong>1)</strong> 沒重啟 agent（skill 是 session 開始載入）；<strong>2)</strong> description 沒涵蓋你的講法——直接點名「用 cloudflare-skill 幫我建 tunnel」；<strong>3)</strong> Claude Code 的話檢查 <code>~/.claude/skills/</code> 路徑是否對，允許 depth &gt; 1 遞迴。</div>
       </details>
       <details class="faq">
-        <summary>What happens if I install too many skills?</summary>
-        <div class="body">Every skill's name + description takes up context in the system prompt; at 30 or more the agent gets distracted and it costs more. The rule: keep what you use, remove what you tried and never used. For Cloudflare, keeping 1 platform skill + 1 tunnel/DNS skill covers 80% of the work.</div>
+        <summary>skill 裝太多會怎樣？</summary>
+        <div class="body">每顆 skill 的 name + description 會佔 system prompt 的 context；30 顆以上會讓 agent 分心也變貴。原則：常用留著，試玩過不用的移除。Cloudflare 相關可以固定留 1 顆 platform + 1 顆 tunnel/DNS 就夠 80% 用途。</div>
       </details>
       <details class="faq">
-        <summary>How do an MCP server and a skill relate?</summary>
-        <div class="body">A skill is <strong>the knowledge of "how it should be done"</strong> (markdown for the agent to read); an MCP server is <strong>the ability to "do it"</strong> (tools for the agent to call). <code>cloudflare/mcp-server-cloudflare</code> provides the tools (GET zones, PUT records...), and a Cloudflare skill teaches the agent "which tool to use when, in what order, and how to check the result" — best practice is to use both together.</div>
+        <summary>MCP server 跟 skill 是什麼關係？</summary>
+        <div class="body">Skill 是<strong>「該怎麼做」的知識</strong>（給 agent 讀的 markdown）；MCP server 是<strong>「能做什麼」的能力</strong>（給 agent 呼叫的 tool）。<code>cloudflare/mcp-server-cloudflare</code> 提供 tools（GET zones、PUT records...），Cloudflare skill 教 agent「什麼時候用哪個 tool、什麼順序、怎麼驗收」——最佳實踐是兩個一起用。</div>
       </details>
       <details class="faq">
-        <summary>How do I package my company's or a customer's Cloudflare conventions into a skill of my own?</summary>
-        <div class="body">Use the <code>anthropics/skills</code> repo's <code>skill-creator</code> to start a new skeleton, and write your "naming rules, standard tunnel configuration, Access policy template and Wrangler bindings conventions" into SKILL.md. Put it in a private GitHub repo and have every internal agent clone it into <code>.claude/skills/</code>: write it once and the whole company is consistent.</div>
+        <summary>怎麼把公司/客戶的 Cloudflare 慣例包成自己的 skill？</summary>
+        <div class="body">用 <code>anthropics/skills</code> 裡的 <code>skill-creator</code> 開個新骨架，把你們的「命名規則、標準 tunnel 配置、Access 政策 template、Wrangler bindings 慣例」寫進 SKILL.md。放進私有 GitHub repo，內部 agent 都 clone 到 <code>.claude/skills/</code>，一次寫全公司統一。</div>
       </details>
       <details class="faq">
-        <summary>How do I tell whether a skill suits me?</summary>
-        <div class="body">Four checkpoints: <strong>1)</strong> whether the first description line in SKILL.md is specific; <strong>2)</strong> whether a <code>compatibility:</code> field names the agents it was tested on; <strong>3)</strong> whether you have the runtime <code>scripts/</code> needs; <strong>4)</strong> whether the issues / PRs are still active (a community skill with no commit for six months is usually out of date).</div>
+        <summary>怎麼看一顆 skill 適不適合我？</summary>
+        <div class="body">四個檢查點：<strong>1)</strong> SKILL.md 第一句 description 是否明確；<strong>2)</strong> 有沒有 <code>compatibility:</code> 欄位標明實測過的 agent；<strong>3)</strong> <code>scripts/</code> 需要的 runtime 你有沒有；<strong>4)</strong> issues / PR 是否還活躍（六個月沒 commit 的社群 skill 通常過期了）。</div>
       </details>
     </section>
 
-    <section id="download" data-nav="Download">
-      <h2 data-icon="download">Take this handbook with you</h2>
-      <p>The whole handbook is a self-contained single HTML file with every icon embedded, so once downloaded it opens offline and can be forwarded to your team. Collection data goes out of date (stars, activity), so before an important decision go back to the <a href="index.html">Resource Hub</a> and read the online version.</p>
+    <section id="download" data-nav="下載">
+      <h2 data-icon="download">把這本帶走</h2>
+      <p>整本是自包含單檔 HTML，圖示全部內嵌，下載後離線可開、可轉寄給團隊。集合資訊會過期（星數、活躍度），重要決定前回<a href="index.html">資源總覽</a>看線上版。</p>
       <p>
-        <a class="btn-pill" href="skills.html" download="cloudflare-skill-manual.html">Download this handbook (HTML)</a>
-        <a class="btn-ghost" href="index.html">Back to the Resource Hub</a>
+        <a class="btn-pill" href="skills.html" download="cloudflare-skill-manual.html">下載本冊 HTML</a>
+        <a class="btn-ghost" href="index.html">回資源總覽</a>
       </p>
     </section>
 
     <footer class="site-footer">
-      <p>The Cloudflare AI Agent Skill Handbook is produced by <strong>WoowTech</strong> and released under <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</a>. Stars and data are a 2026-08-20 snapshot.</p>
-      <p class="footer-meta">The Smart Space Solution · <a href="index.html">Cloudflare Tunnel Resource Hub</a></p>
+      <p>《Cloudflare AI Agent Skill 手冊》由 <strong>WoowTech 渥屋科技</strong> 製作，以 <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/deed.zh-hant">CC BY 4.0</a> 授權釋出。星數與資料為 2026-08-20 快照。</p>
+      <p class="footer-meta">The Smart Space Solution · 智慧空間解決方案 · <a href="index.html">Cloudflare Tunnel 資源總覽</a></p>
     </footer>
   </main>
 </div>

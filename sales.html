@@ -1,25 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Home Assistant remote access, managed · Sales Handbook · WoowTech</title>
-  <meta name="description" content="No open ports, no port forwarding, no static IP: WoowTech builds a Cloudflare Tunnel entrance to your Home Assistant. Two options, from setting up the built-in add-on for you to a fully managed cloud PaaS, with Zero Trust, SSO, DDoS protection and Analytics." />
+  <title>Home Assistant 遠端連線代管方案 · 銷售手冊 · WoowTech 渥屋科技</title>
+  <meta name="description" content="不開埠、不轉發、不用固定 IP：WoowTech 幫你的 Home Assistant 建立 Cloudflare Tunnel 遠端入口——兩種方案，從內建 add-on 代設定，到雲端 PaaS 完整代管，含 Zero Trust、SSO、DDoS 防護與 Analytics。" />
   <meta name="author" content="WoowTech" />
   <meta name="theme-color" content="#6183FC" />
-  <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/sales.html" />
+  <link rel="canonical" href="https://ha-cloudflare-tunnel-guide.woowtech.io/sales.html" />
   <!-- i18n:alternates -->
-  <link rel="alternate" hreflang="en" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/sales.html" />
-  <link rel="alternate" hreflang="x-default" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/sales.html" />
   <link rel="alternate" hreflang="zh-Hant" href="https://ha-cloudflare-tunnel-guide.woowtech.io/sales.html" />
   <link rel="alternate" hreflang="zh" href="https://ha-cloudflare-tunnel-guide.woowtech.io/sales.html" />
+  <link rel="alternate" hreflang="en" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/sales.html" />
+  <link rel="alternate" hreflang="x-default" href="https://ha-cloudflare-tunnel-guide.woowtech.io/en/sales.html" />
   <!-- /i18n:alternates -->
-  <meta name="robots" content="index, follow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Yellowtail&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Yellowtail&display=swap" />
   <style>
-/* Cloudflare Tunnel Sales Handbook — Woow_ha_tutorial_site layout x woowtech Brand Prompt Library v2 */
+/* Cloudflare Tunnel 銷售手冊 — Woow_ha_tutorial_site 版型 × woowtech Brand Prompt Library v2 */
 :root {
   --ww-blue: #6183FC;
   --ww-blue-600: #4A6DE8;
@@ -184,7 +183,7 @@ section p, section li { color: var(--ink-700); max-width: var(--max-content); }
 .feature-card ul { margin: 6px 0 0; padding-left: 18px; }
 .feature-card li { font-size: 14px; margin-bottom: 4px; }
 
-/* Option cards (the two modes, side by side) */
+/* 方案卡（兩種模式的並排卡） */
 .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 20px; }
 .plan-card {
   padding: 28px 26px; border: 1.5px solid var(--hairline); border-radius: var(--radius);
@@ -315,7 +314,6 @@ details.faq .body code {
   border-radius: var(--radius-pill); transition: background 0.15s, transform 0.15s;
 }
 .btn-pill:hover { background: var(--ww-blue-600); color: #fff; text-decoration: none; transform: translateY(-1px); }
-.btn-pill[aria-disabled="true"] { pointer-events: none; cursor: not-allowed; opacity: 0.75; }
 
 .site-footer {
   margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--hairline);
@@ -358,108 +356,108 @@ details.faq .body code {
   .sidebar.is-collapsed > h2 { display: none; }
 }
   </style>
-<!-- i18n:css --><link rel="stylesheet" href="../assets/css/i18n.css" /><!-- /i18n:css -->
+<!-- i18n:css --><link rel="stylesheet" href="assets/css/i18n.css" /><!-- /i18n:css -->
 </head>
 <body>
 <div class="layout">
   <aside class="sidebar" id="sidebar">
-    <a class="brand" href="#top">Cloudflare Tunnel managed options</a>
-    <div class="brand-sub">WoowTech · Home Assistant remote access</div>
-    <!-- i18n:switch --><nav class="lang-switch" aria-label="Language"><a href="../sales.html" lang="zh-Hant" hreflang="zh-Hant">中文</a><a class="active" href="sales.html" lang="en" aria-current="page">EN</a></nav><!-- /i18n:switch -->
-    <a class="hub-link" href="index.html">◂ Cloudflare Tunnel Resource Hub</a>
-    <button class="nav-toggle" id="navToggle" type="button">What's in this handbook<span class="nav-toggle-caret"></span></button>
+    <a class="brand" href="#top">Cloudflare Tunnel 代管方案</a>
+    <div class="brand-sub">WoowTech · Home Assistant 遠端連線</div>
+    <!-- i18n:switch --><nav class="lang-switch" aria-label="語言"><a class="active" href="sales.html" lang="zh-Hant" aria-current="page">中文</a><a href="en/sales.html" lang="en" hreflang="en">EN</a></nav><!-- /i18n:switch -->
+    <a class="hub-link" href="index.html">◂ Cloudflare Tunnel 資源總覽</a>
+    <button class="nav-toggle" id="navToggle" type="button">本冊內容<span class="nav-toggle-caret"></span></button>
     <div class="toc-in-chapter">
-      <h2>What's in this handbook</h2>
-      <a href="#why">Why a tunnel</a>
-      <a href="#what">What it is</a>
-      <a href="#benefits">Core benefits</a>
-      <a href="#tunnel">What it does</a>
-      <a href="#security">Zero Trust</a>
-      <a href="#plans">Two options</a>
-      <a href="#compare">Comparison</a>
-      <a href="#audience">Who it's for</a>
-      <a href="#faq">FAQ</a>
-      <a href="#cta">Contact us</a>
+      <h2>本冊內容</h2>
+      <a href="#why">為什麼要 Tunnel</a>
+      <a href="#what">Cloudflare Tunnel 是什麼</a>
+      <a href="#benefits">四大核心價值</a>
+      <a href="#tunnel">Tunnel 幫你做什麼</a>
+      <a href="#security">Zero Trust 邊界</a>
+      <a href="#plans">兩種方案</a>
+      <a href="#compare">跟其他方案比一比</a>
+      <a href="#audience">誰最適合</a>
+      <a href="#faq">常見問題</a>
+      <a href="#cta">聯絡我們</a>
     </div>
   </aside>
 
   <main class="content" id="top">
     <div class="chapter-header">
       <span class="kicker-script">bring it home safely</span>
-      <div class="kicker">WoowTech Sales Handbook</div>
-      <h1>No open ports, no port forwarding, no static IP — a safe way back to your Home Assistant</h1>
-      <p class="lead">Cloudflare Tunnel connects the Home Assistant in your house to the Cloudflare global edge over one encrypted tunnel. From outside, your home IP is invisible, there is no hole to punch, and there is no static IP to rent — and you get an SSL certificate, DDoS protection and Zero Trust access control along the way. WoowTech offers two managed options; all you have to decide is whether to bring one in.</p>
+      <div class="kicker">WoowTech 銷售手冊</div>
+      <h1>不開埠、不轉發、不用固定 IP，把 Home Assistant 安全帶回家</h1>
+      <p class="lead">Cloudflare Tunnel 讓家裡的 Home Assistant 用一條加密通道連上 Cloudflare 全球邊緣網路，外面看不見你家 IP、不用打洞、不必花錢租固定 IP，還順便得到 SSL 憑證、DDoS 防護和 Zero Trust 存取控制。WoowTech 提供兩種代管方案，你只要決定要不要把它接進來。</p>
       <div class="kpi-frame">
-        <div class="kpi"><div class="num">0 open ports</div><div class="cap">Not one hole in the router</div></div>
-        <div class="kpi"><div class="num">330+ cities</div><div class="cap">A Cloudflare edge near you</div></div>
-        <div class="kpi"><div class="num">From $0</div><div class="cap">The Cloudflare free tier is enough to go live</div></div>
+        <div class="kpi"><div class="num">0 開埠</div><div class="cap">路由器一個孔都不用開</div></div>
+        <div class="kpi"><div class="num">330+ 城市</div><div class="cap">Cloudflare 邊緣就近接入</div></div>
+        <div class="kpi"><div class="num">$0 起</div><div class="cap">Cloudflare 免費層即可上線</div></div>
       </div>
     </div>
 
-    <section id="why" data-nav="Why a tunnel">
-      <h2 data-icon="why">Why your Home Assistant needs a tunnel</h2>
-      <p>Home Assistant is safest sitting in your own house, but as soon as you want to check on the house or control an appliance from outside, you run into the same three old problems:</p>
+    <section id="why" data-nav="為什麼要 Tunnel">
+      <h2 data-icon="why">為什麼你的 Home Assistant 需要 Tunnel</h2>
+      <p>Home Assistant 放在家裡才安心，但只要想在外面看家、控制家電，就會遇到三個老問題：</p>
       <ul>
-        <li><strong>You have to open a port on the router</strong>: exposing one of your home ports to the whole world is like pinning a notice to your front door that says "there is a service here". DDoS, brute-force attempts and scanners then run day and night.</li>
-        <li><strong>You need a static IP or DDNS</strong>: either you pay your ISP extra, or the connection drops when the IP changes overnight. DDNS takes time to take effect, and being locked out of the app is painful.</li>
-        <li><strong>You need an SSL certificate</strong>: unencrypted HTTP is your password written on a postcard, and running Let's Encrypt yourself means maintaining the renewals.</li>
+        <li><strong>要開路由器的 port</strong>：把家裡的一個 port 暴露到全世界，等於在你家門口貼公告「這裡有服務」，DDoS、暴力破解、掃描日夜不停。</li>
+        <li><strong>要固定 IP 或 DDNS</strong>：跟 ISP 加租、或半夜 IP 變了就斷線；DDNS 有生效延遲，App 進不去很痛。</li>
+        <li><strong>要 SSL 憑證</strong>：不加密的 HTTP 是把密碼寫在明信片上寄出去，自己申請 Let's Encrypt 又要維護續簽。</li>
       </ul>
-      <p>Cloudflare Tunnel settles all three at once: <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">cloudflared</code> dials out from your house to the Cloudflare edge and holds a long-lived connection open, and anything coming in has to pass through that Cloudflare layer — your home IP and ports are completely invisible from outside.</p>
-      <div class="callout"><strong>Concept:</strong> traditional port forwarding leaves your front door open a crack and hopes the bad guys do not find it. A tunnel has no door at all, only one encrypted private line that you dialed out yourself. The security model is a different thing entirely.</div>
+      <p>Cloudflare Tunnel 一次解掉這三件事：由 <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">cloudflared</code> 從你家「主動撥出」到 Cloudflare 邊緣建立長連線，外部要進來就走 Cloudflare 這一層——你家的 IP 和 port 對外完全隱形。</p>
+      <div class="callout"><strong>觀念：</strong>傳統 port forward 是把家門開一個縫，希望壞人找不到；Tunnel 是根本沒有門，只有一條你自己拉出去、加密到底的私人通道。安全模型完全不同。</div>
     </section>
 
-    <section id="what" data-nav="What it is">
-      <h2 data-icon="what">What Cloudflare Tunnel is</h2>
-      <p>It is Cloudflare's free tunnel service. A program called <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">cloudflared</code> runs on the Home Assistant in your house and connects out to the Cloudflare edge. After that, anyone who visits your domain reaches Cloudflare first, and Cloudflare carries the request home over that tunnel.</p>
-      <p>The <strong>Home Assistant Cloudflared Web GUI add-on</strong> from WoowTech wraps the whole flow in a graphical interface: add the repository, press install, run the Setup wizard, finish Cloudflare authorization, and in 5 minutes you have an external entrance at <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">https://ha.your-domain.example</code> without reading a line of YAML.</p>
-      <div class="callout tip"><strong>Tip:</strong> the Cloudflare account is free, DNS is free, the tunnel is free and the SSL certificate is free. You just need a domain of your own (roughly USD 10–20 a year); everything else starts at zero.</div>
+    <section id="what" data-nav="Cloudflare Tunnel 是什麼">
+      <h2 data-icon="what">Cloudflare Tunnel 是什麼</h2>
+      <p>它是 Cloudflare 提供的免費 tunnel 服務，用一支叫 <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">cloudflared</code> 的程式，在你家 Home Assistant 上跑起來，主動連到 Cloudflare 邊緣機房。之後任何人打你的域名，都會先進 Cloudflare，再由 Cloudflare 走這條通道回到你家。</p>
+      <p>WoowTech 提供的 <strong>Home Assistant Cloudflared Web GUI add-on</strong> 把整個流程包成一個圖形化介面：加倉庫、按安裝、跑 Setup 精靈、完成 Cloudflare 授權，5 分鐘就能拿到 <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">https://ha.你的域名</code> 的對外入口，不用讀 YAML。</p>
+      <div class="callout tip"><strong>提示：</strong>Cloudflare 帳號免費、DNS 免費、Tunnel 免費、SSL 憑證免費。你只需要有一個自己的域名（一年約 300–500 元），其他全部零元起跳。</div>
     </section>
 
-    <section id="benefits" data-nav="Core benefits">
-      <h2 data-icon="tunnel">Four core benefits</h2>
-      <p>Every one of these is something traditional port forwarding or a cloud service cannot give you:</p>
+    <section id="benefits" data-nav="四大核心價值">
+      <h2 data-icon="tunnel">四大核心價值</h2>
+      <p>以下每一項，都是傳統 port forward 或雲端方案給不了的：</p>
       <div class="feature-grid">
 
         <div class="feature-card">
           <span class="tile"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="#6183FC" d="M12,17A2,2 0 0,1 10,15C10,13.89 10.9,13 12,13A2,2 0 0,1 14,15A2,2 0 0,1 12,17M18,20V10H6V20H18M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V10C4,8.89 4.89,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/></svg></span>
-          <h3>0 open ports · 0 hole punching</h3>
-          <p>Nothing changes on the router, and there is no NAT hole to punch. It works the same behind IPv4 CGNAT or a locked-down fiber setup — if it can reach the internet, it can serve.</p>
+          <h3>0 開埠 · 0 打洞</h3>
+          <p>路由器上不用改任何設定，也不用進行 NAT 打洞。IPv4 CGNAT、光世代封閉環境一樣通——只要能上網就能對外服務。</p>
           <ul>
-            <li>A router firewall set to deny everything makes no difference</li>
-            <li>No paying your ISP to upgrade to a static IP</li>
-            <li>The tunnel keeps running when you change ISP or router</li>
+            <li>路由器 firewall 一律 deny 也不影響</li>
+            <li>不用花錢升級光世代固定 IP</li>
+            <li>換 ISP、換路由器 tunnel 照跑</li>
           </ul>
         </div>
 
         <div class="feature-card">
           <span class="tile"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="#6183FC" d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.1 14.8,9.5V11C15.4,11 16,11.6 16,12.3V15.8C16,16.4 15.4,17 14.7,17H9.2C8.6,17 8,16.4 8,15.7V12.2C8,11.6 8.6,11 9.2,11V9.5C9.2,8.1 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,9.5V11H13.5V9.5C13.5,8.7 12.8,8.2 12,8.2Z"/></svg></span>
-          <h3>Automatic SSL and DDoS protection</h3>
-          <p>Cloudflare issues and renews the SSL certificate for you. The green HTTPS padlock appears on its own, and you also get the world's largest DDoS protection network plus WAF filtering.</p>
+          <h3>自動 SSL + DDoS 防護</h3>
+          <p>Cloudflare 幫你自動簽發、續約 SSL 憑證。網頁 HTTPS 綠鎖頭自動出現，還順便有全球最大的 DDoS 防護與 WAF 過濾。</p>
           <ul>
-            <li>Universal SSL: nothing to apply for, renewed automatically</li>
-            <li>DDoS attacks are stopped at the edge</li>
-            <li>Bot Fight Mode filters junk traffic automatically</li>
+            <li>Universal SSL 免申請、自動續</li>
+            <li>DDoS 攻擊在邊緣就擋掉</li>
+            <li>Bot Fight Mode 自動過濾垃圾流量</li>
           </ul>
         </div>
 
         <div class="feature-card">
           <span class="tile"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="#6183FC" d="M12,12C14.21,12 16,10.21 16,8C16,5.79 14.21,4 12,4C9.79,4 8,5.79 8,8C8,10.21 9.79,12 12,12M12,14C9.33,14 4,15.34 4,18V20H20V18C20,15.34 14.67,14 12,14Z"/></svg></span>
-          <h3>Zero Trust access control</h3>
-          <p>On top of HTTPS you can add a layer of Cloudflare Access: only the email addresses, Google Workspace accounts or GitHub accounts you name get in. Everyone else never even sees the Home Assistant sign-in page.</p>
+          <h3>Zero Trust 存取控制</h3>
+          <p>不只 HTTPS，還可以加一層 Cloudflare Access：只有你指定 email、Google Workspace 或 GitHub 帳號才進得來。連 HA 登入頁都不會看到。</p>
           <ul>
-            <li>Email OTP and SSO (Google/GitHub/OIDC)</li>
-            <li>Policies split by country, IP or device certificate</li>
-            <li>50 seats on the free tier, more than a home needs</li>
+            <li>Email OTP、SSO（Google/GitHub/OIDC）</li>
+            <li>依國家、IP、裝置憑證細分政策</li>
+            <li>免費層 50 seats，家用綽綽有餘</li>
           </ul>
         </div>
 
         <div class="feature-card">
           <span class="tile"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="#6183FC" d="M19.35,10.03C18.67,6.59 15.64,4 12,4C9.11,4 6.6,5.64 5.35,8.03C2.34,8.36 0,10.9 0,14A6,6 0 0,0 6,20H19A5,5 0 0,0 24,15C24,12.36 21.95,10.22 19.35,10.03M19,18H6A4,4 0 0,1 2,14A4,4 0 0,1 6,10H6.71C7.37,7.69 9.5,6 12,6A6,6 0 0,1 18,12H19A3,3 0 0,1 22,15A3,3 0 0,1 19,18Z"/></svg></span>
-          <h3>One tunnel, many hosts</h3>
-          <p>Besides Home Assistant itself, the same tunnel can carry the Zigbee2MQTT UI, a NAS, a NAS on the local network and a printer admin page. Each service gets its own hostname, and all of them sit inside the same security boundary.</p>
+          <h3>一條通道多個主機</h3>
+          <p>同一條 tunnel 除了 HA 本身，還能接 Zigbee2MQTT UI、NAS、內網 NAS、印表機管理頁。每個服務走各自的 hostname，都在同一個安全邊界內。</p>
           <ul>
             <li>ha.example.com → HA</li>
-            <li>z2m.example.com → the Zigbee panel</li>
+            <li>z2m.example.com → Zigbee 面板</li>
             <li>nas.example.com → Synology / QNAP</li>
           </ul>
         </div>
@@ -467,213 +465,215 @@ details.faq .body code {
       </div>
     </section>
 
-    <section id="tunnel" data-nav="What it does">
-      <h2 data-icon="cloud">Real-world scenarios</h2>
-      <p>Any of these can come up in the course of a day, and none of them need you to be at home or on a VPN:</p>
+    <section id="tunnel" data-nav="Tunnel 幫你做什麼">
+      <h2 data-icon="cloud">實際使用情境</h2>
+      <p>下面這些一天內會發生的事，都不需要你在家或連 VPN：</p>
       <div class="chips">
-        <div class="chip"><span class="who ai">Scenario</span>On your lunch break at the office you want to look at the camera at home — open <code style="font-family:var(--font-mono);color:var(--ww-blue-700)">https://ha.example.com</code> in your phone browser, Cloudflare Access sends an OTP to your work mailbox, you enter it, and the view comes up. Note: the address is an example — substitute the hostname on your own domain.</div>
-        <div class="chip"><span class="who ai">Scenario</span>Your kid gets home from school and rings the doorbell — Home Assistant notifies your app, and while you are on your commute you unlock the door remotely and broadcast "Dad will be home in 20 minutes".</div>
-        <div class="chip"><span class="who ai">Scenario</span>You are away in a hotel — open the Home Assistant panel over the hotel Wi-Fi and adjust the air-conditioning schedule so the house is not an oven when you get back. The tunnel is encrypted end to end, so the hotel Wi-Fi cannot see what you are doing.</div>
-        <div class="chip"><span class="who ai">Scenario</span>Your grandfather out in the countryside wants to check the room temperature for you — he types the URL you gave him into his phone browser, his Gmail address passes the Access allowlist the first time he signs in, and he is in. No app to install.</div>
-        <div class="chip"><span class="who ai">Scenario</span>The Node-RED, AdGuard and Portainer panels — add a few more hostnames on the same tunnel and every local admin panel is safely reachable, so maintaining the house from a trip no longer needs a VPN.</div>
+        <div class="chip"><span class="who ai">情境</span>公司午休想看家裡攝影機——手機瀏覽器打開 <code style="font-family:var(--font-mono);color:var(--ww-blue-700)">https://ha.家.tw</code>，Cloudflare Access 送一封 OTP 到公司信箱，輸入驗證，畫面出來。</div>
+        <div class="chip"><span class="who ai">情境</span>孩子放學按門鈴——Home Assistant 通知你 App，你在捷運上開遠端門鎖、順便廣播「爸爸 20 分鐘到家」。</div>
+        <div class="chip"><span class="who ai">情境</span>出差在飯店——用飯店 Wi-Fi 開 HA 面板調空調時程，避免家裡烤箱般的悶熱。tunnel 加密到底，飯店 Wi-Fi 看不到你在做什麼。</div>
+        <div class="chip"><span class="who ai">情境</span>阿公在鄉下想幫你看看室溫——直接用手機瀏覽器輸入你給他的網址，第一次登入時他的 Gmail 通過 Access 白名單就進去了，不用裝任何 App。</div>
+        <div class="chip"><span class="who ai">情境</span>Node-RED、AdGuard、Portainer 面板——同一條 tunnel 多開幾個 hostname，內網管理面板全部安全外露，出差維護家裡不用再開 VPN。</div>
       </div>
     </section>
 
-    <section id="security" data-nav="Zero Trust">
-      <h2 data-icon="security">What Zero Trust is, and why a home needs it</h2>
-      <p>"Zero Trust" is not a marketing word, it is a security model: <strong>trust nobody by default, and verify identity on every connection</strong>. The traditional approach is "once you are through the front door you are one of us", so the moment a port is found or a password is guessed it is over. Zero Trust says "even once you are inside, every room still needs a badge".</p>
-      <p>Cloudflare Access puts a doorkeeper in front of Home Assistant: when anyone visits your URL, Cloudflare first checks whether that identity is on the allowlist, and only then passes the request to the Home Assistant in your house. The Home Assistant sign-in page is not visible from outside at all.</p>
+    <section id="security" data-nav="Zero Trust 邊界">
+      <h2 data-icon="security">Zero Trust 是什麼？為什麼家用也需要</h2>
+      <p>「Zero Trust」不是行銷詞，是安全模型：<strong>預設誰都不信任，每次連線都要驗身分</strong>。傳統做法是「進了家門就是自己人」，只要 port 被找到、密碼被猜到就完蛋。Zero Trust 是「就算進了門，每個房間還要刷卡」。</p>
+      <p>Cloudflare Access 幫你在 Home Assistant 前面架一道「守門員」：任何人打你的網址，先由 Cloudflare 檢查是不是白名單上的身份，過了才會送到你家 HA。HA 本身的登入頁對外根本不可見。</p>
 
-      <h3>The default policies WoowTech sets up for you</h3>
+      <h3>WoowTech 幫你設計的預設政策</h3>
       <ul>
-        <li><strong>Your own account</strong>: your Gmail or Google Workspace address, allowed on every path, with a 24-hour session.</li>
-        <li><strong>Family accounts</strong>: an allowlist of your family's Gmail addresses, allowed on <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">/lovelace/*</code> and blocked on <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">/config/*</code>.</li>
-        <li><strong>Temporary guests</strong>: Email OTP with a 6-hour session, good for letting a contractor check a status page.</li>
-        <li><strong>Country restriction</strong>: allow only your own country's IP ranges, so from anywhere else even the Access sign-in page is invisible.</li>
+        <li><strong>主帳號</strong>：你的 Gmail / Google Workspace，允許全部路徑，session 24 小時。</li>
+        <li><strong>家人帳號</strong>：家人的 Gmail 白名單，允許 <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">/lovelace/*</code>，禁用 <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">/config/*</code>。</li>
+        <li><strong>訪客臨時</strong>：Email OTP 6 小時 session，適合請水電師傅看狀態。</li>
+        <li><strong>國家限制</strong>：只允許台灣 IP，其他國家連 Access 登入頁都看不到。</li>
       </ul>
-      <div class="callout warn"><strong>Warning:</strong> Home Assistant advises against exposing the admin interface directly. Even with a strong password and 2FA, brute-force attempts, CVEs and browser-extension holes are all live attack surface. Cloudflare Access <strong>keeps Home Assistant behind the door</strong>, so an attacker never gets the chance to knock — that is what Zero Trust means for a home.</div>
+      <div class="callout warn"><strong>注意：</strong>Home Assistant 不建議直接把管理介面對外公開；就算有強密碼與 2FA，暴力破解、CVE、瀏覽器擴充漏洞都是活的攻擊面。Cloudflare Access 是<strong>把 HA 藏在門後</strong>，攻擊者連敲門的機會都沒有——這才是家用 Zero Trust 的意義。</div>
     </section>
-    <section id="plans" data-nav="Two options">
-      <h2 data-icon="access">Two options, depending on how much you want managed</h2>
-      <p>Not every home needs enterprise-grade Cloudflare Access plus Workers. For most households Option A is exactly right; a larger household or a SOHO that needs SSO, many hosts or Analytics picks Option B.</p>
+
+    <section id="plans" data-nav="兩種方案">
+      <h2 data-icon="access">兩種方案，看你需要多少代管</h2>
+      <p>不是每個家都需要企業級 Cloudflare Access + Workers。多數家庭 A 方案就完美；有 SSO、多主機、Analytics 需求的中大型家庭或 SOHO 挑 B 方案。</p>
 
       <div class="plan-grid">
 
         <div class="plan-card">
-          <span class="plan-tag">Option A (self-hosted)</span>
-          <h3>The built-in HAOS add-on, set up by WoowTech</h3>
-          <p class="plan-sub">You supply the host and the network; we set Cloudflare up, get it working, and teach you how to maintain it.</p>
+          <span class="plan-tag">方案 A · 自建入口</span>
+          <h3>HAOS 內建 Add-on + WoowTech 代設定</h3>
+          <p class="plan-sub">你出主機與網路，我們幫你把 Cloudflare 設好、跑通、教會你維護。</p>
           <ul>
-            <li>Install the Woow Cloudflared Web GUI add-on</li>
-            <li>We handle the free Cloudflare account and the domain transfer or DNS delegation</li>
-            <li>Set up <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">ha.your-domain.example</code> as the external hostname</li>
-            <li>3 extra hostnames (Zigbee, NAS or your own)</li>
-            <li>Basic Cloudflare Access policy: Email OTP plus an allowlist</li>
-            <li>trusted_proxy setup and the matching tweaks to the Home Assistant <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">configuration.yaml</code> file</li>
-            <li>A 1-hour remote training session: how to add people, change a policy and read the Logs</li>
-            <li>A 30-day warranty after you go live</li>
+            <li>安裝 Woow Cloudflared Web GUI add-on</li>
+            <li>代辦 Cloudflare 免費帳號 + 網域轉入或委派 DNS</li>
+            <li>設定 <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">ha.你的域名</code> 對外 hostname</li>
+            <li>額外 3 個 hostname（Zigbee/NAS/自訂）</li>
+            <li>Cloudflare Access 基本政策：Email OTP + 白名單</li>
+            <li>trusted_proxy 設定 + HA <code style="background:var(--surface-alt);padding:1px 6px;border-radius:6px;color:var(--ww-blue-700);font-family:var(--font-mono)">configuration.yaml</code> 微調</li>
+            <li>1 小時遠端教學：怎麼加人、改政策、看 Logs</li>
+            <li>30 天上線後保固</li>
           </ul>
-          <p class="price">PRICING AND CURRENCY PENDING · <strong>OWNER INPUT REQUIRED BEFORE PUBLICATION</strong> · no commercial values supplied</p>
+          <p class="price">代設定費用 · <strong>詳洽經銷商</strong> · Cloudflare 帳號本身零元</p>
         </div>
 
         <div class="plan-card featured">
-          <span class="plan-tag">Option B (managed by WoowTech)</span>
-          <h3>WoowTech cloud PaaS: we run CF Access and Workers for you</h3>
-          <p class="plan-sub">We manage the Cloudflare account as well, so you only have to use it. SSO, an enterprise firewall and the dashboards are all included.</p>
+          <span class="plan-tag">方案 B · 完整代管</span>
+          <h3>WoowTech 雲端 PaaS 代管 CF Access + Workers</h3>
+          <p class="plan-sub">連 Cloudflare 帳號都由我們代管，你只要用；SSO、企業防火牆、儀表板全套。</p>
           <ul>
-            <li>Everything in Option A, including the add-on install and setup</li>
-            <li>Hosted on a Cloudflare Enterprise account held by WoowTech</li>
-            <li>SSO integration: Google Workspace / Microsoft 365 / GitHub / OIDC</li>
-            <li>Firewall / WAF rules: geo-blocking, bot filtering, rate limiting</li>
-            <li>Custom Cloudflare Workers: permission brokering, audit logs, webhooks</li>
-            <li>An Analytics dashboard: who connected, when, and from where</li>
-            <li>No limit on hostnames, covering every local service in the house</li>
-            <li>7×24 monitoring of the tunnel, with an automatic alert if it drops</li>
-            <li>A quarterly security review and policy tuning</li>
+            <li>方案 A 全部服務，含 add-on 安裝與設定</li>
+            <li>WoowTech 名下 Cloudflare Enterprise 帳號託管</li>
+            <li>SSO 整合：Google Workspace / Microsoft 365 / GitHub / OIDC</li>
+            <li>Firewall / WAF Rules：地理封鎖、Bot 過濾、Rate limit</li>
+            <li>Cloudflare Workers 客製：權限中介、審計 log、Webhook</li>
+            <li>Analytics 儀表板：誰、什麼時候、從哪連進來</li>
+            <li>不限 hostname 數量，涵蓋整家內網服務</li>
+            <li>7×24 監控 tunnel 存活；斷線自動告警</li>
+            <li>季度安全複盤 + 政策優化</li>
           </ul>
-          <p class="price">PRICING AND CURRENCY PENDING · <strong>OWNER INPUT REQUIRED BEFORE PUBLICATION</strong> · no commercial values supplied</p>
+          <p class="price">月費方案 · <strong>詳洽經銷商</strong> · 含所有 Cloudflare 進階功能授權</p>
         </div>
 
       </div>
 
-      <div class="callout tip"><strong>Tip:</strong> you can move between the two options at any time. If you run A for a while and find you need SSO or Analytics, your setup upgrades to B in place with nothing to rebuild. If you want control back from B, we hand the whole account over and you can take it on yourself or drop back to A.</div>
+      <div class="callout tip"><strong>提示：</strong>兩種方案都可以隨時升降。A 用一段時間發現需要 SSO/Analytics，資料原地升 B 不用重建。B 若想拿回自主權，我們把帳號整份交還，你可以自己接手或降回 A。</div>
     </section>
 
-    <section id="compare" data-nav="Comparison">
-      <h2 data-icon="compare">How it compares with other remote-access options</h2>
+    <section id="compare" data-nav="跟其他方案比一比">
+      <h2 data-icon="compare">跟其他遠端存取方案比一比</h2>
       <table class="data-table">
         <thead>
           <tr>
             <th></th>
-            <th>Port forwarding</th>
+            <th>Port Forward</th>
             <th>Nabu Casa</th>
-            <th>Self-hosted VPN</th>
+            <th>自架 VPN</th>
             <th class="hi-col">WoowTech Cloudflare Tunnel</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th>Router port needed</th>
-            <td>Required</td>
-            <td>No</td>
-            <td>Yes (WireGuard/OpenVPN)</td>
-            <td class="hi-col">None at all</td>
+            <th>要開路由器 port</th>
+            <td>必開</td>
+            <td>不用</td>
+            <td>要（WireGuard/OpenVPN）</td>
+            <td class="hi-col">完全不用</td>
           </tr>
           <tr>
-            <th>Static IP or DDNS needed</th>
-            <td>Required</td>
-            <td>No</td>
-            <td>Recommended</td>
-            <td class="hi-col">None at all</td>
+            <th>需要固定 IP / DDNS</th>
+            <td>必需</td>
+            <td>不用</td>
+            <td>建議</td>
+            <td class="hi-col">完全不用</td>
           </tr>
           <tr>
-            <th>SSL certificate management</th>
-            <td>Apply and renew it yourself</td>
-            <td>Managed by Nabu Casa</td>
-            <td>Plain HTTP inside the VPN is fine</td>
-            <td class="hi-col">Fully automatic on Cloudflare</td>
+            <th>SSL 憑證管理</th>
+            <td>自己申請 & 續</td>
+            <td>Nabu Casa 代管</td>
+            <td>VPN 內走 HTTP 也可</td>
+            <td class="hi-col">Cloudflare 全自動</td>
           </tr>
           <tr>
-            <th>DDoS protection</th>
-            <td>Router-grade</td>
-            <td>The Nabu Casa edge</td>
-            <td>Depends on the VPN provider</td>
-            <td class="hi-col">The global Cloudflare edge</td>
+            <th>DDoS 防護</th>
+            <td>路由器等級</td>
+            <td>Nabu Casa 邊緣</td>
+            <td>看 VPN provider</td>
+            <td class="hi-col">Cloudflare 全球邊緣</td>
           </tr>
           <tr>
-            <th>Multiple hosts or services</th>
-            <td>Yes (one more port each)</td>
-            <td>Home Assistant only</td>
-            <td>Yes</td>
-            <td class="hi-col">No hostname limit</td>
+            <th>可否多主機 / 多服務</th>
+            <td>可（要多開 port）</td>
+            <td>僅 HA</td>
+            <td>可</td>
+            <td class="hi-col">不限 hostname</td>
           </tr>
           <tr>
-            <th>What if your family cannot use it</th>
-            <td>Teach them an IP and port</td>
-            <td>Scan a QR code in the mobile app</td>
-            <td>Install a VPN app and set up a profile</td>
-            <td class="hi-col">Type a URL in a browser</td>
+            <th>家人不會用怎麼辦</th>
+            <td>教他用 IP+port</td>
+            <td>手機 App 掃 QR</td>
+            <td>裝 VPN App，設定 profile</td>
+            <td class="hi-col">瀏覽器輸網址即可</td>
           </tr>
           <tr>
-            <th>Typical monthly cost</th>
-            <td>Your ISP's static-IP surcharge</td>
-            <td>USD 6.5/month</td>
-            <td>VPS from $5/month</td>
-            <td class="hi-col">[PRICING AND CURRENCY PENDING OWNER APPROVAL]</td>
+            <th>典型月費</th>
+            <td>ISP 固定 IP 加價</td>
+            <td>USD 6.5/月</td>
+            <td>VPS $5+/月</td>
+            <td class="hi-col">A：一次代設定 · B：月費（詳洽經銷商）</td>
           </tr>
           <tr>
-            <th>Data sovereignty</th>
-            <td>Your house</td>
+            <th>資料主權</th>
+            <td>你家</td>
             <td>Nabu Casa</td>
-            <td>Your house</td>
-            <td class="hi-col">Your house (only metadata passes Cloudflare)</td>
+            <td>你家</td>
+            <td class="hi-col">你家（僅 metadata 過 Cloudflare）</td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <section id="audience" data-nav="Who it's for">
-      <h2 data-icon="target">Who this is for</h2>
+    <section id="audience" data-nav="誰最適合">
+      <h2 data-icon="target">誰最適合這個方案</h2>
 
-      <h3>Home users</h3>
-      <p>You already run Home Assistant at home and want to see the cameras and control appliances from outside — without opening a port, without paying a Nabu Casa subscription, and without teaching your family to install a VPN app. Option A is a one-time setup, after which it is yours to run for life, with nothing to pay each month.</p>
+      <h3>家庭用戶</h3>
+      <p>你已經在家裡跑 Home Assistant，想在外面看攝影機、控制家電，但——不想開 port、不想付 Nabu Casa 月費、也不想教家人裝 VPN App。方案 A 一次代設定完就終身自己用，每月 0 元。</p>
 
-      <h3>SOHO and small studios</h3>
-      <p>Home is the office, and besides Home Assistant there is a NAS, a printer, a Zigbee panel and a small CRM you want to reach remotely. Option A sets up 4 hostnames in one pass; add more later, or move up to B when you need SSO.</p>
+      <h3>SOHO / 小工作室</h3>
+      <p>家＝辦公室，除了 HA 還有 NAS、印表機、Zigbee 面板、簡易 CRM 想遠端存取。方案 A 代設定 4 個 hostname 一次到位；未來擴充或想加 SSO 升 B。</p>
 
-      <h3>People who care about security and privacy</h3>
-      <p>You work in design, law, journalism or finance, and the NAS at home holds client files. What you want is not "I can connect", it is "anyone who has not been vetted cannot even knock" — which is what Zero Trust is. The firewall and Analytics in Option B are built for you.</p>
+      <h3>對安全與隱私敏感</h3>
+      <p>做設計、律師、記者、金融工作，家裡有客戶檔案的 NAS。你要的不是「能連進來」，是「沒被查到的人根本敲不到門」——這才是 Zero Trust。方案 B 的 Firewall + Analytics 是為你設計的。</p>
 
-      <h3>Resellers and system integrators</h3>
-      <p>You install Home Assistant for customers and only discover after you leave that remote maintenance was never solved. Option B lets you manage dozens of customer sites under one Cloudflare account of your own, so a problem no longer means a drive out, and a Workers policy applies to the whole batch in one step.</p>
+      <h3>經銷商 / 系統整合商</h3>
+      <p>你幫客戶裝 HA、離開後才發現遠端維護沒解決。方案 B 讓你統一在自己 CF 帳號下代管數十戶客戶，出問題不用專程開車，Workers 政策一鍵套用整批。</p>
 
-      <div class="callout"><strong>When it is not a fit:</strong> you have no domain of your own, you are strongly against any metadata passing a cloud edge, or nothing in your house needs to be reachable from outside. In those three cases, save the money, turn the tunnel off and stay on the local network.</div>
+      <div class="callout"><strong>不適合的情況：</strong>沒有自己的域名、極度反對任何 metadata 過雲端邊緣、家裡完全沒對外服務需求——這三種情況省下這筆錢，關掉 tunnel 用區網就好。</div>
     </section>
 
-    <section id="faq" data-nav="FAQ">
-      <h2 data-icon="faq">FAQ</h2>
+    <section id="faq" data-nav="常見問題">
+      <h2 data-icon="faq">常見問題</h2>
       <details class="faq">
-        <summary>Can Cloudflare see the data from my Home Assistant?</summary>
-        <div class="body">Cloudflare relays encrypted traffic. It can see <strong>metadata</strong> (source IP, time, hostname, path) but not the contents of the HTTPS body. This is the same as it is for any website you put on Cloudflare. If the metadata matters to you too, Option B can add Cloudflare Workers for a second layer of end-to-end encryption.</div>
+        <summary>Cloudflare 會不會看到我家 HA 的資料？</summary>
+        <div class="body">Cloudflare 是加密流量的中繼，能看到 <strong>metadata</strong>（來源 IP、時間、hostname、路徑）但看不到 HTTPS body 內容。這跟你在 Cloudflare 上放任何網站是同一件事。若對 metadata 也敏感，方案 B 可以加 Cloudflare Workers 做端到端二次加密。</div>
       </details>
       <details class="faq">
-        <summary>Can I use it without a domain of my own?</summary>
-        <div class="body">Cloudflare Tunnel needs a domain whose DNS is hosted by Cloudflare. Under Option A we can help you register one (.com / .net / .app all work, roughly USD 10–35 a year) and move it onto Cloudflare. Under Option B you can use a subdomain such as <code>yourhome.woowtech.cloud</code> instead, so there is nothing to buy.</div>
+        <summary>沒有自己的域名可以用嗎？</summary>
+        <div class="body">Cloudflare Tunnel 需要一個由 Cloudflare 代管 DNS 的域名。方案 A 我們可以協助你註冊（.tw / .com / .app 都行，一年約 300–1000 元），並轉入 Cloudflare 代管。方案 B 則可以使用 <code>你家名.woowtech.cloud</code> 這種子域名，不用自己買。</div>
       </details>
       <details class="faq">
-        <summary>Does it work on Home Assistant OS, Supervised and Container?</summary>
-        <div class="body">On HAOS and Supervised you just run our Cloudflared Web GUI add-on. On Container or Core you can run cloudflared separately with docker-compose, and Option A covers that too. ARM, x86 and Raspberry Pi 3B or newer are all compatible.</div>
+        <summary>Home Assistant OS / Supervised / Container 都能用嗎？</summary>
+        <div class="body">HAOS 與 Supervised 直接跑我們的 Cloudflared Web GUI add-on 即可；Container / Core 版可以另外用 docker-compose 跑 cloudflared，方案 A 都涵蓋。ARM / x86 / 樹莓派 3B 以上都相容。</div>
       </details>
       <details class="faq">
-        <summary>What happens if the tunnel drops?</summary>
-        <div class="body">The Cloudflared add-on has a built-in watchdog that reconnects on its own, so a short outage recovers by itself. Option B adds 7×24 monitoring and a push notification when the tunnel drops, so once the notification reaches your phone you can restart the Home Assistant host as soon as you are home. Even during a long outage you can still reach Home Assistant on its local IP from the local network.</div>
+        <summary>Tunnel 斷線的話怎麼辦？</summary>
+        <div class="body">Cloudflared add-on 內建 watchdog 會自動重連，短暫斷網回來就恢復。方案 B 額外提供 7×24 監控與斷線推播——手機收到通知後在家就能重啟 HA 主機解決。真的長時間斷線，區網照樣可以用內網 IP 進 HA。</div>
       </details>
       <details class="faq">
-        <summary>How is it priced, and how does it compare with Nabu Casa?</summary>
-        <div class="body">Pricing and currency for both options are <strong>pending owner approval</strong>. [OWNER INPUT REQUIRED BEFORE PUBLICATION.] No approved sales contact route has been supplied. The third-party comparison must also be revalidated before publication.</div>
+        <summary>費用怎麼計算？跟 Nabu Casa 比呢？</summary>
+        <div class="body">方案 A 是<strong>一次性代設定</strong>費用，之後 Cloudflare 端零月費；方案 B 是月費含代管與監控。Nabu Casa 大約 USD 6.5/月固定，但只覆蓋 HA 本身、且無法自訂 Access 政策或多 hostname。詳細價目請洽 WoowTech 或您的經銷商——我們會按你家的規模開報價。</div>
       </details>
       <details class="faq">
-        <summary>Can I start with Option A and upgrade to B later?</summary>
-        <div class="body">Yes. The DNS records and Access policies move across directly, and the add-on on your Home Assistant does not need reinstalling. It works the other way too: if you want control back from Option B, we hand you the whole Cloudflare account along with its policies.</div>
+        <summary>可以先從方案 A 開始，之後升級到 B 嗎？</summary>
+        <div class="body">可以。DNS 記錄與 Access 政策可以直接搬遷，你家 HA 這邊的 add-on 不用重裝。反向也一樣，方案 B 想拿回自主權我們把整套 Cloudflare 帳號連同政策交還給你即可。</div>
       </details>
     </section>
 
-    <section id="cta" data-nav="Contact us">
-      <h2 data-icon="handshake">Next step</h2>
+    <section id="cta" data-nav="聯絡我們">
+      <h2 data-icon="handshake">下一步</h2>
       <div class="cta-band">
         <span class="script">let's tunnel it home</span>
-        <h3>CONTACT CHANNEL AND CTA DESTINATION PENDING</h3>
-        <p>OWNER INPUT REQUIRED BEFORE PUBLICATION: supply the approved contact route, CTA label and destination URL. No contact details have been provided.</p>
-        <a class="btn-pill" href="index.html" aria-disabled="true">CTA PENDING — NO CONTACT ROUTE SUPPLIED</a>
+        <h3>想看看 Cloudflare Tunnel 用在你家的樣子？</h3>
+        <p>預約一場 30 分鐘遠端展示，我們用你家的網域和 HA 環境，現場示範從安裝到 Access 政策上線的完整流程。</p>
+        <a class="btn-pill" href="index.html">聯絡 WoowTech 或您的經銷商</a>
       </div>
     </section>
 
     <footer class="site-footer">
-      <p>The Home Assistant Managed Remote Access Sales Handbook is produced by <strong>WoowTech</strong>.</p>
-      <p class="footer-meta">The Smart Space Solution · © 2026 WOOW Technology Co., Ltd. · <a href="index.html">Back to the Resource Hub</a></p>
+      <p>《Home Assistant 遠端連線代管方案》銷售手冊由 <strong>WoowTech 渥屋科技</strong> 製作。</p>
+      <p class="footer-meta">The Smart Space Solution · 智慧空間解決方案 · © 2026 WOOW Technology Co., Ltd. · <a href="index.html">回資源總覽</a></p>
     </footer>
   </main>
 </div>
+
 <script>
 (function () {
   var sidebar = document.getElementById('sidebar');
